@@ -5,4 +5,7 @@
 *.war
 *.ear
 target/
+
+# IntelliJ Idea
 .idea/
+jreport.iml
