@@ -1,3 +1,4 @@
-# open311_java
+Open311 Java wrapper (Jreport)
+--------------------------------
 
-Java language binding (wrapper) to the Open311 REST API
+This is a Java language binding (wrapper) to the Open311 GeoReport REST API. Under construction.
