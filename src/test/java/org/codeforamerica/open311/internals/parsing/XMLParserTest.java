@@ -1,14 +1,18 @@
 package org.codeforamerica.open311.internals.parsing;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.List;
 
+import org.codeforamerica.open311.facade.data.Attribute;
 import org.codeforamerica.open311.facade.data.Service;
+import org.codeforamerica.open311.facade.data.Attribute.Datatype;
 import org.codeforamerica.open311.facade.data.Service.Type;
+import org.codeforamerica.open311.facade.data.ServiceDefinition;
 import org.codeforamerica.open311.internals.network.MockNetworkManager;
 import org.codeforamerica.open311.internals.network.NetworkManager;
 import org.junit.Test;
@@ -27,14 +31,14 @@ public class XMLParserTest {
 	private static final String BASE_URL = "http://www.fakeurl";
 
 	/**
-	 * Tests the service list XML parsing.
+	 * Tests a correct service list XML parsing.
 	 */
 	@Test
 	public void serviceListParsingTest() throws MalformedURLException,
 			IOException {
 		DataParser parser = new XMLParser();
 		List<Service> services = parser.parseServiceList(netManager.doGet(
-				new URL(BASE_URL+"/services.xml"), null));
+				new URL(BASE_URL + "/services.xml"), null));
 		assertEquals(services.size(), 2);
 		Service service1 = services.get(0);
 		assertEquals(service1.getServiceCode(), "001");
@@ -51,5 +55,28 @@ public class XMLParserTest {
 		assertEquals(keywordList[0], "lorem");
 		assertEquals(keywordList[1], "ipsum");
 		assertEquals(keywordList[2], "dolor");
+	}
+
+	/**
+	 * Tests a correct service definition list XML parsing.
+	 */
+	@Test
+	public void serviceDefinitionParsingTest() throws MalformedURLException,
+			IOException {
+		DataParser parser = new XMLParser();
+		ServiceDefinition serviceDefinition = parser
+				.parseServiceDefinition(netManager.doGet(new URL(BASE_URL
+						+ "/services/001.xml"), null));
+		assertEquals(serviceDefinition.getServiceCode(), "DMV66");
+		Attribute at1 = serviceDefinition.getAttributes().get(0);
+		assertEquals(at1.isVariable(), true);
+		assertEquals(at1.getCode(), "WHISHETN");
+		assertEquals(at1.getDatatype(), Datatype.SINGLEVALUELIST);
+		assertEquals(at1.isRequired(), true);
+		assertEquals(at1.getDatatypeDescription(), "");
+		assertEquals(at1.getOrder(), 1);
+		assertEquals(at1.getDescription(), "What is the ticket/tag/DL number?");
+		assertEquals(at1.getValues().get("123"), "Ford");
+		assertEquals(at1.getValues().get("124"), "Chrysler");
 	}
 }
