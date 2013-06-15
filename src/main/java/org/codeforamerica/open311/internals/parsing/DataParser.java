@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.codeforamerica.open311.facade.data.Service;
 import org.codeforamerica.open311.facade.data.ServiceDefinition;
+import org.codeforamerica.open311.facade.exceptions.DataParsingException;
 
 /**
  * Specifies required operations to the parsers.
@@ -21,12 +22,19 @@ public interface DataParser {
 	 *            XML text data.
 	 * @return A list of {@link Service} objects.
 	 */
-	public List<Service> parseServiceList(String rawData);
+	public List<Service> parseServiceList(String rawData)
+			throws DataParsingException;
 
 	/**
+	 * Parses a list of services (XML/UTF-8 format).
 	 * 
 	 * @param rawData
-	 * @return
+	 *            XML test data.
+	 * @throws DataParsingException
+	 *             If there was any problem parsing the data.
+	 * 
+	 * @returns List of service objects.
 	 */
-	public ServiceDefinition parseServiceDefinition(String rawData);
+	public ServiceDefinition parseServiceDefinition(String rawData)
+			throws DataParsingException;
 }

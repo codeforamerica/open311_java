@@ -14,6 +14,7 @@ import org.codeforamerica.open311.facade.data.Attribute;
 import org.codeforamerica.open311.facade.data.Attribute.Datatype;
 import org.codeforamerica.open311.facade.data.Service;
 import org.codeforamerica.open311.facade.data.ServiceDefinition;
+import org.codeforamerica.open311.facade.exceptions.DataParsingException;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -64,13 +65,10 @@ public class XMLParser implements DataParser {
 		}
 	}
 
-	/**
-	 * Parses a list of services (XML/UTF-8 format).
-	 * 
-	 * @returns List of service objects.
-	 */
+	
 	@Override
-	public List<Service> parseServiceList(String rawData) {
+	public List<Service> parseServiceList(String rawData)
+			throws DataParsingException {
 		List<Service> result = new LinkedList<Service>();
 		try {
 			Document doc = dBuilder.parse(new InputSource(
@@ -99,8 +97,7 @@ public class XMLParser implements DataParser {
 				}
 			}
 		} catch (Exception e) {
-			return null;
-			// TODO parsing exception
+			throw new DataParsingException();
 		}
 		return result;
 	}
@@ -132,7 +129,7 @@ public class XMLParser implements DataParser {
 	}
 
 	@Override
-	public ServiceDefinition parseServiceDefinition(String rawData) {
+	public ServiceDefinition parseServiceDefinition(String rawData) throws DataParsingException {
 		try {
 			Document doc = dBuilder.parse(new InputSource(
 					new ByteArrayInputStream(rawData
@@ -195,9 +192,8 @@ public class XMLParser implements DataParser {
 				}
 			}
 		} catch (Exception e) {
-			// TODO
+			throw new DataParsingException();
 		}
 		return null;
 	}
-
 }
