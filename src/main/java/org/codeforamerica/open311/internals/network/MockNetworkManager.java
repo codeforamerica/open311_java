@@ -14,6 +14,9 @@ public class MockNetworkManager implements NetworkManager {
 		if (url.toString().contains("services.xml")) {
 			return serviceListXml();
 		}
+		if (url.toString().contains("services/")) {
+			return serviceDefinitionXml();
+		}
 		return "";
 	}
 
@@ -26,7 +29,7 @@ public class MockNetworkManager implements NetworkManager {
 	/**
 	 * Mock service list.
 	 * 
-	 * @return service list.
+	 * @return service list XML.
 	 */
 	private String serviceListXml() {
 		return "<?xml version=\"1.0\" encoding=\"utf-8\"?><services><service><service_code>"
@@ -39,5 +42,20 @@ public class MockNetworkManager implements NetworkManager {
 				+ "<service_name>Construction plate shifted</service_name>"
 				+ "<description>Metal construction plate covering the street or sidewalk has been moved."
 				+ "</description></service></services>";
+	}
+
+	/**
+	 * Mock service definition.
+	 * 
+	 * @return service definition XML.
+	 */
+	private String serviceDefinitionXml() {
+		return "<?xml version=\"1.0\" encoding=\"utf-8\"?><service_definition>"
+				+ "<service_code>DMV66</service_code><attributes><attribute>"
+				+ "<variable>true</variable><code>WHISHETN</code><datatype>singlevaluelist</datatype>"
+				+ "<required>true</required><datatype_description></datatype_description><order>1</order>"
+				+ "<description>What is the ticket/tag/DL number?</description><values><value>"
+				+ "<key>123</key><name>Ford</name></value><value><key>124</key><name>Chrysler</name>"
+				+ "</value></values></attribute></attributes></service_definition>";
 	}
 }
