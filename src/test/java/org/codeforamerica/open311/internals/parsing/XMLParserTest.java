@@ -16,6 +16,8 @@ import org.codeforamerica.open311.facade.data.ServiceDefinition;
 import org.codeforamerica.open311.facade.exceptions.DataParsingException;
 import org.codeforamerica.open311.internals.network.MockNetworkManager;
 import org.codeforamerica.open311.internals.network.NetworkManager;
+import org.junit.AfterClass;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 /**
@@ -30,6 +32,16 @@ import org.junit.Test;
 public class XMLParserTest {
 	private NetworkManager netManager = new MockNetworkManager();
 	private static final String BASE_URL = "http://www.fakeurl";
+
+	@BeforeClass
+	public static void testInitialization() {
+		System.out.println("[XML PARSER TEST] Starts");
+	}
+
+	@AfterClass
+	public static void testFinish() {
+		System.out.println("[XML PARSER TEST] Ends");
+	}
 
 	/**
 	 * Tests a correct service list XML parsing.
