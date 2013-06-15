@@ -13,6 +13,7 @@ import org.codeforamerica.open311.facade.data.Service;
 import org.codeforamerica.open311.facade.data.Attribute.Datatype;
 import org.codeforamerica.open311.facade.data.Service.Type;
 import org.codeforamerica.open311.facade.data.ServiceDefinition;
+import org.codeforamerica.open311.facade.exceptions.DataParsingException;
 import org.codeforamerica.open311.internals.network.MockNetworkManager;
 import org.codeforamerica.open311.internals.network.NetworkManager;
 import org.junit.Test;
@@ -35,7 +36,7 @@ public class XMLParserTest {
 	 */
 	@Test
 	public void serviceListParsingTest() throws MalformedURLException,
-			IOException {
+			IOException, DataParsingException {
 		DataParser parser = new XMLParser();
 		List<Service> services = parser.parseServiceList(netManager.doGet(
 				new URL(BASE_URL + "/services.xml"), null));
@@ -58,11 +59,24 @@ public class XMLParserTest {
 	}
 
 	/**
+	 * Tests if an exception is thrown if a wrong XML is given.
+	 */
+	@Test(expected = DataParsingException.class)
+	public void serviceListParsingWithErrorsTest()
+			throws MalformedURLException, IOException, DataParsingException {
+		DataParser parser = new XMLParser();
+		String dataWithError = netManager.doGet(new URL(BASE_URL
+				+ "/services.xml"), null)
+				+ "ERRORSTRING";
+		parser.parseServiceList(dataWithError);
+	}
+
+	/**
 	 * Tests a correct service definition list XML parsing.
 	 */
 	@Test
 	public void serviceDefinitionParsingTest() throws MalformedURLException,
-			IOException {
+			IOException, DataParsingException {
 		DataParser parser = new XMLParser();
 		ServiceDefinition serviceDefinition = parser
 				.parseServiceDefinition(netManager.doGet(new URL(BASE_URL
@@ -78,5 +92,18 @@ public class XMLParserTest {
 		assertEquals(at1.getDescription(), "What is the ticket/tag/DL number?");
 		assertEquals(at1.getValues().get("123"), "Ford");
 		assertEquals(at1.getValues().get("124"), "Chrysler");
+	}
+
+	/**
+	 * Tests if an exception is thrown if a wrong XML is given.
+	 */
+	@Test(expected = DataParsingException.class)
+	public void serviceDefinitionTest() throws MalformedURLException,
+			IOException, DataParsingException {
+		DataParser parser = new XMLParser();
+		String dataWithError = netManager.doGet(new URL(BASE_URL
+				+ "/services/001.xml"), null)
+				+ "ERRORSTRING";
+		parser.parseServiceDefinition(dataWithError);
 	}
 }
