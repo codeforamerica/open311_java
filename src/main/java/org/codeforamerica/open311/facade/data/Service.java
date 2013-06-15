@@ -63,7 +63,7 @@ public class Service {
 	public static enum Type {
 		REALTIME, BATCH, BLACKBOX;
 		/**
-		 * Returns an instance of this class from a given string-
+		 * Returns an instance of this class from a given string.
 		 * 
 		 * @param type
 		 * @return <code>null</code> if the string is not one of the contained
