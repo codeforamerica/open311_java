@@ -2,6 +2,7 @@ package org.codeforamerica.open311.internals.parsing;
 
 import java.util.List;
 
+import org.codeforamerica.open311.facade.data.PostServiceRequestResponse;
 import org.codeforamerica.open311.facade.data.Service;
 import org.codeforamerica.open311.facade.data.ServiceDefinition;
 import org.codeforamerica.open311.facade.data.ServiceRequest;
@@ -52,6 +53,7 @@ public interface DataParser {
 	public static final String LATITUDE_TAG = "lat";
 	public static final String LONGITUDE_TAG = "long";
 	public static final String MEDIA_URL_TAG = "media_url";
+	public static final String ACCOUNT_ID_TAG = "account_id";
 
 	/**
 	 * Parses the response to the GET service list operation.
@@ -99,4 +101,16 @@ public interface DataParser {
 	 */
 	public List<ServiceRequest> parseServiceRequests(String rawData)
 			throws DataParsingException;
+
+	/**
+	 * Parses the response of a POST Service Request operation.
+	 * 
+	 * @param rawData
+	 *            XML text data.
+	 * @return a list of objects containing the response information.
+	 * @throws DataParsingException
+	 *             If there was any problem parsing the data.
+	 */
+	public List<PostServiceRequestResponse> parsePostServiceRequestResponse(
+			String rawData) throws DataParsingException;
 }

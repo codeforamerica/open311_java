@@ -29,7 +29,10 @@ public class MockNetworkManager implements NetworkManager {
 	@Override
 	public String doPost(URL url, Map<String, String> parameters)
 			throws IOException {
-		throw new UnsupportedOperationException();
+		if (url.toString().contains("requests.xml")) {
+			return postServiceRequestResponseXml();
+		}
+		return "";
 	}
 
 	/**
@@ -110,5 +113,19 @@ public class MockNetworkManager implements NetworkManager {
 				+ "<lat>37.762221815</lat><long>-122.4651145</long>"
 				+ "<media_url>http://city.gov.s3.amazonaws.com/requests/media/638349.jpg </media_url>"
 				+ "</request></service_requests>";
+	}
+
+	/**
+	 * Mock post service request response.
+	 * 
+	 * @return XML.
+	 */
+	public String postServiceRequestResponseXml() {
+		return "<?xml version=\"1.0\" encoding=\"utf-8\"?><service_requests><request>"
+				+ "<service_request_id>293944</service_request_id><service_notice>"
+				+ "The City will inspect and require the responsible party to correct "
+				+ "within 24 hours and/or issue a Correction Notice or Notice of Violation "
+				+ "of the Public Works Code</service_notice><account_id/></request>"
+				+ "</service_requests>";
 	}
 }

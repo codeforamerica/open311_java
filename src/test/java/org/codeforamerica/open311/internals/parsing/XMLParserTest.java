@@ -12,6 +12,7 @@ import org.codeforamerica.open311.facade.data.Attribute;
 import org.codeforamerica.open311.facade.data.Attribute.Datatype;
 import org.codeforamerica.open311.facade.data.Service;
 import org.codeforamerica.open311.facade.data.Service.Type;
+import org.codeforamerica.open311.facade.data.PostServiceRequestResponse;
 import org.codeforamerica.open311.facade.data.ServiceDefinition;
 import org.codeforamerica.open311.facade.data.ServiceRequest;
 import org.codeforamerica.open311.facade.data.ServiceRequest.Status;
@@ -214,5 +215,35 @@ public class XMLParserTest {
 				+ "/requests.xml"), null)
 				+ "ERRORSTRING";
 		parser.parseServiceRequests(dataWithError);
+	}
+
+	@Test
+	public void postServiceRequestResponseTest() throws MalformedURLException,
+			IOException, DataParsingException {
+		DataParser parser = new XMLParser();
+		List<PostServiceRequestResponse> list = parser
+				.parsePostServiceRequestResponse(netManager.doPost(new URL(
+						BASE_URL + "/requests.xml"), null));
+		assertEquals(list.size(), 1);
+		PostServiceRequestResponse response = list.get(0);
+		assertEquals(response.getAccountId(), "");
+		assertEquals(response.getToken(), "");
+		assertEquals(response.getServiceRequestId(), "293944");
+		assertEquals(
+				response.getServiceNotice(),
+				"The City will inspect and require the responsible party to correct within 24 hours and/or issue a Correction Notice or Notice of Violation of the Public Works Code");
+	}
+
+	/**
+	 * An exception must be thrown if the XML is not well formed.
+	 */
+	@Test(expected = DataParsingException.class)
+	public void postServiceRequestResponseWithErrorTest()
+			throws MalformedURLException, IOException, DataParsingException {
+		DataParser parser = new XMLParser();
+		String dataWithError = netManager.doPost(new URL(BASE_URL
+				+ "/requests.xml"), null)
+				+ "ERRORSTRING";
+		parser.parsePostServiceRequestResponse(dataWithError);
 	}
 }

@@ -14,6 +14,7 @@ import javax.xml.parsers.ParserConfigurationException;
 
 import org.codeforamerica.open311.facade.data.Attribute;
 import org.codeforamerica.open311.facade.data.Attribute.Datatype;
+import org.codeforamerica.open311.facade.data.PostServiceRequestResponse;
 import org.codeforamerica.open311.facade.data.Service;
 import org.codeforamerica.open311.facade.data.ServiceDefinition;
 import org.codeforamerica.open311.facade.data.ServiceRequest;
@@ -218,16 +219,12 @@ public class XMLParser implements DataParser {
 					DateParsingUtils dateParser = DateParsingUtils
 							.getInstance();
 					Date requestedDatetime = dateParser
-							.parseDate((getTagContent(
-									serviceRequestIdElement,
+							.parseDate((getTagContent(serviceRequestIdElement,
 									REQUESTED_DATETIME_TAG)));
-					Date updatedDatetime = dateParser
-							.parseDate((getTagContent(
-									serviceRequestIdElement,
-									UPDATED_DATETIME_TAG)));
+					Date updatedDatetime = dateParser.parseDate((getTagContent(
+							serviceRequestIdElement, UPDATED_DATETIME_TAG)));
 					Date expectedDatetime = dateParser
-							.parseDate((getTagContent(
-									serviceRequestIdElement,
+							.parseDate((getTagContent(serviceRequestIdElement,
 									EXPECTED_DATETIME_TAG)));
 					String address = getTagContent(serviceRequestIdElement,
 							ADDRESS_TAG);
@@ -255,6 +252,39 @@ public class XMLParser implements DataParser {
 		return result;
 	}
 
+	@Override
+	public List<PostServiceRequestResponse> parsePostServiceRequestResponse(
+			String rawData) throws DataParsingException {
+		List<PostServiceRequestResponse> result = new LinkedList<PostServiceRequestResponse>();
+		Document doc;
+		try {
+			doc = dBuilder.parse(new InputSource(new ByteArrayInputStream(
+					rawData.getBytes(DataParser.TEXT_FORMAT))));
+			doc.getDocumentElement().normalize();
+			NodeList serviceRequestsIdList = doc
+					.getElementsByTagName(SERVICE_REQUEST_TAG);
+			for (int i = 0; i < serviceRequestsIdList.getLength(); i++) {
+				Node serviceRequestIdNode = serviceRequestsIdList.item(i);
+				if (serviceRequestIdNode.getNodeType() == Node.ELEMENT_NODE) {
+					Element serviceRequestIdElement = (Element) serviceRequestIdNode;
+					String token = getTagContent(serviceRequestIdElement,
+							TOKEN_TAG);
+					String serviceRequestId = getTagContent(
+							serviceRequestIdElement, SERVICE_REQUEST_ID_TAG);
+					String serviceNotice = getTagContent(
+							serviceRequestIdElement, SERVICE_NOTICE_TAG);
+					String accountId = getTagContent(serviceRequestIdElement,
+							ACCOUNT_ID_TAG);
+					result.add(new PostServiceRequestResponse(serviceRequestId,
+							token, serviceNotice, accountId));
+				}
+			}
+		} catch (Exception e) {
+			throw new DataParsingException();
+		}
+		return result;
+	}
+
 	/**
 	 * Returns the value of a tag inside an element.
 	 * 
@@ -262,10 +292,15 @@ public class XMLParser implements DataParser {
 	 *            Element.
 	 * @param tag
 	 *            Tag inside the element.
-	 * @return content of the tag inside the element.
+	 * @return content of the tag inside the element or <code>""</code> if the
+	 *         tag doesn't exists.
 	 */
 	private String getTagContent(Element element, String tag) {
-		return element.getElementsByTagName(tag).item(0).getTextContent();
+		NodeList nodeList = element.getElementsByTagName(tag);
+		if (nodeList.getLength() > 0) {
+			return nodeList.item(0).getTextContent();
+		}
+		return "";
 	}
 
 	/**
