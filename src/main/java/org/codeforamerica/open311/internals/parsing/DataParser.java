@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.codeforamerica.open311.facade.data.Service;
 import org.codeforamerica.open311.facade.data.ServiceDefinition;
+import org.codeforamerica.open311.facade.data.ServiceRequestIdResponse;
 import org.codeforamerica.open311.facade.exceptions.DataParsingException;
 
 /**
@@ -29,7 +30,7 @@ public interface DataParser {
 	 * Parses a list of services (XML/UTF-8 format).
 	 * 
 	 * @param rawData
-	 *            XML test data.
+	 *            XML text data.
 	 * @throws DataParsingException
 	 *             If there was any problem parsing the data.
 	 * 
@@ -37,4 +38,16 @@ public interface DataParser {
 	 */
 	public ServiceDefinition parseServiceDefinition(String rawData)
 			throws DataParsingException;
+
+	/**
+	 * Parses the response to the GET service request id from a token.
+	 * 
+	 * @param rawData
+	 *            XML text data.
+	 * @return token and service request id.
+	 * @throws DataParsingException
+	 *             If there was any problem parsing the data.
+	 */
+	public List<ServiceRequestIdResponse> parseServiceRequestIdFromAToken(
+			String rawData) throws DataParsingException;
 }

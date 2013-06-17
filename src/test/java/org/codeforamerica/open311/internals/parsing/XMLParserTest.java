@@ -13,6 +13,7 @@ import org.codeforamerica.open311.facade.data.Service;
 import org.codeforamerica.open311.facade.data.Attribute.Datatype;
 import org.codeforamerica.open311.facade.data.Service.Type;
 import org.codeforamerica.open311.facade.data.ServiceDefinition;
+import org.codeforamerica.open311.facade.data.ServiceRequestIdResponse;
 import org.codeforamerica.open311.facade.exceptions.DataParsingException;
 import org.codeforamerica.open311.internals.network.MockNetworkManager;
 import org.codeforamerica.open311.internals.network.NetworkManager;
@@ -110,11 +111,43 @@ public class XMLParserTest {
 	 * Tests if an exception is thrown if a wrong XML is given.
 	 */
 	@Test(expected = DataParsingException.class)
-	public void serviceDefinitionTest() throws MalformedURLException,
-			IOException, DataParsingException {
+	public void serviceDefinitionParsingWithErrorTest()
+			throws MalformedURLException, IOException, DataParsingException {
 		DataParser parser = new XMLParser();
 		String dataWithError = netManager.doGet(new URL(BASE_URL
 				+ "/services/001.xml"), null)
+				+ "ERRORSTRING";
+		parser.parseServiceDefinition(dataWithError);
+	}
+
+	/**
+	 * Tests if the parser is able to read service request ids.
+	 */
+	@Test
+	public void serviceRequestIdFromATokenTest() throws MalformedURLException,
+			IOException, DataParsingException {
+		DataParser parser = new XMLParser();
+		List<ServiceRequestIdResponse> ids = parser
+				.parseServiceRequestIdFromAToken(netManager.doGet(new URL(
+						BASE_URL + "/tokens/222.xml"), null));
+		assertEquals(ids.size(), 2);
+		ServiceRequestIdResponse id1 = ids.get(0);
+		ServiceRequestIdResponse id2 = ids.get(1);
+		assertEquals(id1.getToken(), "12345");
+		assertEquals(id1.getServiceRequestId(), "638344");
+		assertEquals(id2.getToken(), "12345");
+		assertEquals(id2.getServiceRequestId(), "111");
+	}
+
+	/**
+	 * An exception must be thrown if the XML is not well formed.
+	 */
+	@Test(expected = DataParsingException.class)
+	public void serviceRequestIdFromATokenTestWithErrorTest()
+			throws MalformedURLException, IOException, DataParsingException {
+		DataParser parser = new XMLParser();
+		String dataWithError = netManager.doGet(new URL(BASE_URL
+				+ "/tokens/001.xml"), null)
 				+ "ERRORSTRING";
 		parser.parseServiceDefinition(dataWithError);
 	}

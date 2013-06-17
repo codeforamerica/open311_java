@@ -17,6 +17,9 @@ public class MockNetworkManager implements NetworkManager {
 		if (url.toString().contains("services/")) {
 			return serviceDefinitionXml();
 		}
+		if (url.toString().contains("tokens/")) {
+			return serviceRequestIdFromATokenXml();
+		}
 		return "";
 	}
 
@@ -57,5 +60,18 @@ public class MockNetworkManager implements NetworkManager {
 				+ "<description>What is the ticket/tag/DL number?</description><values><value>"
 				+ "<key>123</key><name>Ford</name></value><value><key>124</key><name>Chrysler</name>"
 				+ "</value></values></attribute></attributes></service_definition>";
+	}
+
+	/**
+	 * Mock service request id from a token.
+	 * 
+	 * @return XML.
+	 */
+	public String serviceRequestIdFromATokenXml() {
+		return "<?xml version=\"1.0\" encoding=\"utf-8\"?><service_requests>"
+				+ "<request><service_request_id>638344</service_request_id>"
+				+ "<token>12345</token></request><request><service_request_id>"
+				+ "111</service_request_id><token>12345</token>"
+				+ "</request></service_requests>";
 	}
 }

@@ -14,6 +14,7 @@ import org.codeforamerica.open311.facade.data.Attribute;
 import org.codeforamerica.open311.facade.data.Attribute.Datatype;
 import org.codeforamerica.open311.facade.data.Service;
 import org.codeforamerica.open311.facade.data.ServiceDefinition;
+import org.codeforamerica.open311.facade.data.ServiceRequestIdResponse;
 import org.codeforamerica.open311.facade.exceptions.DataParsingException;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -24,7 +25,7 @@ import org.xml.sax.InputSource;
 /**
  * Parses XML files using DOM.
  * 
- * @author Santiago Munín González <santimunin@gmail.com>
+ * @author Santiago Munín <santimunin@gmail.com>
  * 
  */
 public class XMLParser implements DataParser {
@@ -49,6 +50,9 @@ public class XMLParser implements DataParser {
 	private static final String VALUE_TAG = "value";
 	private static final String KEY_TAG = "key";
 	private static final String NAME_TAG = "name";
+	private static final String SERVICE_REQUEST_TAG = "request";
+	private static final String TOKEN_TAG = "token";
+	private static final String SERVICE_REQUEST_ID_TAG = "service_request_id";
 
 	private DocumentBuilder dBuilder;
 
@@ -65,7 +69,6 @@ public class XMLParser implements DataParser {
 		}
 	}
 
-	
 	@Override
 	public List<Service> parseServiceList(String rawData)
 			throws DataParsingException {
@@ -102,34 +105,9 @@ public class XMLParser implements DataParser {
 		return result;
 	}
 
-	/**
-	 * Returns the value of a tag inside an element.
-	 * 
-	 * @param element
-	 *            Element.
-	 * @param tag
-	 *            Tag inside the element.
-	 * @return content of the tag inside the element.
-	 */
-	private String getTagContent(Element element, String tag) {
-		return element.getElementsByTagName(tag).item(0).getTextContent();
-	}
-
-	/**
-	 * 
-	 * @param rawKeywords
-	 * @return
-	 */
-	private String[] getKeywords(String rawKeywords) {
-		String[] result = rawKeywords.split(KEYWORDS_SEPARATOR);
-		for (int i = 0; i < result.length; i++) {
-			result[i] = result[i].trim();
-		}
-		return result;
-	}
-
 	@Override
-	public ServiceDefinition parseServiceDefinition(String rawData) throws DataParsingException {
+	public ServiceDefinition parseServiceDefinition(String rawData)
+			throws DataParsingException {
 		try {
 			Document doc = dBuilder.parse(new InputSource(
 					new ByteArrayInputStream(rawData
@@ -195,5 +173,60 @@ public class XMLParser implements DataParser {
 			throw new DataParsingException();
 		}
 		return null;
+	}
+
+	@Override
+	public List<ServiceRequestIdResponse> parseServiceRequestIdFromAToken(
+			String rawData) throws DataParsingException {
+		List<ServiceRequestIdResponse> result = new LinkedList<ServiceRequestIdResponse>();
+		Document doc;
+		try {
+			doc = dBuilder.parse(new InputSource(new ByteArrayInputStream(
+					rawData.getBytes(DataParser.TEXT_FORMAT))));
+			doc.getDocumentElement().normalize();
+			NodeList serviceRequestsIdList = doc
+					.getElementsByTagName(SERVICE_REQUEST_TAG);
+			for (int i = 0; i < serviceRequestsIdList.getLength(); i++) {
+				Node serviceRequestIdNode = serviceRequestsIdList.item(i);
+				if (serviceRequestIdNode.getNodeType() == Node.ELEMENT_NODE) {
+					Element serviceRequestIdElement = (Element) serviceRequestIdNode;
+					String token = getTagContent(serviceRequestIdElement,
+							TOKEN_TAG);
+					String serviceRequestId = getTagContent(
+							serviceRequestIdElement, SERVICE_REQUEST_ID_TAG);
+					result.add(new ServiceRequestIdResponse(serviceRequestId,
+							token));
+				}
+			}
+		} catch (Exception e) {
+			throw new DataParsingException();
+		}
+		return result;
+	}
+
+	/**
+	 * Returns the value of a tag inside an element.
+	 * 
+	 * @param element
+	 *            Element.
+	 * @param tag
+	 *            Tag inside the element.
+	 * @return content of the tag inside the element.
+	 */
+	private String getTagContent(Element element, String tag) {
+		return element.getElementsByTagName(tag).item(0).getTextContent();
+	}
+
+	/**
+	 * 
+	 * @param rawKeywords
+	 * @return
+	 */
+	private String[] getKeywords(String rawKeywords) {
+		String[] result = rawKeywords.split(KEYWORDS_SEPARATOR);
+		for (int i = 0; i < result.length; i++) {
+			result[i] = result[i].trim();
+		}
+		return result;
 	}
 }
