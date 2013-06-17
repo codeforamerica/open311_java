@@ -1,6 +1,8 @@
 package org.codeforamerica.open311.internals.parsing;
 
 import java.io.ByteArrayInputStream;
+import java.net.URL;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -14,6 +16,8 @@ import org.codeforamerica.open311.facade.data.Attribute;
 import org.codeforamerica.open311.facade.data.Attribute.Datatype;
 import org.codeforamerica.open311.facade.data.Service;
 import org.codeforamerica.open311.facade.data.ServiceDefinition;
+import org.codeforamerica.open311.facade.data.ServiceRequest;
+import org.codeforamerica.open311.facade.data.ServiceRequest.Status;
 import org.codeforamerica.open311.facade.data.ServiceRequestIdResponse;
 import org.codeforamerica.open311.facade.exceptions.DataParsingException;
 import org.w3c.dom.Document;
@@ -29,30 +33,6 @@ import org.xml.sax.InputSource;
  * 
  */
 public class XMLParser implements DataParser {
-
-	private static final String SERVICE_TAG = "service";
-	private static final String SERVICE_CODE_TAG = "service_code";
-	private static final String SERVICE_NAME_TAG = "service_name";
-	private static final String DESCRIPTION_TAG = "description";
-	private static final String METADATA_TAG = "metadata";
-	private static final String TYPE_TAG = "type";
-	private static final String KEYWORDS_TAG = "keywords";
-	private static final String KEYWORDS_SEPARATOR = ",";
-	private static final String SERVICE_GROUP_TAG = "group";
-	private static final String SERVICE_DEFINITION_TAG = "service_definition";
-	private static final String ATTRIBUTE_TAG = "attribute";
-	private static final String VARIABLE_TAG = "variable";
-	private static final String CODE_TAG = "code";
-	private static final String DATATYPE_TAG = "datatype";
-	private static final String REQUIRED_TAG = "required";
-	private static final String DATATYPE_DESCRIPTION_TAG = "datatype_description";
-	private static final String ORDER_TAG = "order";
-	private static final String VALUE_TAG = "value";
-	private static final String KEY_TAG = "key";
-	private static final String NAME_TAG = "name";
-	private static final String SERVICE_REQUEST_TAG = "request";
-	private static final String TOKEN_TAG = "token";
-	private static final String SERVICE_REQUEST_ID_TAG = "service_request_id";
 
 	private DocumentBuilder dBuilder;
 
@@ -204,6 +184,77 @@ public class XMLParser implements DataParser {
 		return result;
 	}
 
+	@Override
+	public List<ServiceRequest> parseServiceRequests(String rawData)
+			throws DataParsingException {
+		List<ServiceRequest> result = new LinkedList<ServiceRequest>();
+		Document doc;
+		try {
+			doc = dBuilder.parse(new InputSource(new ByteArrayInputStream(
+					rawData.getBytes(DataParser.TEXT_FORMAT))));
+			doc.getDocumentElement().normalize();
+			NodeList serviceRequestsIdList = doc
+					.getElementsByTagName(SERVICE_REQUEST_TAG);
+			for (int i = 0; i < serviceRequestsIdList.getLength(); i++) {
+				Node serviceRequestIdNode = serviceRequestsIdList.item(i);
+				if (serviceRequestIdNode.getNodeType() == Node.ELEMENT_NODE) {
+					Element serviceRequestIdElement = (Element) serviceRequestIdNode;
+					String serviceRequestId = getTagContent(
+							serviceRequestIdElement, SERVICE_REQUEST_ID_TAG);
+					Status status = Status.getFromString(getTagContent(
+							serviceRequestIdElement, STATUS_TAG));
+					String statusNotes = getTagContent(serviceRequestIdElement,
+							STATUS_NOTES_TAG);
+					String serviceName = getTagContent(serviceRequestIdElement,
+							SERVICE_NAME_TAG);
+					String serviceCode = getTagContent(serviceRequestIdElement,
+							SERVICE_CODE_TAG);
+					String description = getTagContent(serviceRequestIdElement,
+							DESCRIPTION_TAG);
+					String agencyResponsible = getTagContent(
+							serviceRequestIdElement, AGENCY_RESPONSIBLE_TAG);
+					String serviceNotice = getTagContent(
+							serviceRequestIdElement, SERVICE_NOTICE_TAG);
+					DateParsingUtils dateParser = DateParsingUtils
+							.getInstance();
+					Date requestedDatetime = dateParser
+							.parseDate((getTagContent(
+									serviceRequestIdElement,
+									REQUESTED_DATETIME_TAG)));
+					Date updatedDatetime = dateParser
+							.parseDate((getTagContent(
+									serviceRequestIdElement,
+									UPDATED_DATETIME_TAG)));
+					Date expectedDatetime = dateParser
+							.parseDate((getTagContent(
+									serviceRequestIdElement,
+									EXPECTED_DATETIME_TAG)));
+					String address = getTagContent(serviceRequestIdElement,
+							ADDRESS_TAG);
+					String addressId = getTagContent(serviceRequestIdElement,
+							ADDRESS_ID_TAG);
+					int zipCode = Integer.parseInt(getTagContent(
+							serviceRequestIdElement, ZIPCODE_TAG));
+					float latitude = Float.parseFloat(getTagContent(
+							serviceRequestIdElement, LATITUDE_TAG));
+					float longitude = Float.parseFloat(getTagContent(
+							serviceRequestIdElement, LONGITUDE_TAG));
+					URL mediaUrl = new URL(getTagContent(
+							serviceRequestIdElement, MEDIA_URL_TAG));
+					result.add(new ServiceRequest(serviceRequestId, status,
+							statusNotes, serviceName, serviceCode, description,
+							agencyResponsible, serviceNotice,
+							requestedDatetime, updatedDatetime,
+							expectedDatetime, address, addressId, zipCode,
+							latitude, longitude, mediaUrl));
+				}
+			}
+		} catch (Exception e) {
+			throw new DataParsingException();
+		}
+		return result;
+	}
+
 	/**
 	 * Returns the value of a tag inside an element.
 	 * 
@@ -218,9 +269,10 @@ public class XMLParser implements DataParser {
 	}
 
 	/**
+	 * Parses a comma separated list of keywords.
 	 * 
 	 * @param rawKeywords
-	 * @return
+	 * @return An array of strings (keywords).
 	 */
 	private String[] getKeywords(String rawKeywords) {
 		String[] result = rawKeywords.split(KEYWORDS_SEPARATOR);

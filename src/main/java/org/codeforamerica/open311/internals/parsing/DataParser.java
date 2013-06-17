@@ -39,6 +39,19 @@ public interface DataParser {
 	public static final String SERVICE_REQUEST_TAG = "request";
 	public static final String TOKEN_TAG = "token";
 	public static final String SERVICE_REQUEST_ID_TAG = "service_request_id";
+	public static final String STATUS_TAG = "status";
+	public static final String STATUS_NOTES_TAG = "status_notes";
+	public static final String AGENCY_RESPONSIBLE_TAG = "agency_responsible";
+	public static final String SERVICE_NOTICE_TAG = "service_notice";
+	public static final String REQUESTED_DATETIME_TAG = "requested_datetime";
+	public static final String UPDATED_DATETIME_TAG = "updated_datetime";
+	public static final String EXPECTED_DATETIME_TAG = "expected_datetime";
+	public static final String ADDRESS_TAG = "address";
+	public static final String ADDRESS_ID_TAG = "address_id";
+	public static final String ZIPCODE_TAG = "zipcode";
+	public static final String LATITUDE_TAG = "lat";
+	public static final String LONGITUDE_TAG = "long";
+	public static final String MEDIA_URL_TAG = "media_url";
 
 	/**
 	 * Parses the response to the GET service list operation.

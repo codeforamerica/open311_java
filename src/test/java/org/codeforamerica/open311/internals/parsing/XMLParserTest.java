@@ -9,10 +9,12 @@ import java.net.URL;
 import java.util.List;
 
 import org.codeforamerica.open311.facade.data.Attribute;
-import org.codeforamerica.open311.facade.data.Service;
 import org.codeforamerica.open311.facade.data.Attribute.Datatype;
+import org.codeforamerica.open311.facade.data.Service;
 import org.codeforamerica.open311.facade.data.Service.Type;
 import org.codeforamerica.open311.facade.data.ServiceDefinition;
+import org.codeforamerica.open311.facade.data.ServiceRequest;
+import org.codeforamerica.open311.facade.data.ServiceRequest.Status;
 import org.codeforamerica.open311.facade.data.ServiceRequestIdResponse;
 import org.codeforamerica.open311.facade.exceptions.DataParsingException;
 import org.codeforamerica.open311.internals.network.MockNetworkManager;
@@ -149,6 +151,68 @@ public class XMLParserTest {
 		String dataWithError = netManager.doGet(new URL(BASE_URL
 				+ "/tokens/001.xml"), null)
 				+ "ERRORSTRING";
-		parser.parseServiceDefinition(dataWithError);
+		parser.parseServiceRequestIdFromAToken(dataWithError);
+	}
+
+	/**
+	 * Service requests parsing test.
+	 */
+	@Test
+	public void serviceRequestsTest() throws MalformedURLException,
+			IOException, DataParsingException {
+		DataParser parser = new XMLParser();
+		List<ServiceRequest> list = parser.parseServiceRequests(netManager
+				.doGet(new URL(BASE_URL + "/requests.xml"), null));
+		assertEquals(list.size(), 2);
+		ServiceRequest sr1 = list.get(0);
+		assertEquals(sr1.getServiceRequestId(), "638344");
+		assertEquals(sr1.getStatus(), Status.CLOSED);
+		assertEquals(sr1.getStatusNotes(), "Duplicate request.");
+		assertEquals(sr1.getServiceName(), "Sidewalk and Curb Issues");
+		assertEquals(sr1.getServiceCode(), "006");
+		assertEquals(sr1.getDescription(), "");
+		assertEquals(sr1.getAgencyResponsible(), "");
+		assertEquals(sr1.getServiceNotice(), "");
+		DateParsingUtils dateParser = DateParsingUtils.getInstance();
+
+		/*
+		 * These three following tests do parsing and printing in order to avoid
+		 * timezone differences.
+		 */
+		assertEquals(
+				DateParsingUtils.getInstance().printDate(
+						sr1.getRequestedDatetime()),
+				dateParser.printDate(dateParser
+						.parseDate("2010-04-14T06:37:38-08:00")));
+		assertEquals(
+				DateParsingUtils.getInstance().printDate(
+						sr1.getUpdatedDatetime()),
+				dateParser.printDate(dateParser
+						.parseDate("2010-04-14T06:37:38-08:00")));
+		assertEquals(
+				DateParsingUtils.getInstance().printDate(
+						sr1.getExpectedDatetime()),
+				dateParser.printDate(dateParser
+						.parseDate("2010-04-15T06:37:38-08:00")));
+		assertEquals(sr1.getAddress(), "8TH AVE and JUDAH ST");
+		assertEquals(sr1.getAddressId(), "545483");
+		assertEquals(sr1.getZipCode(), 94122);
+		assertTrue(sr1.getLatitude() == 37.762221815F);
+		assertTrue(sr1.getLongitude() == -122.4651145F);
+		assertEquals(sr1.getMediaUrl(), new URL(
+				"http://city.gov.s3.amazonaws.com/requests/media/638344.jpg"));
+	}
+
+	/**
+	 * An exception must be thrown if the XML is not well formed.
+	 */
+	@Test(expected = DataParsingException.class)
+	public void serviceRequestsWithErrorTest() throws MalformedURLException,
+			IOException, DataParsingException {
+		DataParser parser = new XMLParser();
+		String dataWithError = netManager.doGet(new URL(BASE_URL
+				+ "/requests.xml"), null)
+				+ "ERRORSTRING";
+		parser.parseServiceRequests(dataWithError);
 	}
 }
