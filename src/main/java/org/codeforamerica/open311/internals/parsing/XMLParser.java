@@ -271,7 +271,7 @@ public class XMLParser implements DataParser {
 		float longitude = Float.parseFloat(getTagContent(serviceRequestElement,
 				LONGITUDE_TAG));
 		URL mediaUrl = new URL(getTagContent(serviceRequestElement,
-				MEDIA_URL_TAG));
+				MEDIA_URL_TAG).trim());
 		return new ServiceRequest(serviceRequestId, status, statusNotes,
 				serviceName, serviceCode, description, agencyResponsible,
 				serviceNotice, requestedDatetime, updatedDatetime,
