@@ -18,6 +18,7 @@ import org.codeforamerica.open311.facade.data.ServiceRequest;
 import org.codeforamerica.open311.facade.data.ServiceRequest.Status;
 import org.codeforamerica.open311.facade.data.ServiceRequestIdResponse;
 import org.codeforamerica.open311.facade.exceptions.DataParsingException;
+import org.codeforamerica.open311.facade.exceptions.GeoReportV2Error;
 import org.codeforamerica.open311.internals.network.MockNetworkManager;
 import org.codeforamerica.open311.internals.network.NetworkManager;
 import org.junit.AfterClass;
@@ -246,4 +247,37 @@ public class XMLParserTest {
 				+ "ERRORSTRING";
 		parser.parsePostServiceRequestResponse(dataWithError);
 	}
+
+	/**
+	 * Tests the correct parsing of GeoReport v2 errors.
+	 */
+	@Test
+	public void geoReportV2ErrorTest() throws MalformedURLException,
+			DataParsingException, IOException {
+		DataParser parser = new XMLParser();
+		List<GeoReportV2Error> list = parser.parseGeoReportV2Errors(netManager
+				.doPost(new URL(BASE_URL + "/requests/fail.xml"), null));
+		assertEquals(list.size(), 2);
+		GeoReportV2Error error1 = list.get(0);
+		assertEquals(error1.getCode(), "403");
+		assertEquals(error1.getDescription(),
+				"Invalid api_key received -- can't proceed with create_request.");
+		GeoReportV2Error error2 = list.get(1);
+		assertEquals(error2.getCode(), "404");
+		assertEquals(error2.getDescription(), "Whatever");
+	}
+
+	/**
+	 * An exception must be thrown if the XML is not well formed.
+	 */
+	@Test(expected = DataParsingException.class)
+	public void geoReportV2ErrorWithErrorTest() throws MalformedURLException,
+			IOException, DataParsingException {
+		DataParser parser = new XMLParser();
+		String dataWithError = netManager.doPost(new URL(BASE_URL
+				+ "/requests.xml"), null)
+				+ "ERRORSTRING";
+		parser.parseGeoReportV2Errors(dataWithError);
+	}
+
 }
