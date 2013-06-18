@@ -12,9 +12,9 @@ public class APIWrapperException extends Exception {
 	private static final long serialVersionUID = 1L;
 
 	private Error error;
-	private GeoReportError geoReportError;
+	private GeoReportV2Error geoReportError;
 
-	public APIWrapperException(Error error, GeoReportError geoReportError) {
+	public APIWrapperException(Error error, GeoReportV2Error geoReportError) {
 		super();
 		this.error = error;
 		this.geoReportError = geoReportError;
@@ -28,7 +28,7 @@ public class APIWrapperException extends Exception {
 		return error;
 	}
 
-	public GeoReportError getGeoReportError() {
+	public GeoReportV2Error getGeoReportError() {
 		return geoReportError;
 	}
 
