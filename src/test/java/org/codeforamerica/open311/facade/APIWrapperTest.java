@@ -5,8 +5,12 @@ import static org.junit.Assert.assertTrue;
 
 import java.util.List;
 
-import org.codeforamerica.open311.facade.APIWrapper.Type;
+import org.codeforamerica.open311.facade.APIWrapper.EndpointType;
+import org.codeforamerica.open311.facade.APIWrapper.Format;
+import org.codeforamerica.open311.facade.data.Attribute;
+import org.codeforamerica.open311.facade.data.Attribute.Datatype;
 import org.codeforamerica.open311.facade.data.Service;
+import org.codeforamerica.open311.facade.data.ServiceDefinition;
 import org.codeforamerica.open311.facade.exceptions.APIWrapperException;
 import org.codeforamerica.open311.internals.network.MockNetworkManager;
 import org.codeforamerica.open311.internals.parsing.XMLParser;
@@ -27,8 +31,9 @@ public class APIWrapperTest {
 	@BeforeClass
 	public static void testInitialization() {
 		System.out.println("[API WRAPPER TEST] Starts");
-		wrapper = new APIWrapper("http://www.fakeurl/", "xml", Type.TEST,
-				new XMLParser(), new MockNetworkManager(), "", "");
+		wrapper = new APIWrapper("http://www.fakeurl/", Format.XML,
+				EndpointType.TEST, new XMLParser(), new MockNetworkManager(),
+				"", "");
 	}
 
 	@AfterClass
@@ -55,7 +60,23 @@ public class APIWrapperTest {
 		assertEquals(keywordList[0], "lorem");
 		assertEquals(keywordList[1], "ipsum");
 		assertEquals(keywordList[2], "dolor");
+	}
 
+	@Test
+	public void getServiceDefinitionTest() throws APIWrapperException {
+		ServiceDefinition serviceDefinition = wrapper
+				.getServiceDefinition("001");
+		assertEquals(serviceDefinition.getServiceCode(), "DMV66");
+		Attribute at1 = serviceDefinition.getAttributes().get(0);
+		assertEquals(at1.isVariable(), true);
+		assertEquals(at1.getCode(), "WHISHETN");
+		assertEquals(at1.getDatatype(), Datatype.SINGLEVALUELIST);
+		assertEquals(at1.isRequired(), true);
+		assertEquals(at1.getDatatypeDescription(), "");
+		assertEquals(at1.getOrder(), 1);
+		assertEquals(at1.getDescription(), "What is the ticket/tag/DL number?");
+		assertEquals(at1.getValues().get("123"), "Ford");
+		assertEquals(at1.getValues().get("124"), "Chrysler");
 	}
 
 }
