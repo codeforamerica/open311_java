@@ -5,6 +5,8 @@ import java.net.URL;
 import java.util.Map;
 
 /**
+ * Mock {@link NetworkManager}, useful for testing.
+ * 
  * @author: Santiago Munín <santimunin@gmail.com>
  */
 public class MockNetworkManager implements NetworkManager {
@@ -31,6 +33,9 @@ public class MockNetworkManager implements NetworkManager {
 			throws IOException {
 		if (url.toString().contains("requests.xml")) {
 			return postServiceRequestResponseXml();
+		}
+		if (url.toString().contains("fail.xml")) {
+			return errorXml();
 		}
 		return "";
 	}
@@ -127,5 +132,15 @@ public class MockNetworkManager implements NetworkManager {
 				+ "within 24 hours and/or issue a Correction Notice or Notice of Violation "
 				+ "of the Public Works Code</service_notice><account_id/></request>"
 				+ "</service_requests>";
+	}
+
+	/**
+	 * Mock error.
+	 * 
+	 * @return XML.
+	 */
+	public String errorXml() {
+		return "<?xml version=\"1.0\" encoding=\"utf-8\"?><errors><error><code>403</code><description>Invalid api_key received -- can't proceed with create_request.</description></error>"
+				+ "<error><code>404</code><description>Whatever</description></error></errors>";
 	}
 }

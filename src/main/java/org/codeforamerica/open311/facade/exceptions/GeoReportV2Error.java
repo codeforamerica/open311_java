@@ -7,12 +7,12 @@ package org.codeforamerica.open311.facade.exceptions;
  * @author Santiago Munín <santimunin@gmail.com>
  * 
  */
-public class GeoReportError {
+public class GeoReportV2Error {
 	private String code;
 	private String description;
 	private static final String NAME = "GeoReportError";
 
-	public GeoReportError(String code, String description) {
+	public GeoReportV2Error(String code, String description) {
 		super();
 		this.code = code;
 		this.description = description;

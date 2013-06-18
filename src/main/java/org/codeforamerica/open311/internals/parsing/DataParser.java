@@ -8,6 +8,7 @@ import org.codeforamerica.open311.facade.data.ServiceDefinition;
 import org.codeforamerica.open311.facade.data.ServiceRequest;
 import org.codeforamerica.open311.facade.data.ServiceRequestIdResponse;
 import org.codeforamerica.open311.facade.exceptions.DataParsingException;
+import org.codeforamerica.open311.facade.exceptions.GeoReportV2Error;
 
 /**
  * Specifies required operations to the parsers.
@@ -54,12 +55,13 @@ public interface DataParser {
 	public static final String LONGITUDE_TAG = "long";
 	public static final String MEDIA_URL_TAG = "media_url";
 	public static final String ACCOUNT_ID_TAG = "account_id";
+	public static final String ERROR_TAG = "error";
 
 	/**
 	 * Parses the response to the GET service list operation.
 	 * 
 	 * @param rawData
-	 *            XML text data.
+	 *            Text data.
 	 * @return A list of {@link Service} objects.
 	 */
 	public List<Service> parseServiceList(String rawData)
@@ -69,7 +71,7 @@ public interface DataParser {
 	 * Parses a list of services (XML/UTF-8 format).
 	 * 
 	 * @param rawData
-	 *            XML text data.
+	 *            Text data.
 	 * @throws DataParsingException
 	 *             If there was any problem parsing the data.
 	 * 
@@ -82,7 +84,7 @@ public interface DataParser {
 	 * Parses the response to the GET service request id from a token.
 	 * 
 	 * @param rawData
-	 *            XML text data.
+	 *            Text data.
 	 * @return token and service request id.
 	 * @throws DataParsingException
 	 *             If there was any problem parsing the data.
@@ -94,7 +96,7 @@ public interface DataParser {
 	 * Parses a list of service requests.
 	 * 
 	 * @param rawData
-	 *            XML text data.
+	 *            Text data.
 	 * @return A list of ServiceRequest objects.
 	 * @throws DataParsingException
 	 *             If there was any problem parsing the data.
@@ -106,11 +108,23 @@ public interface DataParser {
 	 * Parses the response of a POST Service Request operation.
 	 * 
 	 * @param rawData
-	 *            XML text data.
+	 *            Text data.
 	 * @return a list of objects containing the response information.
 	 * @throws DataParsingException
 	 *             If there was any problem parsing the data.
 	 */
 	public List<PostServiceRequestResponse> parsePostServiceRequestResponse(
 			String rawData) throws DataParsingException;
+
+	/**
+	 * Parses an error and returns an object with its information.
+	 * 
+	 * @param rawData
+	 *            Text data.
+	 * @return Error information.
+	 * @throws DataParsingException
+	 *             If there was any problem parsing the data.
+	 */
+	public List<GeoReportV2Error> parseGeoReportV2Errors(String rawData)
+			throws DataParsingException;
 }

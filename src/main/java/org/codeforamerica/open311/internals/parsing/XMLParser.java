@@ -24,6 +24,7 @@ import org.codeforamerica.open311.facade.data.ServiceRequest;
 import org.codeforamerica.open311.facade.data.ServiceRequest.Status;
 import org.codeforamerica.open311.facade.data.ServiceRequestIdResponse;
 import org.codeforamerica.open311.facade.exceptions.DataParsingException;
+import org.codeforamerica.open311.facade.exceptions.GeoReportV2Error;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -320,6 +321,42 @@ public class XMLParser implements DataParser {
 				ACCOUNT_ID_TAG);
 		return new PostServiceRequestResponse(serviceRequestId, token,
 				serviceNotice, accountId);
+	}
+
+	@Override
+	public List<GeoReportV2Error> parseGeoReportV2Errors(String rawData)
+			throws DataParsingException {
+		try {
+			List<GeoReportV2Error> errors = new LinkedList<GeoReportV2Error>();
+			Document doc = getDocument(rawData);
+			NodeList errorNodes = doc.getElementsByTagName(ERROR_TAG);
+			for (int i = 0; i < errorNodes.getLength(); i++) {
+				Node errorNode = errorNodes.item(i);
+				if (errorNode.getNodeType() == Node.ELEMENT_NODE) {
+					errors.add(getGeoReportErrorFromXMLElement((Element) errorNode));
+				}
+			}
+			return errors;
+		} catch (Exception e) {
+			throw new DataParsingException();
+		}
+	}
+
+	/**
+	 * Builds a {@link GeoReportV2Error} object from an {@link Element} of the
+	 * DOM.
+	 * 
+	 * @param geoReportErrorElement
+	 *            Valid element node of a geo report error.
+	 * @return An object wrapping the information contained in the given
+	 *         element.
+	 */
+	private GeoReportV2Error getGeoReportErrorFromXMLElement(
+			Element geoReportErrorElement) {
+		String code = getTagContent(geoReportErrorElement, CODE_TAG);
+		String description = getTagContent(geoReportErrorElement,
+				DESCRIPTION_TAG);
+		return new GeoReportV2Error(code, description);
 	}
 
 	/**
