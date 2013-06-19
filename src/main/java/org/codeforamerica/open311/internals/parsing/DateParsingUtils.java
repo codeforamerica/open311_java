@@ -33,7 +33,7 @@ public class DateParsingUtils {
 	 * 
 	 * @param rawDate
 	 *            ISO 8601 format.
-	 * @return
+	 * @return A date object.
 	 */
 	public Date parseDate(String rawDate) {
 		return dateFormat.parseDateTime(rawDate).toDate();

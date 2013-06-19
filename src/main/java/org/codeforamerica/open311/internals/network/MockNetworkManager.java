@@ -6,12 +6,11 @@ import java.net.URL;
 /**
  * Mock {@link NetworkManager}, useful for testing.
  * 
- * @author: Santiago Munín <santimunin@gmail.com>
+ * @author Santiago Munín <santimunin@gmail.com>
  */
 public class MockNetworkManager implements NetworkManager {
 	@Override
-	public String doGet(URL url)
-			throws IOException {
+	public String doGet(URL url) throws IOException {
 		if (url.toString().contains("services.xml")) {
 			return serviceListXml();
 		}
@@ -28,8 +27,7 @@ public class MockNetworkManager implements NetworkManager {
 	}
 
 	@Override
-	public String doPost(URL url)
-			throws IOException {
+	public String doPost(URL url) throws IOException {
 		if (url.toString().contains("requests.xml")) {
 			return postServiceRequestResponseXml();
 		}

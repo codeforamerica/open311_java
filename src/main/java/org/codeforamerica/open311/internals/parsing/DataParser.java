@@ -75,7 +75,7 @@ public interface DataParser {
 	 * @throws DataParsingException
 	 *             If there was any problem parsing the data.
 	 * 
-	 * @returns List of service objects.
+	 * @return List of service objects.
 	 */
 	public ServiceDefinition parseServiceDefinition(String rawData)
 			throws DataParsingException;

@@ -14,26 +14,20 @@ public interface NetworkManager {
 	 * 
 	 * @param url
 	 *            Target.
-	 * @param parameters
-	 *            Request parameters.
 	 * @return Server response.
 	 * @throws IOException
 	 *             If there was any problem with the connection.
 	 */
-	public String doGet(URL url)
-			throws IOException;
+	public String doGet(URL url) throws IOException;
 
 	/**
 	 * Sends a POST HTTP request.
 	 * 
 	 * @param url
 	 *            Target.
-	 * @param parameters
-	 *            Request parameters.
 	 * @return Server response.
 	 * @throws IOException
 	 *             If there was any problem with the connection.
 	 */
-	public String doPost(URL url)
-			throws IOException;
+	public String doPost(URL url) throws IOException;
 }

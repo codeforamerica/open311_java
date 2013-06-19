@@ -1,5 +1,7 @@
 package org.codeforamerica.open311.facade.exceptions;
 
+import org.codeforamerica.open311.facade.APIWrapper;
+
 /**
  * Thrown if it was any problem performing an operation through the
  * {@link APIWrapper}.

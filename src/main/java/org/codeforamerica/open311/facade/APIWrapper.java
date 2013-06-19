@@ -248,8 +248,7 @@ public class APIWrapper {
 	 *            Obtained data.
 	 * @throws APIWrapperException
 	 *             Always throws it, it depends on the content of the given
-	 *             <code>rawData</code> the exact
-	 *             {@link APIWrapperException.Error}.
+	 *             <code>rawData</code> the exact {@link Error}.
 	 */
 	private void tryToParseError(String rawData) throws APIWrapperException {
 		try {

@@ -101,7 +101,7 @@ public class URLBuilder {
 	}
 
 	/**
-	 * Builds a GET Service Request URL.
+	 * Builds a GET Service Request ID From Token URL.
 	 * 
 	 * @param jurisdictionId
 	 *            Required if the same endpoint holds different places.
@@ -120,7 +120,7 @@ public class URLBuilder {
 	}
 
 	/**
-	 * Builds a GET Service Request URL.
+	 * Builds a GET Service Requests URL.
 	 * 
 	 * @param jurisdictionId
 	 *            Required if the same endpoint holds different places.

@@ -231,7 +231,7 @@ public class XMLParser implements DataParser {
 	 * Builds a {@link ServiceRequest} object from an {@link Element} of the
 	 * DOM.
 	 * 
-	 * @param serviceRequestIdElement
+	 * @param serviceRequestElement
 	 *            A valid element node of a service request.
 	 * @return An object wrapping the information contained in the given
 	 *         element.
