@@ -24,16 +24,6 @@ public class URLBuilder {
 	private static final String[] GET_SERVICE_REQUESTS_OPTIONAL_ARGUMENTS = {
 			"service_request_id", "service_code", "start_date", "end_date",
 			"status" };
-	/**
-	 * List of the possible optional arguments of the GET Service Request
-	 * operation.
-	 */
-	private static final String[] GET_SERVICE_REQUEST_OPTIONAL_ARGUMENTS = {
-			"service_request_id", "status", "status_notes", "service_name",
-			"service_code", "description", "agency_responsible",
-			"service_notice", "request_datetime", "updated_datetime",
-			"expected_datetime", "address", "address_id", "zipcode", "lat",
-			"long", "media_url" };
 
 	private static final String GET_SERVICE_LIST = "services";
 	private static final String GET_SERVICE_DEFINITION = "services";
@@ -160,23 +150,17 @@ public class URLBuilder {
 	 *            Required if the same endpoint holds different places.
 	 * @param serviceId
 	 *            Id of the service.
-	 * @param arguments
-	 *            Pairs (key, value) of optional arguments
 	 * @return An URL ready to be accessed.
 	 * @throws MalformedURLException
 	 *             If one of the parts of the url (endpoint's base url,
 	 *             format...) is not correct.
 	 */
-	public URL buildGetServiceRequest(String jurisdictionId, String serviceId,
-			Map<String, String> arguments) throws MalformedURLException {
-		Set<String> validArguments = new HashSet<String>(
-				Arrays.asList(GET_SERVICE_REQUEST_OPTIONAL_ARGUMENTS));
-		validatearguments(arguments, validArguments);
-		if (jurisdictionId.length() > 0) {
-			arguments.put("jurisdiction_id", jurisdictionId);
-		}
-		return buildUrl(baseUrl + "/" + GET_SERVICE_REQUESTS + "/" + serviceId
-				+ "." + format, arguments);
+	public URL buildGetServiceRequest(String jurisdictionId, String serviceId)
+			throws MalformedURLException {
+		String url = baseUrl + "/" + GET_SERVICE_REQUESTS + "/" + serviceId
+				+ "." + format;
+		url = addJurisdictionId(url, jurisdictionId);
+		return buildUrl(url, null);
 	}
 
 	/**
@@ -212,6 +196,9 @@ public class URLBuilder {
 	 */
 	private URL buildUrl(String base, Map<String, String> arguments)
 			throws MalformedURLException {
+		if (arguments == null) {
+			return new URL(base);
+		}
 		StringBuilder builder = new StringBuilder();
 		for (String key : arguments.keySet()) {
 			builder.append(key + "=" + arguments.get(key) + "&");

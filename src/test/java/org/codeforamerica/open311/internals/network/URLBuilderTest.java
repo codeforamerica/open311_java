@@ -52,6 +52,10 @@ public class URLBuilderTest {
 						"123456").toString(),
 				"https://api.city.gov/dev/v2/tokens/123456.xml?jurisdiction_id="
 						+ JURISDICTION_ID);
+		assertEquals(builder.buildGetServiceRequest(JURISDICTION_ID, "123456")
+				.toString(),
+				"https://api.city.gov/dev/v2/requests/123456.xml?jurisdiction_id="
+						+ JURISDICTION_ID);
 	}
 
 	@Test
@@ -89,15 +93,5 @@ public class URLBuilderTest {
 		arguments.put("service_request_id", "2");
 		arguments.put("status_notes", "test");
 		arguments.put("status", "open");
-		url = builder.buildGetServiceRequest(JURISDICTION_ID, "123456",
-				arguments).toString();
-		assertTrue(url
-				.contains("https://api.city.gov/dev/v2/requests/123456.xml?"));
-		assertTrue(url.contains("service_request_id=2"));
-		assertTrue(url.contains("status_notes=test"));
-		assertTrue(url.contains("status=open"));
-		assertTrue(url.contains("jurisdiction_id=city.gov"));
-		assertEquals(StringUtils.countMatches(url, "&"), 3);
-
 	}
 }

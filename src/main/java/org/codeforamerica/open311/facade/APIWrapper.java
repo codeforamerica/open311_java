@@ -4,11 +4,11 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.List;
+import java.util.Map;
 
-import org.codeforamerica.open311.facade.data.Attribute;
-import org.codeforamerica.open311.facade.data.PostServiceRequestResponse;
 import org.codeforamerica.open311.facade.data.Service;
 import org.codeforamerica.open311.facade.data.ServiceDefinition;
+import org.codeforamerica.open311.facade.data.ServiceRequest;
 import org.codeforamerica.open311.facade.data.ServiceRequestIdResponse;
 import org.codeforamerica.open311.facade.exceptions.APIWrapperException;
 import org.codeforamerica.open311.facade.exceptions.APIWrapperException.Error;
@@ -191,6 +191,53 @@ public class APIWrapper {
 		}
 	}
 
+	/**
+	 * GET Service Requests operation.
+	 * 
+	 * @return A list of service requests.
+	 * @throws APIWrapperException
+	 *             If there was any problem.
+	 */
+	public List<ServiceRequest> getServiceRequests(
+			Map<String, String> optionalArguments) throws APIWrapperException {
+		String rawServiceRequests = "";
+		try {
+			URL serviceRequestsUrl = urlBuilder.buildGetServiceRequests(
+					jurisdictionId, optionalArguments);
+			rawServiceRequests = networkGet(serviceRequestsUrl);
+			return dataParser.parseServiceRequests(rawServiceRequests);
+		} catch (DataParsingException e) {
+			tryToParseError(rawServiceRequests);
+			return null;
+		} catch (MalformedURLException e) {
+			throw new APIWrapperException(Error.URL_BUILDER, null);
+		}
+	}
+
+	/**
+	 * GET Service Request operation.
+	 * 
+	 * @param serviceRequestId
+	 *            ID of the request to be fetched.
+	 * @return A list of service request with the same ID.
+	 * @throws APIWrapperException
+	 *             If there was any problem.
+	 */
+	public List<ServiceRequest> getServiceRequest(String serviceRequestId)
+			throws APIWrapperException {
+		String rawServiceRequests = "";
+		try {
+			URL serviceRequestsUrl = urlBuilder.buildGetServiceRequest(
+					serviceRequestId, serviceRequestId);
+			rawServiceRequests = networkGet(serviceRequestsUrl);
+			return dataParser.parseServiceRequests(rawServiceRequests);
+		} catch (DataParsingException e) {
+			tryToParseError(rawServiceRequests);
+			return null;
+		} catch (MalformedURLException e) {
+			throw new APIWrapperException(Error.URL_BUILDER, null);
+		}
+	}
 
 	/**
 	 * This function has to be used after a DataParsingException. It means that
