@@ -9,6 +9,7 @@ import java.util.Map;
 
 import org.codeforamerica.open311.facade.data.Service;
 import org.codeforamerica.open311.facade.data.ServiceDefinition;
+import org.codeforamerica.open311.facade.data.ServiceRequestIdResponse;
 import org.codeforamerica.open311.facade.exceptions.APIWrapperException;
 import org.codeforamerica.open311.facade.exceptions.APIWrapperException.Error;
 import org.codeforamerica.open311.facade.exceptions.DataParsingException;
@@ -161,6 +162,33 @@ public class APIWrapper {
 			return dataParser.parseServiceDefinition(rawServiceDefinitionData);
 		} catch (DataParsingException e) {
 			tryToParseError(rawServiceDefinitionData);
+			return null;
+		} catch (MalformedURLException e) {
+			throw new APIWrapperException(Error.URL_BUILDER, null);
+		}
+	}
+
+	/**
+	 * This function is useful when the POST Service Request returns a token.
+	 * 
+	 * @param token
+	 *            Given token.
+	 * @return A service id useful to the operation GET Service Request.
+	 * @throws APIWrapperException
+	 *             If there was any problem.
+	 */
+	public List<ServiceRequestIdResponse> getServiceRequestIdFromToken(
+			String token) throws APIWrapperException {
+		String rawServiceRequestId = "";
+		try {
+			URL serviceDefinitionUrl = urlBuilder
+					.buildGetServiceRequestIdFromATokenUrl(token);
+			rawServiceRequestId = networkGet(serviceDefinitionUrl,
+					baseParameters);
+			return dataParser
+					.parseServiceRequestIdFromAToken(rawServiceRequestId);
+		} catch (DataParsingException e) {
+			tryToParseError(rawServiceRequestId);
 			return null;
 		} catch (MalformedURLException e) {
 			throw new APIWrapperException(Error.URL_BUILDER, null);
