@@ -1,11 +1,13 @@
 package org.codeforamerica.open311.facade;
 
+import java.net.MalformedURLException;
 import java.util.List;
 
 import org.codeforamerica.open311.facade.APIWrapper.EndpointType;
 import org.codeforamerica.open311.facade.APIWrapper.Format;
 import org.codeforamerica.open311.facade.data.Service;
 import org.codeforamerica.open311.facade.data.ServiceDefinition;
+import org.codeforamerica.open311.facade.data.ServiceRequest;
 import org.codeforamerica.open311.facade.data.ServiceRequestIdResponse;
 import org.codeforamerica.open311.facade.exceptions.APIWrapperException;
 import org.codeforamerica.open311.internals.network.MockNetworkManager;
@@ -55,6 +57,20 @@ public class APIWrapperTest {
 		List<ServiceRequestIdResponse> ids = wrapper
 				.getServiceRequestIdFromToken("222");
 		GlobalTests.serviceIdFromTokenTest(ids);
+	}
+
+	@Test
+	public void getServiceRequests() throws APIWrapperException,
+			MalformedURLException {
+		List<ServiceRequest> serviceRequests = wrapper.getServiceRequests(null);
+		GlobalTests.serviceRequestsTest(serviceRequests);
+	}
+
+	@Test
+	public void getServiceRequest() throws APIWrapperException,
+			MalformedURLException {
+		List<ServiceRequest> serviceRequests = wrapper.getServiceRequest("006");
+		GlobalTests.serviceRequestsTest(serviceRequests);
 	}
 
 }

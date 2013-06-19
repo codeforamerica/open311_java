@@ -1,7 +1,6 @@
 package org.codeforamerica.open311.internals.parsing;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -13,7 +12,6 @@ import org.codeforamerica.open311.facade.data.PostServiceRequestResponse;
 import org.codeforamerica.open311.facade.data.Service;
 import org.codeforamerica.open311.facade.data.ServiceDefinition;
 import org.codeforamerica.open311.facade.data.ServiceRequest;
-import org.codeforamerica.open311.facade.data.ServiceRequest.Status;
 import org.codeforamerica.open311.facade.data.ServiceRequestIdResponse;
 import org.codeforamerica.open311.facade.exceptions.DataParsingException;
 import org.codeforamerica.open311.facade.exceptions.GeoReportV2Error;
@@ -53,8 +51,8 @@ public class XMLParserTest {
 	public void serviceListParsingTest() throws MalformedURLException,
 			IOException, DataParsingException {
 		DataParser parser = new XMLParser();
-		List<Service> services = parser.parseServiceList(netManager.doGet(
-				new URL(BASE_URL + "/services.xml") ));
+		List<Service> services = parser.parseServiceList(netManager
+				.doGet(new URL(BASE_URL + "/services.xml")));
 		GlobalTests.serviceListTest(services);
 	}
 
@@ -66,7 +64,7 @@ public class XMLParserTest {
 			throws MalformedURLException, IOException, DataParsingException {
 		DataParser parser = new XMLParser();
 		String dataWithError = netManager.doGet(new URL(BASE_URL
-				+ "/services.xml") )
+				+ "/services.xml"))
 				+ "ERRORSTRING";
 		parser.parseServiceList(dataWithError);
 	}
@@ -80,7 +78,7 @@ public class XMLParserTest {
 		DataParser parser = new XMLParser();
 		ServiceDefinition serviceDefinition = parser
 				.parseServiceDefinition(netManager.doGet(new URL(BASE_URL
-						+ "/services/001.xml") ));
+						+ "/services/001.xml")));
 		GlobalTests.serviceDefinitionTest(serviceDefinition);
 
 	}
@@ -93,7 +91,7 @@ public class XMLParserTest {
 			throws MalformedURLException, IOException, DataParsingException {
 		DataParser parser = new XMLParser();
 		String dataWithError = netManager.doGet(new URL(BASE_URL
-				+ "/services/001.xml") )
+				+ "/services/001.xml"))
 				+ "ERRORSTRING";
 		parser.parseServiceDefinition(dataWithError);
 	}
@@ -107,7 +105,7 @@ public class XMLParserTest {
 		DataParser parser = new XMLParser();
 		List<ServiceRequestIdResponse> ids = parser
 				.parseServiceRequestIdFromAToken(netManager.doGet(new URL(
-						BASE_URL + "/tokens/222.xml") ));
+						BASE_URL + "/tokens/222.xml")));
 		GlobalTests.serviceIdFromTokenTest(ids);
 	}
 
@@ -119,7 +117,7 @@ public class XMLParserTest {
 			throws MalformedURLException, IOException, DataParsingException {
 		DataParser parser = new XMLParser();
 		String dataWithError = netManager.doGet(new URL(BASE_URL
-				+ "/tokens/001.xml") )
+				+ "/tokens/001.xml"))
 				+ "ERRORSTRING";
 		parser.parseServiceRequestIdFromAToken(dataWithError);
 	}
@@ -132,45 +130,8 @@ public class XMLParserTest {
 			IOException, DataParsingException {
 		DataParser parser = new XMLParser();
 		List<ServiceRequest> list = parser.parseServiceRequests(netManager
-				.doGet(new URL(BASE_URL + "/requests.xml") ));
-		assertEquals(list.size(), 2);
-		ServiceRequest sr1 = list.get(0);
-		assertEquals(sr1.getServiceRequestId(), "638344");
-		assertEquals(sr1.getStatus(), Status.CLOSED);
-		assertEquals(sr1.getStatusNotes(), "Duplicate request.");
-		assertEquals(sr1.getServiceName(), "Sidewalk and Curb Issues");
-		assertEquals(sr1.getServiceCode(), "006");
-		assertEquals(sr1.getDescription(), "");
-		assertEquals(sr1.getAgencyResponsible(), "");
-		assertEquals(sr1.getServiceNotice(), "");
-		DateParsingUtils dateParser = DateParsingUtils.getInstance();
-
-		/*
-		 * These three following tests do parsing and printing in order to avoid
-		 * timezone differences.
-		 */
-		assertEquals(
-				DateParsingUtils.getInstance().printDate(
-						sr1.getRequestedDatetime()),
-				dateParser.printDate(dateParser
-						.parseDate("2010-04-14T06:37:38-08:00")));
-		assertEquals(
-				DateParsingUtils.getInstance().printDate(
-						sr1.getUpdatedDatetime()),
-				dateParser.printDate(dateParser
-						.parseDate("2010-04-14T06:37:38-08:00")));
-		assertEquals(
-				DateParsingUtils.getInstance().printDate(
-						sr1.getExpectedDatetime()),
-				dateParser.printDate(dateParser
-						.parseDate("2010-04-15T06:37:38-08:00")));
-		assertEquals(sr1.getAddress(), "8TH AVE and JUDAH ST");
-		assertEquals(sr1.getAddressId(), "545483");
-		assertEquals(sr1.getZipCode(), 94122);
-		assertTrue(sr1.getLatitude() == 37.762221815F);
-		assertTrue(sr1.getLongitude() == -122.4651145F);
-		assertEquals(sr1.getMediaUrl(), new URL(
-				"http://city.gov.s3.amazonaws.com/requests/media/638344.jpg"));
+				.doGet(new URL(BASE_URL + "/requests.xml")));
+		GlobalTests.serviceRequestsTest(list);
 	}
 
 	/**
@@ -181,7 +142,7 @@ public class XMLParserTest {
 			IOException, DataParsingException {
 		DataParser parser = new XMLParser();
 		String dataWithError = netManager.doGet(new URL(BASE_URL
-				+ "/requests.xml") )
+				+ "/requests.xml"))
 				+ "ERRORSTRING";
 		parser.parseServiceRequests(dataWithError);
 	}
@@ -192,7 +153,7 @@ public class XMLParserTest {
 		DataParser parser = new XMLParser();
 		List<PostServiceRequestResponse> list = parser
 				.parsePostServiceRequestResponse(netManager.doPost(new URL(
-						BASE_URL + "/requests.xml") ));
+						BASE_URL + "/requests.xml")));
 		assertEquals(list.size(), 1);
 		PostServiceRequestResponse response = list.get(0);
 		assertEquals(response.getAccountId(), "");
@@ -211,7 +172,7 @@ public class XMLParserTest {
 			throws MalformedURLException, IOException, DataParsingException {
 		DataParser parser = new XMLParser();
 		String dataWithError = netManager.doPost(new URL(BASE_URL
-				+ "/requests.xml") )
+				+ "/requests.xml"))
 				+ "ERRORSTRING";
 		parser.parsePostServiceRequestResponse(dataWithError);
 	}
@@ -224,7 +185,7 @@ public class XMLParserTest {
 			DataParsingException, IOException {
 		DataParser parser = new XMLParser();
 		List<GeoReportV2Error> list = parser.parseGeoReportV2Errors(netManager
-				.doPost(new URL(BASE_URL + "/requests/fail.xml") ));
+				.doPost(new URL(BASE_URL + "/requests/fail.xml")));
 		assertEquals(list.size(), 2);
 		GeoReportV2Error error1 = list.get(0);
 		assertEquals(error1.getCode(), "403");
@@ -247,5 +208,4 @@ public class XMLParserTest {
 				+ "ERRORSTRING";
 		parser.parseGeoReportV2Errors(dataWithError);
 	}
-
 }

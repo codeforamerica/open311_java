@@ -175,10 +175,12 @@ public class URLBuilder {
 	 */
 	private void validatearguments(Map<String, String> givenArguments,
 			Set<String> allowedArguments) throws MalformedURLException {
-		for (String key : givenArguments.keySet()) {
-			if (!allowedArguments.contains(key)) {
-				throw new MalformedURLException("Invalid optional argument: "
-						+ key);
+		if (givenArguments != null) {
+			for (String key : givenArguments.keySet()) {
+				if (!allowedArguments.contains(key)) {
+					throw new MalformedURLException(
+							"Invalid optional argument: " + key);
+				}
 			}
 		}
 	}

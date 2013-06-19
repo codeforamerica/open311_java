@@ -3,13 +3,18 @@ package org.codeforamerica.open311.facade;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.List;
 
 import org.codeforamerica.open311.facade.data.Attribute;
 import org.codeforamerica.open311.facade.data.Attribute.Datatype;
+import org.codeforamerica.open311.facade.data.ServiceRequest.Status;
 import org.codeforamerica.open311.facade.data.Service;
 import org.codeforamerica.open311.facade.data.ServiceDefinition;
+import org.codeforamerica.open311.facade.data.ServiceRequest;
 import org.codeforamerica.open311.facade.data.ServiceRequestIdResponse;
+import org.codeforamerica.open311.internals.parsing.DateParsingUtils;
 
 /**
  * This class contains test which will be use for more than one test class. For
@@ -59,6 +64,48 @@ public class GlobalTests {
 		assertEquals(id1.getServiceRequestId(), "638344");
 		assertEquals(id2.getToken(), "12345");
 		assertEquals(id2.getServiceRequestId(), "111");
+	}
+
+	public static void serviceRequestsTest(List<ServiceRequest> requests)
+			throws MalformedURLException {
+		assertEquals(requests.size(), 2);
+		ServiceRequest sr1 = requests.get(0);
+		assertEquals(sr1.getServiceRequestId(), "638344");
+		assertEquals(sr1.getStatus(), Status.CLOSED);
+		assertEquals(sr1.getStatusNotes(), "Duplicate request.");
+		assertEquals(sr1.getServiceName(), "Sidewalk and Curb Issues");
+		assertEquals(sr1.getServiceCode(), "006");
+		assertEquals(sr1.getDescription(), "");
+		assertEquals(sr1.getAgencyResponsible(), "");
+		assertEquals(sr1.getServiceNotice(), "");
+		DateParsingUtils dateParser = DateParsingUtils.getInstance();
+
+		/*
+		 * These three following tests do parsing and printing in order to avoid
+		 * timezone differences.
+		 */
+		assertEquals(
+				DateParsingUtils.getInstance().printDate(
+						sr1.getRequestedDatetime()),
+				dateParser.printDate(dateParser
+						.parseDate("2010-04-14T06:37:38-08:00")));
+		assertEquals(
+				DateParsingUtils.getInstance().printDate(
+						sr1.getUpdatedDatetime()),
+				dateParser.printDate(dateParser
+						.parseDate("2010-04-14T06:37:38-08:00")));
+		assertEquals(
+				DateParsingUtils.getInstance().printDate(
+						sr1.getExpectedDatetime()),
+				dateParser.printDate(dateParser
+						.parseDate("2010-04-15T06:37:38-08:00")));
+		assertEquals(sr1.getAddress(), "8TH AVE and JUDAH ST");
+		assertEquals(sr1.getAddressId(), "545483");
+		assertEquals(sr1.getZipCode(), 94122);
+		assertTrue(sr1.getLatitude() == 37.762221815F);
+		assertTrue(sr1.getLongitude() == -122.4651145F);
+		assertEquals(sr1.getMediaUrl(), new URL(
+				"http://city.gov.s3.amazonaws.com/requests/media/638344.jpg"));
 	}
 
 }

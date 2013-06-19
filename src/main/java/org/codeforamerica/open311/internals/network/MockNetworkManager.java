@@ -21,7 +21,7 @@ public class MockNetworkManager implements NetworkManager {
 		if (url.toString().contains("tokens/")) {
 			return serviceRequestIdFromATokenXml();
 		}
-		if (url.toString().contains("requests.xml")) {
+		if (url.toString().contains("requests")) {
 			return serviceRequestsXml();
 		}
 		return "";
