@@ -2,7 +2,6 @@ package org.codeforamerica.open311.internals.network;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.Map;
 
 /**
  * Specifies the required operations of a NetworkManager
@@ -21,7 +20,7 @@ public interface NetworkManager {
 	 * @throws IOException
 	 *             If there was any problem with the connection.
 	 */
-	public String doGet(URL url, Map<String, String> parameters)
+	public String doGet(URL url)
 			throws IOException;
 
 	/**
@@ -35,6 +34,6 @@ public interface NetworkManager {
 	 * @throws IOException
 	 *             If there was any problem with the connection.
 	 */
-	public String doPost(URL url, Map<String, String> parameters)
+	public String doPost(URL url)
 			throws IOException;
 }

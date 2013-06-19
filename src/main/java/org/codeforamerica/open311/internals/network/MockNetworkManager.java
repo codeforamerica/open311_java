@@ -2,7 +2,6 @@ package org.codeforamerica.open311.internals.network;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.Map;
 
 /**
  * Mock {@link NetworkManager}, useful for testing.
@@ -11,7 +10,7 @@ import java.util.Map;
  */
 public class MockNetworkManager implements NetworkManager {
 	@Override
-	public String doGet(URL url, Map<String, String> parameters)
+	public String doGet(URL url)
 			throws IOException {
 		if (url.toString().contains("services.xml")) {
 			return serviceListXml();
@@ -29,7 +28,7 @@ public class MockNetworkManager implements NetworkManager {
 	}
 
 	@Override
-	public String doPost(URL url, Map<String, String> parameters)
+	public String doPost(URL url)
 			throws IOException {
 		if (url.toString().contains("requests.xml")) {
 			return postServiceRequestResponseXml();
