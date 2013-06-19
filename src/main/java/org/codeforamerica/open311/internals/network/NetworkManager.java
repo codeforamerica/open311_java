@@ -1,5 +1,6 @@
 package org.codeforamerica.open311.internals.network;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.Map;
 
@@ -17,11 +18,11 @@ public interface NetworkManager {
 	 * @param parameters
 	 *            Request parameters.
 	 * @return Server response.
-	 * @throws java.io.IOException
+	 * @throws IOException
 	 *             If there was any problem with the connection.
 	 */
 	public String doGet(URL url, Map<String, String> parameters)
-			throws java.io.IOException;
+			throws IOException;
 
 	/**
 	 * Sends a POST HTTP request.
@@ -31,9 +32,9 @@ public interface NetworkManager {
 	 * @param parameters
 	 *            Request parameters.
 	 * @return Server response.
-	 * @throws java.io.IOException
+	 * @throws IOException
 	 *             If there was any problem with the connection.
 	 */
 	public String doPost(URL url, Map<String, String> parameters)
-			throws java.io.IOException;
+			throws IOException;
 }
