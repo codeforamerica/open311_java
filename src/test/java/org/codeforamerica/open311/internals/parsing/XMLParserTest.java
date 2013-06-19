@@ -54,7 +54,7 @@ public class XMLParserTest {
 			IOException, DataParsingException {
 		DataParser parser = new XMLParser();
 		List<Service> services = parser.parseServiceList(netManager.doGet(
-				new URL(BASE_URL + "/services.xml"), null));
+				new URL(BASE_URL + "/services.xml") ));
 		GlobalTests.serviceListTest(services);
 	}
 
@@ -66,7 +66,7 @@ public class XMLParserTest {
 			throws MalformedURLException, IOException, DataParsingException {
 		DataParser parser = new XMLParser();
 		String dataWithError = netManager.doGet(new URL(BASE_URL
-				+ "/services.xml"), null)
+				+ "/services.xml") )
 				+ "ERRORSTRING";
 		parser.parseServiceList(dataWithError);
 	}
@@ -80,7 +80,7 @@ public class XMLParserTest {
 		DataParser parser = new XMLParser();
 		ServiceDefinition serviceDefinition = parser
 				.parseServiceDefinition(netManager.doGet(new URL(BASE_URL
-						+ "/services/001.xml"), null));
+						+ "/services/001.xml") ));
 		GlobalTests.serviceDefinitionTest(serviceDefinition);
 
 	}
@@ -93,7 +93,7 @@ public class XMLParserTest {
 			throws MalformedURLException, IOException, DataParsingException {
 		DataParser parser = new XMLParser();
 		String dataWithError = netManager.doGet(new URL(BASE_URL
-				+ "/services/001.xml"), null)
+				+ "/services/001.xml") )
 				+ "ERRORSTRING";
 		parser.parseServiceDefinition(dataWithError);
 	}
@@ -107,7 +107,7 @@ public class XMLParserTest {
 		DataParser parser = new XMLParser();
 		List<ServiceRequestIdResponse> ids = parser
 				.parseServiceRequestIdFromAToken(netManager.doGet(new URL(
-						BASE_URL + "/tokens/222.xml"), null));
+						BASE_URL + "/tokens/222.xml") ));
 		GlobalTests.serviceIdFromTokenTest(ids);
 	}
 
@@ -119,7 +119,7 @@ public class XMLParserTest {
 			throws MalformedURLException, IOException, DataParsingException {
 		DataParser parser = new XMLParser();
 		String dataWithError = netManager.doGet(new URL(BASE_URL
-				+ "/tokens/001.xml"), null)
+				+ "/tokens/001.xml") )
 				+ "ERRORSTRING";
 		parser.parseServiceRequestIdFromAToken(dataWithError);
 	}
@@ -132,7 +132,7 @@ public class XMLParserTest {
 			IOException, DataParsingException {
 		DataParser parser = new XMLParser();
 		List<ServiceRequest> list = parser.parseServiceRequests(netManager
-				.doGet(new URL(BASE_URL + "/requests.xml"), null));
+				.doGet(new URL(BASE_URL + "/requests.xml") ));
 		assertEquals(list.size(), 2);
 		ServiceRequest sr1 = list.get(0);
 		assertEquals(sr1.getServiceRequestId(), "638344");
@@ -181,7 +181,7 @@ public class XMLParserTest {
 			IOException, DataParsingException {
 		DataParser parser = new XMLParser();
 		String dataWithError = netManager.doGet(new URL(BASE_URL
-				+ "/requests.xml"), null)
+				+ "/requests.xml") )
 				+ "ERRORSTRING";
 		parser.parseServiceRequests(dataWithError);
 	}
@@ -192,7 +192,7 @@ public class XMLParserTest {
 		DataParser parser = new XMLParser();
 		List<PostServiceRequestResponse> list = parser
 				.parsePostServiceRequestResponse(netManager.doPost(new URL(
-						BASE_URL + "/requests.xml"), null));
+						BASE_URL + "/requests.xml") ));
 		assertEquals(list.size(), 1);
 		PostServiceRequestResponse response = list.get(0);
 		assertEquals(response.getAccountId(), "");
@@ -211,7 +211,7 @@ public class XMLParserTest {
 			throws MalformedURLException, IOException, DataParsingException {
 		DataParser parser = new XMLParser();
 		String dataWithError = netManager.doPost(new URL(BASE_URL
-				+ "/requests.xml"), null)
+				+ "/requests.xml") )
 				+ "ERRORSTRING";
 		parser.parsePostServiceRequestResponse(dataWithError);
 	}
@@ -224,7 +224,7 @@ public class XMLParserTest {
 			DataParsingException, IOException {
 		DataParser parser = new XMLParser();
 		List<GeoReportV2Error> list = parser.parseGeoReportV2Errors(netManager
-				.doPost(new URL(BASE_URL + "/requests/fail.xml"), null));
+				.doPost(new URL(BASE_URL + "/requests/fail.xml") ));
 		assertEquals(list.size(), 2);
 		GeoReportV2Error error1 = list.get(0);
 		assertEquals(error1.getCode(), "403");
@@ -243,7 +243,7 @@ public class XMLParserTest {
 			IOException, DataParsingException {
 		DataParser parser = new XMLParser();
 		String dataWithError = netManager.doPost(new URL(BASE_URL
-				+ "/requests.xml"), null)
+				+ "/requests.xml"))
 				+ "ERRORSTRING";
 		parser.parseGeoReportV2Errors(dataWithError);
 	}

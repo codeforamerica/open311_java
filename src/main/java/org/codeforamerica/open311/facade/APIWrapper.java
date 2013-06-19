@@ -3,10 +3,10 @@ package org.codeforamerica.open311.facade;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
+import org.codeforamerica.open311.facade.data.Attribute;
+import org.codeforamerica.open311.facade.data.PostServiceRequestResponse;
 import org.codeforamerica.open311.facade.data.Service;
 import org.codeforamerica.open311.facade.data.ServiceDefinition;
 import org.codeforamerica.open311.facade.data.ServiceRequestIdResponse;
@@ -28,12 +28,11 @@ public class APIWrapper {
 
 	private String endpointUrl;
 	private String apiKey;
-	private String jurisictionId;
+	private String jurisdictionId;
 	private EndpointType type;
 	private DataParser dataParser;
 	private NetworkManager networkManager;
 	private URLBuilder urlBuilder;
-	private Map<String, String> baseParameters;
 
 	/**
 	 * Builds an API wrapper from its components. Note that this constructor
@@ -56,9 +55,8 @@ public class APIWrapper {
 		this.type = type;
 		this.dataParser = dataParser;
 		this.networkManager = networkManager;
-		this.jurisictionId = jurisdictionId;
+		this.jurisdictionId = jurisdictionId;
 		this.apiKey = apiKey;
-		this.baseParameters = getBaseParameters();
 		this.urlBuilder = new URLBuilder(endpointUrl, format.toString());
 	}
 
@@ -92,7 +90,6 @@ public class APIWrapper {
 	 */
 	public void setAPIKey(String apiKey) {
 		this.apiKey = apiKey;
-		this.baseParameters = getBaseParameters();
 	}
 
 	/**
@@ -101,8 +98,7 @@ public class APIWrapper {
 	 * @param jurisdictionId
 	 */
 	public void setJurisdictionId(String jurisdictionId) {
-		this.jurisictionId = jurisdictionId;
-		this.baseParameters = getBaseParameters();
+		this.jurisdictionId = jurisdictionId;
 	}
 
 	/**
@@ -129,8 +125,9 @@ public class APIWrapper {
 	public List<Service> getServiceList() throws APIWrapperException {
 		String rawServiceListData = "";
 		try {
-			URL serviceListUrl = urlBuilder.buildGetServiceListUrl();
-			rawServiceListData = networkGet(serviceListUrl, baseParameters);
+			URL serviceListUrl = urlBuilder
+					.buildGetServiceListUrl(jurisdictionId);
+			rawServiceListData = networkGet(serviceListUrl);
 			return dataParser.parseServiceList(rawServiceListData);
 		} catch (DataParsingException e) {
 			tryToParseError(rawServiceListData);
@@ -155,10 +152,9 @@ public class APIWrapper {
 			throws APIWrapperException {
 		String rawServiceDefinitionData = "";
 		try {
-			URL serviceDefinitionUrl = urlBuilder
-					.buildGetServiceDefinitionUrl(serviceCode);
-			rawServiceDefinitionData = networkGet(serviceDefinitionUrl,
-					baseParameters);
+			URL serviceDefinitionUrl = urlBuilder.buildGetServiceDefinitionUrl(
+					jurisdictionId, serviceCode);
+			rawServiceDefinitionData = networkGet(serviceDefinitionUrl);
 			return dataParser.parseServiceDefinition(rawServiceDefinitionData);
 		} catch (DataParsingException e) {
 			tryToParseError(rawServiceDefinitionData);
@@ -182,9 +178,9 @@ public class APIWrapper {
 		String rawServiceRequestId = "";
 		try {
 			URL serviceDefinitionUrl = urlBuilder
-					.buildGetServiceRequestIdFromATokenUrl(token);
-			rawServiceRequestId = networkGet(serviceDefinitionUrl,
-					baseParameters);
+					.buildGetServiceRequestIdFromATokenUrl(jurisdictionId,
+							token);
+			rawServiceRequestId = networkGet(serviceDefinitionUrl);
 			return dataParser
 					.parseServiceRequestIdFromAToken(rawServiceRequestId);
 		} catch (DataParsingException e) {
@@ -194,6 +190,7 @@ public class APIWrapper {
 			throw new APIWrapperException(Error.URL_BUILDER, null);
 		}
 	}
+
 
 	/**
 	 * This function has to be used after a DataParsingException. It means that
@@ -223,36 +220,15 @@ public class APIWrapper {
 	 * 
 	 * @param url
 	 *            Target.
-	 * @param parameters
-	 *            GET parameters.
 	 * @return Server response.
 	 * @throws APIWrapperException
 	 *             If there was any problem with the request.
 	 */
-	private String networkGet(URL url, Map<String, String> parameters)
-			throws APIWrapperException {
+	private String networkGet(URL url) throws APIWrapperException {
 		try {
-			return networkManager.doGet(url, baseParameters);
+			return networkManager.doGet(url);
 		} catch (IOException e) {
 			throw new APIWrapperException(Error.NETWORK_MANAGER, null);
 		}
-	}
-
-	/**
-	 * Builds a Map<String, String> and adds parameters such as jurisdiction_id
-	 * and api_key if the wrapper have them.
-	 * 
-	 * @return A list of pairs <Key, Value> useful to perform operations through
-	 *         the {@link NetworkManager}.
-	 */
-	private Map<String, String> getBaseParameters() {
-		Map<String, String> baseParameters = new HashMap<String, String>();
-		if (this.jurisictionId.length() > 0) {
-			baseParameters.put("jurisdiction_id", jurisictionId);
-		}
-		if (this.apiKey.length() > 0) {
-			baseParameters.put("api_key", apiKey);
-		}
-		return baseParameters;
 	}
 }
