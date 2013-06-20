@@ -65,16 +65,19 @@ public class URLBuilderTest {
 		arguments.put("lat", "8.12");
 		arguments.put("long", "4.12");
 		arguments.put("account_id", "1");
+		arguments.put("api_key", "2");
+		String body = builder.buildPostServiceRequestBody(arguments).toString();
+		assertTrue(body.contains("api_key=2"));
+		assertTrue(body.contains("lat=8.12"));
+		assertTrue(body.contains("long=4.12"));
+		assertTrue(body.contains("account_id=1"));
+		assertEquals(StringUtils.countMatches(body, "&"), 3);
 
-		String url = builder.buildPostServiceRequestUrl("key", JURISDICTION_ID,
-				arguments).toString();
-		assertTrue(url.contains("https://api.city.gov/dev/v2/requests.xml?"));
-		assertTrue(url.contains("lat=8.12"));
-		assertTrue(url.contains("long=4.12"));
-		assertTrue(url.contains("account_id=1"));
-		assertTrue(url.contains("jurisdiction_id=city.gov"));
-		assertTrue(url.contains("api_key=key"));
-		assertEquals(StringUtils.countMatches(url, "&"), 4);
+		String url = builder.buildPostServiceRequestUrl(JURISDICTION_ID)
+				.toString();
+		assertEquals(url,
+				"https://api.city.gov/dev/v2/requests.xml?jurisdiction_id=city.gov");
+		assertEquals(StringUtils.countMatches(url, "&"), 0);
 
 		arguments = new HashMap<String, String>();
 		arguments.put("start_date", "2010-05-24T00:00:00Z");

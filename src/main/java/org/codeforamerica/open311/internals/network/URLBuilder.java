@@ -76,28 +76,19 @@ public class URLBuilder {
 	/**
 	 * Builds a POST Service Request URL.
 	 * 
-	 * @param apiKey
-	 *            Key required for the operation.
 	 * @param jurisdictionId
 	 *            Required if the same endpoint holds different places.
-	 * @param arguments
-	 *            Pairs (key, value) of optional arguments
 	 * @return An URL ready to be accessed.
 	 * @throws MalformedURLException
 	 *             If one of the parts of the url (endpoint's base url,
 	 *             format...) is not correct.
 	 */
-	public URL buildPostServiceRequestUrl(String apiKey, String jurisdictionId,
-			Map<String, String> arguments) throws MalformedURLException {
-		Set<String> validArguments = new HashSet<String>(
-				Arrays.asList(POST_SERVICE_REQUEST_OPTIONAL_ARGUMENTS));
-		validatearguments(arguments, validArguments);
-		if (jurisdictionId.length() > 0) {
-			arguments.put("jurisdiction_id", jurisdictionId);
-		}
-		arguments.put("api_key", apiKey);
-		return buildUrl(baseUrl + "/" + POST_SERVICE_REQUEST + "." + format,
-				arguments);
+	public URL buildPostServiceRequestUrl(String jurisdictionId)
+			throws MalformedURLException {
+
+		String base = baseUrl + "/" + POST_SERVICE_REQUEST + "." + format;
+		base = addJurisdictionId(base, jurisdictionId);
+		return new URL(base);
 	}
 
 	/**
@@ -164,6 +155,23 @@ public class URLBuilder {
 	}
 
 	/**
+	 * Builds the body of a POST service request body.
+	 * 
+	 * @param arguments
+	 *            List of (key, value) pairs.
+	 * @return A string of the form (key=value&key2=value2&...).
+	 * @throws MalformedURLException
+	 *             If any of the arguments given is not allowed.
+	 */
+	public String buildPostServiceRequestBody(Map<String, String> arguments)
+			throws MalformedURLException {
+		Set<String> validArguments = new HashSet<String>(
+				Arrays.asList(POST_SERVICE_REQUEST_OPTIONAL_ARGUMENTS));
+		validatearguments(arguments, validArguments);
+		return buildParameterString(arguments);
+	}
+
+	/**
 	 * Checks if any given argument is not valid.
 	 * 
 	 * @param givenArguments
@@ -186,6 +194,30 @@ public class URLBuilder {
 	}
 
 	/**
+	 * Builds a &-separated parameter string.
+	 * 
+	 * @param parameters
+	 *            List of pairs (key, value).
+	 * @return A string of the form (key=value&key2=value2&...).
+	 */
+	private String buildParameterString(Map<String, String> parameters) {
+		boolean first = true;
+		if (parameters != null) {
+			StringBuilder builder = new StringBuilder();
+			for (String key : parameters.keySet()) {
+				if (first) {
+					first = false;
+				} else {
+					builder.append("&");
+				}
+				builder.append(key + "=" + parameters.get(key));
+			}
+			return builder.toString();
+		}
+		return "";
+	}
+
+	/**
 	 * Builds an URL from a base plus a list of arguments.
 	 * 
 	 * @param base
@@ -200,18 +232,9 @@ public class URLBuilder {
 			throws MalformedURLException {
 		if (arguments == null) {
 			return new URL(base);
+		} else {
+			return new URL(base + "?" + buildParameterString(arguments));
 		}
-		StringBuilder builder = new StringBuilder();
-		for (String key : arguments.keySet()) {
-			builder.append(key + "=" + arguments.get(key) + "&");
-		}
-		String argumentsPart = builder.toString();
-		if (argumentsPart.length() > 0) {
-			base += "?";
-			argumentsPart = argumentsPart.substring(0,
-					argumentsPart.length() - 1);
-		}
-		return new URL(base + argumentsPart);
 	}
 
 	/**
