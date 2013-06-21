@@ -1,6 +1,7 @@
 package org.codeforamerica.open311.facade.data;
 
 import java.util.Map;
+import java.util.Map.Entry;
 
 /**
  * Represents a single attribute of a service definition.
@@ -9,6 +10,8 @@ import java.util.Map;
  * 
  */
 public class Attribute {
+
+	private static final String ATTIBUTE_KEY = "attribute";
 
 	private boolean variable;
 	private String code;
@@ -80,6 +83,27 @@ public class Attribute {
 
 	public String getDatatypeDescription() {
 		return datatypeDescription;
+	}
+
+	/**
+	 * Returns a string of the form <code>ATTRIBUTE[key1][key2]...[keyN]=value1,
+	 * value2,...valueN</code>.
+	 */
+	public String toString() {
+		StringBuilder keyBuilder = new StringBuilder(ATTIBUTE_KEY);
+		StringBuilder valueBuilder = new StringBuilder();
+		boolean first = true;
+		for (Entry<String, String> pair : values.entrySet()) {
+			keyBuilder.append("[" + pair.getKey() + "]");
+			if (first) {
+				first = false;
+			} else {
+				valueBuilder.append(",");
+			}
+			valueBuilder.append(pair.getValue());
+		}
+		keyBuilder.append("=");
+		return keyBuilder.toString() + valueBuilder.toString();
 	}
 
 	public static enum Datatype {

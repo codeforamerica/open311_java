@@ -66,12 +66,18 @@ public class URLBuilderTest {
 		arguments.put("long", "4.12");
 		arguments.put("account_id", "1");
 		arguments.put("api_key", "2");
-		String body = builder.buildPostServiceRequestBody(arguments).toString();
+		Map<String, String> attributes = new HashMap<String, String>();
+		attributes.put("ATTRIBUTE[code]", "value1");
+		attributes.put("ATTRIBUTE[code2]", "value2");
+		String body = builder
+				.buildPostServiceRequestBody(arguments, attributes).toString();
 		assertTrue(body.contains("api_key=2"));
 		assertTrue(body.contains("lat=8.12"));
 		assertTrue(body.contains("long=4.12"));
 		assertTrue(body.contains("account_id=1"));
-		assertEquals(StringUtils.countMatches(body, "&"), 3);
+		assertTrue(body.contains("ATTRIBUTE[code]=value1"));
+		assertTrue(body.contains("ATTRIBUTE[code2]=value2"));
+		assertEquals(StringUtils.countMatches(body, "&"), 5);
 
 		String url = builder.buildPostServiceRequestUrl(JURISDICTION_ID)
 				.toString();

@@ -159,15 +159,18 @@ public class URLBuilder {
 	 * 
 	 * @param arguments
 	 *            List of (key, value) pairs.
+	 * @param attributes
+	 *            List of (key, value) attributes.
 	 * @return A string of the form (key=value&key2=value2&...).
 	 * @throws MalformedURLException
 	 *             If any of the arguments given is not allowed.
 	 */
-	public String buildPostServiceRequestBody(Map<String, String> arguments)
-			throws MalformedURLException {
+	public String buildPostServiceRequestBody(Map<String, String> arguments,
+			Map<String, String> attributes) throws MalformedURLException {
 		Set<String> validArguments = new HashSet<String>(
 				Arrays.asList(POST_SERVICE_REQUEST_OPTIONAL_ARGUMENTS));
 		validatearguments(arguments, validArguments);
+		arguments.putAll(attributes);
 		return buildParameterString(arguments);
 	}
 

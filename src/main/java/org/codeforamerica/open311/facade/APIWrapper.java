@@ -3,9 +3,12 @@ package org.codeforamerica.open311.facade;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.codeforamerica.open311.facade.data.Attribute;
+import org.codeforamerica.open311.facade.data.PostServiceRequestResponse;
 import org.codeforamerica.open311.facade.data.Service;
 import org.codeforamerica.open311.facade.data.ServiceDefinition;
 import org.codeforamerica.open311.facade.data.ServiceRequest;
@@ -240,6 +243,118 @@ public class APIWrapper {
 	}
 
 	/**
+	 * Performs a POST Service Request operation.
+	 * 
+	 * @param serviceCode
+	 *            Code of the service related to the request.
+	 * @param latitude
+	 *            Latitude coordinate.
+	 * @param longitude
+	 *            Longitude coordinate.
+	 * @param optionalArguments
+	 *            List of pairs (key, value)
+	 * @param attributes
+	 * @return A list of responses.
+	 * @throws APIWrapperException
+	 *             If there was any problem.
+	 */
+	public List<PostServiceRequestResponse> postServiceRequest(
+			String serviceCode, float latitude, float longitude,
+			Map<String, String> optionalArguments, List<Attribute> attributes)
+			throws APIWrapperException {
+		try {
+			URL url = urlBuilder.buildPostServiceRequestUrl(jurisdictionId);
+			optionalArguments.put("lat", String.valueOf(latitude));
+			optionalArguments.put("long", String.valueOf(longitude));
+			return postServiceRequestInternal(url, optionalArguments,
+					attributes);
+		} catch (MalformedURLException e) {
+			throw new APIWrapperException(Error.URL_BUILDER, null);
+		}
+	}
+
+	/**
+	 * Performs a POST Service Request operation.
+	 * 
+	 * @param serviceCode
+	 *            Code of the service related to the request.
+	 * @param addressKey
+	 *            Key of the given address parameter (address_id or address)
+	 * @param addressValue
+	 *            Value of the given address.
+	 * @param optionalArguments
+	 *            List of pairs (key, value)
+	 * @param attributes
+	 * @return A list of responses.
+	 * @throws APIWrapperException
+	 *             If there was any problem.
+	 */
+	public List<PostServiceRequestResponse> postServiceRequest(
+			String serviceCode, String addressKey, String addressValue,
+			Map<String, String> optionalArguments, List<Attribute> attributes)
+			throws APIWrapperException {
+		try {
+			URL url = urlBuilder.buildPostServiceRequestUrl(jurisdictionId);
+			optionalArguments.put(addressKey, addressValue);
+			return postServiceRequestInternal(url, optionalArguments,
+					attributes);
+		} catch (MalformedURLException e) {
+			throw new APIWrapperException(Error.URL_BUILDER, null);
+		}
+	}
+
+	/**
+	 * Performs the POST service request with already built URL and body.
+	 * 
+	 * @param url
+	 *            Target.
+	 * @param body
+	 *            Body of the request.
+	 * @return List of Service Request responses.
+	 * @throws APIWrapperException
+	 *             If there was any problem.
+	 * @throws MalformedURLException
+	 *             If any attribute is not valid.
+	 */
+	private List<PostServiceRequestResponse> postServiceRequestInternal(
+			URL url, Map<String, String> arguments, List<Attribute> attributes)
+			throws APIWrapperException, MalformedURLException {
+		if (apiKey.length() > 0) {
+			arguments.put("api_key", apiKey);
+		}
+		if (jurisdictionId.length() > 0) {
+			arguments.put("jurisdiction_id", jurisdictionId);
+		}
+		String body = urlBuilder.buildPostServiceRequestBody(arguments,
+				buildAttributes(attributes));
+		String rawPostServiceRequestResponse = networkPost(url, body);
+		try {
+			return dataParser
+					.parsePostServiceRequestResponse(rawPostServiceRequestResponse);
+		} catch (DataParsingException e) {
+			tryToParseError(rawPostServiceRequestResponse);
+			return null;
+		}
+	}
+
+	/**
+	 * Builds a map of (key, value) pairs from the attributes.
+	 * 
+	 * @param attributes
+	 *            Request attributes.
+	 * @return Map of (key, value) pairs.
+	 */
+	private Map<String, String> buildAttributes(List<Attribute> attributes) {
+		Map<String, String> result = new HashMap<String, String>();
+		for (Attribute attribute : attributes) {
+			String attributeToString = attribute.toString();
+			String[] parts = attributeToString.split("=");
+			result.put(parts[0], parts[1]);
+		}
+		return result;
+	}
+
+	/**
 	 * This function has to be used after a DataParsingException. It means that
 	 * the response is not the expected, but it still could be an API response
 	 * (error).
@@ -273,6 +388,25 @@ public class APIWrapper {
 	private String networkGet(URL url) throws APIWrapperException {
 		try {
 			return networkManager.doGet(url);
+		} catch (IOException e) {
+			throw new APIWrapperException(Error.NETWORK_MANAGER, null);
+		}
+	}
+
+	/**
+	 * Tries to perform an HTTP POST operation and returns the result.
+	 * 
+	 * @param url
+	 *            Target.
+	 * @param body
+	 *            Body of the request.
+	 * @return Server response.
+	 * @throws APIWrapperException
+	 *             If there was any problem with the request.
+	 */
+	private String networkPost(URL url, String body) throws APIWrapperException {
+		try {
+			return networkManager.doPost(url, body);
 		} catch (IOException e) {
 			throw new APIWrapperException(Error.NETWORK_MANAGER, null);
 		}
