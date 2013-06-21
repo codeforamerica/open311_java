@@ -25,9 +25,11 @@ public interface NetworkManager {
 	 * 
 	 * @param url
 	 *            Target.
+	 * @param body
+	 *            Body of the POST operation.
 	 * @return Server response.
 	 * @throws IOException
 	 *             If there was any problem with the connection.
 	 */
-	public String doPost(URL url) throws IOException;
+	public String doPost(URL url, String body) throws IOException;
 }

@@ -27,7 +27,7 @@ public class MockNetworkManager implements NetworkManager {
 	}
 
 	@Override
-	public String doPost(URL url) throws IOException {
+	public String doPost(URL url, String body) throws IOException {
 		if (url.toString().contains("requests.xml")) {
 			return postServiceRequestResponseXml();
 		}
