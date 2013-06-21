@@ -13,7 +13,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 /**
- * Test the {@link URLBuilder} class.
+ * Tests the {@link URLBuilder} class.
  * 
  * @author Santiago Munín <santimunin@gmail.com>
  * 
