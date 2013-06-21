@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.codeforamerica.open311.facade.APIWrapper.EndpointType;
 import org.codeforamerica.open311.facade.APIWrapper.Format;
+import org.codeforamerica.open311.facade.data.PostServiceRequestResponse;
 import org.codeforamerica.open311.facade.data.Service;
 import org.codeforamerica.open311.facade.data.ServiceDefinition;
 import org.codeforamerica.open311.facade.data.ServiceRequest;
@@ -73,4 +74,16 @@ public class APIWrapperTest {
 		GlobalTests.serviceRequestsTest(serviceRequests);
 	}
 
+	@Test
+	public void postServiceRequest() throws APIWrapperException {
+		List<PostServiceRequestResponse> responses = wrapper
+				.postServiceRequest("001", 0, 0, null, null);
+		GlobalTests.postServiceRequests(responses);
+		responses = wrapper.postServiceRequest("001", "address_id", "1", null,
+				null);
+		GlobalTests.postServiceRequests(responses);
+		responses = wrapper.postServiceRequest("001", "address_string", "Fake street",
+				null, null);
+		GlobalTests.postServiceRequests(responses);
+	}
 }

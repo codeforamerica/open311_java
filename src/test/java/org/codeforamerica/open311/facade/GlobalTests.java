@@ -10,6 +10,7 @@ import java.util.List;
 import org.codeforamerica.open311.facade.data.Attribute;
 import org.codeforamerica.open311.facade.data.Attribute.Datatype;
 import org.codeforamerica.open311.facade.data.ServiceRequest.Status;
+import org.codeforamerica.open311.facade.data.PostServiceRequestResponse;
 import org.codeforamerica.open311.facade.data.Service;
 import org.codeforamerica.open311.facade.data.ServiceDefinition;
 import org.codeforamerica.open311.facade.data.ServiceRequest;
@@ -106,6 +107,18 @@ public class GlobalTests {
 		assertTrue(sr1.getLongitude() == -122.4651145F);
 		assertEquals(sr1.getMediaUrl(), new URL(
 				"http://city.gov.s3.amazonaws.com/requests/media/638344.jpg"));
+	}
+
+	public static void postServiceRequests(
+			List<PostServiceRequestResponse> responses) {
+		assertEquals(responses.size(), 1);
+		PostServiceRequestResponse response = responses.get(0);
+		assertEquals(response.getAccountId(), "");
+		assertEquals(response.getToken(), "");
+		assertEquals(response.getServiceRequestId(), "293944");
+		assertEquals(
+				response.getServiceNotice(),
+				"The City will inspect and require the responsible party to correct within 24 hours and/or issue a Correction Notice or Notice of Violation of the Public Works Code");
 	}
 
 }

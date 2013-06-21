@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -263,6 +264,12 @@ public class APIWrapper {
 			Map<String, String> optionalArguments, List<Attribute> attributes)
 			throws APIWrapperException {
 		try {
+			if (optionalArguments == null) {
+				optionalArguments = new HashMap<String, String>();
+			}
+			if (attributes == null) {
+				attributes = new LinkedList<Attribute>();
+			}
 			URL url = urlBuilder.buildPostServiceRequestUrl(jurisdictionId);
 			optionalArguments.put("lat", String.valueOf(latitude));
 			optionalArguments.put("long", String.valueOf(longitude));
@@ -279,7 +286,8 @@ public class APIWrapper {
 	 * @param serviceCode
 	 *            Code of the service related to the request.
 	 * @param addressKey
-	 *            Key of the given address parameter (address_id or address)
+	 *            Key of the given address parameter (address_id or
+	 *            address_string)
 	 * @param addressValue
 	 *            Value of the given address.
 	 * @param optionalArguments
@@ -294,6 +302,12 @@ public class APIWrapper {
 			Map<String, String> optionalArguments, List<Attribute> attributes)
 			throws APIWrapperException {
 		try {
+			if (optionalArguments == null) {
+				optionalArguments = new HashMap<String, String>();
+			}
+			if (attributes == null) {
+				attributes = new LinkedList<Attribute>();
+			}
 			URL url = urlBuilder.buildPostServiceRequestUrl(jurisdictionId);
 			optionalArguments.put(addressKey, addressValue);
 			return postServiceRequestInternal(url, optionalArguments,

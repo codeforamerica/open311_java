@@ -154,14 +154,7 @@ public class XMLParserTest {
 		List<PostServiceRequestResponse> list = parser
 				.parsePostServiceRequestResponse(netManager.doPost(new URL(
 						BASE_URL + "/requests.xml"), ""));
-		assertEquals(list.size(), 1);
-		PostServiceRequestResponse response = list.get(0);
-		assertEquals(response.getAccountId(), "");
-		assertEquals(response.getToken(), "");
-		assertEquals(response.getServiceRequestId(), "293944");
-		assertEquals(
-				response.getServiceNotice(),
-				"The City will inspect and require the responsible party to correct within 24 hours and/or issue a Correction Notice or Notice of Violation of the Public Works Code");
+		GlobalTests.postServiceRequests(list);
 	}
 
 	/**
