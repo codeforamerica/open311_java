@@ -1,7 +1,5 @@
 package org.codeforamerica.open311.internals.parsing;
 
-import static org.junit.Assert.assertEquals;
-
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -154,7 +152,7 @@ public class XMLParserTest {
 		List<PostServiceRequestResponse> list = parser
 				.parsePostServiceRequestResponse(netManager.doPost(new URL(
 						BASE_URL + "/requests.xml"), ""));
-		GlobalTests.postServiceRequests(list);
+		GlobalTests.postServiceRequestsTest(list);
 	}
 
 	/**
@@ -178,15 +176,8 @@ public class XMLParserTest {
 			DataParsingException, IOException {
 		DataParser parser = new XMLParser();
 		List<GeoReportV2Error> list = parser.parseGeoReportV2Errors(netManager
-				.doPost(new URL(BASE_URL + "/requests/fail.xml"), ""));
-		assertEquals(list.size(), 2);
-		GeoReportV2Error error1 = list.get(0);
-		assertEquals(error1.getCode(), "403");
-		assertEquals(error1.getDescription(),
-				"Invalid api_key received -- can't proceed with create_request.");
-		GeoReportV2Error error2 = list.get(1);
-		assertEquals(error2.getCode(), "404");
-		assertEquals(error2.getDescription(), "Whatever");
+				.doPost(new URL(BASE_URL + "/requests/simulateAPIError.xml"), ""));
+		GlobalTests.errorTest(list);
 	}
 
 	/**

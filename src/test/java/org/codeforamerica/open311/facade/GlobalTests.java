@@ -9,12 +9,13 @@ import java.util.List;
 
 import org.codeforamerica.open311.facade.data.Attribute;
 import org.codeforamerica.open311.facade.data.Attribute.Datatype;
-import org.codeforamerica.open311.facade.data.ServiceRequest.Status;
 import org.codeforamerica.open311.facade.data.PostServiceRequestResponse;
 import org.codeforamerica.open311.facade.data.Service;
 import org.codeforamerica.open311.facade.data.ServiceDefinition;
 import org.codeforamerica.open311.facade.data.ServiceRequest;
+import org.codeforamerica.open311.facade.data.ServiceRequest.Status;
 import org.codeforamerica.open311.facade.data.ServiceRequestIdResponse;
+import org.codeforamerica.open311.facade.exceptions.GeoReportV2Error;
 import org.codeforamerica.open311.internals.parsing.DateParsingUtils;
 
 /**
@@ -109,7 +110,7 @@ public class GlobalTests {
 				"http://city.gov.s3.amazonaws.com/requests/media/638344.jpg"));
 	}
 
-	public static void postServiceRequests(
+	public static void postServiceRequestsTest(
 			List<PostServiceRequestResponse> responses) {
 		assertEquals(responses.size(), 1);
 		PostServiceRequestResponse response = responses.get(0);
@@ -119,6 +120,20 @@ public class GlobalTests {
 		assertEquals(
 				response.getServiceNotice(),
 				"The City will inspect and require the responsible party to correct within 24 hours and/or issue a Correction Notice or Notice of Violation of the Public Works Code");
+	}
+
+	public static void errorTest(List<GeoReportV2Error> error) {
+
+		assertEquals(error.size(), 2);
+		GeoReportV2Error error1 = error.get(0);
+		assertEquals(error1.getCode(), "403");
+		assertEquals(error1.getDescription(),
+				"Invalid api_key received -- can't proceed with create_request.");
+		assertEquals(error1.toString(), "GeoReportError #403: Invalid api_key received -- can't proceed with create_request.");
+		GeoReportV2Error error2 = error.get(1);
+		assertEquals(error2.getCode(), "404");
+		assertEquals(error2.getDescription(), "Whatever");
+		assertEquals(error2.toString(), "GeoReportError #404: Whatever");
 	}
 
 }

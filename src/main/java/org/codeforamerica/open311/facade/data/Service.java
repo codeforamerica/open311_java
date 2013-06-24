@@ -70,13 +70,14 @@ public class Service {
 		 *         types.
 		 */
 		public static Type getFromString(String type) {
-			if (type.toLowerCase().equals("realtime")) {
+			type = type.toLowerCase();
+			if (type.equals("realtime")) {
 				return REALTIME;
 			}
-			if (type.toLowerCase().equals("batch")) {
+			if (type.equals("batch")) {
 				return BATCH;
 			}
-			if (type.toLowerCase().equals("blackbox")) {
+			if (type.equals("blackbox")) {
 				return BLACKBOX;
 			}
 			return null;

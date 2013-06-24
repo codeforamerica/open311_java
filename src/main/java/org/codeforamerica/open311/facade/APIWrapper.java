@@ -381,10 +381,9 @@ public class APIWrapper {
 	 */
 	private void tryToParseError(String rawData) throws APIWrapperException {
 		try {
-			// TODO check if we need more than one.
-			GeoReportV2Error error = dataParser.parseGeoReportV2Errors(rawData)
-					.get(0);
-			throw new APIWrapperException(Error.GEO_REPORT_V2, error);
+			List<GeoReportV2Error> errors = dataParser
+					.parseGeoReportV2Errors(rawData);
+			throw new APIWrapperException(Error.GEO_REPORT_V2, errors);
 		} catch (DataParsingException ex) {
 			throw new APIWrapperException(Error.DATA_PARSING, null);
 		}

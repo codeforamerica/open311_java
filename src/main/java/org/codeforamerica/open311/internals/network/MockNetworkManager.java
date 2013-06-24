@@ -11,6 +11,12 @@ import java.net.URL;
 public class MockNetworkManager implements NetworkManager {
 	@Override
 	public String doGet(URL url) throws IOException {
+		if (url.toString().contains("simulateIOException")) {
+			throw new IOException();
+		}
+		if (url.toString().contains("simulateAPIError")) {
+			return errorXml();
+		}
 		if (url.toString().contains("services.xml")) {
 			return serviceListXml();
 		}
@@ -28,12 +34,22 @@ public class MockNetworkManager implements NetworkManager {
 
 	@Override
 	public String doPost(URL url, String body) throws IOException {
-		if (url.toString().contains("requests.xml")) {
-			return postServiceRequestResponseXml();
+		if (url.toString().contains("simulateIOException")) {
+			throw new IOException();
 		}
-		if (url.toString().contains("fail.xml")) {
+		if (url.toString().contains("simulateAPIError")) {
 			return errorXml();
 		}
+		if (url.toString().contains("requests.xml")) {
+			// Test api key
+			if (url.toString().contains("api_key")
+					&& url.toString().contains("api_key=key")) {
+				return postServiceRequestResponseXml();
+			} else {
+				return postServiceRequestResponseXml();
+			}
+		}
+
 		return "";
 	}
 
