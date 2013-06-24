@@ -31,25 +31,24 @@ public class URLBuilder {
 	private static final String GET_SERVICE_REQUEST_FROM_A_TOKEN = "tokens";
 	private static final String GET_SERVICE_REQUESTS = "requests";
 	private String baseUrl;
+	private String jurisdictionId;
 	private String format;
 
-	public URLBuilder(String baseUrl, String format) {
+	public URLBuilder(String baseUrl, String jurisdictionId, String format) {
 		this.baseUrl = baseUrl;
+		this.jurisdictionId = jurisdictionId;
 		this.format = format;
 	}
 
 	/**
 	 * Builds a GET Service List URL.
 	 * 
-	 * @param jurisdictionId
-	 *            Required if the same endpoint holds different places.
 	 * @return An URL ready to be accessed.
 	 * @throws MalformedURLException
 	 *             If one of the parts of the url (endpoint's base url,
 	 *             format...) is not correct.
 	 */
-	public URL buildGetServiceListUrl(String jurisdictionId)
-			throws MalformedURLException {
+	public URL buildGetServiceListUrl() throws MalformedURLException {
 		String url = baseUrl + "/" + GET_SERVICE_LIST + "." + format;
 		return new URL(addJurisdictionId(url, jurisdictionId));
 	}
@@ -57,8 +56,6 @@ public class URLBuilder {
 	/**
 	 * Builds a GET Service Definition URL.
 	 * 
-	 * @param jurisdictionId
-	 *            Required if the same endpoint holds different places.
 	 * @param serviceCode
 	 *            Code of the service to find the definition.
 	 * @return An URL ready to be accessed.
@@ -66,8 +63,8 @@ public class URLBuilder {
 	 *             If one of the parts of the url (endpoint's base url,
 	 *             format...) is not correct.
 	 */
-	public URL buildGetServiceDefinitionUrl(String jurisdictionId,
-			String serviceCode) throws MalformedURLException {
+	public URL buildGetServiceDefinitionUrl(String serviceCode)
+			throws MalformedURLException {
 		String url = baseUrl + "/" + GET_SERVICE_DEFINITION + "/" + serviceCode
 				+ "." + format;
 		return new URL(addJurisdictionId(url, jurisdictionId));
@@ -76,16 +73,12 @@ public class URLBuilder {
 	/**
 	 * Builds a POST Service Request URL.
 	 * 
-	 * @param jurisdictionId
-	 *            Required if the same endpoint holds different places.
 	 * @return An URL ready to be accessed.
 	 * @throws MalformedURLException
 	 *             If one of the parts of the url (endpoint's base url,
 	 *             format...) is not correct.
 	 */
-	public URL buildPostServiceRequestUrl(String jurisdictionId)
-			throws MalformedURLException {
-
+	public URL buildPostServiceRequestUrl() throws MalformedURLException {
 		String base = baseUrl + "/" + POST_SERVICE_REQUEST + "." + format;
 		base = addJurisdictionId(base, jurisdictionId);
 		return new URL(base);
@@ -94,8 +87,6 @@ public class URLBuilder {
 	/**
 	 * Builds a GET Service Request ID From Token URL.
 	 * 
-	 * @param jurisdictionId
-	 *            Required if the same endpoint holds different places.
 	 * @param token
 	 *            Token associated to a service request.
 	 * @return An URL ready to be accessed.
@@ -103,8 +94,8 @@ public class URLBuilder {
 	 *             If one of the parts of the url (endpoint's base url,
 	 *             format...) is not correct.
 	 */
-	public URL buildGetServiceRequestIdFromATokenUrl(String jurisdictionId,
-			String token) throws MalformedURLException {
+	public URL buildGetServiceRequestIdFromATokenUrl(String token)
+			throws MalformedURLException {
 		String url = baseUrl + "/" + GET_SERVICE_REQUEST_FROM_A_TOKEN + "/"
 				+ token + "." + format;
 		return new URL(addJurisdictionId(url, jurisdictionId));
@@ -113,8 +104,6 @@ public class URLBuilder {
 	/**
 	 * Builds a GET Service Requests URL.
 	 * 
-	 * @param jurisdictionId
-	 *            Required if the same endpoint holds different places.
 	 * @param arguments
 	 *            Pairs (key, value) of optional arguments
 	 * @return An URL ready to be accessed.
@@ -122,8 +111,8 @@ public class URLBuilder {
 	 *             If one of the parts of the url (endpoint's base url,
 	 *             format...) is not correct.
 	 */
-	public URL buildGetServiceRequests(String jurisdictionId,
-			Map<String, String> arguments) throws MalformedURLException {
+	public URL buildGetServiceRequests(Map<String, String> arguments)
+			throws MalformedURLException {
 		Set<String> validArguments = new HashSet<String>(
 				Arrays.asList(GET_SERVICE_REQUESTS_OPTIONAL_ARGUMENTS));
 		validatearguments(arguments, validArguments);
@@ -137,8 +126,6 @@ public class URLBuilder {
 	/**
 	 * Builds a GET Service Request URL.
 	 * 
-	 * @param jurisdictionId
-	 *            Required if the same endpoint holds different places.
 	 * @param serviceId
 	 *            Id of the service.
 	 * @return An URL ready to be accessed.
@@ -146,7 +133,7 @@ public class URLBuilder {
 	 *             If one of the parts of the url (endpoint's base url,
 	 *             format...) is not correct.
 	 */
-	public URL buildGetServiceRequest(String jurisdictionId, String serviceId)
+	public URL buildGetServiceRequest(String serviceId)
 			throws MalformedURLException {
 		String url = baseUrl + "/" + GET_SERVICE_REQUESTS + "/" + serviceId
 				+ "." + format;

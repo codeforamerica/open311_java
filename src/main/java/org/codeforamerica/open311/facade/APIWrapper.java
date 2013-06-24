@@ -61,7 +61,8 @@ public class APIWrapper {
 		this.networkManager = networkManager;
 		this.jurisdictionId = jurisdictionId;
 		this.apiKey = apiKey;
-		this.urlBuilder = new URLBuilder(endpointUrl, format.toString());
+		this.urlBuilder = new URLBuilder(endpointUrl, this.jurisdictionId,
+				format.toString());
 	}
 
 	public static enum EndpointType {
@@ -113,7 +114,8 @@ public class APIWrapper {
 	 *            New format.
 	 */
 	public void setFormat(Format format) {
-		urlBuilder = new URLBuilder(endpointUrl, format.toString());
+		urlBuilder = new URLBuilder(endpointUrl, jurisdictionId,
+				format.toString());
 
 	}
 
@@ -129,8 +131,7 @@ public class APIWrapper {
 	public List<Service> getServiceList() throws APIWrapperException {
 		String rawServiceListData = "";
 		try {
-			URL serviceListUrl = urlBuilder
-					.buildGetServiceListUrl(jurisdictionId);
+			URL serviceListUrl = urlBuilder.buildGetServiceListUrl();
 			rawServiceListData = networkGet(serviceListUrl);
 			return dataParser.parseServiceList(rawServiceListData);
 		} catch (DataParsingException e) {
@@ -156,8 +157,8 @@ public class APIWrapper {
 			throws APIWrapperException {
 		String rawServiceDefinitionData = "";
 		try {
-			URL serviceDefinitionUrl = urlBuilder.buildGetServiceDefinitionUrl(
-					jurisdictionId, serviceCode);
+			URL serviceDefinitionUrl = urlBuilder
+					.buildGetServiceDefinitionUrl(serviceCode);
 			rawServiceDefinitionData = networkGet(serviceDefinitionUrl);
 			return dataParser.parseServiceDefinition(rawServiceDefinitionData);
 		} catch (DataParsingException e) {
@@ -182,8 +183,7 @@ public class APIWrapper {
 		String rawServiceRequestId = "";
 		try {
 			URL serviceDefinitionUrl = urlBuilder
-					.buildGetServiceRequestIdFromATokenUrl(jurisdictionId,
-							token);
+					.buildGetServiceRequestIdFromATokenUrl(token);
 			rawServiceRequestId = networkGet(serviceDefinitionUrl);
 			return dataParser
 					.parseServiceRequestIdFromAToken(rawServiceRequestId);
@@ -206,8 +206,8 @@ public class APIWrapper {
 			Map<String, String> optionalArguments) throws APIWrapperException {
 		String rawServiceRequests = "";
 		try {
-			URL serviceRequestsUrl = urlBuilder.buildGetServiceRequests(
-					jurisdictionId, optionalArguments);
+			URL serviceRequestsUrl = urlBuilder
+					.buildGetServiceRequests(optionalArguments);
 			rawServiceRequests = networkGet(serviceRequestsUrl);
 			return dataParser.parseServiceRequests(rawServiceRequests);
 		} catch (DataParsingException e) {
@@ -231,8 +231,8 @@ public class APIWrapper {
 			throws APIWrapperException {
 		String rawServiceRequests = "";
 		try {
-			URL serviceRequestsUrl = urlBuilder.buildGetServiceRequest(
-					serviceRequestId, serviceRequestId);
+			URL serviceRequestsUrl = urlBuilder
+					.buildGetServiceRequest(serviceRequestId);
 			rawServiceRequests = networkGet(serviceRequestsUrl);
 			return dataParser.parseServiceRequests(rawServiceRequests);
 		} catch (DataParsingException e) {
@@ -270,7 +270,7 @@ public class APIWrapper {
 			if (attributes == null) {
 				attributes = new LinkedList<Attribute>();
 			}
-			URL url = urlBuilder.buildPostServiceRequestUrl(jurisdictionId);
+			URL url = urlBuilder.buildPostServiceRequestUrl();
 			optionalArguments.put("lat", String.valueOf(latitude));
 			optionalArguments.put("long", String.valueOf(longitude));
 			return postServiceRequestInternal(url, optionalArguments,
@@ -308,7 +308,7 @@ public class APIWrapper {
 			if (attributes == null) {
 				attributes = new LinkedList<Attribute>();
 			}
-			URL url = urlBuilder.buildPostServiceRequestUrl(jurisdictionId);
+			URL url = urlBuilder.buildPostServiceRequestUrl();
 			optionalArguments.put(addressKey, addressValue);
 			return postServiceRequestInternal(url, optionalArguments,
 					attributes);

@@ -23,7 +23,8 @@ public class URLBuilderTest {
 	private static final String BASE_URL = "https://api.city.gov/dev/v2";
 	private static final String FORMAT = "xml";
 	private static final String JURISDICTION_ID = "city.gov";
-	private URLBuilder builder = new URLBuilder(BASE_URL, FORMAT);;
+	private URLBuilder builder = new URLBuilder(BASE_URL, JURISDICTION_ID,
+			FORMAT);
 
 	@BeforeClass
 	public static void testInitialization() {
@@ -38,22 +39,17 @@ public class URLBuilderTest {
 	@Test
 	public void urlBuilderWithoutOptionalArgumentsTest()
 			throws MalformedURLException {
-		assertEquals(
-				builder.buildGetServiceListUrl(JURISDICTION_ID).toString(),
+		assertEquals(builder.buildGetServiceListUrl().toString(),
 				"https://api.city.gov/dev/v2/services.xml?jurisdiction_id="
 						+ JURISDICTION_ID);
-		assertEquals(
-				builder.buildGetServiceDefinitionUrl(JURISDICTION_ID, "033")
-						.toString(),
+		assertEquals(builder.buildGetServiceDefinitionUrl("033").toString(),
 				"https://api.city.gov/dev/v2/services/033.xml?jurisdiction_id="
 						+ JURISDICTION_ID);
-		assertEquals(
-				builder.buildGetServiceRequestIdFromATokenUrl(JURISDICTION_ID,
-						"123456").toString(),
+		assertEquals(builder.buildGetServiceRequestIdFromATokenUrl("123456")
+				.toString(),
 				"https://api.city.gov/dev/v2/tokens/123456.xml?jurisdiction_id="
 						+ JURISDICTION_ID);
-		assertEquals(builder.buildGetServiceRequest(JURISDICTION_ID, "123456")
-				.toString(),
+		assertEquals(builder.buildGetServiceRequest("123456").toString(),
 				"https://api.city.gov/dev/v2/requests/123456.xml?jurisdiction_id="
 						+ JURISDICTION_ID);
 	}
@@ -79,8 +75,7 @@ public class URLBuilderTest {
 		assertTrue(body.contains("ATTRIBUTE[code2]=value2"));
 		assertEquals(StringUtils.countMatches(body, "&"), 5);
 
-		String url = builder.buildPostServiceRequestUrl(JURISDICTION_ID)
-				.toString();
+		String url = builder.buildPostServiceRequestUrl().toString();
 		assertEquals(url,
 				"https://api.city.gov/dev/v2/requests.xml?jurisdiction_id=city.gov");
 		assertEquals(StringUtils.countMatches(url, "&"), 0);
@@ -89,8 +84,7 @@ public class URLBuilderTest {
 		arguments.put("start_date", "2010-05-24T00:00:00Z");
 		arguments.put("end_date", "2010-06-24T00:00:00Z");
 		arguments.put("status", "open");
-		url = builder.buildGetServiceRequests(JURISDICTION_ID, arguments)
-				.toString();
+		url = builder.buildGetServiceRequests(arguments).toString();
 		assertTrue(url.contains("https://api.city.gov/dev/v2/requests.xml?"));
 		assertTrue(url.contains("start_date=2010-05-24T00:00:00Z"));
 		assertTrue(url.contains("end_date=2010-06-24T00:00:00Z"));
