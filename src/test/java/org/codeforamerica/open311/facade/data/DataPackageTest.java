@@ -52,4 +52,27 @@ public class DataPackageTest {
 		assertEquals(ServiceRequest.Status.getFromString("ClosedOpen"), null);
 	}
 
+	@Test
+	public void attributeTypeTest() {
+		assertEquals(Attribute.Datatype.getFromString("string"),
+				Attribute.Datatype.STRING);
+		assertEquals(Attribute.Datatype.getFromString("number"),
+				Attribute.Datatype.NUMBER);
+		assertEquals(Attribute.Datatype.getFromString("datetime"),
+				Attribute.Datatype.DATETIME);
+		assertEquals(Attribute.Datatype.getFromString("text"),
+				Attribute.Datatype.TEXT);
+		assertEquals(Attribute.Datatype.getFromString("singlevaluelist"),
+				Attribute.Datatype.SINGLEVALUELIST);
+		assertEquals(Attribute.Datatype.getFromString("multivaluelist"),
+				Attribute.Datatype.MULTIVALUELIST);
+		assertEquals(Attribute.Datatype.getFromString(""), null);
+		assertEquals(Attribute.Datatype.getFromString("STRING"),
+				Attribute.Datatype.STRING);
+		assertEquals(Attribute.Datatype.getFromString("nUmBer"),
+				Attribute.Datatype.NUMBER);
+		assertEquals(Attribute.Datatype.getFromString("Datetime"),
+				Attribute.Datatype.DATETIME);
+	}
+
 }
