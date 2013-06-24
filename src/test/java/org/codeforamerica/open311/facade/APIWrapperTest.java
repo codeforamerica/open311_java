@@ -40,7 +40,7 @@ public class APIWrapperTest {
 				new MockNetworkManager(), "", "");
 		apierrorWrapper = new APIWrapper("http://www.fakeurl/simulateAPIError",
 				Format.XML, EndpointType.TEST, new XMLParser(),
-				new MockNetworkManager(), "", "");
+				new MockNetworkManager(), "", "key");
 	}
 
 	@AfterClass
@@ -90,7 +90,6 @@ public class APIWrapperTest {
 
 	@Test
 	public void postServiceRequest() throws APIWrapperException {
-		wrapper.setAPIKey("key");
 		List<PostServiceRequestResponse> responses = wrapper
 				.postServiceRequest("001", 0, 0, null, null);
 		GlobalTests.postServiceRequestsTest(responses);

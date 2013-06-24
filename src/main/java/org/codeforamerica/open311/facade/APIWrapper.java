@@ -89,24 +89,6 @@ public class APIWrapper {
 	}
 
 	/**
-	 * Updates the apiKey of the wrapper.
-	 * 
-	 * @param apiKey
-	 */
-	public void setAPIKey(String apiKey) {
-		this.apiKey = apiKey;
-	}
-
-	/**
-	 * Updates the jurisdictionId of the wrapper.
-	 * 
-	 * @param jurisdictionId
-	 */
-	public void setJurisdictionId(String jurisdictionId) {
-		this.jurisdictionId = jurisdictionId;
-	}
-
-	/**
 	 * Updates the format of the wrapper. A new {@link URLBuilder} will be
 	 * instantiated.
 	 * 
