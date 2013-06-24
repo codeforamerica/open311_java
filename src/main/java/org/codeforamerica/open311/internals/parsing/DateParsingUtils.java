@@ -49,5 +49,4 @@ public class DateParsingUtils {
 	public String printDate(Date date) {
 		return dateFormat.print(new DateTime(date));
 	}
-
 }

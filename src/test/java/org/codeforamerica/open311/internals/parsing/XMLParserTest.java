@@ -1,14 +1,20 @@
 package org.codeforamerica.open311.internals.parsing;
 
+import static org.junit.Assert.assertEquals;
+
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.List;
 
+import org.codeforamerica.open311.facade.EndpointType;
+import org.codeforamerica.open311.facade.Format;
 import org.codeforamerica.open311.facade.GlobalTests;
+import org.codeforamerica.open311.facade.data.Endpoint;
 import org.codeforamerica.open311.facade.data.PostServiceRequestResponse;
 import org.codeforamerica.open311.facade.data.Service;
 import org.codeforamerica.open311.facade.data.ServiceDefinition;
+import org.codeforamerica.open311.facade.data.ServiceDiscoveryInfo;
 import org.codeforamerica.open311.facade.data.ServiceRequest;
 import org.codeforamerica.open311.facade.data.ServiceRequestIdResponse;
 import org.codeforamerica.open311.facade.exceptions.DataParsingException;
@@ -176,7 +182,8 @@ public class XMLParserTest {
 			DataParsingException, IOException {
 		DataParser parser = new XMLParser();
 		List<GeoReportV2Error> list = parser.parseGeoReportV2Errors(netManager
-				.doPost(new URL(BASE_URL + "/requests/simulateAPIError.xml"), ""));
+				.doPost(new URL(BASE_URL + "/requests/simulateAPIError.xml"),
+						""));
 		GlobalTests.errorTest(list);
 	}
 
@@ -191,5 +198,32 @@ public class XMLParserTest {
 				+ "/requests.xml"), "")
 				+ "ERRORSTRING";
 		parser.parseGeoReportV2Errors(dataWithError);
+	}
+
+	@Test
+	public void testServiceDiscoveryTest() throws MalformedURLException,
+			IOException, DataParsingException {
+		DataParser parser = new XMLParser();
+		ServiceDiscoveryInfo serviceDiscoveryInfo = parser
+				.parseServiceDiscovery(netManager.doGet(new URL(BASE_URL
+						+ "discovery")));
+		assertEquals(
+				serviceDiscoveryInfo.getContact(),
+				"Please email ( content.311@sfgov.org )  or call ( 415-701-2311 ) for assistance or to report bugs");
+		assertEquals(serviceDiscoveryInfo.getChangeset(), DateParsingUtils
+				.getInstance().parseDate("2011-04-05T17:48:34Z"));
+		assertEquals(
+				serviceDiscoveryInfo.getKeyService(),
+				"To get an API_KEY please visit this website:  http://apps.sfgov.org/Open311API/?page_id=486");
+		List<Endpoint> endpoints = serviceDiscoveryInfo.getEndpoints();
+		assertEquals(endpoints.size(), 4);
+		Endpoint endpoint = endpoints.get(0);
+		assertEquals(endpoint.getBestFormat(), Format.XML);
+		assertEquals(endpoint.getSpecificationUrl(),
+				"http://wiki.open311.org/GeoReport_v2");
+		assertEquals(endpoint.getUrl(), "https://open311.sfgov.org/dev/v2");
+		assertEquals(endpoint.getType(), EndpointType.TEST);
+		assertEquals(endpoint.getChangeset(), DateParsingUtils.getInstance()
+				.parseDate("2011-04-20T17:48:34Z"));
 	}
 }

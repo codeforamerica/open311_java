@@ -5,6 +5,7 @@ import java.util.List;
 import org.codeforamerica.open311.facade.data.PostServiceRequestResponse;
 import org.codeforamerica.open311.facade.data.Service;
 import org.codeforamerica.open311.facade.data.ServiceDefinition;
+import org.codeforamerica.open311.facade.data.ServiceDiscoveryInfo;
 import org.codeforamerica.open311.facade.data.ServiceRequest;
 import org.codeforamerica.open311.facade.data.ServiceRequestIdResponse;
 import org.codeforamerica.open311.facade.exceptions.DataParsingException;
@@ -56,6 +57,14 @@ public interface DataParser {
 	public static final String MEDIA_URL_TAG = "media_url";
 	public static final String ACCOUNT_ID_TAG = "account_id";
 	public static final String ERROR_TAG = "error";
+	public static final String DISCOVERY_TAG = "discovery";
+	public static final String CHANGESET_TAG = "changeset";
+	public static final String CONTACT_TAG = "contact";
+	public static final String KEY_SERVICE_TAG = "key_service";
+	public static final String SPECIFICATION_TAG = "specification";
+	public static final String URL_TAG = "url";
+	public static final String FORMAT_TAG = "format";
+	public static final String ENDPOINT_TAG = "endpoint";
 
 	/**
 	 * Parses the response to the GET service list operation.
@@ -126,5 +135,16 @@ public interface DataParser {
 	 *             If there was any problem parsing the data.
 	 */
 	public List<GeoReportV2Error> parseGeoReportV2Errors(String rawData)
+			throws DataParsingException;
+
+	/**
+	 * Parses a service discovery and returns an object with its information.
+	 * 
+	 * @param rawData
+	 *            Text data.
+	 * @return Service discovery information (endpoints and their formats).
+	 * @throws DataParsingException
+	 */
+	public ServiceDiscoveryInfo parseServiceDiscovery(String rawData)
 			throws DataParsingException;
 }

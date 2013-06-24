@@ -17,6 +17,9 @@ public class MockNetworkManager implements NetworkManager {
 		if (url.toString().contains("simulateAPIError")) {
 			return errorXml();
 		}
+		if (url.toString().contains("discovery")) {
+			return discoveryXml();
+		}
 		if (url.toString().contains("services.xml")) {
 			return serviceListXml();
 		}
@@ -155,5 +158,35 @@ public class MockNetworkManager implements NetworkManager {
 	public String errorXml() {
 		return "<?xml version=\"1.0\" encoding=\"utf-8\"?><errors><error><code>403</code><description>Invalid api_key received -- can't proceed with create_request.</description></error>"
 				+ "<error><code>404</code><description>Whatever</description></error></errors>";
+	}
+	/**
+	 * Mock service discovery.
+	 * @return
+	 */
+	public String discoveryXml() {
+		return "<?xml version=\"1.0\" encoding=\"utf-8\"?><discovery xmlns:m=\"http://org/sfgov/sf311v2/services\" "
+				+ "xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\">"
+				+ "<changeset>2011-04-05T17:48:34Z</changeset><contact>Please email "
+				+ "( content.311@sfgov.org )  or call ( 415-701-2311 ) for assistance "
+				+ "or to report bugs</contact><key_service>To get an API_KEY please "
+				+ "visit this website:  http://apps.sfgov.org/Open311API/?page_id=486"
+				+ "</key_service><endpoints>"
+				+ "<endpoint><specification>http://wiki.open311.org/GeoReport_v2"
+				+ "</specification><url>https://open311.sfgov.org/dev/v2</url>"
+				+ "<changeset>2011-04-20T17:48:34Z</changeset>"
+				+ "<type>test</type><formats><format>text/xml</format></formats>"
+				+ "</endpoint><endpoint><specification>http://wiki.open311.org/GeoReport_v2</specification>"
+				+ "<url>https://open311.sfgov.org/v2</url><changeset>"
+				+ "2011-04-25T17:48:34Z</changeset><type>production</type><formats>"
+				+ "<format>text/xml</format></formats></endpoint>"
+				+ "<endpoint><specification>http://wiki.open311.org/GeoReport_v1</specification>"
+				+ "<url>https://open311.sfgov.org/dev/v1</url>"
+				+ "<changeset>2011-04-20T17:48:34Z</changeset><type>test</type><formats>"
+				+ "<format>text/xml</format></formats></endpoint>"
+				+ "<endpoint><specification>http://wiki.open311.org/GeoReport_v1"
+				+ "</specification><url>https://open311.sfgov.org/v1</url>"
+				+ "<changeset>2011-04-25T17:48:34Z</changeset>"
+				+ "<type>production</type><formats><format>text/xml</format></formats>"
+				+ "</endpoint></endpoints></discovery>";
 	}
 }

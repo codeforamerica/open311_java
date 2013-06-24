@@ -15,11 +15,15 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
+import org.codeforamerica.open311.facade.EndpointType;
+import org.codeforamerica.open311.facade.Format;
 import org.codeforamerica.open311.facade.data.Attribute;
 import org.codeforamerica.open311.facade.data.Attribute.Datatype;
+import org.codeforamerica.open311.facade.data.Endpoint;
 import org.codeforamerica.open311.facade.data.PostServiceRequestResponse;
 import org.codeforamerica.open311.facade.data.Service;
 import org.codeforamerica.open311.facade.data.ServiceDefinition;
+import org.codeforamerica.open311.facade.data.ServiceDiscoveryInfo;
 import org.codeforamerica.open311.facade.data.ServiceRequest;
 import org.codeforamerica.open311.facade.data.ServiceRequest.Status;
 import org.codeforamerica.open311.facade.data.ServiceRequestIdResponse;
@@ -357,6 +361,74 @@ public class XMLParser implements DataParser {
 		String description = getTagContent(geoReportErrorElement,
 				DESCRIPTION_TAG);
 		return new GeoReportV2Error(code, description);
+	}
+
+	@Override
+	public ServiceDiscoveryInfo parseServiceDiscovery(String rawData)
+			throws DataParsingException {
+		try {
+			Document doc = getDocument(rawData);
+			NodeList serviceDiscoveryNodes = doc
+					.getElementsByTagName(DISCOVERY_TAG);
+			for (int i = 0; i < serviceDiscoveryNodes.getLength(); i++) {
+				Node serviceDiscoveryNode = serviceDiscoveryNodes.item(i);
+				if (serviceDiscoveryNode.getNodeType() == Node.ELEMENT_NODE) {
+					Element serviceDiscoveryElement = (Element) serviceDiscoveryNode;
+					Date changeset = DateParsingUtils.getInstance().parseDate(
+							getTagContent(serviceDiscoveryElement,
+									CHANGESET_TAG));
+					String contact = getTagContent(serviceDiscoveryElement,
+							CONTACT_TAG);
+					String keyService = getTagContent(serviceDiscoveryElement,
+							KEY_SERVICE_TAG);
+					return new ServiceDiscoveryInfo(changeset, contact, keyService,
+							parseEndpoints(serviceDiscoveryElement
+									.getElementsByTagName(ENDPOINT_TAG)));
+				}
+			}
+		} catch (Exception e) {
+			throw new DataParsingException();
+		}
+		return null;
+	}
+
+	/**
+	 * Builds a list of endpoints.
+	 * 
+	 * @param endpointsList
+	 *            List of nodes with the "endpoint" tag.
+	 * @return List of endpoints.
+	 */
+	private List<Endpoint> parseEndpoints(NodeList endpointsList) {
+		List<Endpoint> result = new LinkedList<Endpoint>();
+		for (int i = 0; i < endpointsList.getLength(); i++) {
+			Node endpointNode = endpointsList.item(i);
+			if (endpointNode.getNodeType() == Node.ELEMENT_NODE) {
+				Element endpointElement = (Element) endpointNode;
+				String specificationUrl = getTagContent(endpointElement,
+						SPECIFICATION_TAG);
+				String url = getTagContent(endpointElement, URL_TAG);
+				Date changeset = DateParsingUtils.getInstance().parseDate(
+						getTagContent(endpointElement, CHANGESET_TAG));
+				EndpointType type = EndpointType.getFromString(getTagContent(
+						endpointElement, TYPE_TAG));
+				NodeList formatNodes = endpointElement
+						.getElementsByTagName(FORMAT_TAG);
+				List<Format> formats = new LinkedList<Format>();
+				for (int j = 0; j < formatNodes.getLength(); j++) {
+					Node formatNode = formatNodes.item(j);
+					if (formatNode.getNodeType() == Node.ELEMENT_NODE) {
+						Element formatElement = (Element) formatNode;
+						formats.add(Format
+								.getFromContentTypeString(formatElement
+										.getTextContent()));
+					}
+				}
+				result.add(new Endpoint(specificationUrl, url, changeset, type,
+						formats));
+			}
+		}
+		return result;
 	}
 
 	/**
