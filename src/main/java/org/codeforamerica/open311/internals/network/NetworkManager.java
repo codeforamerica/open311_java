@@ -9,6 +9,10 @@ import java.net.URL;
  * @author Santiago Munín <santimunin@gmail.com>
  */
 public interface NetworkManager {
+
+	public static final String POST_CONTENT_TYPE = "application/x-www-form-urlencoded";
+	public static final String CHARSET = "utf-8";
+
 	/**
 	 * Sends a GET HTTP request.
 	 * 

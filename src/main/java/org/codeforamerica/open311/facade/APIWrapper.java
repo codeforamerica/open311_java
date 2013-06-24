@@ -70,16 +70,22 @@ public class APIWrapper {
 	}
 
 	public static enum Format {
-		XML("xml"), JSON("json");
+		XML("xml", "text/xml"), JSON("json", "application/json");
 
 		private String description;
+		private String httpContentType;
 
-		Format(String description) {
+		Format(String description, String httpContentType) {
 			this.description = description;
+			this.httpContentType = httpContentType;
 		}
 
 		public String toString() {
 			return description;
+		}
+
+		public String getHttpContentType() {
+			return httpContentType;
 		}
 
 	}
