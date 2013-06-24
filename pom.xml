@@ -21,7 +21,7 @@
 		<dependency>
 			<groupId>org.apache.httpcomponents</groupId>
 			<artifactId>httpclient</artifactId>
-			<version>4.2.5</version>
+			<version>[4.2.5,)</version>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
@@ -74,7 +74,6 @@
 					<aggregate>true</aggregate>
 					<instrumentation>
 						<excludes>
-							<!-- eg.: -->
 							<exclude>javax/**/*.class</exclude>
 						</excludes>
 					</instrumentation>
