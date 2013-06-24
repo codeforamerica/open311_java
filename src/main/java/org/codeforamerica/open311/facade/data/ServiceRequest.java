@@ -126,6 +126,7 @@ public class ServiceRequest {
 		OPEN, CLOSED;
 
 		public static Status getFromString(String status) {
+			status = status.toLowerCase();
 			if (status.equals("open")) {
 				return OPEN;
 			}
