@@ -65,6 +65,11 @@ public class APIWrapper {
 				format.toString());
 	}
 
+	/**
+	 * Returns a string with some info.
+	 * 
+	 * @return endpointUrl - type.
+	 */
 	public String getWrapperInfo() {
 		return endpointUrl + " - " + type.toString();
 	}
