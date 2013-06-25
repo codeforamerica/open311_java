@@ -51,9 +51,9 @@ public class APIWrapper {
 	 *            Instance of
 	 * @param networkManager
 	 */
-	APIWrapper(String endpointUrl, Format format, EndpointType type,
-			DataParser dataParser, NetworkManager networkManager,
-			String jurisdictionId, String apiKey) {
+	/* package */APIWrapper(String endpointUrl, Format format,
+			EndpointType type, DataParser dataParser,
+			NetworkManager networkManager, String jurisdictionId, String apiKey) {
 		super();
 		this.endpointUrl = endpointUrl;
 		this.type = type;
