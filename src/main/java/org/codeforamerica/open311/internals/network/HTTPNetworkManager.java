@@ -34,7 +34,7 @@ public class HTTPNetworkManager implements NetworkManager {
 	public String doGet(URL url) throws IOException {
 		try {
 			HttpGet httpGet = new HttpGet(url.toURI());
-			httpGet.setHeader("Content-Type", format.getHttpContentType());
+			httpGet.setHeader("Content-Type", format.getHTTPContentType());
 			httpGet.setHeader("charset", CHARSET);
 			ResponseHandler<String> responseHandler = new BasicResponseHandler();
 			return httpClient.execute(httpGet, responseHandler);

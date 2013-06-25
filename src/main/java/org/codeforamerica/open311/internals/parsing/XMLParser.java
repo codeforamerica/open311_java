@@ -420,7 +420,7 @@ public class XMLParser implements DataParser {
 					if (formatNode.getNodeType() == Node.ELEMENT_NODE) {
 						Element formatElement = (Element) formatNode;
 						formats.add(Format
-								.getFromContentTypeString(formatElement
+								.getFromHTTPContentTypeString(formatElement
 										.getTextContent()));
 					}
 				}

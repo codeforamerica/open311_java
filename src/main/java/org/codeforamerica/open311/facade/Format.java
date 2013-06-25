@@ -17,12 +17,16 @@ public enum Format {
 		this.httpContentType = httpContentType;
 	}
 
-	public String toString() {
+	public String getDescription() {
 		return description;
 	}
 
-	public String getHttpContentType() {
+	public String getHTTPContentType() {
 		return httpContentType;
+	}
+
+	public String toString() {
+		return getDescription();
 	}
 
 	/**
@@ -32,7 +36,7 @@ public enum Format {
 	 *            A string representing a content type.
 	 * @return <code>null</code> if the given content type is not allowed.
 	 */
-	public static Format getFromContentTypeString(String contentTypeString) {
+	public static Format getFromHTTPContentTypeString(String contentTypeString) {
 		contentTypeString = contentTypeString.toLowerCase();
 		if (contentTypeString.equals(JSON.httpContentType)) {
 			return Format.JSON;
