@@ -1,4 +1,6 @@
 *.class
+# OSX
+.DS_Store
 
 # Package Files #
 *.jar
