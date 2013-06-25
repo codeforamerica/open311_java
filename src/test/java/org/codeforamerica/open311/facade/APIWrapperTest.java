@@ -5,8 +5,6 @@ import static org.junit.Assert.assertEquals;
 import java.net.MalformedURLException;
 import java.util.List;
 
-import org.codeforamerica.open311.facade.APIWrapper.EndpointType;
-import org.codeforamerica.open311.facade.APIWrapper.Format;
 import org.codeforamerica.open311.facade.data.PostServiceRequestResponse;
 import org.codeforamerica.open311.facade.data.Service;
 import org.codeforamerica.open311.facade.data.ServiceDefinition;

@@ -65,31 +65,6 @@ public class APIWrapper {
 				format.toString());
 	}
 
-	public static enum EndpointType {
-		PRODUCTION, TEST;
-	}
-
-	public static enum Format {
-		XML("xml", "text/xml"), JSON("json", "application/json");
-
-		private String description;
-		private String httpContentType;
-
-		Format(String description, String httpContentType) {
-			this.description = description;
-			this.httpContentType = httpContentType;
-		}
-
-		public String toString() {
-			return description;
-		}
-
-		public String getHttpContentType() {
-			return httpContentType;
-		}
-
-	}
-
 	public String getWrapperInfo() {
 		return endpointUrl + " - " + type.toString();
 	}

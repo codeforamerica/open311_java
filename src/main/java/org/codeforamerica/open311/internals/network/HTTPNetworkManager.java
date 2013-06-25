@@ -11,12 +11,13 @@ import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.BasicResponseHandler;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
-import org.codeforamerica.open311.facade.APIWrapper.Format;
+import org.codeforamerica.open311.facade.Format;
 
 /**
- * Implementation using
+ * Implementation using the <a href="http://hc.apache.org/">Apache
+ * HttpComponents</> library.
  * 
- * @author santi
+ * @author Santiago Munín <santimunin@gmail.com>
  * 
  */
 public class HTTPNetworkManager implements NetworkManager {
