@@ -1,10 +1,21 @@
 language: java
+before_install:
+  - "git clone -b travis `git config --get remote.origin.url` target/travis"
+  - "cp target/travis/settings.xml ~/.m2/settings.xml"
+
+# whitelist
+branches:
+  only:
+    - master
+
 jdk:
   - oraclejdk7
   - openjdk7
   - openjdk6
 
-after_script:  mvn site
+after_success:  mvn site --settings target/travis/settings.xml
 
-secure: "QOgLo5RvKSTI02xiANHdQlk39OunrGBdi25tWbMEvBvmRPSsKok8F4fxSSh7\n1BmvpIy2JRUO6urYNINBLSUqvB0I8dlIrfN1yFajcR5XmNsM6VhFAw5zqOTi\nHFhojPSDyO5MnjYbYicWxfiKk8SOBIB351Ig3mxiMDZQyDJVT0g="
-secure: "IX5jvy61YCy3prXR2OAIn89PbwGHW6q58sYO7ByRKYkYRuYJNb/reuYkjHtw\npHVBEruoEjbxbM87GEIDKBYjuAcBqULxKhPoHy3U/hjexHK3I1EVYWQLAyBo\n+ICMIhGQ0rcci38VzFQxqgImCnUuCHGxw1srMKPzhlTLjI9pLfI="
+env:
+  global:
+    - secure: "LO721rjYfnWYYVN+AxbcjWVLysN44Qt+ehGjl4WmKyrIp0gqhDc2PNtwykrM\n3vJy+I//YQy/m7f43B6qAh+KHY+ol0PCJ0Kcx1IAFZ1HR/yVaro04251sDKv\n3rwcFnqFAR9HEQmKGtCu5S9qLA/hIYDvt0oKWrlrT7N1knufoGY="    
+    - secure: "Z1ehdzAP/BvyO+DiV8U7uQ/gd6QVrc00LCd+/MUKUAWC7N090Zue/X2TErsM\nBQ/FTR+9UmzpE7RqaHRZecjjq4GzhZGaZx4Yg/+ImiGusACmKDbO+FP8KdtI\nmhatnV3/7q4Fl7ttjbwsyDsLcSb/V+tO0o6l9FPlnup7kN2m3fo="
