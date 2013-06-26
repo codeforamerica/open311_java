@@ -3,4 +3,8 @@ jdk:
   - oraclejdk7
   - openjdk7
   - openjdk6
+
 after_script:  mvn site
+
+secure: "QOgLo5RvKSTI02xiANHdQlk39OunrGBdi25tWbMEvBvmRPSsKok8F4fxSSh7\n1BmvpIy2JRUO6urYNINBLSUqvB0I8dlIrfN1yFajcR5XmNsM6VhFAw5zqOTi\nHFhojPSDyO5MnjYbYicWxfiKk8SOBIB351Ig3mxiMDZQyDJVT0g="
+secure: "IX5jvy61YCy3prXR2OAIn89PbwGHW6q58sYO7ByRKYkYRuYJNb/reuYkjHtw\npHVBEruoEjbxbM87GEIDKBYjuAcBqULxKhPoHy3U/hjexHK3I1EVYWQLAyBo\n+ICMIhGQ0rcci38VzFQxqgImCnUuCHGxw1srMKPzhlTLjI9pLfI="
