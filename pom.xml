@@ -7,17 +7,34 @@
 	<version>0.1</version>
 	<name>Open311 GeoReport wrapper</name>
 	<url>https://github.com/codeforamerica/open311_java</url>
-	<properties>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-		<github.global.server>github</github.global.server>
-	</properties>
+
 	<scm>
 		<connection>scm:git:git@github.com:codeforamerica/open311_java.git</connection>
 		<developerConnection>scm:git:git@github.com:codeforamerica/open311_java.git</developerConnection>
 		<url>https://github.com/codeforamerica/open311_java</url>
 		<tag>HEAD</tag>
 	</scm>
+
+	<issueManagement>
+		<url>https://github.com/codeforamerica/open311_java/issues</url>
+		<system>GitHub Issues</system>
+	</issueManagement>
+
+	<developers>
+		<developer>
+			<email>santimunin@gmail.com</email>
+			<name>Santiago Munín</name>
+			<url>https://github.com/santimunin</url>
+			<id>santimunin</id>
+		</developer>
+	</developers>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+		<github.global.server>github</github.global.server>
+	</properties>
+
 	<dependencies>
 		<dependency>
 			<groupId>junit</groupId>
