@@ -8,13 +8,13 @@ package org.codeforamerica.open311.facade.data;
  * @author Santiago Munín <santimunin@gmail.com>
  * 
  */
-public class PostServiceRequestResponse {
+public class POSTServiceRequestResponse {
 	private String serviceRequestId;
 	private String token;
 	private String serviceNotice;
 	private String accountId;
 
-	public PostServiceRequestResponse(String serviceRequestId, String token,
+	public POSTServiceRequestResponse(String serviceRequestId, String token,
 			String serviceNotice, String accountId) {
 		super();
 		this.serviceRequestId = serviceRequestId;

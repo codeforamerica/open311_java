@@ -11,7 +11,7 @@ import org.codeforamerica.open311.facade.EndpointType;
 import org.codeforamerica.open311.facade.Format;
 import org.codeforamerica.open311.facade.GlobalTests;
 import org.codeforamerica.open311.facade.data.Endpoint;
-import org.codeforamerica.open311.facade.data.PostServiceRequestResponse;
+import org.codeforamerica.open311.facade.data.POSTServiceRequestResponse;
 import org.codeforamerica.open311.facade.data.Service;
 import org.codeforamerica.open311.facade.data.ServiceDefinition;
 import org.codeforamerica.open311.facade.data.ServiceDiscoveryInfo;
@@ -155,7 +155,7 @@ public class XMLParserTest {
 	public void postServiceRequestResponseTest() throws MalformedURLException,
 			IOException, DataParsingException {
 		DataParser parser = new XMLParser();
-		List<PostServiceRequestResponse> list = parser
+		List<POSTServiceRequestResponse> list = parser
 				.parsePostServiceRequestResponse(netManager.doPost(new URL(
 						BASE_URL + "/requests.xml"), ""));
 		GlobalTests.postServiceRequestsTest(list);

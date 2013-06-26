@@ -2,28 +2,9 @@ package org.codeforamerica.open311.internals.network;
 
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.Arrays;
-import java.util.HashSet;
 import java.util.Map;
-import java.util.Set;
 
 public class URLBuilder {
-
-	/**
-	 * List of the possible optional arguments of the POST Service Request
-	 * operation.
-	 */
-	private static final String[] POST_SERVICE_REQUEST_OPTIONAL_ARGUMENTS = {
-			"api_key", "lat", "long", "address_id", "address_string", "email",
-			"device_id", "account_id", "first_name", "last_name", "phone",
-			"description", "media_url" };
-	/**
-	 * List of the possible optional arguments of the GET Service Requests
-	 * operation.
-	 */
-	private static final String[] GET_SERVICE_REQUESTS_OPTIONAL_ARGUMENTS = {
-			"service_request_id", "service_code", "start_date", "end_date",
-			"status" };
 
 	private static final String GET_SERVICE_LIST = "services";
 	private static final String GET_SERVICE_DEFINITION = "services";
@@ -113,9 +94,6 @@ public class URLBuilder {
 	 */
 	public URL buildGetServiceRequests(Map<String, String> arguments)
 			throws MalformedURLException {
-		Set<String> validArguments = new HashSet<String>(
-				Arrays.asList(GET_SERVICE_REQUESTS_OPTIONAL_ARGUMENTS));
-		validatearguments(arguments, validArguments);
 		if (jurisdictionId.length() > 0) {
 			arguments.put("jurisdiction_id", jurisdictionId);
 		}
@@ -154,33 +132,8 @@ public class URLBuilder {
 	 */
 	public String buildPostServiceRequestBody(Map<String, String> arguments,
 			Map<String, String> attributes) throws MalformedURLException {
-		Set<String> validArguments = new HashSet<String>(
-				Arrays.asList(POST_SERVICE_REQUEST_OPTIONAL_ARGUMENTS));
-		validatearguments(arguments, validArguments);
 		arguments.putAll(attributes);
 		return buildParameterString(arguments);
-	}
-
-	/**
-	 * Checks if any given argument is not valid.
-	 * 
-	 * @param givenArguments
-	 *            Arguments given to the operation.
-	 * @param allowedArguments
-	 *            Set of all the valid arguments of an operation.
-	 * @throws MalformedURLException
-	 *             If any of the given arguments is not valid.
-	 */
-	private void validatearguments(Map<String, String> givenArguments,
-			Set<String> allowedArguments) throws MalformedURLException {
-		if (givenArguments != null) {
-			for (String key : givenArguments.keySet()) {
-				if (!allowedArguments.contains(key)) {
-					throw new MalformedURLException(
-							"Invalid optional argument: " + key);
-				}
-			}
-		}
 	}
 
 	/**

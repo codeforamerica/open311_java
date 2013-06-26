@@ -6,13 +6,14 @@ import static org.junit.Assert.assertTrue;
 import java.net.MalformedURLException;
 import java.util.List;
 
-import org.codeforamerica.open311.facade.data.PostServiceRequestResponse;
+import org.codeforamerica.open311.facade.data.POSTServiceRequestResponse;
 import org.codeforamerica.open311.facade.data.Service;
 import org.codeforamerica.open311.facade.data.ServiceDefinition;
 import org.codeforamerica.open311.facade.data.ServiceRequest;
 import org.codeforamerica.open311.facade.data.ServiceRequest.Status;
 import org.codeforamerica.open311.facade.data.ServiceRequestIdResponse;
 import org.codeforamerica.open311.facade.data.operations.GETServiceRequestsFilter;
+import org.codeforamerica.open311.facade.data.operations.POSTServiceRequestData;
 import org.codeforamerica.open311.facade.exceptions.APIWrapperException;
 import org.codeforamerica.open311.internals.network.MockNetworkManager;
 import org.codeforamerica.open311.internals.parsing.DataParser;
@@ -87,8 +88,9 @@ public class APIWrapperTest {
 						.setServiceRequestId("").setServiceRequestId(null)
 						.getOptionalParametersMap()));
 		filter = filter.setStatus(Status.OPEN);
-		assertTrue(filter.getOptionalParametersMap().containsKey(DataParser.STATUS_TAG));
-		assertTrue(filter.getOptionalParametersMap().containsValue("open"));
+		assertTrue(filter.getOptionalParametersMap().containsKey(
+				DataParser.STATUS_TAG));
+		assertEquals(filter.getOptionalParametersMap().get("status"), "open");
 		List<ServiceRequest> serviceRequests = wrapper.getServiceRequests(null);
 		GlobalTests.serviceRequestsTest(serviceRequests);
 	}
@@ -102,29 +104,51 @@ public class APIWrapperTest {
 
 	@Test
 	public void postServiceRequest() throws APIWrapperException {
-		List<PostServiceRequestResponse> responses = wrapper
-				.postServiceRequest("001", 0, 0, null, null);
-		GlobalTests.postServiceRequestsTest(responses);
-		responses = wrapper.postServiceRequest("001", "address_id", "1", null,
+
+		POSTServiceRequestData postData = new POSTServiceRequestData("001", 1,
 				null);
+		assertEquals(postData.getBodyRequestParameters(),
+				postData.setAddress("").setDescription("").setDeviceId("")
+						.setMediaUrl("").getBodyRequestParameters());
+		assertEquals(postData.getBodyRequestParameters().get("address_id"), "1");
+		assertEquals(postData.getBodyRequestParameters().size(), 2);
+		List<POSTServiceRequestResponse> responses = wrapper
+				.postServiceRequest(postData);
 		GlobalTests.postServiceRequestsTest(responses);
-		responses = wrapper.postServiceRequest("001", "address_string",
-				"Fake street", null, null);
+
+		postData = new POSTServiceRequestData("001", "address!", null);
+		assertEquals(postData.getBodyRequestParameters().size(), 2);
+		assertEquals(postData.getBodyRequestParameters().get("address"),
+				"address!");
+		responses = wrapper.postServiceRequest(postData);
+		GlobalTests.postServiceRequestsTest(responses);
+
+		postData = new POSTServiceRequestData("001", 12F, 8F, null);
+		assertEquals(postData.getBodyRequestParameters().size(), 3);
+		assertTrue(Float
+				.valueOf(postData.getBodyRequestParameters().get("lat")) == 12F);
+		assertTrue(Float.valueOf(postData.getBodyRequestParameters()
+				.get("long")) == 8F);
+		assertEquals(postData.setDeviceId("device id works!")
+				.getBodyRequestParameters().get("device_id"),
+				"device id works!");
+		responses = wrapper.postServiceRequest(postData);
 		GlobalTests.postServiceRequestsTest(responses);
 	}
 
 	@Test(expected = APIWrapperException.class)
 	public void postServiceRequestWithIOException() throws APIWrapperException {
-		errorWrapper.postServiceRequest("001", 0, 0, null, null);
+		errorWrapper.postServiceRequest(new POSTServiceRequestData("001", 0,
+				null));
 	}
 
 	@Test
 	public void apiErrorTest() {
 		try {
-			apierrorWrapper.postServiceRequest("001", 0, 0, null, null);
+			apierrorWrapper.postServiceRequest(new POSTServiceRequestData(
+					"001", 0, null));
 		} catch (APIWrapperException e) {
 			GlobalTests.errorTest(e.getGeoReportErrors());
 		}
 	}
-
 }

@@ -9,7 +9,7 @@ import java.util.List;
 
 import org.codeforamerica.open311.facade.data.Attribute;
 import org.codeforamerica.open311.facade.data.Attribute.Datatype;
-import org.codeforamerica.open311.facade.data.PostServiceRequestResponse;
+import org.codeforamerica.open311.facade.data.POSTServiceRequestResponse;
 import org.codeforamerica.open311.facade.data.Service;
 import org.codeforamerica.open311.facade.data.ServiceDefinition;
 import org.codeforamerica.open311.facade.data.ServiceRequest;
@@ -111,9 +111,9 @@ public class GlobalTests {
 	}
 
 	public static void postServiceRequestsTest(
-			List<PostServiceRequestResponse> responses) {
+			List<POSTServiceRequestResponse> responses) {
 		assertEquals(responses.size(), 1);
-		PostServiceRequestResponse response = responses.get(0);
+		POSTServiceRequestResponse response = responses.get(0);
 		assertEquals(response.getAccountId(), "");
 		assertEquals(response.getToken(), "");
 		assertEquals(response.getServiceRequestId(), "293944");

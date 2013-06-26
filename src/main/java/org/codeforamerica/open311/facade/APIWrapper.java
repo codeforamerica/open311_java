@@ -9,16 +9,18 @@ import java.util.List;
 import java.util.Map;
 
 import org.codeforamerica.open311.facade.data.Attribute;
-import org.codeforamerica.open311.facade.data.PostServiceRequestResponse;
+import org.codeforamerica.open311.facade.data.POSTServiceRequestResponse;
 import org.codeforamerica.open311.facade.data.Service;
 import org.codeforamerica.open311.facade.data.ServiceDefinition;
 import org.codeforamerica.open311.facade.data.ServiceRequest;
 import org.codeforamerica.open311.facade.data.ServiceRequestIdResponse;
 import org.codeforamerica.open311.facade.data.operations.GETServiceRequestsFilter;
+import org.codeforamerica.open311.facade.data.operations.POSTServiceRequestData;
 import org.codeforamerica.open311.facade.exceptions.APIWrapperException;
 import org.codeforamerica.open311.facade.exceptions.APIWrapperException.Error;
 import org.codeforamerica.open311.facade.exceptions.DataParsingException;
 import org.codeforamerica.open311.facade.exceptions.GeoReportV2Error;
+import org.codeforamerica.open311.facade.exceptions.InvalidValueError;
 import org.codeforamerica.open311.internals.network.NetworkManager;
 import org.codeforamerica.open311.internals.network.URLBuilder;
 import org.codeforamerica.open311.internals.parsing.DataParser;
@@ -220,70 +222,25 @@ public class APIWrapper {
 	/**
 	 * Performs a POST Service Request operation.
 	 * 
-	 * @param serviceCode
-	 *            Code of the service related to the request.
-	 * @param latitude
-	 *            Latitude coordinate.
-	 * @param longitude
-	 *            Longitude coordinate.
-	 * @param optionalArguments
-	 *            List of pairs (key, value)
-	 * @param attributes
-	 * @return A list of responses.
+	 * @param operationData
+	 *            An object with all the desired parameters and attributes to be
+	 *            sents.
+	 * @return A list of responses
 	 * @throws APIWrapperException
 	 *             If there was any problem.
 	 */
-	public List<PostServiceRequestResponse> postServiceRequest(
-			String serviceCode, float latitude, float longitude,
-			Map<String, String> optionalArguments, List<Attribute> attributes)
-			throws APIWrapperException {
-		try {
-			if (optionalArguments == null) {
-				optionalArguments = new HashMap<String, String>();
-			}
-			if (attributes == null) {
-				attributes = new LinkedList<Attribute>();
-			}
-			URL url = urlBuilder.buildPostServiceRequestUrl();
-			optionalArguments.put("lat", String.valueOf(latitude));
-			optionalArguments.put("long", String.valueOf(longitude));
-			return postServiceRequestInternal(url, optionalArguments,
-					attributes);
-		} catch (MalformedURLException e) {
-			throw new APIWrapperException(Error.URL_BUILDER, null);
+	public List<POSTServiceRequestResponse> postServiceRequest(
+			POSTServiceRequestData operationData) throws APIWrapperException {
+		if (operationData == null) {
+			throw new InvalidValueError("The given parameter is null");
 		}
-	}
-
-	/**
-	 * Performs a POST Service Request operation.
-	 * 
-	 * @param serviceCode
-	 *            Code of the service related to the request.
-	 * @param addressKey
-	 *            Key of the given address parameter (address_id or
-	 *            address_string)
-	 * @param addressValue
-	 *            Value of the given address.
-	 * @param optionalArguments
-	 *            List of pairs (key, value)
-	 * @param attributes
-	 * @return A list of responses.
-	 * @throws APIWrapperException
-	 *             If there was any problem.
-	 */
-	public List<PostServiceRequestResponse> postServiceRequest(
-			String serviceCode, String addressKey, String addressValue,
-			Map<String, String> optionalArguments, List<Attribute> attributes)
-			throws APIWrapperException {
+		Map<String, String> optionalArguments = operationData
+				.getBodyRequestParameters() != null ? operationData
+				.getBodyRequestParameters() : new HashMap<String, String>();
+		List<Attribute> attributes = operationData.getAttributes() != null ? operationData
+				.getAttributes() : new LinkedList<Attribute>();
 		try {
-			if (optionalArguments == null) {
-				optionalArguments = new HashMap<String, String>();
-			}
-			if (attributes == null) {
-				attributes = new LinkedList<Attribute>();
-			}
 			URL url = urlBuilder.buildPostServiceRequestUrl();
-			optionalArguments.put(addressKey, addressValue);
 			return postServiceRequestInternal(url, optionalArguments,
 					attributes);
 		} catch (MalformedURLException e) {
@@ -306,7 +263,7 @@ public class APIWrapper {
 	 * @throws MalformedURLException
 	 *             If any attribute is not valid.
 	 */
-	private List<PostServiceRequestResponse> postServiceRequestInternal(
+	private List<POSTServiceRequestResponse> postServiceRequestInternal(
 			URL url, Map<String, String> arguments, List<Attribute> attributes)
 			throws APIWrapperException, MalformedURLException {
 		if (apiKey.length() > 0) {

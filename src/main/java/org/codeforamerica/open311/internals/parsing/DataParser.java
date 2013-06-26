@@ -2,7 +2,7 @@ package org.codeforamerica.open311.internals.parsing;
 
 import java.util.List;
 
-import org.codeforamerica.open311.facade.data.PostServiceRequestResponse;
+import org.codeforamerica.open311.facade.data.POSTServiceRequestResponse;
 import org.codeforamerica.open311.facade.data.Service;
 import org.codeforamerica.open311.facade.data.ServiceDefinition;
 import org.codeforamerica.open311.facade.data.ServiceDiscoveryInfo;
@@ -67,6 +67,11 @@ public interface DataParser {
 	public static final String ENDPOINT_TAG = "endpoint";
 	public static final String START_DATE_TAG = "start_date";
 	public static final String END_DATE_TAG = "end_date";
+	public static final String EMAIL_TAG = "email";
+	public static final String DEVICE_ID_TAG = "device_id";
+	public static final String FIRST_NAME_TAG = "first_name";
+	public static final String LAST_NAME_TAG = "last_name";
+	public static final String PHONE_TAG = "phone";
 
 	/**
 	 * Parses the response to the GET service list operation.
@@ -124,7 +129,7 @@ public interface DataParser {
 	 * @throws DataParsingException
 	 *             If there was any problem parsing the data.
 	 */
-	public List<PostServiceRequestResponse> parsePostServiceRequestResponse(
+	public List<POSTServiceRequestResponse> parsePostServiceRequestResponse(
 			String rawData) throws DataParsingException;
 
 	/**

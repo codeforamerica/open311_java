@@ -20,7 +20,7 @@ import org.codeforamerica.open311.facade.Format;
 import org.codeforamerica.open311.facade.data.Attribute;
 import org.codeforamerica.open311.facade.data.Attribute.Datatype;
 import org.codeforamerica.open311.facade.data.Endpoint;
-import org.codeforamerica.open311.facade.data.PostServiceRequestResponse;
+import org.codeforamerica.open311.facade.data.POSTServiceRequestResponse;
 import org.codeforamerica.open311.facade.data.Service;
 import org.codeforamerica.open311.facade.data.ServiceDefinition;
 import org.codeforamerica.open311.facade.data.ServiceDiscoveryInfo;
@@ -285,9 +285,9 @@ public class XMLParser implements DataParser {
 	}
 
 	@Override
-	public List<PostServiceRequestResponse> parsePostServiceRequestResponse(
+	public List<POSTServiceRequestResponse> parsePostServiceRequestResponse(
 			String rawData) throws DataParsingException {
-		List<PostServiceRequestResponse> result = new LinkedList<PostServiceRequestResponse>();
+		List<POSTServiceRequestResponse> result = new LinkedList<POSTServiceRequestResponse>();
 		try {
 			Document doc = getDocument(rawData);
 			NodeList serviceRequestsIdList = doc
@@ -305,7 +305,7 @@ public class XMLParser implements DataParser {
 	}
 
 	/**
-	 * Builds a {@link PostServiceRequestResponse} object from an
+	 * Builds a {@link POSTServiceRequestResponse} object from an
 	 * {@link Element} of the DOM.
 	 * 
 	 * @param postServiceRequestResponseElement
@@ -313,7 +313,7 @@ public class XMLParser implements DataParser {
 	 * @return An object wrapping the information contained in the given
 	 *         element.
 	 */
-	private PostServiceRequestResponse getPostServiceRequestResponse(
+	private POSTServiceRequestResponse getPostServiceRequestResponse(
 			Element postServiceRequestResponseElement) {
 		String token = getTagContent(postServiceRequestResponseElement,
 				TOKEN_TAG);
@@ -323,7 +323,7 @@ public class XMLParser implements DataParser {
 				SERVICE_NOTICE_TAG);
 		String accountId = getTagContent(postServiceRequestResponseElement,
 				ACCOUNT_ID_TAG);
-		return new PostServiceRequestResponse(serviceRequestId, token,
+		return new POSTServiceRequestResponse(serviceRequestId, token,
 				serviceNotice, accountId);
 	}
 
