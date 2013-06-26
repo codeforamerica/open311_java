@@ -14,6 +14,7 @@ import org.codeforamerica.open311.facade.data.Service;
 import org.codeforamerica.open311.facade.data.ServiceDefinition;
 import org.codeforamerica.open311.facade.data.ServiceRequest;
 import org.codeforamerica.open311.facade.data.ServiceRequestIdResponse;
+import org.codeforamerica.open311.facade.data.operations.GETServiceRequestsFilter;
 import org.codeforamerica.open311.facade.exceptions.APIWrapperException;
 import org.codeforamerica.open311.facade.exceptions.APIWrapperException.Error;
 import org.codeforamerica.open311.facade.exceptions.DataParsingException;
@@ -164,18 +165,23 @@ public class APIWrapper {
 	}
 
 	/**
-	 * GET Service Requests operation.
+	 * Retrieves all the service requests which accord to the given data.
 	 * 
+	 * @param operationData
+	 *            An object with all the desired optional filtering parameters
+	 *            to send.
 	 * @return A list of service requests.
 	 * @throws APIWrapperException
 	 *             If there was any problem.
 	 */
 	public List<ServiceRequest> getServiceRequests(
-			Map<String, String> optionalArguments) throws APIWrapperException {
+			GETServiceRequestsFilter operationData) throws APIWrapperException {
 		String rawServiceRequests = "";
 		try {
-			URL serviceRequestsUrl = urlBuilder
-					.buildGetServiceRequests(optionalArguments);
+			URL serviceRequestsUrl = operationData != null ? urlBuilder
+					.buildGetServiceRequests(operationData
+							.getOptionalParametersMap()) : urlBuilder
+					.buildGetServiceRequests(null);
 			rawServiceRequests = networkGet(serviceRequestsUrl);
 			return dataParser.parseServiceRequests(rawServiceRequests);
 		} catch (DataParsingException e) {

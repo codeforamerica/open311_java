@@ -135,5 +135,9 @@ public class ServiceRequest {
 			}
 			return null;
 		}
+
+		public String toString() {
+			return this.name().toLowerCase();
+		}
 	}
 }

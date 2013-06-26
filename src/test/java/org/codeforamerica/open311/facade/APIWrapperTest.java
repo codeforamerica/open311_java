@@ -1,6 +1,7 @@
 package org.codeforamerica.open311.facade;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import java.net.MalformedURLException;
 import java.util.List;
@@ -9,9 +10,12 @@ import org.codeforamerica.open311.facade.data.PostServiceRequestResponse;
 import org.codeforamerica.open311.facade.data.Service;
 import org.codeforamerica.open311.facade.data.ServiceDefinition;
 import org.codeforamerica.open311.facade.data.ServiceRequest;
+import org.codeforamerica.open311.facade.data.ServiceRequest.Status;
 import org.codeforamerica.open311.facade.data.ServiceRequestIdResponse;
+import org.codeforamerica.open311.facade.data.operations.GETServiceRequestsFilter;
 import org.codeforamerica.open311.facade.exceptions.APIWrapperException;
 import org.codeforamerica.open311.internals.network.MockNetworkManager;
+import org.codeforamerica.open311.internals.parsing.DataParser;
 import org.codeforamerica.open311.internals.parsing.XMLParser;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
@@ -75,6 +79,16 @@ public class APIWrapperTest {
 	@Test
 	public void getServiceRequests() throws APIWrapperException,
 			MalformedURLException {
+		GETServiceRequestsFilter filter = new GETServiceRequestsFilter();
+		// Null parameters or empty strings doesn't count
+		assertTrue(filter.getOptionalParametersMap().equals(
+				filter.setEndDate(null).setStartDate(null).setServiceCode("")
+						.setServiceCode(null).setStatus(null)
+						.setServiceRequestId("").setServiceRequestId(null)
+						.getOptionalParametersMap()));
+		filter = filter.setStatus(Status.OPEN);
+		assertTrue(filter.getOptionalParametersMap().containsKey(DataParser.STATUS_TAG));
+		assertTrue(filter.getOptionalParametersMap().containsValue("open"));
 		List<ServiceRequest> serviceRequests = wrapper.getServiceRequests(null);
 		GlobalTests.serviceRequestsTest(serviceRequests);
 	}

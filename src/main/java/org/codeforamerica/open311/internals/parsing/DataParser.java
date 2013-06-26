@@ -65,6 +65,8 @@ public interface DataParser {
 	public static final String URL_TAG = "url";
 	public static final String FORMAT_TAG = "format";
 	public static final String ENDPOINT_TAG = "endpoint";
+	public static final String START_DATE_TAG = "start_date";
+	public static final String END_DATE_TAG = "end_date";
 
 	/**
 	 * Parses the response to the GET service list operation.
