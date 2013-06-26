@@ -1,4 +1,4 @@
-org.codeforamerica.open311.internals.parsing
-org.codeforamerica.open311.internals.network
-org.codeforamerica.open311.facade.data
 org.codeforamerica.open311.facade
+org.codeforamerica.open311.facade.data
+org.codeforamerica.open311.internals.network
+org.codeforamerica.open311.internals.parsing
