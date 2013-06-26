@@ -7,6 +7,7 @@ import java.net.URL;
 import org.codeforamerica.open311.facade.data.Endpoint;
 import org.codeforamerica.open311.facade.data.ServiceDiscoveryInfo;
 import org.codeforamerica.open311.facade.exceptions.APIWrapperException;
+import org.codeforamerica.open311.facade.exceptions.APIWrapperException.Error;
 import org.codeforamerica.open311.facade.exceptions.DataParsingException;
 import org.codeforamerica.open311.internals.network.HTTPNetworkManager;
 import org.codeforamerica.open311.internals.network.HTTPNetworkManagerFactory;
@@ -14,24 +15,78 @@ import org.codeforamerica.open311.internals.network.NetworkManager;
 import org.codeforamerica.open311.internals.network.NetworkManagerFactory;
 import org.codeforamerica.open311.internals.parsing.DataParser;
 import org.codeforamerica.open311.internals.parsing.DataParserFactory;
-import org.codeforamerica.open311.facade.exceptions.APIWrapperException.Error;
 
 /**
  * Builds {@link APIWrapper} instances from different aspects of the system and
- * the chosen city.
+ * the chosen city. To set the optional parameters, use the setter methods and,
+ * then, <code>build</code>.
  * 
  * @author Santiago Munin <santimunin@gmail.com>
  * 
  */
 public class APIWrapperFactory {
 
-	private static APIWrapperFactory instance = new APIWrapperFactory();
+	private City city;
+	private EndpointType endpointType = EndpointType.PRODUCTION;
+	private String apiKey = "";
+	private NetworkManagerFactory networkManagerFactory = new HTTPNetworkManagerFactory();
 
-	private APIWrapperFactory() {
+	public APIWrapperFactory(City city) {
+		this.city = city;
 	}
 
-	public static APIWrapperFactory getInstance() {
-		return instance;
+	/**
+	 * Sets the endpoint type. <code>PRODUCTION</code> type is chosen by
+	 * default.
+	 * 
+	 * @param endpointType
+	 *            Desired type of the endpoint.
+	 * @return The same instance with the new specified endpoint type.
+	 */
+	public APIWrapperFactory setEndpointType(EndpointType endpointType) {
+		this.endpointType = endpointType;
+		return this;
+	}
+
+	/**
+	 * Sets the api key. <code>""</code> by default.
+	 * 
+	 * @param apiKey
+	 *            Api key for the endpoint.
+	 * @return The same instance with the new specified api key.
+	 */
+	public APIWrapperFactory setApiKey(String apiKey) {
+		this.apiKey = apiKey;
+		return this;
+	}
+
+	/**
+	 * Sets a custom {@link NetworkManagerFactory}, useful if you need to use
+	 * mocks or a platform-dependent network client which you can build
+	 * implementing the {@link NetworkManager} interface.
+	 * 
+	 * @param networkManagerFactory
+	 *            {@link NetworkManagerFactory} which builds the desired
+	 *            {@link NetworkManager}.
+	 * @return The same instance with the new specified
+	 *         {@link NetworkManagerFactory}.
+	 */
+	public APIWrapperFactory setNetworkManagerFactory(
+			NetworkManagerFactory networkManagerFactory) {
+		this.networkManagerFactory = networkManagerFactory;
+		return this;
+	}
+
+	/**
+	 * Builds an {@link APIWrapper}. <b>NOTE</b>: This operation could require
+	 * some time to be done (it involves network operations).
+	 * 
+	 * @return An instance built from the given parameters to this objects.
+	 * @throws APIWrapperException
+	 *             If there was any problem.
+	 */
+	public APIWrapper build() throws APIWrapperException {
+		return buildWrapper(city, endpointType, apiKey, networkManagerFactory);
 	}
 
 	/**
@@ -55,7 +110,7 @@ public class APIWrapperFactory {
 	 * @throws APIWrapperException
 	 *             If there was any problem.
 	 */
-	public APIWrapper buildWrapper(City city, EndpointType endpointType,
+	private APIWrapper buildWrapper(City city, EndpointType endpointType,
 			String apiKey, NetworkManagerFactory networkManagerFactory)
 			throws APIWrapperException {
 		try {
@@ -84,30 +139,5 @@ public class APIWrapperFactory {
 		} catch (IOException e) {
 			throw new APIWrapperException(Error.NETWORK_MANAGER, null);
 		}
-	}
-
-	/**
-	 * Builds an {@link APIWrapper}. <b>NOTE</b>: This operation could require
-	 * some time to be done (it involves network operations).
-	 * 
-	 * @param city
-	 *            Desired city to work with.
-	 * @param endpointType
-	 *            Type of the desired endpoint (useful if you need, for example,
-	 *            a dev one to test your application).
-	 * @param apiKey
-	 *            Api key which allows to perform some operations. If you need
-	 *            one, go to the <a
-	 *            href="http://wiki.open311.org/GeoReport_v2/Servers">list of
-	 *            servers</a> and request it.
-	 * @return An instance suited to the given parameters.
-	 * 
-	 * @throws APIWrapperException
-	 *             If there was any problem.
-	 */
-	public APIWrapper buildWrapper(City city, EndpointType endpointType,
-			String apiKey) throws APIWrapperException {
-		return buildWrapper(city, endpointType, apiKey,
-				new HTTPNetworkManagerFactory());
 	}
 }
