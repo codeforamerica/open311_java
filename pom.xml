@@ -31,6 +31,12 @@
 	<inceptionYear>2013</inceptionYear>
 	<developers>
 		<developer>
+			<id>ycombinator</id>
+			<name>Shaunak Kashyap</name>
+			<email>shaunak@codeforamerica.com</email>
+			<url>https://github.com/ycombinator</url>
+		</developer>
+		<developer>
 			<email>santimunin@gmail.com</email>
 			<name>Santiago Munín</name>
 			<url>https://github.com/santimunin</url>
