@@ -38,7 +38,7 @@
                   0
                 </td>
                 <td>
-                  84
+                  85
                 </td>
               </tr>
                           <tr>
@@ -57,20 +57,6 @@
               </tr>
                           <tr>
                 <td>
-                  <a href="https://github.com/codeforamerica/open311_java/checkstyle.html#org.codeforamerica.open311.internals.network.URLBuilder.java">org/codeforamerica/open311/internals/network/URLBuilder.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  286
-                </td>
-              </tr>
-                          <tr>
-                <td>
                   <a href="https://github.com/codeforamerica/open311_java/checkstyle.html#org.codeforamerica.open311.internals.parsing.DataParser.java">org/codeforamerica/open311/internals/parsing/DataParser.java</a>
                 </td>
                 <td>
@@ -85,6 +71,20 @@
               </tr>
                           <tr>
                 <td>
+                  <a href="https://github.com/codeforamerica/open311_java/checkstyle.html#org.codeforamerica.open311.internals.network.URLBuilder.java">org/codeforamerica/open311/internals/network/URLBuilder.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  286
+                </td>
+              </tr>
+                          <tr>
+                <td>
                   <a href="https://github.com/codeforamerica/open311_java/checkstyle.html#org.codeforamerica.open311.internals.network.NetworkManagerFactory.java">org/codeforamerica/open311/internals/network/NetworkManagerFactory.java</a>
                 </td>
                 <td>
@@ -94,7 +94,7 @@
                   0
                 </td>
                 <td>
-                  15
+                  16
                 </td>
               </tr>
                           <tr>
@@ -136,7 +136,7 @@
                   0
                 </td>
                 <td>
-                  460
+                  459
                 </td>
               </tr>
                           <tr>
@@ -150,7 +150,7 @@
                   0
                 </td>
                 <td>
-                  53
+                  52
                 </td>
               </tr>
                           <tr>
@@ -169,20 +169,6 @@
               </tr>
                           <tr>
                 <td>
-                  <a href="https://github.com/codeforamerica/open311_java/checkstyle.html#org.codeforamerica.open311.facade.data.Endpoint.java">org/codeforamerica/open311/facade/data/Endpoint.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  67
-                </td>
-              </tr>
-                          <tr>
-                <td>
                   <a href="https://github.com/codeforamerica/open311_java/checkstyle.html#org.codeforamerica.open311.internals.parsing.DataParserFactory.java">org/codeforamerica/open311/internals/parsing/DataParserFactory.java</a>
                 </td>
                 <td>
@@ -193,6 +179,20 @@
                 </td>
                 <td>
                   29
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://github.com/codeforamerica/open311_java/checkstyle.html#org.codeforamerica.open311.facade.data.Endpoint.java">org/codeforamerica/open311/facade/data/Endpoint.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  67
                 </td>
               </tr>
                           <tr>
@@ -276,7 +276,7 @@
                   0
                 </td>
                 <td>
-                  181
+                  180
                 </td>
               </tr>
                           <tr>
@@ -337,6 +337,20 @@
               </tr>
                           <tr>
                 <td>
+                  <a href="https://github.com/codeforamerica/open311_java/checkstyle.html#org.codeforamerica.open311.facade.Format.java">org/codeforamerica/open311/facade/Format.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  51
+                </td>
+              </tr>
+                          <tr>
+                <td>
                   <a href="https://github.com/codeforamerica/open311_java/checkstyle.html#org.codeforamerica.open311.facade.City.java">org/codeforamerica/open311/facade/City.java</a>
                 </td>
                 <td>
@@ -347,20 +361,6 @@
                 </td>
                 <td>
                   39
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="https://github.com/codeforamerica/open311_java/checkstyle.html#org.codeforamerica.open311.facade.Format.java">org/codeforamerica/open311/facade/Format.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  50
                 </td>
               </tr>
                           <tr>
