@@ -43,6 +43,12 @@
 			<id>santimunin</id>
 		</developer>
 	</developers>
+	<licenses>
+		<license>
+			<name>Code for America Software License</name>
+			<url>https://raw.github.com/codeforamerica/open311_java/master/LICENSE.md</url>
+		</license>
+	</licenses>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
