@@ -7,7 +7,7 @@
 '/home/travis/build/codeforamerica/open311_java/src/main/java'
 -author
 -bottom
-'Copyright &#169; 2013. All Rights Reserved.'
+'Copyright &#169; 2013 <a href="http://codeforamerica.org/">Code for America</a>. All Rights Reserved.'
 -charset
 'UTF-8'
 -d
