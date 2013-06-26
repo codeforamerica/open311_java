@@ -7,19 +7,28 @@
 	<version>0.1</version>
 	<name>Open311 GeoReport wrapper</name>
 	<url>https://github.com/codeforamerica/open311_java</url>
-
+	<description>
+    	A Java language binding (wrapper) to the Open311 GeoReport REST API.
+    </description>
 	<scm>
 		<connection>scm:git:git@github.com:codeforamerica/open311_java.git</connection>
 		<developerConnection>scm:git:git@github.com:codeforamerica/open311_java.git</developerConnection>
 		<url>https://github.com/codeforamerica/open311_java</url>
 		<tag>HEAD</tag>
 	</scm>
-
+	<ciManagement>
+		<system>Travis CI</system>
+		<url>https://travis-ci.org/codeforamerica/open311_java</url>
+	</ciManagement>
 	<issueManagement>
 		<url>https://github.com/codeforamerica/open311_java/issues</url>
 		<system>GitHub Issues</system>
 	</issueManagement>
-
+	<organization>
+		<name>Code for America</name>
+		<url>http://codeforamerica.org/</url>
+	</organization>
+	<inceptionYear>2013</inceptionYear>
 	<developers>
 		<developer>
 			<email>santimunin@gmail.com</email>
@@ -28,13 +37,11 @@
 			<id>santimunin</id>
 		</developer>
 	</developers>
-
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<github.global.server>github</github.global.server>
 	</properties>
-
 	<dependencies>
 		<dependency>
 			<groupId>junit</groupId>
