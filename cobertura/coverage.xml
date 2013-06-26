@@ -1,0 +1,2871 @@
+<?xml version="1.0"?>
+<!DOCTYPE coverage SYSTEM "http://cobertura.sourceforge.net/xml/coverage-04.dtd">
+
+<coverage line-rate="0.8179012345679012" branch-rate="0.7278481012658228" lines-covered="530" lines-valid="648" branches-covered="115" branches-valid="158" complexity="2.18125" version="1.9.4.1" timestamp="1372152496393">
+	<sources>
+		<source>/Users/santi/Development/GSoC/open311_java/src/main/java</source>
+		<source>--source</source>
+	</sources>
+	<packages>
+		<package name="org.codeforamerica.open311.facade" line-rate="0.620253164556962" branch-rate="0.5384615384615384" complexity="3.4814814814814814">
+			<classes>
+				<class name="org.codeforamerica.open311.facade.APIWrapper" filename="org/codeforamerica/open311/facade/APIWrapper.java" line-rate="0.5631067961165048" branch-rate="0.5714285714285714" complexity="4.266666666666667">
+					<methods>
+						<method name="&lt;init&gt;" signature="(Ljava/lang/String;Lorg/codeforamerica/open311/facade/Format;Lorg/codeforamerica/open311/facade/EndpointType;Lorg/codeforamerica/open311/internals/parsing/DataParser;Lorg/codeforamerica/open311/internals/network/NetworkManager;Ljava/lang/String;Ljava/lang/String;)V" line-rate="1.0" branch-rate="1.0">
+							<lines>
+								<line number="57" hits="4" branch="false"/>
+								<line number="58" hits="4" branch="false"/>
+								<line number="59" hits="4" branch="false"/>
+								<line number="60" hits="4" branch="false"/>
+								<line number="61" hits="4" branch="false"/>
+								<line number="62" hits="4" branch="false"/>
+								<line number="63" hits="4" branch="false"/>
+								<line number="64" hits="4" branch="false"/>
+								<line number="66" hits="4" branch="false"/>
+							</lines>
+						</method>
+						<method name="buildAttributes" signature="(Ljava/util/List;)Ljava/util/Map;" line-rate="0.42857142857142855" branch-rate="0.5">
+							<lines>
+								<line number="330" hits="5" branch="false"/>
+								<line number="331" hits="5" branch="true" condition-coverage="50% (1/2)">
+									<conditions>
+										<condition number="0" type="jump" coverage="50%"/>
+									</conditions>
+								</line>
+								<line number="332" hits="0" branch="false"/>
+								<line number="333" hits="0" branch="false"/>
+								<line number="334" hits="0" branch="false"/>
+								<line number="335" hits="0" branch="false"/>
+								<line number="336" hits="5" branch="false"/>
+							</lines>
+						</method>
+						<method name="getServiceDefinition" signature="(Ljava/lang/String;)Lorg/codeforamerica/open311/facade/data/ServiceDefinition;" line-rate="0.4444444444444444" branch-rate="1.0">
+							<lines>
+								<line number="126" hits="1" branch="false"/>
+								<line number="128" hits="1" branch="false"/>
+								<line number="130" hits="1" branch="false"/>
+								<line number="131" hits="1" branch="false"/>
+								<line number="132" hits="0" branch="false"/>
+								<line number="133" hits="0" branch="false"/>
+								<line number="134" hits="0" branch="false"/>
+								<line number="135" hits="0" branch="false"/>
+								<line number="136" hits="0" branch="false"/>
+							</lines>
+						</method>
+						<method name="getServiceList" signature="()Ljava/util/List;" line-rate="0.4444444444444444" branch-rate="1.0">
+							<lines>
+								<line number="100" hits="1" branch="false"/>
+								<line number="102" hits="1" branch="false"/>
+								<line number="103" hits="1" branch="false"/>
+								<line number="104" hits="1" branch="false"/>
+								<line number="105" hits="0" branch="false"/>
+								<line number="106" hits="0" branch="false"/>
+								<line number="107" hits="0" branch="false"/>
+								<line number="108" hits="0" branch="false"/>
+								<line number="109" hits="0" branch="false"/>
+							</lines>
+						</method>
+						<method name="getServiceRequest" signature="(Ljava/lang/String;)Ljava/util/List;" line-rate="0.4444444444444444" branch-rate="1.0">
+							<lines>
+								<line number="200" hits="1" branch="false"/>
+								<line number="202" hits="1" branch="false"/>
+								<line number="204" hits="1" branch="false"/>
+								<line number="205" hits="1" branch="false"/>
+								<line number="206" hits="0" branch="false"/>
+								<line number="207" hits="0" branch="false"/>
+								<line number="208" hits="0" branch="false"/>
+								<line number="209" hits="0" branch="false"/>
+								<line number="210" hits="0" branch="false"/>
+							</lines>
+						</method>
+						<method name="getServiceRequestIdFromToken" signature="(Ljava/lang/String;)Ljava/util/List;" line-rate="0.4444444444444444" branch-rate="1.0">
+							<lines>
+								<line number="151" hits="1" branch="false"/>
+								<line number="153" hits="1" branch="false"/>
+								<line number="155" hits="1" branch="false"/>
+								<line number="156" hits="1" branch="false"/>
+								<line number="158" hits="0" branch="false"/>
+								<line number="159" hits="0" branch="false"/>
+								<line number="160" hits="0" branch="false"/>
+								<line number="161" hits="0" branch="false"/>
+								<line number="162" hits="0" branch="false"/>
+							</lines>
+						</method>
+						<method name="getServiceRequests" signature="(Ljava/util/Map;)Ljava/util/List;" line-rate="0.4444444444444444" branch-rate="1.0">
+							<lines>
+								<line number="175" hits="1" branch="false"/>
+								<line number="177" hits="1" branch="false"/>
+								<line number="179" hits="1" branch="false"/>
+								<line number="180" hits="1" branch="false"/>
+								<line number="181" hits="0" branch="false"/>
+								<line number="182" hits="0" branch="false"/>
+								<line number="183" hits="0" branch="false"/>
+								<line number="184" hits="0" branch="false"/>
+								<line number="185" hits="0" branch="false"/>
+							</lines>
+						</method>
+						<method name="getWrapperInfo" signature="()Ljava/lang/String;" line-rate="1.0" branch-rate="1.0">
+							<lines>
+								<line number="74" hits="2" branch="false"/>
+							</lines>
+						</method>
+						<method name="networkGet" signature="(Ljava/net/URL;)Ljava/lang/String;" line-rate="0.3333333333333333" branch-rate="1.0">
+							<lines>
+								<line number="371" hits="5" branch="false"/>
+								<line number="372" hits="0" branch="false"/>
+								<line number="373" hits="0" branch="false"/>
+							</lines>
+						</method>
+						<method name="networkPost" signature="(Ljava/net/URL;Ljava/lang/String;)Ljava/lang/String;" line-rate="1.0" branch-rate="1.0">
+							<lines>
+								<line number="390" hits="5" branch="false"/>
+								<line number="391" hits="1" branch="false"/>
+								<line number="392" hits="1" branch="false"/>
+							</lines>
+						</method>
+						<method name="postServiceRequest" signature="(Ljava/lang/String;FFLjava/util/Map;Ljava/util/List;)Ljava/util/List;" line-rate="0.8" branch-rate="0.5">
+							<lines>
+								<line number="235" hits="3" branch="true" condition-coverage="50% (1/2)">
+									<conditions>
+										<condition number="0" type="jump" coverage="50%"/>
+									</conditions>
+								</line>
+								<line number="236" hits="3" branch="false"/>
+								<line number="238" hits="3" branch="true" condition-coverage="50% (1/2)">
+									<conditions>
+										<condition number="0" type="jump" coverage="50%"/>
+									</conditions>
+								</line>
+								<line number="239" hits="3" branch="false"/>
+								<line number="241" hits="3" branch="false"/>
+								<line number="242" hits="3" branch="false"/>
+								<line number="243" hits="3" branch="false"/>
+								<line number="244" hits="3" branch="false"/>
+								<line number="246" hits="0" branch="false"/>
+								<line number="247" hits="0" branch="false"/>
+							</lines>
+						</method>
+						<method name="postServiceRequest" signature="(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/util/Map;Ljava/util/List;)Ljava/util/List;" line-rate="0.7777777777777778" branch-rate="0.5">
+							<lines>
+								<line number="273" hits="2" branch="true" condition-coverage="50% (1/2)">
+									<conditions>
+										<condition number="0" type="jump" coverage="50%"/>
+									</conditions>
+								</line>
+								<line number="274" hits="2" branch="false"/>
+								<line number="276" hits="2" branch="true" condition-coverage="50% (1/2)">
+									<conditions>
+										<condition number="0" type="jump" coverage="50%"/>
+									</conditions>
+								</line>
+								<line number="277" hits="2" branch="false"/>
+								<line number="279" hits="2" branch="false"/>
+								<line number="280" hits="2" branch="false"/>
+								<line number="281" hits="2" branch="false"/>
+								<line number="283" hits="0" branch="false"/>
+								<line number="284" hits="0" branch="false"/>
+							</lines>
+						</method>
+						<method name="postServiceRequestInternal" signature="(Ljava/net/URL;Ljava/util/Map;Ljava/util/List;)Ljava/util/List;" line-rate="0.6" branch-rate="0.75">
+							<lines>
+								<line number="304" hits="5" branch="true" condition-coverage="100% (2/2)">
+									<conditions>
+										<condition number="0" type="jump" coverage="100%"/>
+									</conditions>
+								</line>
+								<line number="305" hits="1" branch="false"/>
+								<line number="307" hits="5" branch="true" condition-coverage="50% (1/2)">
+									<conditions>
+										<condition number="0" type="jump" coverage="50%"/>
+									</conditions>
+								</line>
+								<line number="308" hits="0" branch="false"/>
+								<line number="310" hits="5" branch="false"/>
+								<line number="312" hits="5" branch="false"/>
+								<line number="314" hits="4" branch="false"/>
+								<line number="316" hits="0" branch="false"/>
+								<line number="317" hits="0" branch="false"/>
+								<line number="318" hits="0" branch="false"/>
+							</lines>
+						</method>
+						<method name="setFormat" signature="(Lorg/codeforamerica/open311/facade/Format;)V" line-rate="0.0" branch-rate="1.0">
+							<lines>
+								<line number="85" hits="0" branch="false"/>
+								<line number="88" hits="0" branch="false"/>
+							</lines>
+						</method>
+						<method name="tryToParseError" signature="(Ljava/lang/String;)V" line-rate="0.0" branch-rate="1.0">
+							<lines>
+								<line number="352" hits="0" branch="false"/>
+								<line number="354" hits="0" branch="false"/>
+								<line number="355" hits="0" branch="false"/>
+								<line number="356" hits="0" branch="false"/>
+							</lines>
+						</method>
+					</methods>
+					<lines>
+						<line number="57" hits="4" branch="false"/>
+						<line number="58" hits="4" branch="false"/>
+						<line number="59" hits="4" branch="false"/>
+						<line number="60" hits="4" branch="false"/>
+						<line number="61" hits="4" branch="false"/>
+						<line number="62" hits="4" branch="false"/>
+						<line number="63" hits="4" branch="false"/>
+						<line number="64" hits="4" branch="false"/>
+						<line number="66" hits="4" branch="false"/>
+						<line number="74" hits="2" branch="false"/>
+						<line number="85" hits="0" branch="false"/>
+						<line number="88" hits="0" branch="false"/>
+						<line number="100" hits="1" branch="false"/>
+						<line number="102" hits="1" branch="false"/>
+						<line number="103" hits="1" branch="false"/>
+						<line number="104" hits="1" branch="false"/>
+						<line number="105" hits="0" branch="false"/>
+						<line number="106" hits="0" branch="false"/>
+						<line number="107" hits="0" branch="false"/>
+						<line number="108" hits="0" branch="false"/>
+						<line number="109" hits="0" branch="false"/>
+						<line number="126" hits="1" branch="false"/>
+						<line number="128" hits="1" branch="false"/>
+						<line number="130" hits="1" branch="false"/>
+						<line number="131" hits="1" branch="false"/>
+						<line number="132" hits="0" branch="false"/>
+						<line number="133" hits="0" branch="false"/>
+						<line number="134" hits="0" branch="false"/>
+						<line number="135" hits="0" branch="false"/>
+						<line number="136" hits="0" branch="false"/>
+						<line number="151" hits="1" branch="false"/>
+						<line number="153" hits="1" branch="false"/>
+						<line number="155" hits="1" branch="false"/>
+						<line number="156" hits="1" branch="false"/>
+						<line number="158" hits="0" branch="false"/>
+						<line number="159" hits="0" branch="false"/>
+						<line number="160" hits="0" branch="false"/>
+						<line number="161" hits="0" branch="false"/>
+						<line number="162" hits="0" branch="false"/>
+						<line number="175" hits="1" branch="false"/>
+						<line number="177" hits="1" branch="false"/>
+						<line number="179" hits="1" branch="false"/>
+						<line number="180" hits="1" branch="false"/>
+						<line number="181" hits="0" branch="false"/>
+						<line number="182" hits="0" branch="false"/>
+						<line number="183" hits="0" branch="false"/>
+						<line number="184" hits="0" branch="false"/>
+						<line number="185" hits="0" branch="false"/>
+						<line number="200" hits="1" branch="false"/>
+						<line number="202" hits="1" branch="false"/>
+						<line number="204" hits="1" branch="false"/>
+						<line number="205" hits="1" branch="false"/>
+						<line number="206" hits="0" branch="false"/>
+						<line number="207" hits="0" branch="false"/>
+						<line number="208" hits="0" branch="false"/>
+						<line number="209" hits="0" branch="false"/>
+						<line number="210" hits="0" branch="false"/>
+						<line number="235" hits="3" branch="true" condition-coverage="50% (1/2)">
+							<conditions>
+								<condition number="0" type="jump" coverage="50%"/>
+							</conditions>
+						</line>
+						<line number="236" hits="3" branch="false"/>
+						<line number="238" hits="3" branch="true" condition-coverage="50% (1/2)">
+							<conditions>
+								<condition number="0" type="jump" coverage="50%"/>
+							</conditions>
+						</line>
+						<line number="239" hits="3" branch="false"/>
+						<line number="241" hits="3" branch="false"/>
+						<line number="242" hits="3" branch="false"/>
+						<line number="243" hits="3" branch="false"/>
+						<line number="244" hits="3" branch="false"/>
+						<line number="246" hits="0" branch="false"/>
+						<line number="247" hits="0" branch="false"/>
+						<line number="273" hits="2" branch="true" condition-coverage="50% (1/2)">
+							<conditions>
+								<condition number="0" type="jump" coverage="50%"/>
+							</conditions>
+						</line>
+						<line number="274" hits="2" branch="false"/>
+						<line number="276" hits="2" branch="true" condition-coverage="50% (1/2)">
+							<conditions>
+								<condition number="0" type="jump" coverage="50%"/>
+							</conditions>
+						</line>
+						<line number="277" hits="2" branch="false"/>
+						<line number="279" hits="2" branch="false"/>
+						<line number="280" hits="2" branch="false"/>
+						<line number="281" hits="2" branch="false"/>
+						<line number="283" hits="0" branch="false"/>
+						<line number="284" hits="0" branch="false"/>
+						<line number="304" hits="5" branch="true" condition-coverage="100% (2/2)">
+							<conditions>
+								<condition number="0" type="jump" coverage="100%"/>
+							</conditions>
+						</line>
+						<line number="305" hits="1" branch="false"/>
+						<line number="307" hits="5" branch="true" condition-coverage="50% (1/2)">
+							<conditions>
+								<condition number="0" type="jump" coverage="50%"/>
+							</conditions>
+						</line>
+						<line number="308" hits="0" branch="false"/>
+						<line number="310" hits="5" branch="false"/>
+						<line number="312" hits="5" branch="false"/>
+						<line number="314" hits="4" branch="false"/>
+						<line number="316" hits="0" branch="false"/>
+						<line number="317" hits="0" branch="false"/>
+						<line number="318" hits="0" branch="false"/>
+						<line number="330" hits="5" branch="false"/>
+						<line number="331" hits="5" branch="true" condition-coverage="50% (1/2)">
+							<conditions>
+								<condition number="0" type="jump" coverage="50%"/>
+							</conditions>
+						</line>
+						<line number="332" hits="0" branch="false"/>
+						<line number="333" hits="0" branch="false"/>
+						<line number="334" hits="0" branch="false"/>
+						<line number="335" hits="0" branch="false"/>
+						<line number="336" hits="5" branch="false"/>
+						<line number="352" hits="0" branch="false"/>
+						<line number="354" hits="0" branch="false"/>
+						<line number="355" hits="0" branch="false"/>
+						<line number="356" hits="0" branch="false"/>
+						<line number="371" hits="5" branch="false"/>
+						<line number="372" hits="0" branch="false"/>
+						<line number="373" hits="0" branch="false"/>
+						<line number="390" hits="5" branch="false"/>
+						<line number="391" hits="1" branch="false"/>
+						<line number="392" hits="1" branch="false"/>
+					</lines>
+				</class>
+				<class name="org.codeforamerica.open311.facade.APIWrapperFactory" filename="org/codeforamerica/open311/facade/APIWrapperFactory.java" line-rate="0.55" branch-rate="0.5" complexity="3.0">
+					<methods>
+						<method name="&lt;clinit&gt;" signature="()V" line-rate="1.0" branch-rate="1.0">
+							<lines>
+								<line number="28" hits="1" branch="false"/>
+							</lines>
+						</method>
+						<method name="&lt;init&gt;" signature="()V" line-rate="1.0" branch-rate="1.0">
+							<lines>
+								<line number="30" hits="1" branch="false"/>
+								<line number="31" hits="1" branch="false"/>
+							</lines>
+						</method>
+						<method name="buildWrapper" signature="(Lorg/codeforamerica/open311/facade/City;Lorg/codeforamerica/open311/facade/EndpointType;Ljava/lang/String;)Lorg/codeforamerica/open311/facade/APIWrapper;" line-rate="0.0" branch-rate="1.0">
+							<lines>
+								<line number="110" hits="0" branch="false"/>
+							</lines>
+						</method>
+						<method name="buildWrapper" signature="(Lorg/codeforamerica/open311/facade/City;Lorg/codeforamerica/open311/facade/EndpointType;Ljava/lang/String;Lorg/codeforamerica/open311/internals/network/NetworkManagerFactory;)Lorg/codeforamerica/open311/facade/APIWrapper;" line-rate="0.4666666666666667" branch-rate="0.5">
+							<lines>
+								<line number="62" hits="1" branch="false"/>
+								<line number="64" hits="1" branch="false"/>
+								<line number="66" hits="1" branch="false"/>
+								<line number="69" hits="1" branch="false"/>
+								<line number="71" hits="1" branch="false"/>
+								<line number="72" hits="1" branch="true" condition-coverage="50% (1/2)">
+									<conditions>
+										<condition number="0" type="jump" coverage="50%"/>
+									</conditions>
+								</line>
+								<line number="73" hits="0" branch="false"/>
+								<line number="74" hits="0" branch="false"/>
+								<line number="77" hits="1" branch="false"/>
+								<line number="80" hits="0" branch="false"/>
+								<line number="81" hits="0" branch="false"/>
+								<line number="82" hits="0" branch="false"/>
+								<line number="83" hits="0" branch="false"/>
+								<line number="84" hits="0" branch="false"/>
+								<line number="85" hits="0" branch="false"/>
+							</lines>
+						</method>
+						<method name="getInstance" signature="()Lorg/codeforamerica/open311/facade/APIWrapperFactory;" line-rate="1.0" branch-rate="1.0">
+							<lines>
+								<line number="34" hits="1" branch="false"/>
+							</lines>
+						</method>
+					</methods>
+					<lines>
+						<line number="28" hits="1" branch="false"/>
+						<line number="30" hits="1" branch="false"/>
+						<line number="31" hits="1" branch="false"/>
+						<line number="34" hits="1" branch="false"/>
+						<line number="62" hits="1" branch="false"/>
+						<line number="64" hits="1" branch="false"/>
+						<line number="66" hits="1" branch="false"/>
+						<line number="69" hits="1" branch="false"/>
+						<line number="71" hits="1" branch="false"/>
+						<line number="72" hits="1" branch="true" condition-coverage="50% (1/2)">
+							<conditions>
+								<condition number="0" type="jump" coverage="50%"/>
+							</conditions>
+						</line>
+						<line number="73" hits="0" branch="false"/>
+						<line number="74" hits="0" branch="false"/>
+						<line number="77" hits="1" branch="false"/>
+						<line number="80" hits="0" branch="false"/>
+						<line number="81" hits="0" branch="false"/>
+						<line number="82" hits="0" branch="false"/>
+						<line number="83" hits="0" branch="false"/>
+						<line number="84" hits="0" branch="false"/>
+						<line number="85" hits="0" branch="false"/>
+						<line number="110" hits="0" branch="false"/>
+					</lines>
+				</class>
+				<class name="org.codeforamerica.open311.facade.City" filename="org/codeforamerica/open311/facade/City.java" line-rate="1.0" branch-rate="1.0" complexity="1.0">
+					<methods>
+						<method name="&lt;clinit&gt;" signature="()V" line-rate="1.0" branch-rate="1.0">
+							<lines>
+								<line number="12" hits="1" branch="false"/>
+								<line number="14" hits="1" branch="false"/>
+								<line number="15" hits="1" branch="false"/>
+								<line number="17" hits="1" branch="false"/>
+								<line number="18" hits="1" branch="false"/>
+							</lines>
+						</method>
+						<method name="&lt;init&gt;" signature="(Ljava/lang/String;ILjava/lang/String;Ljava/lang/String;)V" line-rate="1.0" branch-rate="1.0">
+							<lines>
+								<line number="24" hits="5" branch="false"/>
+								<line number="25" hits="5" branch="false"/>
+								<line number="26" hits="5" branch="false"/>
+								<line number="27" hits="5" branch="false"/>
+							</lines>
+						</method>
+						<method name="getDiscoveryUrl" signature="()Ljava/lang/String;" line-rate="1.0" branch-rate="1.0">
+							<lines>
+								<line number="30" hits="1" branch="false"/>
+							</lines>
+						</method>
+						<method name="getJurisdictionId" signature="()Ljava/lang/String;" line-rate="1.0" branch-rate="1.0">
+							<lines>
+								<line number="34" hits="1" branch="false"/>
+							</lines>
+						</method>
+						<method name="valueOf" signature="(Ljava/lang/String;)Lorg/codeforamerica/open311/facade/City;" line-rate="1.0" branch-rate="1.0">
+							<lines>
+							</lines>
+						</method>
+						<method name="values" signature="()[Lorg/codeforamerica/open311/facade/City;" line-rate="1.0" branch-rate="1.0">
+							<lines>
+							</lines>
+						</method>
+					</methods>
+					<lines>
+						<line number="12" hits="1" branch="false"/>
+						<line number="14" hits="1" branch="false"/>
+						<line number="15" hits="1" branch="false"/>
+						<line number="17" hits="1" branch="false"/>
+						<line number="18" hits="1" branch="false"/>
+						<line number="24" hits="5" branch="false"/>
+						<line number="25" hits="5" branch="false"/>
+						<line number="26" hits="5" branch="false"/>
+						<line number="27" hits="5" branch="false"/>
+						<line number="30" hits="1" branch="false"/>
+						<line number="34" hits="1" branch="false"/>
+					</lines>
+				</class>
+				<class name="org.codeforamerica.open311.facade.EndpointType" filename="org/codeforamerica/open311/facade/EndpointType.java" line-rate="0.7" branch-rate="0.5" complexity="7.0">
+					<methods>
+						<method name="&lt;clinit&gt;" signature="()V" line-rate="1.0" branch-rate="1.0">
+							<lines>
+								<line number="9" hits="4" branch="false"/>
+								<line number="10" hits="1" branch="false"/>
+							</lines>
+						</method>
+						<method name="&lt;init&gt;" signature="(Ljava/lang/String;I)V" line-rate="1.0" branch-rate="1.0">
+							<lines>
+							</lines>
+						</method>
+						<method name="getFromString" signature="(Ljava/lang/String;)Lorg/codeforamerica/open311/facade/EndpointType;" line-rate="0.625" branch-rate="0.5">
+							<lines>
+								<line number="19" hits="8" branch="false"/>
+								<line number="20" hits="8" branch="true" condition-coverage="100% (2/2)">
+									<conditions>
+										<condition number="0" type="jump" coverage="100%"/>
+									</conditions>
+								</line>
+								<line number="21" hits="4" branch="false"/>
+								<line number="23" hits="4" branch="true" condition-coverage="50% (1/2)">
+									<conditions>
+										<condition number="0" type="jump" coverage="50%"/>
+									</conditions>
+								</line>
+								<line number="24" hits="4" branch="false"/>
+								<line number="26" hits="0" branch="true" condition-coverage="0% (0/2)">
+									<conditions>
+										<condition number="0" type="jump" coverage="0%"/>
+									</conditions>
+								</line>
+								<line number="27" hits="0" branch="false"/>
+								<line number="29" hits="0" branch="false"/>
+							</lines>
+						</method>
+						<method name="valueOf" signature="(Ljava/lang/String;)Lorg/codeforamerica/open311/facade/EndpointType;" line-rate="1.0" branch-rate="1.0">
+							<lines>
+							</lines>
+						</method>
+						<method name="values" signature="()[Lorg/codeforamerica/open311/facade/EndpointType;" line-rate="1.0" branch-rate="1.0">
+							<lines>
+							</lines>
+						</method>
+					</methods>
+					<lines>
+						<line number="9" hits="4" branch="false"/>
+						<line number="10" hits="1" branch="false"/>
+						<line number="19" hits="8" branch="false"/>
+						<line number="20" hits="8" branch="true" condition-coverage="100% (2/2)">
+							<conditions>
+								<condition number="0" type="jump" coverage="100%"/>
+							</conditions>
+						</line>
+						<line number="21" hits="4" branch="false"/>
+						<line number="23" hits="4" branch="true" condition-coverage="50% (1/2)">
+							<conditions>
+								<condition number="0" type="jump" coverage="50%"/>
+							</conditions>
+						</line>
+						<line number="24" hits="4" branch="false"/>
+						<line number="26" hits="0" branch="true" condition-coverage="0% (0/2)">
+							<conditions>
+								<condition number="0" type="jump" coverage="0%"/>
+							</conditions>
+						</line>
+						<line number="27" hits="0" branch="false"/>
+						<line number="29" hits="0" branch="false"/>
+					</lines>
+				</class>
+				<class name="org.codeforamerica.open311.facade.Format" filename="org/codeforamerica/open311/facade/Format.java" line-rate="0.7857142857142857" branch-rate="0.5" complexity="2.0">
+					<methods>
+						<method name="&lt;clinit&gt;" signature="()V" line-rate="1.0" branch-rate="1.0">
+							<lines>
+								<line number="9" hits="1" branch="false"/>
+								<line number="10" hits="1" branch="false"/>
+							</lines>
+						</method>
+						<method name="&lt;init&gt;" signature="(Ljava/lang/String;ILjava/lang/String;Ljava/lang/String;)V" line-rate="1.0" branch-rate="1.0">
+							<lines>
+								<line number="15" hits="2" branch="false"/>
+								<line number="16" hits="2" branch="false"/>
+								<line number="17" hits="2" branch="false"/>
+								<line number="18" hits="2" branch="false"/>
+							</lines>
+						</method>
+						<method name="getFromContentTypeString" signature="(Ljava/lang/String;)Lorg/codeforamerica/open311/facade/Format;" line-rate="0.6666666666666666" branch-rate="0.5">
+							<lines>
+								<line number="36" hits="8" branch="false"/>
+								<line number="37" hits="8" branch="true" condition-coverage="50% (1/2)">
+									<conditions>
+										<condition number="0" type="jump" coverage="50%"/>
+									</conditions>
+								</line>
+								<line number="38" hits="0" branch="false"/>
+								<line number="40" hits="8" branch="true" condition-coverage="50% (1/2)">
+									<conditions>
+										<condition number="0" type="jump" coverage="50%"/>
+									</conditions>
+								</line>
+								<line number="41" hits="8" branch="false"/>
+								<line number="43" hits="0" branch="false"/>
+							</lines>
+						</method>
+						<method name="getHttpContentType" signature="()Ljava/lang/String;" line-rate="0.0" branch-rate="1.0">
+							<lines>
+								<line number="25" hits="0" branch="false"/>
+							</lines>
+						</method>
+						<method name="toString" signature="()Ljava/lang/String;" line-rate="1.0" branch-rate="1.0">
+							<lines>
+								<line number="21" hits="4" branch="false"/>
+							</lines>
+						</method>
+						<method name="valueOf" signature="(Ljava/lang/String;)Lorg/codeforamerica/open311/facade/Format;" line-rate="1.0" branch-rate="1.0">
+							<lines>
+							</lines>
+						</method>
+						<method name="values" signature="()[Lorg/codeforamerica/open311/facade/Format;" line-rate="1.0" branch-rate="1.0">
+							<lines>
+							</lines>
+						</method>
+					</methods>
+					<lines>
+						<line number="9" hits="1" branch="false"/>
+						<line number="10" hits="1" branch="false"/>
+						<line number="15" hits="2" branch="false"/>
+						<line number="16" hits="2" branch="false"/>
+						<line number="17" hits="2" branch="false"/>
+						<line number="18" hits="2" branch="false"/>
+						<line number="21" hits="4" branch="false"/>
+						<line number="25" hits="0" branch="false"/>
+						<line number="36" hits="8" branch="false"/>
+						<line number="37" hits="8" branch="true" condition-coverage="50% (1/2)">
+							<conditions>
+								<condition number="0" type="jump" coverage="50%"/>
+							</conditions>
+						</line>
+						<line number="38" hits="0" branch="false"/>
+						<line number="40" hits="8" branch="true" condition-coverage="50% (1/2)">
+							<conditions>
+								<condition number="0" type="jump" coverage="50%"/>
+							</conditions>
+						</line>
+						<line number="41" hits="8" branch="false"/>
+						<line number="43" hits="0" branch="false"/>
+					</lines>
+				</class>
+			</classes>
+		</package>
+		<package name="org.codeforamerica.open311.facade.data" line-rate="0.9176470588235294" branch-rate="0.8" complexity="1.5483870967741935">
+			<classes>
+				<class name="org.codeforamerica.open311.facade.data.Attribute" filename="org/codeforamerica/open311/facade/data/Attribute.java" line-rate="0.6206896551724138" branch-rate="0.0" complexity="2.272727272727273">
+					<methods>
+						<method name="&lt;init&gt;" signature="(ZLjava/lang/String;Lorg/codeforamerica/open311/facade/data/Attribute$Datatype;ZLjava/lang/String;ILjava/lang/String;Ljava/util/Map;)V" line-rate="1.0" branch-rate="1.0">
+							<lines>
+								<line number="45" hits="2" branch="false"/>
+								<line number="46" hits="2" branch="false"/>
+								<line number="47" hits="2" branch="false"/>
+								<line number="48" hits="2" branch="false"/>
+								<line number="49" hits="2" branch="false"/>
+								<line number="50" hits="2" branch="false"/>
+								<line number="51" hits="2" branch="false"/>
+								<line number="52" hits="2" branch="false"/>
+								<line number="53" hits="2" branch="false"/>
+								<line number="54" hits="2" branch="false"/>
+							</lines>
+						</method>
+						<method name="getCode" signature="()Ljava/lang/String;" line-rate="1.0" branch-rate="1.0">
+							<lines>
+								<line number="61" hits="2" branch="false"/>
+							</lines>
+						</method>
+						<method name="getDatatype" signature="()Lorg/codeforamerica/open311/facade/data/Attribute$Datatype;" line-rate="1.0" branch-rate="1.0">
+							<lines>
+								<line number="65" hits="2" branch="false"/>
+							</lines>
+						</method>
+						<method name="getDatatypeDescription" signature="()Ljava/lang/String;" line-rate="1.0" branch-rate="1.0">
+							<lines>
+								<line number="85" hits="2" branch="false"/>
+							</lines>
+						</method>
+						<method name="getDescription" signature="()Ljava/lang/String;" line-rate="1.0" branch-rate="1.0">
+							<lines>
+								<line number="73" hits="2" branch="false"/>
+							</lines>
+						</method>
+						<method name="getOrder" signature="()I" line-rate="1.0" branch-rate="1.0">
+							<lines>
+								<line number="69" hits="2" branch="false"/>
+							</lines>
+						</method>
+						<method name="getValues" signature="()Ljava/util/Map;" line-rate="1.0" branch-rate="1.0">
+							<lines>
+								<line number="77" hits="4" branch="false"/>
+							</lines>
+						</method>
+						<method name="isRequired" signature="()Z" line-rate="1.0" branch-rate="1.0">
+							<lines>
+								<line number="81" hits="2" branch="false"/>
+							</lines>
+						</method>
+						<method name="isVariable" signature="()Z" line-rate="1.0" branch-rate="1.0">
+							<lines>
+								<line number="57" hits="2" branch="false"/>
+							</lines>
+						</method>
+						<method name="toString" signature="()Ljava/lang/String;" line-rate="0.0" branch-rate="0.0">
+							<lines>
+								<line number="93" hits="0" branch="false"/>
+								<line number="94" hits="0" branch="false"/>
+								<line number="95" hits="0" branch="false"/>
+								<line number="96" hits="0" branch="true" condition-coverage="0% (0/2)">
+									<conditions>
+										<condition number="0" type="jump" coverage="0%"/>
+									</conditions>
+								</line>
+								<line number="97" hits="0" branch="false"/>
+								<line number="98" hits="0" branch="true" condition-coverage="0% (0/2)">
+									<conditions>
+										<condition number="0" type="jump" coverage="0%"/>
+									</conditions>
+								</line>
+								<line number="99" hits="0" branch="false"/>
+								<line number="101" hits="0" branch="false"/>
+								<line number="103" hits="0" branch="false"/>
+								<line number="105" hits="0" branch="false"/>
+								<line number="106" hits="0" branch="false"/>
+							</lines>
+						</method>
+					</methods>
+					<lines>
+						<line number="45" hits="2" branch="false"/>
+						<line number="46" hits="2" branch="false"/>
+						<line number="47" hits="2" branch="false"/>
+						<line number="48" hits="2" branch="false"/>
+						<line number="49" hits="2" branch="false"/>
+						<line number="50" hits="2" branch="false"/>
+						<line number="51" hits="2" branch="false"/>
+						<line number="52" hits="2" branch="false"/>
+						<line number="53" hits="2" branch="false"/>
+						<line number="54" hits="2" branch="false"/>
+						<line number="57" hits="2" branch="false"/>
+						<line number="61" hits="2" branch="false"/>
+						<line number="65" hits="2" branch="false"/>
+						<line number="69" hits="2" branch="false"/>
+						<line number="73" hits="2" branch="false"/>
+						<line number="77" hits="4" branch="false"/>
+						<line number="81" hits="2" branch="false"/>
+						<line number="85" hits="2" branch="false"/>
+						<line number="93" hits="0" branch="false"/>
+						<line number="94" hits="0" branch="false"/>
+						<line number="95" hits="0" branch="false"/>
+						<line number="96" hits="0" branch="true" condition-coverage="0% (0/2)">
+							<conditions>
+								<condition number="0" type="jump" coverage="0%"/>
+							</conditions>
+						</line>
+						<line number="97" hits="0" branch="false"/>
+						<line number="98" hits="0" branch="true" condition-coverage="0% (0/2)">
+							<conditions>
+								<condition number="0" type="jump" coverage="0%"/>
+							</conditions>
+						</line>
+						<line number="99" hits="0" branch="false"/>
+						<line number="101" hits="0" branch="false"/>
+						<line number="103" hits="0" branch="false"/>
+						<line number="105" hits="0" branch="false"/>
+						<line number="106" hits="0" branch="false"/>
+					</lines>
+				</class>
+				<class name="org.codeforamerica.open311.facade.data.Attribute$Datatype" filename="org/codeforamerica/open311/facade/data/Attribute.java" line-rate="1.0" branch-rate="1.0" complexity="2.272727272727273">
+					<methods>
+						<method name="&lt;clinit&gt;" signature="()V" line-rate="1.0" branch-rate="1.0">
+							<lines>
+								<line number="109" hits="7" branch="false"/>
+								<line number="110" hits="1" branch="false"/>
+							</lines>
+						</method>
+						<method name="&lt;init&gt;" signature="(Ljava/lang/String;I)V" line-rate="1.0" branch-rate="1.0">
+							<lines>
+							</lines>
+						</method>
+						<method name="getFromString" signature="(Ljava/lang/String;)Lorg/codeforamerica/open311/facade/data/Attribute$Datatype;" line-rate="1.0" branch-rate="1.0">
+							<lines>
+								<line number="121" hits="12" branch="true" condition-coverage="100% (2/2)">
+									<conditions>
+										<condition number="0" type="jump" coverage="100%"/>
+									</conditions>
+								</line>
+								<line number="122" hits="2" branch="false"/>
+								<line number="124" hits="10" branch="true" condition-coverage="100% (2/2)">
+									<conditions>
+										<condition number="0" type="jump" coverage="100%"/>
+									</conditions>
+								</line>
+								<line number="125" hits="2" branch="false"/>
+								<line number="127" hits="8" branch="true" condition-coverage="100% (2/2)">
+									<conditions>
+										<condition number="0" type="jump" coverage="100%"/>
+									</conditions>
+								</line>
+								<line number="128" hits="2" branch="false"/>
+								<line number="130" hits="6" branch="true" condition-coverage="100% (2/2)">
+									<conditions>
+										<condition number="0" type="jump" coverage="100%"/>
+									</conditions>
+								</line>
+								<line number="131" hits="1" branch="false"/>
+								<line number="133" hits="5" branch="true" condition-coverage="100% (2/2)">
+									<conditions>
+										<condition number="0" type="jump" coverage="100%"/>
+									</conditions>
+								</line>
+								<line number="134" hits="3" branch="false"/>
+								<line number="136" hits="2" branch="true" condition-coverage="100% (2/2)">
+									<conditions>
+										<condition number="0" type="jump" coverage="100%"/>
+									</conditions>
+								</line>
+								<line number="137" hits="1" branch="false"/>
+								<line number="139" hits="1" branch="false"/>
+							</lines>
+						</method>
+						<method name="valueOf" signature="(Ljava/lang/String;)Lorg/codeforamerica/open311/facade/data/Attribute$Datatype;" line-rate="1.0" branch-rate="1.0">
+							<lines>
+							</lines>
+						</method>
+						<method name="values" signature="()[Lorg/codeforamerica/open311/facade/data/Attribute$Datatype;" line-rate="1.0" branch-rate="1.0">
+							<lines>
+							</lines>
+						</method>
+					</methods>
+					<lines>
+						<line number="109" hits="7" branch="false"/>
+						<line number="110" hits="1" branch="false"/>
+						<line number="121" hits="12" branch="true" condition-coverage="100% (2/2)">
+							<conditions>
+								<condition number="0" type="jump" coverage="100%"/>
+							</conditions>
+						</line>
+						<line number="122" hits="2" branch="false"/>
+						<line number="124" hits="10" branch="true" condition-coverage="100% (2/2)">
+							<conditions>
+								<condition number="0" type="jump" coverage="100%"/>
+							</conditions>
+						</line>
+						<line number="125" hits="2" branch="false"/>
+						<line number="127" hits="8" branch="true" condition-coverage="100% (2/2)">
+							<conditions>
+								<condition number="0" type="jump" coverage="100%"/>
+							</conditions>
+						</line>
+						<line number="128" hits="2" branch="false"/>
+						<line number="130" hits="6" branch="true" condition-coverage="100% (2/2)">
+							<conditions>
+								<condition number="0" type="jump" coverage="100%"/>
+							</conditions>
+						</line>
+						<line number="131" hits="1" branch="false"/>
+						<line number="133" hits="5" branch="true" condition-coverage="100% (2/2)">
+							<conditions>
+								<condition number="0" type="jump" coverage="100%"/>
+							</conditions>
+						</line>
+						<line number="134" hits="3" branch="false"/>
+						<line number="136" hits="2" branch="true" condition-coverage="100% (2/2)">
+							<conditions>
+								<condition number="0" type="jump" coverage="100%"/>
+							</conditions>
+						</line>
+						<line number="137" hits="1" branch="false"/>
+						<line number="139" hits="1" branch="false"/>
+					</lines>
+				</class>
+				<class name="org.codeforamerica.open311.facade.data.Endpoint" filename="org/codeforamerica/open311/facade/data/Endpoint.java" line-rate="0.875" branch-rate="0.5" complexity="1.6666666666666667">
+					<methods>
+						<method name="&lt;init&gt;" signature="(Ljava/lang/String;Ljava/lang/String;Ljava/util/Date;Lorg/codeforamerica/open311/facade/EndpointType;Ljava/util/List;)V" line-rate="1.0" branch-rate="1.0">
+							<lines>
+								<line number="23" hits="8" branch="false"/>
+								<line number="24" hits="8" branch="false"/>
+								<line number="25" hits="8" branch="false"/>
+								<line number="26" hits="8" branch="false"/>
+								<line number="27" hits="8" branch="false"/>
+								<line number="28" hits="8" branch="false"/>
+								<line number="29" hits="8" branch="false"/>
+							</lines>
+						</method>
+						<method name="getBestFormat" signature="()Lorg/codeforamerica/open311/facade/Format;" line-rate="0.6" branch-rate="0.5">
+							<lines>
+								<line number="53" hits="2" branch="true" condition-coverage="50% (1/2)">
+									<conditions>
+										<condition number="0" type="jump" coverage="50%"/>
+									</conditions>
+								</line>
+								<line number="54" hits="0" branch="false"/>
+								<line number="56" hits="2" branch="true" condition-coverage="50% (1/2)">
+									<conditions>
+										<condition number="0" type="jump" coverage="50%"/>
+									</conditions>
+								</line>
+								<line number="57" hits="2" branch="false"/>
+								<line number="59" hits="0" branch="false"/>
+							</lines>
+						</method>
+						<method name="getChangeset" signature="()Ljava/util/Date;" line-rate="1.0" branch-rate="1.0">
+							<lines>
+								<line number="40" hits="1" branch="false"/>
+							</lines>
+						</method>
+						<method name="getSpecificationUrl" signature="()Ljava/lang/String;" line-rate="1.0" branch-rate="1.0">
+							<lines>
+								<line number="32" hits="3" branch="false"/>
+							</lines>
+						</method>
+						<method name="getType" signature="()Lorg/codeforamerica/open311/facade/EndpointType;" line-rate="1.0" branch-rate="1.0">
+							<lines>
+								<line number="44" hits="5" branch="false"/>
+							</lines>
+						</method>
+						<method name="getUrl" signature="()Ljava/lang/String;" line-rate="1.0" branch-rate="1.0">
+							<lines>
+								<line number="36" hits="2" branch="false"/>
+							</lines>
+						</method>
+					</methods>
+					<lines>
+						<line number="23" hits="8" branch="false"/>
+						<line number="24" hits="8" branch="false"/>
+						<line number="25" hits="8" branch="false"/>
+						<line number="26" hits="8" branch="false"/>
+						<line number="27" hits="8" branch="false"/>
+						<line number="28" hits="8" branch="false"/>
+						<line number="29" hits="8" branch="false"/>
+						<line number="32" hits="3" branch="false"/>
+						<line number="36" hits="2" branch="false"/>
+						<line number="40" hits="1" branch="false"/>
+						<line number="44" hits="5" branch="false"/>
+						<line number="53" hits="2" branch="true" condition-coverage="50% (1/2)">
+							<conditions>
+								<condition number="0" type="jump" coverage="50%"/>
+							</conditions>
+						</line>
+						<line number="54" hits="0" branch="false"/>
+						<line number="56" hits="2" branch="true" condition-coverage="50% (1/2)">
+							<conditions>
+								<condition number="0" type="jump" coverage="50%"/>
+							</conditions>
+						</line>
+						<line number="57" hits="2" branch="false"/>
+						<line number="59" hits="0" branch="false"/>
+					</lines>
+				</class>
+				<class name="org.codeforamerica.open311.facade.data.PostServiceRequestResponse" filename="org/codeforamerica/open311/facade/data/PostServiceRequestResponse.java" line-rate="1.0" branch-rate="1.0" complexity="1.0">
+					<methods>
+						<method name="&lt;init&gt;" signature="(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V" line-rate="1.0" branch-rate="1.0">
+							<lines>
+								<line number="19" hits="4" branch="false"/>
+								<line number="20" hits="4" branch="false"/>
+								<line number="21" hits="4" branch="false"/>
+								<line number="22" hits="4" branch="false"/>
+								<line number="23" hits="4" branch="false"/>
+								<line number="24" hits="4" branch="false"/>
+							</lines>
+						</method>
+						<method name="getAccountId" signature="()Ljava/lang/String;" line-rate="1.0" branch-rate="1.0">
+							<lines>
+								<line number="39" hits="4" branch="false"/>
+							</lines>
+						</method>
+						<method name="getServiceNotice" signature="()Ljava/lang/String;" line-rate="1.0" branch-rate="1.0">
+							<lines>
+								<line number="35" hits="4" branch="false"/>
+							</lines>
+						</method>
+						<method name="getServiceRequestId" signature="()Ljava/lang/String;" line-rate="1.0" branch-rate="1.0">
+							<lines>
+								<line number="27" hits="4" branch="false"/>
+							</lines>
+						</method>
+						<method name="getToken" signature="()Ljava/lang/String;" line-rate="1.0" branch-rate="1.0">
+							<lines>
+								<line number="31" hits="4" branch="false"/>
+							</lines>
+						</method>
+					</methods>
+					<lines>
+						<line number="19" hits="4" branch="false"/>
+						<line number="20" hits="4" branch="false"/>
+						<line number="21" hits="4" branch="false"/>
+						<line number="22" hits="4" branch="false"/>
+						<line number="23" hits="4" branch="false"/>
+						<line number="24" hits="4" branch="false"/>
+						<line number="27" hits="4" branch="false"/>
+						<line number="31" hits="4" branch="false"/>
+						<line number="35" hits="4" branch="false"/>
+						<line number="39" hits="4" branch="false"/>
+					</lines>
+				</class>
+				<class name="org.codeforamerica.open311.facade.data.Service" filename="org/codeforamerica/open311/facade/data/Service.java" line-rate="1.0" branch-rate="1.0" complexity="1.6666666666666667">
+					<methods>
+						<method name="&lt;init&gt;" signature="(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;ZLorg/codeforamerica/open311/facade/data/Service$Type;[Ljava/lang/String;Ljava/lang/String;)V" line-rate="1.0" branch-rate="1.0">
+							<lines>
+								<line number="16" hits="4" branch="false"/>
+								<line number="17" hits="4" branch="false"/>
+								<line number="18" hits="4" branch="false"/>
+								<line number="19" hits="4" branch="false"/>
+								<line number="20" hits="4" branch="false"/>
+								<line number="21" hits="4" branch="false"/>
+								<line number="22" hits="4" branch="false"/>
+								<line number="23" hits="4" branch="false"/>
+								<line number="24" hits="4" branch="false"/>
+							</lines>
+						</method>
+						<method name="getDescription" signature="()Ljava/lang/String;" line-rate="1.0" branch-rate="1.0">
+							<lines>
+								<line number="35" hits="2" branch="false"/>
+							</lines>
+						</method>
+						<method name="getGroup" signature="()Ljava/lang/String;" line-rate="1.0" branch-rate="1.0">
+							<lines>
+								<line number="51" hits="2" branch="false"/>
+							</lines>
+						</method>
+						<method name="getKeywords" signature="()[Ljava/lang/String;" line-rate="1.0" branch-rate="1.0">
+							<lines>
+								<line number="47" hits="2" branch="false"/>
+							</lines>
+						</method>
+						<method name="getServiceCode" signature="()Ljava/lang/String;" line-rate="1.0" branch-rate="1.0">
+							<lines>
+								<line number="27" hits="2" branch="false"/>
+							</lines>
+						</method>
+						<method name="getServiceName" signature="()Ljava/lang/String;" line-rate="1.0" branch-rate="1.0">
+							<lines>
+								<line number="31" hits="2" branch="false"/>
+							</lines>
+						</method>
+						<method name="getType" signature="()Lorg/codeforamerica/open311/facade/data/Service$Type;" line-rate="1.0" branch-rate="1.0">
+							<lines>
+								<line number="43" hits="2" branch="false"/>
+							</lines>
+						</method>
+						<method name="hasMetadata" signature="()Z" line-rate="1.0" branch-rate="1.0">
+							<lines>
+								<line number="39" hits="2" branch="false"/>
+							</lines>
+						</method>
+					</methods>
+					<lines>
+						<line number="16" hits="4" branch="false"/>
+						<line number="17" hits="4" branch="false"/>
+						<line number="18" hits="4" branch="false"/>
+						<line number="19" hits="4" branch="false"/>
+						<line number="20" hits="4" branch="false"/>
+						<line number="21" hits="4" branch="false"/>
+						<line number="22" hits="4" branch="false"/>
+						<line number="23" hits="4" branch="false"/>
+						<line number="24" hits="4" branch="false"/>
+						<line number="27" hits="2" branch="false"/>
+						<line number="31" hits="2" branch="false"/>
+						<line number="35" hits="2" branch="false"/>
+						<line number="39" hits="2" branch="false"/>
+						<line number="43" hits="2" branch="false"/>
+						<line number="47" hits="2" branch="false"/>
+						<line number="51" hits="2" branch="false"/>
+					</lines>
+				</class>
+				<class name="org.codeforamerica.open311.facade.data.Service$Type" filename="org/codeforamerica/open311/facade/data/Service.java" line-rate="1.0" branch-rate="1.0" complexity="1.6666666666666667">
+					<methods>
+						<method name="&lt;clinit&gt;" signature="()V" line-rate="1.0" branch-rate="1.0">
+							<lines>
+								<line number="63" hits="4" branch="false"/>
+								<line number="64" hits="1" branch="false"/>
+							</lines>
+						</method>
+						<method name="&lt;init&gt;" signature="(Ljava/lang/String;I)V" line-rate="1.0" branch-rate="1.0">
+							<lines>
+							</lines>
+						</method>
+						<method name="getFromString" signature="(Ljava/lang/String;)Lorg/codeforamerica/open311/facade/data/Service$Type;" line-rate="1.0" branch-rate="1.0">
+							<lines>
+								<line number="73" hits="12" branch="false"/>
+								<line number="74" hits="12" branch="true" condition-coverage="100% (2/2)">
+									<conditions>
+										<condition number="0" type="jump" coverage="100%"/>
+									</conditions>
+								</line>
+								<line number="75" hits="6" branch="false"/>
+								<line number="77" hits="6" branch="true" condition-coverage="100% (2/2)">
+									<conditions>
+										<condition number="0" type="jump" coverage="100%"/>
+									</conditions>
+								</line>
+								<line number="78" hits="2" branch="false"/>
+								<line number="80" hits="4" branch="true" condition-coverage="100% (2/2)">
+									<conditions>
+										<condition number="0" type="jump" coverage="100%"/>
+									</conditions>
+								</line>
+								<line number="81" hits="2" branch="false"/>
+								<line number="83" hits="2" branch="false"/>
+							</lines>
+						</method>
+						<method name="valueOf" signature="(Ljava/lang/String;)Lorg/codeforamerica/open311/facade/data/Service$Type;" line-rate="1.0" branch-rate="1.0">
+							<lines>
+							</lines>
+						</method>
+						<method name="values" signature="()[Lorg/codeforamerica/open311/facade/data/Service$Type;" line-rate="1.0" branch-rate="1.0">
+							<lines>
+							</lines>
+						</method>
+					</methods>
+					<lines>
+						<line number="63" hits="4" branch="false"/>
+						<line number="64" hits="1" branch="false"/>
+						<line number="73" hits="12" branch="false"/>
+						<line number="74" hits="12" branch="true" condition-coverage="100% (2/2)">
+							<conditions>
+								<condition number="0" type="jump" coverage="100%"/>
+							</conditions>
+						</line>
+						<line number="75" hits="6" branch="false"/>
+						<line number="77" hits="6" branch="true" condition-coverage="100% (2/2)">
+							<conditions>
+								<condition number="0" type="jump" coverage="100%"/>
+							</conditions>
+						</line>
+						<line number="78" hits="2" branch="false"/>
+						<line number="80" hits="4" branch="true" condition-coverage="100% (2/2)">
+							<conditions>
+								<condition number="0" type="jump" coverage="100%"/>
+							</conditions>
+						</line>
+						<line number="81" hits="2" branch="false"/>
+						<line number="83" hits="2" branch="false"/>
+					</lines>
+				</class>
+				<class name="org.codeforamerica.open311.facade.data.ServiceDefinition" filename="org/codeforamerica/open311/facade/data/ServiceDefinition.java" line-rate="1.0" branch-rate="1.0" complexity="1.0">
+					<methods>
+						<method name="&lt;init&gt;" signature="(Ljava/lang/String;Ljava/util/List;)V" line-rate="1.0" branch-rate="1.0">
+							<lines>
+								<line number="19" hits="2" branch="false"/>
+								<line number="20" hits="2" branch="false"/>
+								<line number="21" hits="2" branch="false"/>
+								<line number="22" hits="2" branch="false"/>
+							</lines>
+						</method>
+						<method name="getAttributes" signature="()Ljava/util/List;" line-rate="1.0" branch-rate="1.0">
+							<lines>
+								<line number="29" hits="2" branch="false"/>
+							</lines>
+						</method>
+						<method name="getServiceCode" signature="()Ljava/lang/String;" line-rate="1.0" branch-rate="1.0">
+							<lines>
+								<line number="25" hits="2" branch="false"/>
+							</lines>
+						</method>
+					</methods>
+					<lines>
+						<line number="19" hits="2" branch="false"/>
+						<line number="20" hits="2" branch="false"/>
+						<line number="21" hits="2" branch="false"/>
+						<line number="22" hits="2" branch="false"/>
+						<line number="25" hits="2" branch="false"/>
+						<line number="29" hits="2" branch="false"/>
+					</lines>
+				</class>
+				<class name="org.codeforamerica.open311.facade.data.ServiceDiscoveryInfo" filename="org/codeforamerica/open311/facade/data/ServiceDiscoveryInfo.java" line-rate="0.9444444444444444" branch-rate="0.8" complexity="2.0">
+					<methods>
+						<method name="&lt;init&gt;" signature="(Ljava/util/Date;Ljava/lang/String;Ljava/lang/String;Ljava/util/List;)V" line-rate="1.0" branch-rate="1.0">
+							<lines>
+								<line number="19" hits="2" branch="false"/>
+								<line number="20" hits="2" branch="false"/>
+								<line number="21" hits="2" branch="false"/>
+								<line number="22" hits="2" branch="false"/>
+								<line number="23" hits="2" branch="false"/>
+								<line number="24" hits="2" branch="false"/>
+							</lines>
+						</method>
+						<method name="getChangeset" signature="()Ljava/util/Date;" line-rate="1.0" branch-rate="1.0">
+							<lines>
+								<line number="27" hits="1" branch="false"/>
+							</lines>
+						</method>
+						<method name="getContact" signature="()Ljava/lang/String;" line-rate="1.0" branch-rate="1.0">
+							<lines>
+								<line number="31" hits="1" branch="false"/>
+							</lines>
+						</method>
+						<method name="getEndpoints" signature="()Ljava/util/List;" line-rate="1.0" branch-rate="1.0">
+							<lines>
+								<line number="39" hits="1" branch="false"/>
+							</lines>
+						</method>
+						<method name="getKeyService" signature="()Ljava/lang/String;" line-rate="1.0" branch-rate="1.0">
+							<lines>
+								<line number="35" hits="1" branch="false"/>
+							</lines>
+						</method>
+						<method name="getMoreSuitableEndpoint" signature="(Lorg/codeforamerica/open311/facade/EndpointType;)Lorg/codeforamerica/open311/facade/data/Endpoint;" line-rate="0.875" branch-rate="0.8">
+							<lines>
+								<line number="52" hits="1" branch="false"/>
+								<line number="53" hits="1" branch="true" condition-coverage="100% (2/2)">
+									<conditions>
+										<condition number="0" type="jump" coverage="100%"/>
+									</conditions>
+								</line>
+								<line number="54" hits="4" branch="true" condition-coverage="100% (2/2)">
+									<conditions>
+										<condition number="0" type="jump" coverage="100%"/>
+									</conditions>
+								</line>
+								<line number="55" hits="2" branch="false"/>
+								<line number="58" hits="1" branch="true" condition-coverage="100% (2/2)">
+									<conditions>
+										<condition number="0" type="jump" coverage="100%"/>
+									</conditions>
+								</line>
+								<line number="59" hits="2" branch="true" condition-coverage="50% (1/2)">
+									<conditions>
+										<condition number="0" type="jump" coverage="50%"/>
+									</conditions>
+								</line>
+								<line number="60" hits="0" branch="false"/>
+								<line number="63" hits="1" branch="true" condition-coverage="50% (1/2)">
+									<conditions>
+										<condition number="0" type="jump" coverage="50%"/>
+									</conditions>
+								</line>
+							</lines>
+						</method>
+					</methods>
+					<lines>
+						<line number="19" hits="2" branch="false"/>
+						<line number="20" hits="2" branch="false"/>
+						<line number="21" hits="2" branch="false"/>
+						<line number="22" hits="2" branch="false"/>
+						<line number="23" hits="2" branch="false"/>
+						<line number="24" hits="2" branch="false"/>
+						<line number="27" hits="1" branch="false"/>
+						<line number="31" hits="1" branch="false"/>
+						<line number="35" hits="1" branch="false"/>
+						<line number="39" hits="1" branch="false"/>
+						<line number="52" hits="1" branch="false"/>
+						<line number="53" hits="1" branch="true" condition-coverage="100% (2/2)">
+							<conditions>
+								<condition number="0" type="jump" coverage="100%"/>
+							</conditions>
+						</line>
+						<line number="54" hits="4" branch="true" condition-coverage="100% (2/2)">
+							<conditions>
+								<condition number="0" type="jump" coverage="100%"/>
+							</conditions>
+						</line>
+						<line number="55" hits="2" branch="false"/>
+						<line number="58" hits="1" branch="true" condition-coverage="100% (2/2)">
+							<conditions>
+								<condition number="0" type="jump" coverage="100%"/>
+							</conditions>
+						</line>
+						<line number="59" hits="2" branch="true" condition-coverage="50% (1/2)">
+							<conditions>
+								<condition number="0" type="jump" coverage="50%"/>
+							</conditions>
+						</line>
+						<line number="60" hits="0" branch="false"/>
+						<line number="63" hits="1" branch="true" condition-coverage="50% (1/2)">
+							<conditions>
+								<condition number="0" type="jump" coverage="50%"/>
+							</conditions>
+						</line>
+					</lines>
+				</class>
+				<class name="org.codeforamerica.open311.facade.data.ServiceRequest" filename="org/codeforamerica/open311/facade/data/ServiceRequest.java" line-rate="1.0" branch-rate="1.0" complexity="1.2105263157894737">
+					<methods>
+						<method name="&lt;init&gt;" signature="(Ljava/lang/String;Lorg/codeforamerica/open311/facade/data/ServiceRequest$Status;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/util/Date;Ljava/util/Date;Ljava/util/Date;Ljava/lang/String;Ljava/lang/String;IFFLjava/net/URL;)V" line-rate="1.0" branch-rate="1.0">
+							<lines>
+								<line number="37" hits="6" branch="false"/>
+								<line number="38" hits="6" branch="false"/>
+								<line number="39" hits="6" branch="false"/>
+								<line number="40" hits="6" branch="false"/>
+								<line number="41" hits="6" branch="false"/>
+								<line number="42" hits="6" branch="false"/>
+								<line number="43" hits="6" branch="false"/>
+								<line number="44" hits="6" branch="false"/>
+								<line number="45" hits="6" branch="false"/>
+								<line number="46" hits="6" branch="false"/>
+								<line number="47" hits="6" branch="false"/>
+								<line number="48" hits="6" branch="false"/>
+								<line number="49" hits="6" branch="false"/>
+								<line number="50" hits="6" branch="false"/>
+								<line number="51" hits="6" branch="false"/>
+								<line number="52" hits="6" branch="false"/>
+								<line number="53" hits="6" branch="false"/>
+								<line number="54" hits="6" branch="false"/>
+								<line number="55" hits="6" branch="false"/>
+							</lines>
+						</method>
+						<method name="getAddress" signature="()Ljava/lang/String;" line-rate="1.0" branch-rate="1.0">
+							<lines>
+								<line number="102" hits="3" branch="false"/>
+							</lines>
+						</method>
+						<method name="getAddressId" signature="()Ljava/lang/String;" line-rate="1.0" branch-rate="1.0">
+							<lines>
+								<line number="106" hits="3" branch="false"/>
+							</lines>
+						</method>
+						<method name="getAgencyResponsible" signature="()Ljava/lang/String;" line-rate="1.0" branch-rate="1.0">
+							<lines>
+								<line number="82" hits="3" branch="false"/>
+							</lines>
+						</method>
+						<method name="getDescription" signature="()Ljava/lang/String;" line-rate="1.0" branch-rate="1.0">
+							<lines>
+								<line number="78" hits="3" branch="false"/>
+							</lines>
+						</method>
+						<method name="getExpectedDatetime" signature="()Ljava/util/Date;" line-rate="1.0" branch-rate="1.0">
+							<lines>
+								<line number="98" hits="3" branch="false"/>
+							</lines>
+						</method>
+						<method name="getLatitude" signature="()F" line-rate="1.0" branch-rate="1.0">
+							<lines>
+								<line number="114" hits="3" branch="false"/>
+							</lines>
+						</method>
+						<method name="getLongitude" signature="()F" line-rate="1.0" branch-rate="1.0">
+							<lines>
+								<line number="118" hits="3" branch="false"/>
+							</lines>
+						</method>
+						<method name="getMediaUrl" signature="()Ljava/net/URL;" line-rate="1.0" branch-rate="1.0">
+							<lines>
+								<line number="122" hits="3" branch="false"/>
+							</lines>
+						</method>
+						<method name="getRequestedDatetime" signature="()Ljava/util/Date;" line-rate="1.0" branch-rate="1.0">
+							<lines>
+								<line number="90" hits="3" branch="false"/>
+							</lines>
+						</method>
+						<method name="getServiceCode" signature="()Ljava/lang/String;" line-rate="1.0" branch-rate="1.0">
+							<lines>
+								<line number="74" hits="3" branch="false"/>
+							</lines>
+						</method>
+						<method name="getServiceName" signature="()Ljava/lang/String;" line-rate="1.0" branch-rate="1.0">
+							<lines>
+								<line number="70" hits="3" branch="false"/>
+							</lines>
+						</method>
+						<method name="getServiceNotice" signature="()Ljava/lang/String;" line-rate="1.0" branch-rate="1.0">
+							<lines>
+								<line number="86" hits="3" branch="false"/>
+							</lines>
+						</method>
+						<method name="getServiceRequestId" signature="()Ljava/lang/String;" line-rate="1.0" branch-rate="1.0">
+							<lines>
+								<line number="58" hits="3" branch="false"/>
+							</lines>
+						</method>
+						<method name="getStatus" signature="()Lorg/codeforamerica/open311/facade/data/ServiceRequest$Status;" line-rate="1.0" branch-rate="1.0">
+							<lines>
+								<line number="62" hits="3" branch="false"/>
+							</lines>
+						</method>
+						<method name="getStatusNotes" signature="()Ljava/lang/String;" line-rate="1.0" branch-rate="1.0">
+							<lines>
+								<line number="66" hits="3" branch="false"/>
+							</lines>
+						</method>
+						<method name="getUpdatedDatetime" signature="()Ljava/util/Date;" line-rate="1.0" branch-rate="1.0">
+							<lines>
+								<line number="94" hits="3" branch="false"/>
+							</lines>
+						</method>
+						<method name="getZipCode" signature="()I" line-rate="1.0" branch-rate="1.0">
+							<lines>
+								<line number="110" hits="3" branch="false"/>
+							</lines>
+						</method>
+					</methods>
+					<lines>
+						<line number="37" hits="6" branch="false"/>
+						<line number="38" hits="6" branch="false"/>
+						<line number="39" hits="6" branch="false"/>
+						<line number="40" hits="6" branch="false"/>
+						<line number="41" hits="6" branch="false"/>
+						<line number="42" hits="6" branch="false"/>
+						<line number="43" hits="6" branch="false"/>
+						<line number="44" hits="6" branch="false"/>
+						<line number="45" hits="6" branch="false"/>
+						<line number="46" hits="6" branch="false"/>
+						<line number="47" hits="6" branch="false"/>
+						<line number="48" hits="6" branch="false"/>
+						<line number="49" hits="6" branch="false"/>
+						<line number="50" hits="6" branch="false"/>
+						<line number="51" hits="6" branch="false"/>
+						<line number="52" hits="6" branch="false"/>
+						<line number="53" hits="6" branch="false"/>
+						<line number="54" hits="6" branch="false"/>
+						<line number="55" hits="6" branch="false"/>
+						<line number="58" hits="3" branch="false"/>
+						<line number="62" hits="3" branch="false"/>
+						<line number="66" hits="3" branch="false"/>
+						<line number="70" hits="3" branch="false"/>
+						<line number="74" hits="3" branch="false"/>
+						<line number="78" hits="3" branch="false"/>
+						<line number="82" hits="3" branch="false"/>
+						<line number="86" hits="3" branch="false"/>
+						<line number="90" hits="3" branch="false"/>
+						<line number="94" hits="3" branch="false"/>
+						<line number="98" hits="3" branch="false"/>
+						<line number="102" hits="3" branch="false"/>
+						<line number="106" hits="3" branch="false"/>
+						<line number="110" hits="3" branch="false"/>
+						<line number="114" hits="3" branch="false"/>
+						<line number="118" hits="3" branch="false"/>
+						<line number="122" hits="3" branch="false"/>
+					</lines>
+				</class>
+				<class name="org.codeforamerica.open311.facade.data.ServiceRequest$Status" filename="org/codeforamerica/open311/facade/data/ServiceRequest.java" line-rate="1.0" branch-rate="1.0" complexity="1.2105263157894737">
+					<methods>
+						<method name="&lt;clinit&gt;" signature="()V" line-rate="1.0" branch-rate="1.0">
+							<lines>
+								<line number="125" hits="3" branch="false"/>
+								<line number="126" hits="1" branch="false"/>
+							</lines>
+						</method>
+						<method name="&lt;init&gt;" signature="(Ljava/lang/String;I)V" line-rate="1.0" branch-rate="1.0">
+							<lines>
+							</lines>
+						</method>
+						<method name="getFromString" signature="(Ljava/lang/String;)Lorg/codeforamerica/open311/facade/data/ServiceRequest$Status;" line-rate="1.0" branch-rate="1.0">
+							<lines>
+								<line number="129" hits="11" branch="false"/>
+								<line number="130" hits="11" branch="true" condition-coverage="100% (2/2)">
+									<conditions>
+										<condition number="0" type="jump" coverage="100%"/>
+									</conditions>
+								</line>
+								<line number="131" hits="5" branch="false"/>
+								<line number="133" hits="6" branch="true" condition-coverage="100% (2/2)">
+									<conditions>
+										<condition number="0" type="jump" coverage="100%"/>
+									</conditions>
+								</line>
+								<line number="134" hits="5" branch="false"/>
+								<line number="136" hits="1" branch="false"/>
+							</lines>
+						</method>
+						<method name="valueOf" signature="(Ljava/lang/String;)Lorg/codeforamerica/open311/facade/data/ServiceRequest$Status;" line-rate="1.0" branch-rate="1.0">
+							<lines>
+							</lines>
+						</method>
+						<method name="values" signature="()[Lorg/codeforamerica/open311/facade/data/ServiceRequest$Status;" line-rate="1.0" branch-rate="1.0">
+							<lines>
+							</lines>
+						</method>
+					</methods>
+					<lines>
+						<line number="125" hits="3" branch="false"/>
+						<line number="126" hits="1" branch="false"/>
+						<line number="129" hits="11" branch="false"/>
+						<line number="130" hits="11" branch="true" condition-coverage="100% (2/2)">
+							<conditions>
+								<condition number="0" type="jump" coverage="100%"/>
+							</conditions>
+						</line>
+						<line number="131" hits="5" branch="false"/>
+						<line number="133" hits="6" branch="true" condition-coverage="100% (2/2)">
+							<conditions>
+								<condition number="0" type="jump" coverage="100%"/>
+							</conditions>
+						</line>
+						<line number="134" hits="5" branch="false"/>
+						<line number="136" hits="1" branch="false"/>
+					</lines>
+				</class>
+				<class name="org.codeforamerica.open311.facade.data.ServiceRequestIdResponse" filename="org/codeforamerica/open311/facade/data/ServiceRequestIdResponse.java" line-rate="1.0" branch-rate="1.0" complexity="1.0">
+					<methods>
+						<method name="&lt;init&gt;" signature="(Ljava/lang/String;Ljava/lang/String;)V" line-rate="1.0" branch-rate="1.0">
+							<lines>
+								<line number="16" hits="4" branch="false"/>
+								<line number="17" hits="4" branch="false"/>
+								<line number="18" hits="4" branch="false"/>
+								<line number="19" hits="4" branch="false"/>
+							</lines>
+						</method>
+						<method name="getServiceRequestId" signature="()Ljava/lang/String;" line-rate="1.0" branch-rate="1.0">
+							<lines>
+								<line number="22" hits="4" branch="false"/>
+							</lines>
+						</method>
+						<method name="getToken" signature="()Ljava/lang/String;" line-rate="1.0" branch-rate="1.0">
+							<lines>
+								<line number="26" hits="4" branch="false"/>
+							</lines>
+						</method>
+					</methods>
+					<lines>
+						<line number="16" hits="4" branch="false"/>
+						<line number="17" hits="4" branch="false"/>
+						<line number="18" hits="4" branch="false"/>
+						<line number="19" hits="4" branch="false"/>
+						<line number="22" hits="4" branch="false"/>
+						<line number="26" hits="4" branch="false"/>
+					</lines>
+				</class>
+			</classes>
+		</package>
+		<package name="org.codeforamerica.open311.facade.exceptions" line-rate="0.8260869565217391" branch-rate="1.0" complexity="1.0">
+			<classes>
+				<class name="org.codeforamerica.open311.facade.exceptions.APIWrapperException" filename="org/codeforamerica/open311/facade/exceptions/APIWrapperException.java" line-rate="0.5714285714285714" branch-rate="1.0" complexity="1.0">
+					<methods>
+						<method name="&lt;init&gt;" signature="(Lorg/codeforamerica/open311/facade/exceptions/APIWrapperException$Error;Ljava/util/List;)V" line-rate="1.0" branch-rate="1.0">
+							<lines>
+								<line number="23" hits="1" branch="false"/>
+								<line number="24" hits="1" branch="false"/>
+								<line number="25" hits="1" branch="false"/>
+								<line number="26" hits="1" branch="false"/>
+							</lines>
+						</method>
+						<method name="getError" signature="()Lorg/codeforamerica/open311/facade/exceptions/APIWrapperException$Error;" line-rate="0.0" branch-rate="1.0">
+							<lines>
+								<line number="33" hits="0" branch="false"/>
+							</lines>
+						</method>
+						<method name="getGeoReportErrors" signature="()Ljava/util/List;" line-rate="0.0" branch-rate="1.0">
+							<lines>
+								<line number="37" hits="0" branch="false"/>
+							</lines>
+						</method>
+						<method name="getSerialversionuid" signature="()J" line-rate="0.0" branch-rate="1.0">
+							<lines>
+								<line number="29" hits="0" branch="false"/>
+							</lines>
+						</method>
+					</methods>
+					<lines>
+						<line number="23" hits="1" branch="false"/>
+						<line number="24" hits="1" branch="false"/>
+						<line number="25" hits="1" branch="false"/>
+						<line number="26" hits="1" branch="false"/>
+						<line number="29" hits="0" branch="false"/>
+						<line number="33" hits="0" branch="false"/>
+						<line number="37" hits="0" branch="false"/>
+					</lines>
+				</class>
+				<class name="org.codeforamerica.open311.facade.exceptions.APIWrapperException$Error" filename="org/codeforamerica/open311/facade/exceptions/APIWrapperException.java" line-rate="0.875" branch-rate="1.0" complexity="1.0">
+					<methods>
+						<method name="&lt;clinit&gt;" signature="()V" line-rate="1.0" branch-rate="1.0">
+							<lines>
+								<line number="43" hits="1" branch="false"/>
+								<line number="44" hits="1" branch="false"/>
+								<line number="45" hits="1" branch="false"/>
+								<line number="46" hits="1" branch="false"/>
+							</lines>
+						</method>
+						<method name="&lt;init&gt;" signature="(Ljava/lang/String;ILjava/lang/String;)V" line-rate="1.0" branch-rate="1.0">
+							<lines>
+								<line number="50" hits="4" branch="false"/>
+								<line number="51" hits="4" branch="false"/>
+								<line number="52" hits="4" branch="false"/>
+							</lines>
+						</method>
+						<method name="toString" signature="()Ljava/lang/String;" line-rate="0.0" branch-rate="1.0">
+							<lines>
+								<line number="55" hits="0" branch="false"/>
+							</lines>
+						</method>
+						<method name="valueOf" signature="(Ljava/lang/String;)Lorg/codeforamerica/open311/facade/exceptions/APIWrapperException$Error;" line-rate="1.0" branch-rate="1.0">
+							<lines>
+							</lines>
+						</method>
+						<method name="values" signature="()[Lorg/codeforamerica/open311/facade/exceptions/APIWrapperException$Error;" line-rate="1.0" branch-rate="1.0">
+							<lines>
+							</lines>
+						</method>
+					</methods>
+					<lines>
+						<line number="43" hits="1" branch="false"/>
+						<line number="44" hits="1" branch="false"/>
+						<line number="45" hits="1" branch="false"/>
+						<line number="46" hits="1" branch="false"/>
+						<line number="50" hits="4" branch="false"/>
+						<line number="51" hits="4" branch="false"/>
+						<line number="52" hits="4" branch="false"/>
+						<line number="55" hits="0" branch="false"/>
+					</lines>
+				</class>
+				<class name="org.codeforamerica.open311.facade.exceptions.DataParsingException" filename="org/codeforamerica/open311/facade/exceptions/DataParsingException.java" line-rate="1.0" branch-rate="1.0" complexity="0.0">
+					<methods>
+						<method name="&lt;init&gt;" signature="()V" line-rate="1.0" branch-rate="1.0">
+							<lines>
+								<line number="9" hits="6" branch="false"/>
+							</lines>
+						</method>
+					</methods>
+					<lines>
+						<line number="9" hits="6" branch="false"/>
+					</lines>
+				</class>
+				<class name="org.codeforamerica.open311.facade.exceptions.GeoReportV2Error" filename="org/codeforamerica/open311/facade/exceptions/GeoReportV2Error.java" line-rate="1.0" branch-rate="1.0" complexity="1.0">
+					<methods>
+						<method name="&lt;init&gt;" signature="(Ljava/lang/String;Ljava/lang/String;)V" line-rate="1.0" branch-rate="1.0">
+							<lines>
+								<line number="16" hits="2" branch="false"/>
+								<line number="17" hits="2" branch="false"/>
+								<line number="18" hits="2" branch="false"/>
+								<line number="19" hits="2" branch="false"/>
+							</lines>
+						</method>
+						<method name="getCode" signature="()Ljava/lang/String;" line-rate="1.0" branch-rate="1.0">
+							<lines>
+								<line number="22" hits="2" branch="false"/>
+							</lines>
+						</method>
+						<method name="getDescription" signature="()Ljava/lang/String;" line-rate="1.0" branch-rate="1.0">
+							<lines>
+								<line number="26" hits="2" branch="false"/>
+							</lines>
+						</method>
+						<method name="toString" signature="()Ljava/lang/String;" line-rate="1.0" branch-rate="1.0">
+							<lines>
+								<line number="30" hits="2" branch="false"/>
+							</lines>
+						</method>
+					</methods>
+					<lines>
+						<line number="16" hits="2" branch="false"/>
+						<line number="17" hits="2" branch="false"/>
+						<line number="18" hits="2" branch="false"/>
+						<line number="19" hits="2" branch="false"/>
+						<line number="22" hits="2" branch="false"/>
+						<line number="26" hits="2" branch="false"/>
+						<line number="30" hits="2" branch="false"/>
+					</lines>
+				</class>
+			</classes>
+		</package>
+		<package name="org.codeforamerica.open311.internals.network" line-rate="0.7102803738317757" branch-rate="0.7857142857142857" complexity="2.4482758620689653">
+			<classes>
+				<class name="org.codeforamerica.open311.internals.network.HTTPNetworkManager" filename="org/codeforamerica/open311/internals/network/HTTPNetworkManager.java" line-rate="0.0" branch-rate="1.0" complexity="3.0">
+					<methods>
+						<method name="&lt;init&gt;" signature="(Lorg/codeforamerica/open311/facade/Format;)V" line-rate="0.0" branch-rate="1.0">
+							<lines>
+								<line number="28" hits="0" branch="false"/>
+								<line number="29" hits="0" branch="false"/>
+								<line number="30" hits="0" branch="false"/>
+								<line number="31" hits="0" branch="false"/>
+							</lines>
+						</method>
+						<method name="doGet" signature="(Ljava/net/URL;)Ljava/lang/String;" line-rate="0.0" branch-rate="1.0">
+							<lines>
+								<line number="36" hits="0" branch="false"/>
+								<line number="37" hits="0" branch="false"/>
+								<line number="38" hits="0" branch="false"/>
+								<line number="39" hits="0" branch="false"/>
+								<line number="40" hits="0" branch="false"/>
+								<line number="41" hits="0" branch="false"/>
+								<line number="42" hits="0" branch="false"/>
+								<line number="44" hits="0" branch="false"/>
+							</lines>
+						</method>
+						<method name="doPost" signature="(Ljava/net/URL;Ljava/lang/String;)Ljava/lang/String;" line-rate="0.0" branch-rate="1.0">
+							<lines>
+								<line number="51" hits="0" branch="false"/>
+								<line number="52" hits="0" branch="false"/>
+								<line number="53" hits="0" branch="false"/>
+								<line number="54" hits="0" branch="false"/>
+								<line number="55" hits="0" branch="false"/>
+								<line number="56" hits="0" branch="false"/>
+								<line number="57" hits="0" branch="false"/>
+								<line number="58" hits="0" branch="false"/>
+								<line number="59" hits="0" branch="false"/>
+								<line number="61" hits="0" branch="false"/>
+							</lines>
+						</method>
+					</methods>
+					<lines>
+						<line number="28" hits="0" branch="false"/>
+						<line number="29" hits="0" branch="false"/>
+						<line number="30" hits="0" branch="false"/>
+						<line number="31" hits="0" branch="false"/>
+						<line number="36" hits="0" branch="false"/>
+						<line number="37" hits="0" branch="false"/>
+						<line number="38" hits="0" branch="false"/>
+						<line number="39" hits="0" branch="false"/>
+						<line number="40" hits="0" branch="false"/>
+						<line number="41" hits="0" branch="false"/>
+						<line number="42" hits="0" branch="false"/>
+						<line number="44" hits="0" branch="false"/>
+						<line number="51" hits="0" branch="false"/>
+						<line number="52" hits="0" branch="false"/>
+						<line number="53" hits="0" branch="false"/>
+						<line number="54" hits="0" branch="false"/>
+						<line number="55" hits="0" branch="false"/>
+						<line number="56" hits="0" branch="false"/>
+						<line number="57" hits="0" branch="false"/>
+						<line number="58" hits="0" branch="false"/>
+						<line number="59" hits="0" branch="false"/>
+						<line number="61" hits="0" branch="false"/>
+					</lines>
+				</class>
+				<class name="org.codeforamerica.open311.internals.network.HTTPNetworkManagerFactory" filename="org/codeforamerica/open311/internals/network/HTTPNetworkManagerFactory.java" line-rate="0.0" branch-rate="1.0" complexity="1.0">
+					<methods>
+						<method name="&lt;init&gt;" signature="()V" line-rate="0.0" branch-rate="1.0">
+							<lines>
+								<line number="11" hits="0" branch="false"/>
+							</lines>
+						</method>
+						<method name="createNetworkManager" signature="(Lorg/codeforamerica/open311/facade/Format;)Lorg/codeforamerica/open311/internals/network/NetworkManager;" line-rate="0.0" branch-rate="1.0">
+							<lines>
+								<line number="15" hits="0" branch="false"/>
+							</lines>
+						</method>
+					</methods>
+					<lines>
+						<line number="11" hits="0" branch="false"/>
+						<line number="15" hits="0" branch="false"/>
+					</lines>
+				</class>
+				<class name="org.codeforamerica.open311.internals.network.MockNetworkManager" filename="org/codeforamerica/open311/internals/network/MockNetworkManager.java" line-rate="0.84375" branch-rate="0.7083333333333334" complexity="3.5555555555555554">
+					<methods>
+						<method name="&lt;init&gt;" signature="()V" line-rate="1.0" branch-rate="1.0">
+							<lines>
+								<line number="11" hits="17" branch="false"/>
+							</lines>
+						</method>
+						<method name="discoveryXml" signature="()Ljava/lang/String;" line-rate="1.0" branch-rate="1.0">
+							<lines>
+								<line number="167" hits="2" branch="false"/>
+							</lines>
+						</method>
+						<method name="doGet" signature="(Ljava/net/URL;)Ljava/lang/String;" line-rate="0.8" branch-rate="0.7857142857142857">
+							<lines>
+								<line number="14" hits="15" branch="true" condition-coverage="50% (1/2)">
+									<conditions>
+										<condition number="0" type="jump" coverage="50%"/>
+									</conditions>
+								</line>
+								<line number="15" hits="0" branch="false"/>
+								<line number="17" hits="15" branch="true" condition-coverage="50% (1/2)">
+									<conditions>
+										<condition number="0" type="jump" coverage="50%"/>
+									</conditions>
+								</line>
+								<line number="18" hits="0" branch="false"/>
+								<line number="20" hits="15" branch="true" condition-coverage="100% (2/2)">
+									<conditions>
+										<condition number="0" type="jump" coverage="100%"/>
+									</conditions>
+								</line>
+								<line number="21" hits="2" branch="false"/>
+								<line number="23" hits="13" branch="true" condition-coverage="100% (2/2)">
+									<conditions>
+										<condition number="0" type="jump" coverage="100%"/>
+									</conditions>
+								</line>
+								<line number="24" hits="3" branch="false"/>
+								<line number="26" hits="10" branch="true" condition-coverage="100% (2/2)">
+									<conditions>
+										<condition number="0" type="jump" coverage="100%"/>
+									</conditions>
+								</line>
+								<line number="27" hits="3" branch="false"/>
+								<line number="29" hits="7" branch="true" condition-coverage="100% (2/2)">
+									<conditions>
+										<condition number="0" type="jump" coverage="100%"/>
+									</conditions>
+								</line>
+								<line number="30" hits="3" branch="false"/>
+								<line number="32" hits="4" branch="true" condition-coverage="50% (1/2)">
+									<conditions>
+										<condition number="0" type="jump" coverage="50%"/>
+									</conditions>
+								</line>
+								<line number="33" hits="4" branch="false"/>
+								<line number="35" hits="0" branch="false"/>
+							</lines>
+						</method>
+						<method name="doPost" signature="(Ljava/net/URL;Ljava/lang/String;)Ljava/lang/String;" line-rate="0.7777777777777778" branch-rate="0.6">
+							<lines>
+								<line number="40" hits="9" branch="true" condition-coverage="100% (2/2)">
+									<conditions>
+										<condition number="0" type="jump" coverage="100%"/>
+									</conditions>
+								</line>
+								<line number="41" hits="1" branch="false"/>
+								<line number="43" hits="8" branch="true" condition-coverage="100% (2/2)">
+									<conditions>
+										<condition number="0" type="jump" coverage="100%"/>
+									</conditions>
+								</line>
+								<line number="44" hits="2" branch="false"/>
+								<line number="46" hits="6" branch="true" condition-coverage="50% (1/2)">
+									<conditions>
+										<condition number="0" type="jump" coverage="50%"/>
+									</conditions>
+								</line>
+								<line number="48" hits="6" branch="true" condition-coverage="25% (1/4)">
+									<conditions>
+										<condition number="0" type="jump" coverage="50%"/>
+										<condition number="1" type="jump" coverage="0%"/>
+									</conditions>
+								</line>
+								<line number="50" hits="0" branch="false"/>
+								<line number="52" hits="6" branch="false"/>
+								<line number="56" hits="0" branch="false"/>
+							</lines>
+						</method>
+						<method name="errorXml" signature="()Ljava/lang/String;" line-rate="1.0" branch-rate="1.0">
+							<lines>
+								<line number="159" hits="2" branch="false"/>
+							</lines>
+						</method>
+						<method name="postServiceRequestResponseXml" signature="()Ljava/lang/String;" line-rate="1.0" branch-rate="1.0">
+							<lines>
+								<line number="145" hits="6" branch="false"/>
+							</lines>
+						</method>
+						<method name="serviceDefinitionXml" signature="()Ljava/lang/String;" line-rate="1.0" branch-rate="1.0">
+							<lines>
+								<line number="83" hits="3" branch="false"/>
+							</lines>
+						</method>
+						<method name="serviceListXml" signature="()Ljava/lang/String;" line-rate="1.0" branch-rate="1.0">
+							<lines>
+								<line number="65" hits="3" branch="false"/>
+							</lines>
+						</method>
+						<method name="serviceRequestIdFromATokenXml" signature="()Ljava/lang/String;" line-rate="1.0" branch-rate="1.0">
+							<lines>
+								<line number="98" hits="3" branch="false"/>
+							</lines>
+						</method>
+						<method name="serviceRequestsXml" signature="()Ljava/lang/String;" line-rate="1.0" branch-rate="1.0">
+							<lines>
+								<line number="111" hits="4" branch="false"/>
+							</lines>
+						</method>
+					</methods>
+					<lines>
+						<line number="11" hits="17" branch="false"/>
+						<line number="14" hits="15" branch="true" condition-coverage="50% (1/2)">
+							<conditions>
+								<condition number="0" type="jump" coverage="50%"/>
+							</conditions>
+						</line>
+						<line number="15" hits="0" branch="false"/>
+						<line number="17" hits="15" branch="true" condition-coverage="50% (1/2)">
+							<conditions>
+								<condition number="0" type="jump" coverage="50%"/>
+							</conditions>
+						</line>
+						<line number="18" hits="0" branch="false"/>
+						<line number="20" hits="15" branch="true" condition-coverage="100% (2/2)">
+							<conditions>
+								<condition number="0" type="jump" coverage="100%"/>
+							</conditions>
+						</line>
+						<line number="21" hits="2" branch="false"/>
+						<line number="23" hits="13" branch="true" condition-coverage="100% (2/2)">
+							<conditions>
+								<condition number="0" type="jump" coverage="100%"/>
+							</conditions>
+						</line>
+						<line number="24" hits="3" branch="false"/>
+						<line number="26" hits="10" branch="true" condition-coverage="100% (2/2)">
+							<conditions>
+								<condition number="0" type="jump" coverage="100%"/>
+							</conditions>
+						</line>
+						<line number="27" hits="3" branch="false"/>
+						<line number="29" hits="7" branch="true" condition-coverage="100% (2/2)">
+							<conditions>
+								<condition number="0" type="jump" coverage="100%"/>
+							</conditions>
+						</line>
+						<line number="30" hits="3" branch="false"/>
+						<line number="32" hits="4" branch="true" condition-coverage="50% (1/2)">
+							<conditions>
+								<condition number="0" type="jump" coverage="50%"/>
+							</conditions>
+						</line>
+						<line number="33" hits="4" branch="false"/>
+						<line number="35" hits="0" branch="false"/>
+						<line number="40" hits="9" branch="true" condition-coverage="100% (2/2)">
+							<conditions>
+								<condition number="0" type="jump" coverage="100%"/>
+							</conditions>
+						</line>
+						<line number="41" hits="1" branch="false"/>
+						<line number="43" hits="8" branch="true" condition-coverage="100% (2/2)">
+							<conditions>
+								<condition number="0" type="jump" coverage="100%"/>
+							</conditions>
+						</line>
+						<line number="44" hits="2" branch="false"/>
+						<line number="46" hits="6" branch="true" condition-coverage="50% (1/2)">
+							<conditions>
+								<condition number="0" type="jump" coverage="50%"/>
+							</conditions>
+						</line>
+						<line number="48" hits="6" branch="true" condition-coverage="25% (1/4)">
+							<conditions>
+								<condition number="0" type="jump" coverage="50%"/>
+								<condition number="1" type="jump" coverage="0%"/>
+							</conditions>
+						</line>
+						<line number="50" hits="0" branch="false"/>
+						<line number="52" hits="6" branch="false"/>
+						<line number="56" hits="0" branch="false"/>
+						<line number="65" hits="3" branch="false"/>
+						<line number="83" hits="3" branch="false"/>
+						<line number="98" hits="3" branch="false"/>
+						<line number="111" hits="4" branch="false"/>
+						<line number="145" hits="6" branch="false"/>
+						<line number="159" hits="2" branch="false"/>
+						<line number="167" hits="2" branch="false"/>
+					</lines>
+				</class>
+				<class name="org.codeforamerica.open311.internals.network.MockNetworkManagerFactory" filename="org/codeforamerica/open311/internals/network/MockNetworkManagerFactory.java" line-rate="1.0" branch-rate="1.0" complexity="1.0">
+					<methods>
+						<method name="&lt;init&gt;" signature="()V" line-rate="1.0" branch-rate="1.0">
+							<lines>
+								<line number="11" hits="1" branch="false"/>
+							</lines>
+						</method>
+						<method name="createNetworkManager" signature="(Lorg/codeforamerica/open311/facade/Format;)Lorg/codeforamerica/open311/internals/network/NetworkManager;" line-rate="1.0" branch-rate="1.0">
+							<lines>
+								<line number="15" hits="1" branch="false"/>
+							</lines>
+						</method>
+					</methods>
+					<lines>
+						<line number="11" hits="1" branch="false"/>
+						<line number="15" hits="1" branch="false"/>
+					</lines>
+				</class>
+				<class name="org.codeforamerica.open311.internals.network.NetworkManager" filename="org/codeforamerica/open311/internals/network/NetworkManager.java" line-rate="1.0" branch-rate="1.0" complexity="1.0">
+					<methods>
+					</methods>
+					<lines>
+					</lines>
+				</class>
+				<class name="org.codeforamerica.open311.internals.network.NetworkManagerFactory" filename="org/codeforamerica/open311/internals/network/NetworkManagerFactory.java" line-rate="1.0" branch-rate="1.0" complexity="1.0">
+					<methods>
+					</methods>
+					<lines>
+					</lines>
+				</class>
+				<class name="org.codeforamerica.open311.internals.network.URLBuilder" filename="org/codeforamerica/open311/internals/network/URLBuilder.java" line-rate="0.9591836734693877" branch-rate="0.8888888888888888" complexity="2.0833333333333335">
+					<methods>
+						<method name="&lt;clinit&gt;" signature="()V" line-rate="1.0" branch-rate="1.0">
+							<lines>
+								<line number="16" hits="1" branch="false"/>
+								<line number="24" hits="1" branch="false"/>
+							</lines>
+						</method>
+						<method name="&lt;init&gt;" signature="(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V" line-rate="1.0" branch-rate="1.0">
+							<lines>
+								<line number="37" hits="6" branch="false"/>
+								<line number="38" hits="6" branch="false"/>
+								<line number="39" hits="6" branch="false"/>
+								<line number="40" hits="6" branch="false"/>
+								<line number="41" hits="6" branch="false"/>
+							</lines>
+						</method>
+						<method name="addJurisdictionId" signature="(Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;" line-rate="1.0" branch-rate="1.0">
+							<lines>
+								<line number="240" hits="14" branch="true" condition-coverage="100% (2/2)">
+									<conditions>
+										<condition number="0" type="jump" coverage="100%"/>
+									</conditions>
+								</line>
+								<line number="241" hits="5" branch="false"/>
+								<line number="243" hits="9" branch="false"/>
+							</lines>
+						</method>
+						<method name="buildGetServiceDefinitionUrl" signature="(Ljava/lang/String;)Ljava/net/URL;" line-rate="1.0" branch-rate="1.0">
+							<lines>
+								<line number="68" hits="2" branch="false"/>
+								<line number="70" hits="2" branch="false"/>
+							</lines>
+						</method>
+						<method name="buildGetServiceListUrl" signature="()Ljava/net/URL;" line-rate="1.0" branch-rate="1.0">
+							<lines>
+								<line number="52" hits="2" branch="false"/>
+								<line number="53" hits="2" branch="false"/>
+							</lines>
+						</method>
+						<method name="buildGetServiceRequest" signature="(Ljava/lang/String;)Ljava/net/URL;" line-rate="1.0" branch-rate="1.0">
+							<lines>
+								<line number="138" hits="2" branch="false"/>
+								<line number="140" hits="2" branch="false"/>
+								<line number="141" hits="2" branch="false"/>
+							</lines>
+						</method>
+						<method name="buildGetServiceRequestIdFromATokenUrl" signature="(Ljava/lang/String;)Ljava/net/URL;" line-rate="1.0" branch-rate="1.0">
+							<lines>
+								<line number="99" hits="2" branch="false"/>
+								<line number="101" hits="2" branch="false"/>
+							</lines>
+						</method>
+						<method name="buildGetServiceRequests" signature="(Ljava/util/Map;)Ljava/net/URL;" line-rate="1.0" branch-rate="1.0">
+							<lines>
+								<line number="116" hits="2" branch="false"/>
+								<line number="118" hits="2" branch="false"/>
+								<line number="119" hits="2" branch="true" condition-coverage="100% (2/2)">
+									<conditions>
+										<condition number="0" type="jump" coverage="100%"/>
+									</conditions>
+								</line>
+								<line number="120" hits="1" branch="false"/>
+								<line number="122" hits="2" branch="false"/>
+							</lines>
+						</method>
+						<method name="buildParameterString" signature="(Ljava/util/Map;)Ljava/lang/String;" line-rate="0.9" branch-rate="0.8333333333333334">
+							<lines>
+								<line number="194" hits="7" branch="false"/>
+								<line number="195" hits="7" branch="true" condition-coverage="50% (1/2)">
+									<conditions>
+										<condition number="0" type="jump" coverage="50%"/>
+									</conditions>
+								</line>
+								<line number="196" hits="7" branch="false"/>
+								<line number="197" hits="7" branch="true" condition-coverage="100% (2/2)">
+									<conditions>
+										<condition number="0" type="jump" coverage="100%"/>
+									</conditions>
+								</line>
+								<line number="198" hits="19" branch="true" condition-coverage="100% (2/2)">
+									<conditions>
+										<condition number="0" type="jump" coverage="100%"/>
+									</conditions>
+								</line>
+								<line number="199" hits="7" branch="false"/>
+								<line number="201" hits="12" branch="false"/>
+								<line number="203" hits="19" branch="false"/>
+								<line number="205" hits="7" branch="false"/>
+								<line number="207" hits="0" branch="false"/>
+							</lines>
+						</method>
+						<method name="buildPostServiceRequestBody" signature="(Ljava/util/Map;Ljava/util/Map;)Ljava/lang/String;" line-rate="1.0" branch-rate="1.0">
+							<lines>
+								<line number="157" hits="6" branch="false"/>
+								<line number="159" hits="6" branch="false"/>
+								<line number="160" hits="6" branch="false"/>
+								<line number="161" hits="6" branch="false"/>
+							</lines>
+						</method>
+						<method name="buildPostServiceRequestUrl" signature="()Ljava/net/URL;" line-rate="1.0" branch-rate="1.0">
+							<lines>
+								<line number="82" hits="6" branch="false"/>
+								<line number="83" hits="6" branch="false"/>
+								<line number="84" hits="6" branch="false"/>
+							</lines>
+						</method>
+						<method name="buildUrl" signature="(Ljava/lang/String;Ljava/util/Map;)Ljava/net/URL;" line-rate="1.0" branch-rate="1.0">
+							<lines>
+								<line number="223" hits="4" branch="true" condition-coverage="100% (2/2)">
+									<conditions>
+										<condition number="0" type="jump" coverage="100%"/>
+									</conditions>
+								</line>
+								<line number="224" hits="3" branch="false"/>
+								<line number="226" hits="1" branch="false"/>
+							</lines>
+						</method>
+						<method name="validatearguments" signature="(Ljava/util/Map;Ljava/util/Set;)V" line-rate="0.8" branch-rate="0.8333333333333334">
+							<lines>
+								<line number="176" hits="8" branch="true" condition-coverage="100% (2/2)">
+									<conditions>
+										<condition number="0" type="jump" coverage="100%"/>
+									</conditions>
+								</line>
+								<line number="177" hits="7" branch="true" condition-coverage="100% (2/2)">
+									<conditions>
+										<condition number="0" type="jump" coverage="100%"/>
+									</conditions>
+								</line>
+								<line number="178" hits="16" branch="true" condition-coverage="50% (1/2)">
+									<conditions>
+										<condition number="0" type="jump" coverage="50%"/>
+									</conditions>
+								</line>
+								<line number="179" hits="0" branch="false"/>
+								<line number="184" hits="8" branch="false"/>
+							</lines>
+						</method>
+					</methods>
+					<lines>
+						<line number="16" hits="1" branch="false"/>
+						<line number="24" hits="1" branch="false"/>
+						<line number="37" hits="6" branch="false"/>
+						<line number="38" hits="6" branch="false"/>
+						<line number="39" hits="6" branch="false"/>
+						<line number="40" hits="6" branch="false"/>
+						<line number="41" hits="6" branch="false"/>
+						<line number="52" hits="2" branch="false"/>
+						<line number="53" hits="2" branch="false"/>
+						<line number="68" hits="2" branch="false"/>
+						<line number="70" hits="2" branch="false"/>
+						<line number="82" hits="6" branch="false"/>
+						<line number="83" hits="6" branch="false"/>
+						<line number="84" hits="6" branch="false"/>
+						<line number="99" hits="2" branch="false"/>
+						<line number="101" hits="2" branch="false"/>
+						<line number="116" hits="2" branch="false"/>
+						<line number="118" hits="2" branch="false"/>
+						<line number="119" hits="2" branch="true" condition-coverage="100% (2/2)">
+							<conditions>
+								<condition number="0" type="jump" coverage="100%"/>
+							</conditions>
+						</line>
+						<line number="120" hits="1" branch="false"/>
+						<line number="122" hits="2" branch="false"/>
+						<line number="138" hits="2" branch="false"/>
+						<line number="140" hits="2" branch="false"/>
+						<line number="141" hits="2" branch="false"/>
+						<line number="157" hits="6" branch="false"/>
+						<line number="159" hits="6" branch="false"/>
+						<line number="160" hits="6" branch="false"/>
+						<line number="161" hits="6" branch="false"/>
+						<line number="176" hits="8" branch="true" condition-coverage="100% (2/2)">
+							<conditions>
+								<condition number="0" type="jump" coverage="100%"/>
+							</conditions>
+						</line>
+						<line number="177" hits="7" branch="true" condition-coverage="100% (2/2)">
+							<conditions>
+								<condition number="0" type="jump" coverage="100%"/>
+							</conditions>
+						</line>
+						<line number="178" hits="16" branch="true" condition-coverage="50% (1/2)">
+							<conditions>
+								<condition number="0" type="jump" coverage="50%"/>
+							</conditions>
+						</line>
+						<line number="179" hits="0" branch="false"/>
+						<line number="184" hits="8" branch="false"/>
+						<line number="194" hits="7" branch="false"/>
+						<line number="195" hits="7" branch="true" condition-coverage="50% (1/2)">
+							<conditions>
+								<condition number="0" type="jump" coverage="50%"/>
+							</conditions>
+						</line>
+						<line number="196" hits="7" branch="false"/>
+						<line number="197" hits="7" branch="true" condition-coverage="100% (2/2)">
+							<conditions>
+								<condition number="0" type="jump" coverage="100%"/>
+							</conditions>
+						</line>
+						<line number="198" hits="19" branch="true" condition-coverage="100% (2/2)">
+							<conditions>
+								<condition number="0" type="jump" coverage="100%"/>
+							</conditions>
+						</line>
+						<line number="199" hits="7" branch="false"/>
+						<line number="201" hits="12" branch="false"/>
+						<line number="203" hits="19" branch="false"/>
+						<line number="205" hits="7" branch="false"/>
+						<line number="207" hits="0" branch="false"/>
+						<line number="223" hits="4" branch="true" condition-coverage="100% (2/2)">
+							<conditions>
+								<condition number="0" type="jump" coverage="100%"/>
+							</conditions>
+						</line>
+						<line number="224" hits="3" branch="false"/>
+						<line number="226" hits="1" branch="false"/>
+						<line number="240" hits="14" branch="true" condition-coverage="100% (2/2)">
+							<conditions>
+								<condition number="0" type="jump" coverage="100%"/>
+							</conditions>
+						</line>
+						<line number="241" hits="5" branch="false"/>
+						<line number="243" hits="9" branch="false"/>
+					</lines>
+				</class>
+			</classes>
+		</package>
+		<package name="org.codeforamerica.open311.internals.parsing" line-rate="0.9526315789473684" branch-rate="0.72" complexity="2.4375">
+			<classes>
+				<class name="org.codeforamerica.open311.internals.parsing.DataParser" filename="org/codeforamerica/open311/internals/parsing/DataParser.java" line-rate="1.0" branch-rate="1.0" complexity="1.0">
+					<methods>
+					</methods>
+					<lines>
+					</lines>
+				</class>
+				<class name="org.codeforamerica.open311.internals.parsing.DataParserFactory" filename="org/codeforamerica/open311/internals/parsing/DataParserFactory.java" line-rate="0.8571428571428571" branch-rate="0.5" complexity="1.6666666666666667">
+					<methods>
+						<method name="&lt;clinit&gt;" signature="()V" line-rate="1.0" branch-rate="1.0">
+							<lines>
+								<line number="13" hits="1" branch="false"/>
+							</lines>
+						</method>
+						<method name="&lt;init&gt;" signature="()V" line-rate="1.0" branch-rate="1.0">
+							<lines>
+								<line number="15" hits="1" branch="false"/>
+								<line number="16" hits="1" branch="false"/>
+							</lines>
+						</method>
+						<method name="buildDataParser" signature="(Lorg/codeforamerica/open311/facade/Format;)Lorg/codeforamerica/open311/internals/parsing/DataParser;" line-rate="0.6666666666666666" branch-rate="0.5">
+							<lines>
+								<line number="31" hits="1" branch="true" condition-coverage="50% (1/2)">
+									<conditions>
+										<condition number="0" type="jump" coverage="50%"/>
+									</conditions>
+								</line>
+								<line number="32" hits="1" branch="false"/>
+								<line number="34" hits="0" branch="false"/>
+							</lines>
+						</method>
+						<method name="getInstance" signature="()Lorg/codeforamerica/open311/internals/parsing/DataParserFactory;" line-rate="1.0" branch-rate="1.0">
+							<lines>
+								<line number="19" hits="1" branch="false"/>
+							</lines>
+						</method>
+					</methods>
+					<lines>
+						<line number="13" hits="1" branch="false"/>
+						<line number="15" hits="1" branch="false"/>
+						<line number="16" hits="1" branch="false"/>
+						<line number="19" hits="1" branch="false"/>
+						<line number="31" hits="1" branch="true" condition-coverage="50% (1/2)">
+							<conditions>
+								<condition number="0" type="jump" coverage="50%"/>
+							</conditions>
+						</line>
+						<line number="32" hits="1" branch="false"/>
+						<line number="34" hits="0" branch="false"/>
+					</lines>
+				</class>
+				<class name="org.codeforamerica.open311.internals.parsing.DateParsingUtils" filename="org/codeforamerica/open311/internals/parsing/DateParsingUtils.java" line-rate="1.0" branch-rate="1.0" complexity="1.0">
+					<methods>
+						<method name="&lt;clinit&gt;" signature="()V" line-rate="1.0" branch-rate="1.0">
+							<lines>
+								<line number="21" hits="1" branch="false"/>
+							</lines>
+						</method>
+						<method name="&lt;init&gt;" signature="()V" line-rate="1.0" branch-rate="1.0">
+							<lines>
+								<line number="22" hits="1" branch="false"/>
+								<line number="24" hits="1" branch="false"/>
+								<line number="25" hits="1" branch="false"/>
+							</lines>
+						</method>
+						<method name="getInstance" signature="()Lorg/codeforamerica/open311/internals/parsing/DateParsingUtils;" line-rate="1.0" branch-rate="1.0">
+							<lines>
+								<line number="28" hits="30" branch="false"/>
+							</lines>
+						</method>
+						<method name="parseDate" signature="(Ljava/lang/String;)Ljava/util/Date;" line-rate="1.0" branch-rate="1.0">
+							<lines>
+								<line number="39" hits="39" branch="false"/>
+							</lines>
+						</method>
+						<method name="printDate" signature="(Ljava/util/Date;)Ljava/lang/String;" line-rate="1.0" branch-rate="1.0">
+							<lines>
+								<line number="50" hits="18" branch="false"/>
+							</lines>
+						</method>
+					</methods>
+					<lines>
+						<line number="21" hits="1" branch="false"/>
+						<line number="22" hits="1" branch="false"/>
+						<line number="24" hits="1" branch="false"/>
+						<line number="25" hits="1" branch="false"/>
+						<line number="28" hits="30" branch="false"/>
+						<line number="39" hits="39" branch="false"/>
+						<line number="50" hits="18" branch="false"/>
+					</lines>
+				</class>
+				<class name="org.codeforamerica.open311.internals.parsing.XMLParser" filename="org/codeforamerica/open311/internals/parsing/XMLParser.java" line-rate="0.9545454545454546" branch-rate="0.7291666666666666" complexity="3.4444444444444446">
+					<methods>
+						<method name="&lt;init&gt;" signature="()V" line-rate="0.6666666666666666" branch-rate="1.0">
+							<lines>
+								<line number="52" hits="17" branch="false"/>
+								<line number="54" hits="17" branch="false"/>
+								<line number="56" hits="0" branch="false"/>
+								<line number="57" hits="0" branch="false"/>
+								<line number="59" hits="17" branch="false"/>
+								<line number="60" hits="17" branch="false"/>
+							</lines>
+						</method>
+						<method name="getDocument" signature="(Ljava/lang/String;)Lorg/w3c/dom/Document;" line-rate="1.0" branch-rate="1.0">
+							<lines>
+								<line number="446" hits="23" branch="false"/>
+								<line number="448" hits="17" branch="false"/>
+								<line number="449" hits="17" branch="false"/>
+							</lines>
+						</method>
+						<method name="getGeoReportErrorFromXMLElement" signature="(Lorg/w3c/dom/Element;)Lorg/codeforamerica/open311/facade/exceptions/GeoReportV2Error;" line-rate="1.0" branch-rate="1.0">
+							<lines>
+								<line number="360" hits="2" branch="false"/>
+								<line number="361" hits="2" branch="false"/>
+								<line number="363" hits="2" branch="false"/>
+							</lines>
+						</method>
+						<method name="getKeywords" signature="(Ljava/lang/String;)[Ljava/lang/String;" line-rate="1.0" branch-rate="1.0">
+							<lines>
+								<line number="477" hits="4" branch="false"/>
+								<line number="478" hits="16" branch="true" condition-coverage="100% (2/2)">
+									<conditions>
+										<condition number="0" type="jump" coverage="100%"/>
+									</conditions>
+								</line>
+								<line number="479" hits="12" branch="false"/>
+								<line number="481" hits="4" branch="false"/>
+							</lines>
+						</method>
+						<method name="getPostServiceRequestResponse" signature="(Lorg/w3c/dom/Element;)Lorg/codeforamerica/open311/facade/data/PostServiceRequestResponse;" line-rate="1.0" branch-rate="1.0">
+							<lines>
+								<line number="318" hits="4" branch="false"/>
+								<line number="320" hits="4" branch="false"/>
+								<line number="322" hits="4" branch="false"/>
+								<line number="324" hits="4" branch="false"/>
+								<line number="326" hits="4" branch="false"/>
+							</lines>
+						</method>
+						<method name="getService" signature="(Lorg/w3c/dom/Element;)Lorg/codeforamerica/open311/facade/data/Service;" line-rate="1.0" branch-rate="1.0">
+							<lines>
+								<line number="90" hits="4" branch="false"/>
+								<line number="91" hits="4" branch="false"/>
+								<line number="92" hits="4" branch="false"/>
+								<line number="93" hits="4" branch="false"/>
+								<line number="95" hits="4" branch="false"/>
+								<line number="96" hits="4" branch="false"/>
+								<line number="98" hits="4" branch="false"/>
+								<line number="100" hits="4" branch="false"/>
+							</lines>
+						</method>
+						<method name="getServiceDefinition" signature="(Lorg/w3c/dom/Element;)Lorg/codeforamerica/open311/facade/data/ServiceDefinition;" line-rate="1.0" branch-rate="0.75">
+							<lines>
+								<line number="134" hits="2" branch="false"/>
+								<line number="136" hits="2" branch="false"/>
+								<line number="138" hits="2" branch="false"/>
+								<line number="139" hits="4" branch="true" condition-coverage="100% (2/2)">
+									<conditions>
+										<condition number="0" type="jump" coverage="100%"/>
+									</conditions>
+								</line>
+								<line number="140" hits="2" branch="false"/>
+								<line number="141" hits="2" branch="true" condition-coverage="50% (1/2)">
+									<conditions>
+										<condition number="0" type="jump" coverage="50%"/>
+									</conditions>
+								</line>
+								<line number="142" hits="2" branch="false"/>
+								<line number="143" hits="2" branch="false"/>
+								<line number="145" hits="2" branch="false"/>
+								<line number="146" hits="2" branch="false"/>
+								<line number="148" hits="2" branch="false"/>
+								<line number="150" hits="2" branch="false"/>
+								<line number="152" hits="2" branch="false"/>
+								<line number="154" hits="2" branch="false"/>
+								<line number="156" hits="2" branch="false"/>
+								<line number="157" hits="2" branch="false"/>
+								<line number="159" hits="6" branch="true" condition-coverage="100% (2/2)">
+									<conditions>
+										<condition number="0" type="jump" coverage="100%"/>
+									</conditions>
+								</line>
+								<line number="160" hits="4" branch="false"/>
+								<line number="161" hits="4" branch="true" condition-coverage="50% (1/2)">
+									<conditions>
+										<condition number="0" type="jump" coverage="50%"/>
+									</conditions>
+								</line>
+								<line number="162" hits="4" branch="false"/>
+								<line number="163" hits="4" branch="false"/>
+								<line number="164" hits="4" branch="false"/>
+								<line number="165" hits="4" branch="false"/>
+								<line number="168" hits="2" branch="false"/>
+								<line number="174" hits="2" branch="false"/>
+							</lines>
+						</method>
+						<method name="getServiceRequest" signature="(Lorg/w3c/dom/Element;)Lorg/codeforamerica/open311/facade/data/ServiceRequest;" line-rate="1.0" branch-rate="1.0">
+							<lines>
+								<line number="247" hits="6" branch="false"/>
+								<line number="249" hits="6" branch="false"/>
+								<line number="251" hits="6" branch="false"/>
+								<line number="253" hits="6" branch="false"/>
+								<line number="255" hits="6" branch="false"/>
+								<line number="257" hits="6" branch="false"/>
+								<line number="259" hits="6" branch="false"/>
+								<line number="261" hits="6" branch="false"/>
+								<line number="263" hits="6" branch="false"/>
+								<line number="264" hits="6" branch="false"/>
+								<line number="266" hits="6" branch="false"/>
+								<line number="268" hits="6" branch="false"/>
+								<line number="270" hits="6" branch="false"/>
+								<line number="271" hits="6" branch="false"/>
+								<line number="272" hits="6" branch="false"/>
+								<line number="274" hits="6" branch="false"/>
+								<line number="276" hits="6" branch="false"/>
+								<line number="278" hits="6" branch="false"/>
+								<line number="280" hits="6" branch="false"/>
+							</lines>
+						</method>
+						<method name="getServiceRequestIdResponse" signature="(Lorg/w3c/dom/Element;)Lorg/codeforamerica/open311/facade/data/ServiceRequestIdResponse;" line-rate="1.0" branch-rate="1.0">
+							<lines>
+								<line number="208" hits="4" branch="false"/>
+								<line number="209" hits="4" branch="false"/>
+								<line number="211" hits="4" branch="false"/>
+							</lines>
+						</method>
+						<method name="getTagContent" signature="(Lorg/w3c/dom/Element;Ljava/lang/String;)Ljava/lang/String;" line-rate="1.0" branch-rate="1.0">
+							<lines>
+								<line number="463" hits="220" branch="false"/>
+								<line number="464" hits="220" branch="true" condition-coverage="100% (2/2)">
+									<conditions>
+										<condition number="0" type="jump" coverage="100%"/>
+									</conditions>
+								</line>
+								<line number="465" hits="216" branch="false"/>
+								<line number="467" hits="4" branch="false"/>
+							</lines>
+						</method>
+						<method name="parseEndpoints" signature="(Lorg/w3c/dom/NodeList;)Ljava/util/List;" line-rate="1.0" branch-rate="0.75">
+							<lines>
+								<line number="403" hits="2" branch="false"/>
+								<line number="404" hits="10" branch="true" condition-coverage="100% (2/2)">
+									<conditions>
+										<condition number="0" type="jump" coverage="100%"/>
+									</conditions>
+								</line>
+								<line number="405" hits="8" branch="false"/>
+								<line number="406" hits="8" branch="true" condition-coverage="50% (1/2)">
+									<conditions>
+										<condition number="0" type="jump" coverage="50%"/>
+									</conditions>
+								</line>
+								<line number="407" hits="8" branch="false"/>
+								<line number="408" hits="8" branch="false"/>
+								<line number="410" hits="8" branch="false"/>
+								<line number="411" hits="8" branch="false"/>
+								<line number="413" hits="8" branch="false"/>
+								<line number="415" hits="8" branch="false"/>
+								<line number="417" hits="8" branch="false"/>
+								<line number="418" hits="16" branch="true" condition-coverage="100% (2/2)">
+									<conditions>
+										<condition number="0" type="jump" coverage="100%"/>
+									</conditions>
+								</line>
+								<line number="419" hits="8" branch="false"/>
+								<line number="420" hits="8" branch="true" condition-coverage="50% (1/2)">
+									<conditions>
+										<condition number="0" type="jump" coverage="50%"/>
+									</conditions>
+								</line>
+								<line number="421" hits="8" branch="false"/>
+								<line number="422" hits="8" branch="false"/>
+								<line number="427" hits="8" branch="false"/>
+								<line number="431" hits="2" branch="false"/>
+							</lines>
+						</method>
+						<method name="parseGeoReportV2Errors" signature="(Ljava/lang/String;)Ljava/util/List;" line-rate="1.0" branch-rate="0.75">
+							<lines>
+								<line number="334" hits="2" branch="false"/>
+								<line number="335" hits="2" branch="false"/>
+								<line number="336" hits="1" branch="false"/>
+								<line number="337" hits="3" branch="true" condition-coverage="100% (2/2)">
+									<conditions>
+										<condition number="0" type="jump" coverage="100%"/>
+									</conditions>
+								</line>
+								<line number="338" hits="2" branch="false"/>
+								<line number="339" hits="2" branch="true" condition-coverage="50% (1/2)">
+									<conditions>
+										<condition number="0" type="jump" coverage="50%"/>
+									</conditions>
+								</line>
+								<line number="340" hits="2" branch="false"/>
+								<line number="343" hits="1" branch="false"/>
+								<line number="344" hits="1" branch="false"/>
+								<line number="345" hits="1" branch="false"/>
+							</lines>
+						</method>
+						<method name="parsePostServiceRequestResponse" signature="(Ljava/lang/String;)Ljava/util/List;" line-rate="1.0" branch-rate="0.75">
+							<lines>
+								<line number="290" hits="6" branch="false"/>
+								<line number="292" hits="6" branch="false"/>
+								<line number="293" hits="5" branch="false"/>
+								<line number="295" hits="9" branch="true" condition-coverage="100% (2/2)">
+									<conditions>
+										<condition number="0" type="jump" coverage="100%"/>
+									</conditions>
+								</line>
+								<line number="296" hits="4" branch="false"/>
+								<line number="297" hits="4" branch="true" condition-coverage="50% (1/2)">
+									<conditions>
+										<condition number="0" type="jump" coverage="50%"/>
+									</conditions>
+								</line>
+								<line number="298" hits="4" branch="false"/>
+								<line number="301" hits="1" branch="false"/>
+								<line number="302" hits="1" branch="false"/>
+								<line number="303" hits="5" branch="false"/>
+								<line number="304" hits="5" branch="false"/>
+							</lines>
+						</method>
+						<method name="parseServiceDefinition" signature="(Ljava/lang/String;)Lorg/codeforamerica/open311/facade/data/ServiceDefinition;" line-rate="0.8" branch-rate="0.5">
+							<lines>
+								<line number="108" hits="3" branch="false"/>
+								<line number="109" hits="2" branch="false"/>
+								<line number="111" hits="2" branch="true" condition-coverage="50% (1/2)">
+									<conditions>
+										<condition number="0" type="jump" coverage="50%"/>
+									</conditions>
+								</line>
+								<line number="112" hits="2" branch="false"/>
+								<line number="113" hits="2" branch="true" condition-coverage="50% (1/2)">
+									<conditions>
+										<condition number="0" type="jump" coverage="50%"/>
+									</conditions>
+								</line>
+								<line number="114" hits="2" branch="false"/>
+								<line number="117" hits="1" branch="false"/>
+								<line number="118" hits="1" branch="false"/>
+								<line number="119" hits="0" branch="false"/>
+								<line number="120" hits="0" branch="false"/>
+							</lines>
+						</method>
+						<method name="parseServiceDiscovery" signature="(Ljava/lang/String;)Lorg/codeforamerica/open311/facade/data/ServiceDiscoveryInfo;" line-rate="0.7142857142857143" branch-rate="0.5">
+							<lines>
+								<line number="370" hits="2" branch="false"/>
+								<line number="371" hits="2" branch="false"/>
+								<line number="373" hits="2" branch="true" condition-coverage="50% (1/2)">
+									<conditions>
+										<condition number="0" type="jump" coverage="50%"/>
+									</conditions>
+								</line>
+								<line number="374" hits="2" branch="false"/>
+								<line number="375" hits="2" branch="true" condition-coverage="50% (1/2)">
+									<conditions>
+										<condition number="0" type="jump" coverage="50%"/>
+									</conditions>
+								</line>
+								<line number="376" hits="2" branch="false"/>
+								<line number="377" hits="2" branch="false"/>
+								<line number="380" hits="2" branch="false"/>
+								<line number="382" hits="2" branch="false"/>
+								<line number="384" hits="2" branch="false"/>
+								<line number="389" hits="0" branch="false"/>
+								<line number="390" hits="0" branch="false"/>
+								<line number="391" hits="0" branch="false"/>
+								<line number="392" hits="0" branch="false"/>
+							</lines>
+						</method>
+						<method name="parseServiceList" signature="(Ljava/lang/String;)Ljava/util/List;" line-rate="1.0" branch-rate="0.75">
+							<lines>
+								<line number="65" hits="3" branch="false"/>
+								<line number="67" hits="3" branch="false"/>
+								<line number="68" hits="2" branch="false"/>
+								<line number="69" hits="6" branch="true" condition-coverage="100% (2/2)">
+									<conditions>
+										<condition number="0" type="jump" coverage="100%"/>
+									</conditions>
+								</line>
+								<line number="70" hits="4" branch="false"/>
+								<line number="71" hits="4" branch="true" condition-coverage="50% (1/2)">
+									<conditions>
+										<condition number="0" type="jump" coverage="50%"/>
+									</conditions>
+								</line>
+								<line number="72" hits="4" branch="false"/>
+								<line number="75" hits="1" branch="false"/>
+								<line number="76" hits="1" branch="false"/>
+								<line number="77" hits="2" branch="false"/>
+								<line number="78" hits="2" branch="false"/>
+							</lines>
+						</method>
+						<method name="parseServiceRequestIdFromAToken" signature="(Ljava/lang/String;)Ljava/util/List;" line-rate="1.0" branch-rate="0.75">
+							<lines>
+								<line number="180" hits="3" branch="false"/>
+								<line number="182" hits="3" branch="false"/>
+								<line number="183" hits="2" branch="false"/>
+								<line number="185" hits="6" branch="true" condition-coverage="100% (2/2)">
+									<conditions>
+										<condition number="0" type="jump" coverage="100%"/>
+									</conditions>
+								</line>
+								<line number="186" hits="4" branch="false"/>
+								<line number="187" hits="4" branch="true" condition-coverage="50% (1/2)">
+									<conditions>
+										<condition number="0" type="jump" coverage="50%"/>
+									</conditions>
+								</line>
+								<line number="188" hits="4" branch="false"/>
+								<line number="191" hits="1" branch="false"/>
+								<line number="192" hits="1" branch="false"/>
+								<line number="193" hits="2" branch="false"/>
+								<line number="194" hits="2" branch="false"/>
+							</lines>
+						</method>
+						<method name="parseServiceRequests" signature="(Ljava/lang/String;)Ljava/util/List;" line-rate="1.0" branch-rate="0.75">
+							<lines>
+								<line number="217" hits="4" branch="false"/>
+								<line number="219" hits="4" branch="false"/>
+								<line number="220" hits="3" branch="false"/>
+								<line number="222" hits="9" branch="true" condition-coverage="100% (2/2)">
+									<conditions>
+										<condition number="0" type="jump" coverage="100%"/>
+									</conditions>
+								</line>
+								<line number="223" hits="6" branch="false"/>
+								<line number="224" hits="6" branch="true" condition-coverage="50% (1/2)">
+									<conditions>
+										<condition number="0" type="jump" coverage="50%"/>
+									</conditions>
+								</line>
+								<line number="225" hits="6" branch="false"/>
+								<line number="228" hits="1" branch="false"/>
+								<line number="229" hits="1" branch="false"/>
+								<line number="230" hits="3" branch="false"/>
+								<line number="231" hits="3" branch="false"/>
+							</lines>
+						</method>
+					</methods>
+					<lines>
+						<line number="52" hits="17" branch="false"/>
+						<line number="54" hits="17" branch="false"/>
+						<line number="56" hits="0" branch="false"/>
+						<line number="57" hits="0" branch="false"/>
+						<line number="59" hits="17" branch="false"/>
+						<line number="60" hits="17" branch="false"/>
+						<line number="65" hits="3" branch="false"/>
+						<line number="67" hits="3" branch="false"/>
+						<line number="68" hits="2" branch="false"/>
+						<line number="69" hits="6" branch="true" condition-coverage="100% (2/2)">
+							<conditions>
+								<condition number="0" type="jump" coverage="100%"/>
+							</conditions>
+						</line>
+						<line number="70" hits="4" branch="false"/>
+						<line number="71" hits="4" branch="true" condition-coverage="50% (1/2)">
+							<conditions>
+								<condition number="0" type="jump" coverage="50%"/>
+							</conditions>
+						</line>
+						<line number="72" hits="4" branch="false"/>
+						<line number="75" hits="1" branch="false"/>
+						<line number="76" hits="1" branch="false"/>
+						<line number="77" hits="2" branch="false"/>
+						<line number="78" hits="2" branch="false"/>
+						<line number="90" hits="4" branch="false"/>
+						<line number="91" hits="4" branch="false"/>
+						<line number="92" hits="4" branch="false"/>
+						<line number="93" hits="4" branch="false"/>
+						<line number="95" hits="4" branch="false"/>
+						<line number="96" hits="4" branch="false"/>
+						<line number="98" hits="4" branch="false"/>
+						<line number="100" hits="4" branch="false"/>
+						<line number="108" hits="3" branch="false"/>
+						<line number="109" hits="2" branch="false"/>
+						<line number="111" hits="2" branch="true" condition-coverage="50% (1/2)">
+							<conditions>
+								<condition number="0" type="jump" coverage="50%"/>
+							</conditions>
+						</line>
+						<line number="112" hits="2" branch="false"/>
+						<line number="113" hits="2" branch="true" condition-coverage="50% (1/2)">
+							<conditions>
+								<condition number="0" type="jump" coverage="50%"/>
+							</conditions>
+						</line>
+						<line number="114" hits="2" branch="false"/>
+						<line number="117" hits="1" branch="false"/>
+						<line number="118" hits="1" branch="false"/>
+						<line number="119" hits="0" branch="false"/>
+						<line number="120" hits="0" branch="false"/>
+						<line number="134" hits="2" branch="false"/>
+						<line number="136" hits="2" branch="false"/>
+						<line number="138" hits="2" branch="false"/>
+						<line number="139" hits="4" branch="true" condition-coverage="100% (2/2)">
+							<conditions>
+								<condition number="0" type="jump" coverage="100%"/>
+							</conditions>
+						</line>
+						<line number="140" hits="2" branch="false"/>
+						<line number="141" hits="2" branch="true" condition-coverage="50% (1/2)">
+							<conditions>
+								<condition number="0" type="jump" coverage="50%"/>
+							</conditions>
+						</line>
+						<line number="142" hits="2" branch="false"/>
+						<line number="143" hits="2" branch="false"/>
+						<line number="145" hits="2" branch="false"/>
+						<line number="146" hits="2" branch="false"/>
+						<line number="148" hits="2" branch="false"/>
+						<line number="150" hits="2" branch="false"/>
+						<line number="152" hits="2" branch="false"/>
+						<line number="154" hits="2" branch="false"/>
+						<line number="156" hits="2" branch="false"/>
+						<line number="157" hits="2" branch="false"/>
+						<line number="159" hits="6" branch="true" condition-coverage="100% (2/2)">
+							<conditions>
+								<condition number="0" type="jump" coverage="100%"/>
+							</conditions>
+						</line>
+						<line number="160" hits="4" branch="false"/>
+						<line number="161" hits="4" branch="true" condition-coverage="50% (1/2)">
+							<conditions>
+								<condition number="0" type="jump" coverage="50%"/>
+							</conditions>
+						</line>
+						<line number="162" hits="4" branch="false"/>
+						<line number="163" hits="4" branch="false"/>
+						<line number="164" hits="4" branch="false"/>
+						<line number="165" hits="4" branch="false"/>
+						<line number="168" hits="2" branch="false"/>
+						<line number="174" hits="2" branch="false"/>
+						<line number="180" hits="3" branch="false"/>
+						<line number="182" hits="3" branch="false"/>
+						<line number="183" hits="2" branch="false"/>
+						<line number="185" hits="6" branch="true" condition-coverage="100% (2/2)">
+							<conditions>
+								<condition number="0" type="jump" coverage="100%"/>
+							</conditions>
+						</line>
+						<line number="186" hits="4" branch="false"/>
+						<line number="187" hits="4" branch="true" condition-coverage="50% (1/2)">
+							<conditions>
+								<condition number="0" type="jump" coverage="50%"/>
+							</conditions>
+						</line>
+						<line number="188" hits="4" branch="false"/>
+						<line number="191" hits="1" branch="false"/>
+						<line number="192" hits="1" branch="false"/>
+						<line number="193" hits="2" branch="false"/>
+						<line number="194" hits="2" branch="false"/>
+						<line number="208" hits="4" branch="false"/>
+						<line number="209" hits="4" branch="false"/>
+						<line number="211" hits="4" branch="false"/>
+						<line number="217" hits="4" branch="false"/>
+						<line number="219" hits="4" branch="false"/>
+						<line number="220" hits="3" branch="false"/>
+						<line number="222" hits="9" branch="true" condition-coverage="100% (2/2)">
+							<conditions>
+								<condition number="0" type="jump" coverage="100%"/>
+							</conditions>
+						</line>
+						<line number="223" hits="6" branch="false"/>
+						<line number="224" hits="6" branch="true" condition-coverage="50% (1/2)">
+							<conditions>
+								<condition number="0" type="jump" coverage="50%"/>
+							</conditions>
+						</line>
+						<line number="225" hits="6" branch="false"/>
+						<line number="228" hits="1" branch="false"/>
+						<line number="229" hits="1" branch="false"/>
+						<line number="230" hits="3" branch="false"/>
+						<line number="231" hits="3" branch="false"/>
+						<line number="247" hits="6" branch="false"/>
+						<line number="249" hits="6" branch="false"/>
+						<line number="251" hits="6" branch="false"/>
+						<line number="253" hits="6" branch="false"/>
+						<line number="255" hits="6" branch="false"/>
+						<line number="257" hits="6" branch="false"/>
+						<line number="259" hits="6" branch="false"/>
+						<line number="261" hits="6" branch="false"/>
+						<line number="263" hits="6" branch="false"/>
+						<line number="264" hits="6" branch="false"/>
+						<line number="266" hits="6" branch="false"/>
+						<line number="268" hits="6" branch="false"/>
+						<line number="270" hits="6" branch="false"/>
+						<line number="271" hits="6" branch="false"/>
+						<line number="272" hits="6" branch="false"/>
+						<line number="274" hits="6" branch="false"/>
+						<line number="276" hits="6" branch="false"/>
+						<line number="278" hits="6" branch="false"/>
+						<line number="280" hits="6" branch="false"/>
+						<line number="290" hits="6" branch="false"/>
+						<line number="292" hits="6" branch="false"/>
+						<line number="293" hits="5" branch="false"/>
+						<line number="295" hits="9" branch="true" condition-coverage="100% (2/2)">
+							<conditions>
+								<condition number="0" type="jump" coverage="100%"/>
+							</conditions>
+						</line>
+						<line number="296" hits="4" branch="false"/>
+						<line number="297" hits="4" branch="true" condition-coverage="50% (1/2)">
+							<conditions>
+								<condition number="0" type="jump" coverage="50%"/>
+							</conditions>
+						</line>
+						<line number="298" hits="4" branch="false"/>
+						<line number="301" hits="1" branch="false"/>
+						<line number="302" hits="1" branch="false"/>
+						<line number="303" hits="5" branch="false"/>
+						<line number="304" hits="5" branch="false"/>
+						<line number="318" hits="4" branch="false"/>
+						<line number="320" hits="4" branch="false"/>
+						<line number="322" hits="4" branch="false"/>
+						<line number="324" hits="4" branch="false"/>
+						<line number="326" hits="4" branch="false"/>
+						<line number="334" hits="2" branch="false"/>
+						<line number="335" hits="2" branch="false"/>
+						<line number="336" hits="1" branch="false"/>
+						<line number="337" hits="3" branch="true" condition-coverage="100% (2/2)">
+							<conditions>
+								<condition number="0" type="jump" coverage="100%"/>
+							</conditions>
+						</line>
+						<line number="338" hits="2" branch="false"/>
+						<line number="339" hits="2" branch="true" condition-coverage="50% (1/2)">
+							<conditions>
+								<condition number="0" type="jump" coverage="50%"/>
+							</conditions>
+						</line>
+						<line number="340" hits="2" branch="false"/>
+						<line number="343" hits="1" branch="false"/>
+						<line number="344" hits="1" branch="false"/>
+						<line number="345" hits="1" branch="false"/>
+						<line number="360" hits="2" branch="false"/>
+						<line number="361" hits="2" branch="false"/>
+						<line number="363" hits="2" branch="false"/>
+						<line number="370" hits="2" branch="false"/>
+						<line number="371" hits="2" branch="false"/>
+						<line number="373" hits="2" branch="true" condition-coverage="50% (1/2)">
+							<conditions>
+								<condition number="0" type="jump" coverage="50%"/>
+							</conditions>
+						</line>
+						<line number="374" hits="2" branch="false"/>
+						<line number="375" hits="2" branch="true" condition-coverage="50% (1/2)">
+							<conditions>
+								<condition number="0" type="jump" coverage="50%"/>
+							</conditions>
+						</line>
+						<line number="376" hits="2" branch="false"/>
+						<line number="377" hits="2" branch="false"/>
+						<line number="380" hits="2" branch="false"/>
+						<line number="382" hits="2" branch="false"/>
+						<line number="384" hits="2" branch="false"/>
+						<line number="389" hits="0" branch="false"/>
+						<line number="390" hits="0" branch="false"/>
+						<line number="391" hits="0" branch="false"/>
+						<line number="392" hits="0" branch="false"/>
+						<line number="403" hits="2" branch="false"/>
+						<line number="404" hits="10" branch="true" condition-coverage="100% (2/2)">
+							<conditions>
+								<condition number="0" type="jump" coverage="100%"/>
+							</conditions>
+						</line>
+						<line number="405" hits="8" branch="false"/>
+						<line number="406" hits="8" branch="true" condition-coverage="50% (1/2)">
+							<conditions>
+								<condition number="0" type="jump" coverage="50%"/>
+							</conditions>
+						</line>
+						<line number="407" hits="8" branch="false"/>
+						<line number="408" hits="8" branch="false"/>
+						<line number="410" hits="8" branch="false"/>
+						<line number="411" hits="8" branch="false"/>
+						<line number="413" hits="8" branch="false"/>
+						<line number="415" hits="8" branch="false"/>
+						<line number="417" hits="8" branch="false"/>
+						<line number="418" hits="16" branch="true" condition-coverage="100% (2/2)">
+							<conditions>
+								<condition number="0" type="jump" coverage="100%"/>
+							</conditions>
+						</line>
+						<line number="419" hits="8" branch="false"/>
+						<line number="420" hits="8" branch="true" condition-coverage="50% (1/2)">
+							<conditions>
+								<condition number="0" type="jump" coverage="50%"/>
+							</conditions>
+						</line>
+						<line number="421" hits="8" branch="false"/>
+						<line number="422" hits="8" branch="false"/>
+						<line number="427" hits="8" branch="false"/>
+						<line number="431" hits="2" branch="false"/>
+						<line number="446" hits="23" branch="false"/>
+						<line number="448" hits="17" branch="false"/>
+						<line number="449" hits="17" branch="false"/>
+						<line number="463" hits="220" branch="false"/>
+						<line number="464" hits="220" branch="true" condition-coverage="100% (2/2)">
+							<conditions>
+								<condition number="0" type="jump" coverage="100%"/>
+							</conditions>
+						</line>
+						<line number="465" hits="216" branch="false"/>
+						<line number="467" hits="4" branch="false"/>
+						<line number="477" hits="4" branch="false"/>
+						<line number="478" hits="16" branch="true" condition-coverage="100% (2/2)">
+							<conditions>
+								<condition number="0" type="jump" coverage="100%"/>
+							</conditions>
+						</line>
+						<line number="479" hits="12" branch="false"/>
+						<line number="481" hits="4" branch="false"/>
+					</lines>
+				</class>
+			</classes>
+		</package>
+	</packages>
+</coverage>
