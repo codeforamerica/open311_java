@@ -290,8 +290,10 @@ public class APIWrapper {
 	 * 
 	 * @param url
 	 *            Target.
-	 * @param body
-	 *            Body of the request.
+	 * @param arguments
+	 *            Pairs (key,value) of optional arguments.
+	 * @param attributes
+	 *            List of attributes (check the GeoReport v2 wiki).
 	 * @return List of Service Request responses.
 	 * @throws APIWrapperException
 	 *             If there was any problem.

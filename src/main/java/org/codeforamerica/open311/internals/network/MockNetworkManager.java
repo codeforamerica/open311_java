@@ -161,7 +161,7 @@ public class MockNetworkManager implements NetworkManager {
 	}
 	/**
 	 * Mock service discovery.
-	 * @return
+	 * @return XML.
 	 */
 	public String discoveryXml() {
 		return "<?xml version=\"1.0\" encoding=\"utf-8\"?><discovery xmlns:m=\"http://org/sfgov/sf311v2/services\" "
