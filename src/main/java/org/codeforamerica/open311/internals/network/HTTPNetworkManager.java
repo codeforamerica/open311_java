@@ -61,4 +61,9 @@ public class HTTPNetworkManager implements NetworkManager {
 			httpClient.close();
 		}
 	}
+
+	@Override
+	public void setFormat(Format format) {
+		this.format = format;
+	}
 }

@@ -3,6 +3,8 @@ package org.codeforamerica.open311.internals.network;
 import java.io.IOException;
 import java.net.URL;
 
+import org.codeforamerica.open311.facade.Format;
+
 /**
  * Specifies the required operations of a NetworkManager
  * 
@@ -36,4 +38,12 @@ public interface NetworkManager {
 	 *             If there was any problem with the connection.
 	 */
 	public String doPost(URL url, String body) throws IOException;
+
+	/**
+	 * Sets the desired format of the requests.
+	 * 
+	 * @param format
+	 *            A serialization format (XML or JSON).
+	 */
+	public void setFormat(Format format);
 }

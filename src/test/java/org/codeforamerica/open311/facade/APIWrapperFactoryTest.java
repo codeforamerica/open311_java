@@ -3,7 +3,7 @@ package org.codeforamerica.open311.facade;
 import static org.junit.Assert.assertEquals;
 
 import org.codeforamerica.open311.facade.exceptions.APIWrapperException;
-import org.codeforamerica.open311.internals.network.MockNetworkManagerFactory;
+import org.codeforamerica.open311.internals.network.MockNetworkManager;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -29,7 +29,7 @@ public class APIWrapperFactoryTest {
 	public void buildTest() throws APIWrapperException {
 		APIWrapper wrapper = new APIWrapperFactory(City.SAN_FRANCISCO)
 				.setEndpointType(EndpointType.TEST)
-				.setNetworkManagerFactory(new MockNetworkManagerFactory())
+				.setNetworkManager(new MockNetworkManager())
 				.build();
 		assertEquals(wrapper.getWrapperInfo(),
 				"https://open311.sfgov.org/dev/v2 - TEST");

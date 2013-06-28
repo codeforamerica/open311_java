@@ -10,9 +10,7 @@ import org.codeforamerica.open311.facade.exceptions.APIWrapperException;
 import org.codeforamerica.open311.facade.exceptions.APIWrapperException.Error;
 import org.codeforamerica.open311.facade.exceptions.DataParsingException;
 import org.codeforamerica.open311.internals.network.HTTPNetworkManager;
-import org.codeforamerica.open311.internals.network.HTTPNetworkManagerFactory;
 import org.codeforamerica.open311.internals.network.NetworkManager;
-import org.codeforamerica.open311.internals.network.NetworkManagerFactory;
 import org.codeforamerica.open311.internals.parsing.DataParser;
 import org.codeforamerica.open311.internals.parsing.DataParserFactory;
 
@@ -29,7 +27,7 @@ public class APIWrapperFactory {
 	private City city;
 	private EndpointType endpointType = EndpointType.PRODUCTION;
 	private String apiKey = "";
-	private NetworkManagerFactory networkManagerFactory = new HTTPNetworkManagerFactory();
+	private NetworkManager networkManager = new HTTPNetworkManager(Format.XML);
 
 	public APIWrapperFactory(City city) {
 		this.city = city;
@@ -61,19 +59,16 @@ public class APIWrapperFactory {
 	}
 
 	/**
-	 * Sets a custom {@link NetworkManagerFactory}, useful if you need to use
-	 * mocks or a platform-dependent network client which you can build
-	 * implementing the {@link NetworkManager} interface.
+	 * Sets a custom {@link NetworkManager}, useful if you need to use mocks or
+	 * a platform-dependent network client which you can build implementing the
+	 * {@link NetworkManager} interface.
 	 * 
-	 * @param networkManagerFactory
-	 *            {@link NetworkManagerFactory} which builds the desired
-	 *            {@link NetworkManager}.
-	 * @return The same instance with the new specified
-	 *         {@link NetworkManagerFactory}.
+	 * @param networkManager
+	 *            A implementation of the {@link NetworkManager} interface.
+	 * @return The same instance with the new specified {@link NetworkManager}.
 	 */
-	public APIWrapperFactory setNetworkManagerFactory(
-			NetworkManagerFactory networkManagerFactory) {
-		this.networkManagerFactory = networkManagerFactory;
+	public APIWrapperFactory setNetworkManager(NetworkManager networkManager) {
+		this.networkManager = networkManager;
 		return this;
 	}
 
@@ -86,7 +81,7 @@ public class APIWrapperFactory {
 	 *             If there was any problem.
 	 */
 	public APIWrapper build() throws APIWrapperException {
-		return buildWrapper(city, endpointType, apiKey, networkManagerFactory);
+		return buildWrapper(city, endpointType, apiKey, networkManager);
 	}
 
 	/**
@@ -103,19 +98,17 @@ public class APIWrapperFactory {
 	 *            one, go to the <a
 	 *            href="http://wiki.open311.org/GeoReport_v2/Servers">list of
 	 *            servers</a> and request it.
-	 * @param networkManagerFactory
-	 *            A {@link NetworkManager} instances builder.
+	 * @param networkManager
+	 *            A {@link NetworkManager} implementation.
 	 * @return An instance suited to the given parameters.
 	 * 
 	 * @throws APIWrapperException
 	 *             If there was any problem.
 	 */
 	private APIWrapper buildWrapper(City city, EndpointType endpointType,
-			String apiKey, NetworkManagerFactory networkManagerFactory)
+			String apiKey, NetworkManager networkManager)
 			throws APIWrapperException {
 		try {
-			NetworkManager networkManager = networkManagerFactory
-					.createNetworkManager(Format.XML);
 			DataParser dataParser = DataParserFactory.getInstance()
 					.buildDataParser(Format.XML);
 			ServiceDiscoveryInfo serviceDiscoveryInfo = dataParser
@@ -125,7 +118,7 @@ public class APIWrapperFactory {
 					.getMoreSuitableEndpoint(endpointType);
 			Format format = endpoint.getBestFormat();
 			if (format != Format.XML) {
-				networkManager = new HTTPNetworkManager(format);
+				networkManager.setFormat(format);
 				dataParser = DataParserFactory.getInstance().buildDataParser(
 						format);
 			}

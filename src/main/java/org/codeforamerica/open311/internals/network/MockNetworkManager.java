@@ -3,6 +3,8 @@ package org.codeforamerica.open311.internals.network;
 import java.io.IOException;
 import java.net.URL;
 
+import org.codeforamerica.open311.facade.Format;
+
 /**
  * Mock {@link NetworkManager}, useful for testing.
  * 
@@ -54,6 +56,11 @@ public class MockNetworkManager implements NetworkManager {
 		}
 
 		return "";
+	}
+
+	@Override
+	public void setFormat(Format format) {
+
 	}
 
 	/**
@@ -159,8 +166,10 @@ public class MockNetworkManager implements NetworkManager {
 		return "<?xml version=\"1.0\" encoding=\"utf-8\"?><errors><error><code>403</code><description>Invalid api_key received -- can't proceed with create_request.</description></error>"
 				+ "<error><code>404</code><description>Whatever</description></error></errors>";
 	}
+
 	/**
 	 * Mock service discovery.
+	 * 
 	 * @return XML.
 	 */
 	public String discoveryXml() {
