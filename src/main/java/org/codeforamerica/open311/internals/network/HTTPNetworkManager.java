@@ -26,6 +26,7 @@ public class HTTPNetworkManager implements NetworkManager {
 	private Format format;
 
 	public HTTPNetworkManager(Format format) {
+		this.format = format;
 		HttpClientBuilder builder = HttpClientBuilder.create();
 		httpClient = builder.build();
 	}
