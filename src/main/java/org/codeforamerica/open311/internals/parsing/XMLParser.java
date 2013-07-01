@@ -269,19 +269,49 @@ public class XMLParser implements DataParser {
 				serviceRequestElement, EXPECTED_DATETIME_TAG)));
 		String address = getTagContent(serviceRequestElement, ADDRESS_TAG);
 		String addressId = getTagContent(serviceRequestElement, ADDRESS_ID_TAG);
-		int zipCode = Integer.parseInt(getTagContent(serviceRequestElement,
-				ZIPCODE_TAG));
-		float latitude = Float.parseFloat(getTagContent(serviceRequestElement,
+		int zipCode = parseInt(getTagContent(serviceRequestElement, ZIPCODE_TAG));
+		float latitude = parseFloat(getTagContent(serviceRequestElement,
 				LATITUDE_TAG));
-		float longitude = Float.parseFloat(getTagContent(serviceRequestElement,
+		float longitude = parseFloat(getTagContent(serviceRequestElement,
 				LONGITUDE_TAG));
-		URL mediaUrl = new URL(getTagContent(serviceRequestElement,
-				MEDIA_URL_TAG).trim());
+		String rawMediaUrl = getTagContent(serviceRequestElement, MEDIA_URL_TAG)
+				.trim();
+		URL mediaUrl = rawMediaUrl.length() > 0 ? new URL(rawMediaUrl) : null;
 		return new ServiceRequest(serviceRequestId, status, statusNotes,
 				serviceName, serviceCode, description, agencyResponsible,
 				serviceNotice, requestedDatetime, updatedDatetime,
 				expectedDatetime, address, addressId, zipCode, latitude,
 				longitude, mediaUrl);
+	}
+
+	/**
+	 * Parses a string and returns an integer. <b>NOTE<b>: Be careful and notice
+	 * that this function will return a <code>0</code> if the given string is
+	 * not valid. This approach works well here, but not generally.
+	 * 
+	 * @param rawInt
+	 *            A string which represents an integer number.
+	 * @return The integer value (or <code>0</code> if the rawInt is empty or
+	 *         <code>null</code>).
+	 */
+	private int parseInt(String rawInt) {
+		return (rawInt != null && rawInt.length() > 0) ? Integer
+				.parseInt(rawInt) : 0;
+	}
+
+	/**
+	 * Parses a string and returns a float. <b>NOTE<b>: Be careful and notice
+	 * that this function will return a <code>0</code> if the given string is
+	 * not valid. This approach works well here, but not generally.
+	 * 
+	 * @param rawFloat
+	 *            A string which represents a float number.
+	 * @return The float value (or <code>0</code> if the rawInt is empty or
+	 *         <code>null</code>).
+	 */
+	private float parseFloat(String rawFloat) {
+		return (rawFloat != null && rawFloat.length() > 0) ? Float
+				.parseFloat(rawFloat) : 0;
 	}
 
 	@Override

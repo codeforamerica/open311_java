@@ -36,7 +36,11 @@ public class DateParsingUtils {
 	 * @return A date object.
 	 */
 	public Date parseDate(String rawDate) {
-		return dateFormat.parseDateTime(rawDate).toDate();
+		try {
+			return dateFormat.parseDateTime(rawDate).toDate();
+		} catch (Exception e) {
+			return null;
+		}
 	}
 
 	/**
