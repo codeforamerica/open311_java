@@ -41,8 +41,6 @@ public class HTTPNetworkManager implements NetworkManager {
 			return httpClient.execute(httpGet, responseHandler);
 		} catch (URISyntaxException e) {
 			throw new IOException(e);
-		} finally {
-			httpClient.close();
 		}
 	}
 
@@ -58,8 +56,6 @@ public class HTTPNetworkManager implements NetworkManager {
 			return httpClient.execute(httpPost, responseHandler);
 		} catch (URISyntaxException e) {
 			throw new IOException(e);
-		} finally {
-			httpClient.close();
 		}
 	}
 
