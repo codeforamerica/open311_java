@@ -4,12 +4,12 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URL;
 
+import org.apache.http.client.HttpClient;
 import org.apache.http.client.ResponseHandler;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.BasicResponseHandler;
-import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.codeforamerica.open311.facade.Format;
 
@@ -22,7 +22,7 @@ import org.codeforamerica.open311.facade.Format;
  */
 public class HTTPNetworkManager implements NetworkManager {
 
-	private CloseableHttpClient httpClient;
+	private HttpClient httpClient;
 	private Format format;
 
 	public HTTPNetworkManager(Format format) {
