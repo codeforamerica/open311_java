@@ -16,7 +16,11 @@ public enum City {
 			"https://mayors24.cityofboston.gov/open311/discovery.xml",
 			"cityofboston.gov"), QUEBEC(
 			"http://api.ville.quebec.qc.ca/discovery.xml", "ville.quebec.qc.ca"), BONN(
-			"http://anliegen.bonn.de/georeport/v2/discovery.xml", "");
+			"http://anliegen.bonn.de/georeport/v2/discovery.xml",
+			""), CHICAGO(
+			"http://311api.cityofchicago.org/open311/discovery.xml", "cityofchicago.org"), BRAINBRIDGE_ISLAND(
+			"http://seeclickfix.com/bainbridge-island/open311/discovery.xml",
+			"");
 
 	private String discoveryUrl;
 	private String jurisdictionId;

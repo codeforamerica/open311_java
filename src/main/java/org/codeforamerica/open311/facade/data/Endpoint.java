@@ -50,8 +50,9 @@ public class Endpoint {
 	 * @return A format allowed by the endpoint.
 	 */
 	public Format getBestFormat() {
+		//TODO replace Format.XML -> Format.JSON when implemented
 		if (formats.contains(Format.JSON)) {
-			return Format.JSON;
+			return Format.XML;
 		}
 		if (formats.contains(Format.XML)) {
 			return Format.XML;
@@ -59,5 +60,4 @@ public class Endpoint {
 		return null;
 
 	}
-
 }

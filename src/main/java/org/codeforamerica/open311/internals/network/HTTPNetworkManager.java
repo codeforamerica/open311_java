@@ -1,7 +1,6 @@
 package org.codeforamerica.open311.internals.network;
 
 import java.io.IOException;
-import java.net.URISyntaxException;
 import java.net.URL;
 
 import org.apache.http.client.HttpClient;
@@ -10,7 +9,7 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.BasicResponseHandler;
-import org.apache.http.impl.client.HttpClientBuilder;
+import org.apache.http.impl.client.DefaultHttpClient;
 import org.codeforamerica.open311.facade.Format;
 
 /**
@@ -27,8 +26,7 @@ public class HTTPNetworkManager implements NetworkManager {
 
 	public HTTPNetworkManager(Format format) {
 		this.format = format;
-		HttpClientBuilder builder = HttpClientBuilder.create();
-		httpClient = builder.build();
+		httpClient = new DefaultHttpClient();
 	}
 
 	@Override
@@ -39,8 +37,9 @@ public class HTTPNetworkManager implements NetworkManager {
 			httpGet.setHeader("charset", CHARSET);
 			ResponseHandler<String> responseHandler = new BasicResponseHandler();
 			return httpClient.execute(httpGet, responseHandler);
-		} catch (URISyntaxException e) {
-			throw new IOException(e);
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new IOException(e.getMessage());
 		}
 	}
 
@@ -54,7 +53,8 @@ public class HTTPNetworkManager implements NetworkManager {
 			httpPost.setEntity(entity);
 			ResponseHandler<String> responseHandler = new BasicResponseHandler();
 			return httpClient.execute(httpPost, responseHandler);
-		} catch (URISyntaxException e) {
+		} catch (Exception e) {
+			e.printStackTrace();
 			throw new IOException(e);
 		}
 	}
