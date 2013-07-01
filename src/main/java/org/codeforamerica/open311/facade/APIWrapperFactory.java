@@ -126,11 +126,14 @@ public class APIWrapperFactory {
 					dataParser, networkManager, city.getJurisdictionId(),
 					apiKey);
 		} catch (MalformedURLException e) {
-			throw new APIWrapperException(Error.URL_BUILDER, null);
+			throw new APIWrapperException(e.getMessage(), Error.URL_BUILDER,
+					null);
 		} catch (DataParsingException e) {
-			throw new APIWrapperException(Error.DATA_PARSING, null);
+			throw new APIWrapperException(e.getMessage(), Error.DATA_PARSING,
+					null);
 		} catch (IOException e) {
-			throw new APIWrapperException(Error.NETWORK_MANAGER, null);
+			throw new APIWrapperException(e.getMessage(),
+					Error.NETWORK_MANAGER, null);
 		}
 	}
 }

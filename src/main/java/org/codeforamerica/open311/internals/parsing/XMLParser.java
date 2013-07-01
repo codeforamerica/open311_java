@@ -73,7 +73,7 @@ public class XMLParser implements DataParser {
 				}
 			}
 		} catch (Exception e) {
-			throw new DataParsingException();
+			throw new DataParsingException(e.getMessage());
 		}
 		return result;
 	}
@@ -115,7 +115,7 @@ public class XMLParser implements DataParser {
 				}
 			}
 		} catch (Exception e) {
-			throw new DataParsingException();
+			throw new DataParsingException(e.getMessage());
 		}
 		return null;
 	}
@@ -189,7 +189,7 @@ public class XMLParser implements DataParser {
 				}
 			}
 		} catch (Exception e) {
-			throw new DataParsingException();
+			throw new DataParsingException(e.getMessage());
 		}
 		return result;
 	}
@@ -226,7 +226,7 @@ public class XMLParser implements DataParser {
 				}
 			}
 		} catch (Exception e) {
-			throw new DataParsingException();
+			throw new DataParsingException(e.getMessage());
 		}
 		return result;
 	}
@@ -299,7 +299,7 @@ public class XMLParser implements DataParser {
 				}
 			}
 		} catch (Exception e) {
-			throw new DataParsingException();
+			throw new DataParsingException(e.getMessage());
 		}
 		return result;
 	}
@@ -342,7 +342,7 @@ public class XMLParser implements DataParser {
 			}
 			return errors;
 		} catch (Exception e) {
-			throw new DataParsingException();
+			throw new DataParsingException(e.getMessage());
 		}
 	}
 
@@ -381,13 +381,14 @@ public class XMLParser implements DataParser {
 							CONTACT_TAG);
 					String keyService = getTagContent(serviceDiscoveryElement,
 							KEY_SERVICE_TAG);
-					return new ServiceDiscoveryInfo(changeset, contact, keyService,
+					return new ServiceDiscoveryInfo(changeset, contact,
+							keyService,
 							parseEndpoints(serviceDiscoveryElement
 									.getElementsByTagName(ENDPOINT_TAG)));
 				}
 			}
 		} catch (Exception e) {
-			throw new DataParsingException();
+			throw new DataParsingException(e.getMessage());
 		}
 		return null;
 	}

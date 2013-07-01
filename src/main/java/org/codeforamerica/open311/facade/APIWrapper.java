@@ -109,7 +109,8 @@ public class APIWrapper {
 			tryToParseError(rawServiceListData);
 			return null;
 		} catch (MalformedURLException e) {
-			throw new APIWrapperException(Error.URL_BUILDER, null);
+			throw new APIWrapperException(e.getMessage(), Error.URL_BUILDER,
+					null);
 		}
 	}
 
@@ -136,7 +137,8 @@ public class APIWrapper {
 			tryToParseError(rawServiceDefinitionData);
 			return null;
 		} catch (MalformedURLException e) {
-			throw new APIWrapperException(Error.URL_BUILDER, null);
+			throw new APIWrapperException(e.getMessage(), Error.URL_BUILDER,
+					null);
 		}
 	}
 
@@ -162,7 +164,8 @@ public class APIWrapper {
 			tryToParseError(rawServiceRequestId);
 			return null;
 		} catch (MalformedURLException e) {
-			throw new APIWrapperException(Error.URL_BUILDER, null);
+			throw new APIWrapperException(e.getMessage(), Error.URL_BUILDER,
+					null);
 		}
 	}
 
@@ -190,7 +193,8 @@ public class APIWrapper {
 			tryToParseError(rawServiceRequests);
 			return null;
 		} catch (MalformedURLException e) {
-			throw new APIWrapperException(Error.URL_BUILDER, null);
+			throw new APIWrapperException(e.getMessage(), Error.URL_BUILDER,
+					null);
 		}
 	}
 
@@ -215,7 +219,8 @@ public class APIWrapper {
 			tryToParseError(rawServiceRequests);
 			return null;
 		} catch (MalformedURLException e) {
-			throw new APIWrapperException(Error.URL_BUILDER, null);
+			throw new APIWrapperException(e.getMessage(), Error.URL_BUILDER,
+					null);
 		}
 	}
 
@@ -244,7 +249,8 @@ public class APIWrapper {
 			return postServiceRequestInternal(url, optionalArguments,
 					attributes);
 		} catch (MalformedURLException e) {
-			throw new APIWrapperException(Error.URL_BUILDER, null);
+			throw new APIWrapperException(e.getMessage(), Error.URL_BUILDER,
+					null);
 		}
 	}
 
@@ -316,9 +322,11 @@ public class APIWrapper {
 		try {
 			List<GeoReportV2Error> errors = dataParser
 					.parseGeoReportV2Errors(rawData);
-			throw new APIWrapperException(Error.GEO_REPORT_V2, errors);
+			throw new APIWrapperException("GeoReport_v2 error",
+					Error.GEO_REPORT_V2, errors);
 		} catch (DataParsingException ex) {
-			throw new APIWrapperException(Error.DATA_PARSING, null);
+			throw new APIWrapperException(ex.getMessage(), Error.DATA_PARSING,
+					null);
 		}
 	}
 
@@ -335,7 +343,8 @@ public class APIWrapper {
 		try {
 			return networkManager.doGet(url);
 		} catch (IOException e) {
-			throw new APIWrapperException(Error.NETWORK_MANAGER, null);
+			throw new APIWrapperException(e.getMessage(),
+					Error.NETWORK_MANAGER, null);
 		}
 	}
 
@@ -354,7 +363,8 @@ public class APIWrapper {
 		try {
 			return networkManager.doPost(url, body);
 		} catch (IOException e) {
-			throw new APIWrapperException(Error.NETWORK_MANAGER, null);
+			throw new APIWrapperException(e.getMessage(),
+					Error.NETWORK_MANAGER, null);
 		}
 	}
 }

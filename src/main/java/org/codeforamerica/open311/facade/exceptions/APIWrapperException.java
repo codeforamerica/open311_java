@@ -14,13 +14,12 @@ import org.codeforamerica.open311.facade.APIWrapper;
 public class APIWrapperException extends Exception {
 
 	private static final long serialVersionUID = 1L;
-
 	private Error error;
 	private List<GeoReportV2Error> geoReportErrors;
 
-	public APIWrapperException(Error error,
+	public APIWrapperException(String message, Error error,
 			List<GeoReportV2Error> geoReportErrors) {
-		super();
+		super(message);
 		this.error = error;
 		this.geoReportErrors = geoReportErrors;
 	}
