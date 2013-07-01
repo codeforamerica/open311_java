@@ -69,6 +69,7 @@ public class APIWrapperFactory {
 	 */
 	public APIWrapperFactory setNetworkManager(NetworkManager networkManager) {
 		this.networkManager = networkManager;
+		this.networkManager.setFormat(Format.XML);
 		return this;
 	}
 
