@@ -8,6 +8,7 @@ import java.util.List;
 import org.codeforamerica.open311.facade.Format;
 import org.codeforamerica.open311.facade.GlobalTests;
 import org.codeforamerica.open311.facade.data.Service;
+import org.codeforamerica.open311.facade.data.ServiceDefinition;
 import org.codeforamerica.open311.facade.exceptions.DataParsingException;
 import org.codeforamerica.open311.internals.network.MockNetworkManager;
 import org.codeforamerica.open311.internals.network.NetworkManager;
@@ -40,6 +41,41 @@ public class JSONParserTest {
 		List<Service> services = parser.parseServiceList(netManager
 				.doGet(new URL(BASE_URL + "/services.json")));
 		GlobalTests.serviceListTest(services);
+	}
+
+	/**
+	 * Tests if an exception is thrown if a wrong JSON is given.
+	 */
+	@Test(expected = DataParsingException.class)
+	public void serviceListParsingWithErrorsTest()
+			throws MalformedURLException, IOException, DataParsingException {
+		String dataWithError = netManager.doGet(new URL(BASE_URL
+				+ "/services.json")).replace("\"", "");
+		parser.parseServiceList(dataWithError);
+	}
+
+	/**
+	 * Tests a correct service definition list JSON parsing.
+	 */
+	@Test
+	public void serviceDefinitionParsingTest() throws MalformedURLException,
+			IOException, DataParsingException {
+		ServiceDefinition serviceDefinition = parser
+				.parseServiceDefinition(netManager.doGet(new URL(BASE_URL
+						+ "/services/001.json")));
+		GlobalTests.serviceDefinitionTest(serviceDefinition);
+
+	}
+
+	/**
+	 * Tests if an exception is thrown if a wrong JSON is given.
+	 */
+	@Test(expected = DataParsingException.class)
+	public void serviceDefinitionParsingWithErrorTest()
+			throws MalformedURLException, IOException, DataParsingException {
+		String dataWithError = netManager.doGet(new URL(BASE_URL
+				+ "/services/001.json")).replace("\"", "");
+		parser.parseServiceDefinition(dataWithError);
 	}
 
 }

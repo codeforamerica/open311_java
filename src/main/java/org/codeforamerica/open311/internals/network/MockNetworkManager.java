@@ -67,6 +67,9 @@ public class MockNetworkManager implements NetworkManager {
 		if (url.toString().contains("services.json")) {
 			return serviceListJSON();
 		}
+		if (url.toString().contains("services/")) {
+			return serviceDefinitionJSON();
+		}
 		return "";
 	}
 
@@ -161,6 +164,17 @@ public class MockNetworkManager implements NetworkManager {
 				+ "<description>What is the ticket/tag/DL number?</description><values><value>"
 				+ "<key>123</key><name>Ford</name></value><value><key>124</key><name>Chrysler</name>"
 				+ "</value></values></attribute></attributes></service_definition>";
+	}
+
+	/**
+	 * Mock service definition.
+	 * 
+	 * @return service definition JSON.
+	 */
+	private String serviceDefinitionJSON() {
+		return "{\"service_code\":\"DMV66\",\"attributes\":[{\"variable\":true,\"code\":\"WHISHETN\",\"datatype\":\"singlevaluelist\","
+				+ "\"required\":true,\"datatype_description\":null,\"order\":1,\"description\":\"What is the ticket/tag/DL number?\","
+				+ "\"values\":[{\"key\":123,\"name\":\"Ford\"},{\"key\":124,\"name\":\"Chrysler\"}]}]}";
 	}
 
 	/**

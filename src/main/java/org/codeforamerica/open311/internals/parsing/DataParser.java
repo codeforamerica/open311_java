@@ -30,6 +30,7 @@ public interface DataParser {
 	public static final String SERVICE_GROUP_TAG = "group";
 	public static final String SERVICE_DEFINITION_TAG = "service_definition";
 	public static final String ATTRIBUTE_TAG = "attribute";
+	public static final String ATTRIBUTES_TAG = "attributes";
 	public static final String VARIABLE_TAG = "variable";
 	public static final String CODE_TAG = "code";
 	public static final String DATATYPE_TAG = "datatype";
@@ -37,6 +38,7 @@ public interface DataParser {
 	public static final String DATATYPE_DESCRIPTION_TAG = "datatype_description";
 	public static final String ORDER_TAG = "order";
 	public static final String VALUE_TAG = "value";
+	public static final String VALUES_TAG = "values";
 	public static final String KEY_TAG = "key";
 	public static final String NAME_TAG = "name";
 	public static final String SERVICE_REQUEST_TAG = "request";

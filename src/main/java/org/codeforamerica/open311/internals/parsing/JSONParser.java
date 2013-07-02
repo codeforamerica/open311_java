@@ -1,14 +1,18 @@
 package org.codeforamerica.open311.internals.parsing;
 
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
+import org.codeforamerica.open311.facade.data.Attribute;
 import org.codeforamerica.open311.facade.data.POSTServiceRequestResponse;
 import org.codeforamerica.open311.facade.data.Service;
 import org.codeforamerica.open311.facade.data.ServiceDefinition;
 import org.codeforamerica.open311.facade.data.ServiceDiscoveryInfo;
 import org.codeforamerica.open311.facade.data.ServiceRequest;
 import org.codeforamerica.open311.facade.data.ServiceRequestIdResponse;
+import org.codeforamerica.open311.facade.data.Attribute.Datatype;
 import org.codeforamerica.open311.facade.exceptions.DataParsingException;
 import org.codeforamerica.open311.facade.exceptions.GeoReportV2Error;
 import org.json.JSONArray;
@@ -16,6 +20,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class JSONParser extends AbstractParser {
+	private static final String NULL_STRING_JSON = "null";
 
 	@Override
 	public List<Service> parseServiceList(String rawData)
@@ -32,21 +37,24 @@ public class JSONParser extends AbstractParser {
 		}
 		return result;
 	}
+
 	/**
 	 * Builds a {@link Service} object from a {@link JSONObject}.
-	 * @param service JSONObject which represents a service.
+	 * 
+	 * @param service
+	 *            JSONObject which represents a service.
 	 * @return An object with its state given by the JSONObject
 	 * @throws JSONException
 	 */
 	private Service getService(JSONObject service) throws JSONException {
-		String code = service.getString(SERVICE_CODE_TAG);
-		String name = service.getString(SERVICE_NAME_TAG);
-		String description = service.getString(DESCRIPTION_TAG);
+		String code = getString(service, SERVICE_CODE_TAG);
+		String name = getString(service, SERVICE_NAME_TAG);
+		String description = getString(service, DESCRIPTION_TAG);
 		boolean metadata = service.getBoolean(METADATA_TAG);
-		String group = service.getString(SERVICE_GROUP_TAG);
-		String[] keywords = getKeywords(service.getString(KEYWORDS_TAG));
-		Service.Type type = Service.Type.getFromString(service
-				.getString(TYPE_TAG));
+		String group = getString(service, SERVICE_GROUP_TAG);
+		String[] keywords = getKeywords(getString(service, KEYWORDS_TAG));
+		Service.Type type = Service.Type.getFromString(getString(service,
+				TYPE_TAG));
 		return new Service(code, name, description, metadata, type, keywords,
 				group);
 	}
@@ -54,8 +62,39 @@ public class JSONParser extends AbstractParser {
 	@Override
 	public ServiceDefinition parseServiceDefinition(String rawData)
 			throws DataParsingException {
-		// TODO Auto-generated method stub
-		return null;
+		try {
+			JSONObject serviceDefinition = new JSONObject(rawData);
+			String serviceCode = getString(serviceDefinition, SERVICE_CODE_TAG);
+			JSONArray attributesArray = serviceDefinition
+					.getJSONArray(ATTRIBUTES_TAG);
+			List<Attribute> attributes = new LinkedList<Attribute>();
+			for (int i = 0; i < attributesArray.length(); i++) {
+				JSONObject attribute = attributesArray.getJSONObject(i);
+				boolean variable = attribute.getBoolean(VARIABLE_TAG);
+				String code = getString(attribute, CODE_TAG);
+				Datatype datatype = Datatype.getFromString(getString(attribute,
+						DATATYPE_TAG));
+				boolean required = attribute.getBoolean(REQUIRED_TAG);
+				String datatypeDescription = getString(attribute,
+						DATATYPE_DESCRIPTION_TAG);
+				int order = attribute.getInt(ORDER_TAG);
+				String description = getString(attribute, DESCRIPTION_TAG);
+				JSONArray valuesArray = attribute.getJSONArray(VALUES_TAG);
+				Map<String, String> values = new HashMap<String, String>();
+				for (int j = 0; j < valuesArray.length(); j++) {
+					JSONObject valueObject = valuesArray.getJSONObject(j);
+					String key = getString(valueObject, KEY_TAG);
+					String name = getString(valueObject, NAME_TAG);
+					values.put(key, name);
+				}
+				attributes.add(new Attribute(variable, code, datatype,
+						required, datatypeDescription, order, description,
+						values));
+			}
+			return new ServiceDefinition(serviceCode, attributes);
+		} catch (JSONException e) {
+			throw new DataParsingException(e.getMessage());
+		}
 	}
 
 	@Override
@@ -91,6 +130,24 @@ public class JSONParser extends AbstractParser {
 			throws DataParsingException {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	/**
+	 * Searchs the value of a given tag in a {@link JSONObject}.
+	 * 
+	 * @param object
+	 *            Object to inspect.
+	 * @param tag
+	 *            Tag to search.
+	 * @return The string value of the tag, <code>null</code> if it wasn't
+	 *         found.
+	 * @throws JSONException
+	 *             If was any problem other than not finding the given tag.
+	 */
+	private String getString(JSONObject object, String tag)
+			throws JSONException {
+		String result = object.getString(tag);
+		return result.equals(NULL_STRING_JSON) ? "" : result;
 	}
 
 }
