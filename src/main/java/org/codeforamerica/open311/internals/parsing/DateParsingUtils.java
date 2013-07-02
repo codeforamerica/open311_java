@@ -43,7 +43,7 @@ public class DateParsingUtils {
 	 */
 	public void setTimezone(DateTimeZone timeZone) {
 		for (int i = 0; i < dateFormats.length; i++) {
-			dateFormats[i].withZone(timeZone);
+			dateFormats[i] = dateFormats[i].withZone(timeZone);
 		}
 	}
 
