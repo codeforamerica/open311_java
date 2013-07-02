@@ -284,36 +284,6 @@ public class XMLParser extends AbstractParser {
 				longitude, mediaUrl);
 	}
 
-	/**
-	 * Parses a string and returns an integer. <b>NOTE<b>: Be careful and notice
-	 * that this function will return a <code>0</code> if the given string is
-	 * not valid. This approach works well here, but not generally.
-	 * 
-	 * @param rawInt
-	 *            A string which represents an integer number.
-	 * @return The integer value (or <code>0</code> if the rawInt is empty or
-	 *         <code>null</code>).
-	 */
-	private int parseInt(String rawInt) {
-		return (rawInt != null && rawInt.length() > 0) ? Integer
-				.parseInt(rawInt) : 0;
-	}
-
-	/**
-	 * Parses a string and returns a float. <b>NOTE<b>: Be careful and notice
-	 * that this function will return a <code>0</code> if the given string is
-	 * not valid. This approach works well here, but not generally.
-	 * 
-	 * @param rawFloat
-	 *            A string which represents a float number.
-	 * @return The float value (or <code>0</code> if the rawInt is empty or
-	 *         <code>null</code>).
-	 */
-	private float parseFloat(String rawFloat) {
-		return (rawFloat != null && rawFloat.length() > 0) ? Float
-				.parseFloat(rawFloat) : 0;
-	}
-
 	@Override
 	public List<POSTServiceRequestResponse> parsePostServiceRequestResponse(
 			String rawData) throws DataParsingException {
@@ -496,5 +466,35 @@ public class XMLParser extends AbstractParser {
 			return nodeList.item(0).getTextContent();
 		}
 		return "";
+	}
+
+	/**
+	 * Parses a string and returns an integer. <b>NOTE<b>: Be careful and notice
+	 * that this function will return a <code>0</code> if the given string is
+	 * not valid. This approach works well here, but not generally.
+	 * 
+	 * @param rawInt
+	 *            A string which represents an integer number.
+	 * @return The integer value (or <code>0</code> if the rawInt is empty or
+	 *         <code>null</code>).
+	 */
+	private int parseInt(String rawInt) {
+		return (rawInt != null && rawInt.length() > 0) ? Integer
+				.parseInt(rawInt) : 0;
+	}
+
+	/**
+	 * Parses a string and returns a float. <b>NOTE<b>: Be careful and notice
+	 * that this function will return a <code>0</code> if the given string is
+	 * not valid. This approach works well here, but not generally.
+	 * 
+	 * @param rawFloat
+	 *            A string which represents a float number.
+	 * @return The float value (or <code>0</code> if the rawInt is empty or
+	 *         <code>null</code>).
+	 */
+	private float parseFloat(String rawFloat) {
+		return (rawFloat != null && rawFloat.length() > 0) ? Float
+				.parseFloat(rawFloat) : 0;
 	}
 }
