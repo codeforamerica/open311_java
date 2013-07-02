@@ -9,6 +9,7 @@ import org.codeforamerica.open311.facade.Format;
 import org.codeforamerica.open311.facade.GlobalTests;
 import org.codeforamerica.open311.facade.data.Service;
 import org.codeforamerica.open311.facade.data.ServiceDefinition;
+import org.codeforamerica.open311.facade.data.ServiceRequest;
 import org.codeforamerica.open311.facade.data.ServiceRequestIdResponse;
 import org.codeforamerica.open311.facade.exceptions.DataParsingException;
 import org.codeforamerica.open311.internals.network.MockNetworkManager;
@@ -100,6 +101,28 @@ public class JSONParserTest {
 		String dataWithError = netManager.doGet(
 				new URL(BASE_URL + "/tokens/001.json")).replace("\"", ":");
 		parser.parseServiceRequestIdFromAToken(dataWithError);
+	}
+
+	/**
+	 * Service requests parsing test.
+	 */
+	@Test
+	public void serviceRequestsTest() throws MalformedURLException,
+			IOException, DataParsingException {
+		List<ServiceRequest> list = parser.parseServiceRequests(netManager
+				.doGet(new URL(BASE_URL + "/requests.json")));
+		GlobalTests.serviceRequestsTest(list);
+	}
+
+	/**
+	 * An exception must be thrown if the JSON is not well formed.
+	 */
+	@Test(expected = DataParsingException.class)
+	public void serviceRequestsWithErrorTest() throws MalformedURLException,
+			IOException, DataParsingException {
+		String dataWithError = netManager.doGet(
+				new URL(BASE_URL + "/requests.json")).replace("\"", ":");
+		parser.parseServiceRequests(dataWithError);
 	}
 
 }

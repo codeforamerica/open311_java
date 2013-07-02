@@ -1,5 +1,7 @@
 package org.codeforamerica.open311.internals.parsing;
 
+import java.net.URL;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -7,6 +9,7 @@ import java.util.Map;
 
 import org.codeforamerica.open311.facade.data.Attribute;
 import org.codeforamerica.open311.facade.data.Attribute.Datatype;
+import org.codeforamerica.open311.facade.data.ServiceRequest.Status;
 import org.codeforamerica.open311.facade.data.POSTServiceRequestResponse;
 import org.codeforamerica.open311.facade.data.Service;
 import org.codeforamerica.open311.facade.data.ServiceDefinition;
@@ -119,8 +122,51 @@ public class JSONParser extends AbstractParser {
 	@Override
 	public List<ServiceRequest> parseServiceRequests(String rawData)
 			throws DataParsingException {
-		// TODO Auto-generated method stub
-		return null;
+		List<ServiceRequest> result = new LinkedList<ServiceRequest>();
+		try {
+			JSONArray serviceRequestsArray = new JSONArray(rawData);
+			for (int i = 0; i < serviceRequestsArray.length(); i++) {
+				JSONObject serviceRequest = serviceRequestsArray
+						.getJSONObject(i);
+				String serviceRequestId = getString(serviceRequest,
+						SERVICE_REQUEST_ID_TAG);
+				Status status = Status.getFromString(getString(serviceRequest,
+						STATUS_TAG));
+				String statusNotes = getString(serviceRequest, STATUS_NOTES_TAG);
+				String serviceName = getString(serviceRequest, SERVICE_NAME_TAG);
+				String serviceCode = getString(serviceRequest, SERVICE_CODE_TAG);
+				String description = getString(serviceRequest, DESCRIPTION_TAG);
+				String agencyResponsible = getString(serviceRequest,
+						AGENCY_RESPONSIBLE_TAG);
+				String serviceNotice = getString(serviceRequest,
+						SERVICE_NOTICE_TAG);
+				DateParsingUtils dateParser = DateParsingUtils.getInstance();
+				Date requestedDatetime = dateParser.parseDate(getString(
+						serviceRequest, REQUESTED_DATETIME_TAG));
+				Date updatedDatetime = dateParser.parseDate(getString(
+						serviceRequest, UPDATED_DATETIME_TAG));
+				Date expectedDatetime = dateParser.parseDate(getString(
+						serviceRequest, EXPECTED_DATETIME_TAG));
+				String address = getString(serviceRequest, ADDRESS_TAG);
+				String addressId = getString(serviceRequest, ADDRESS_ID_TAG);
+				int zipCode = serviceRequest.getInt(ZIPCODE_TAG);
+				float latitude = (float) serviceRequest.getDouble(LATITUDE_TAG);
+				float longitude = (float) serviceRequest
+						.getDouble(LONGITUDE_TAG);
+				String rawMediaUrl = getString(serviceRequest, MEDIA_URL_TAG)
+						.trim();
+				URL mediaUrl = rawMediaUrl.length() > 0 ? new URL(rawMediaUrl)
+						: null;
+				result.add(new ServiceRequest(serviceRequestId, status,
+						statusNotes, serviceName, serviceCode, description,
+						agencyResponsible, serviceNotice, requestedDatetime,
+						updatedDatetime, expectedDatetime, address, addressId,
+						zipCode, latitude, longitude, mediaUrl));
+			}
+			return result;
+		} catch (Exception e) {
+			throw new DataParsingException(e.getMessage());
+		}
 	}
 
 	@Override

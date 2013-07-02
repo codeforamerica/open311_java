@@ -73,6 +73,9 @@ public class MockNetworkManager implements NetworkManager {
 		if (url.toString().contains("tokens/")) {
 			return serviceRequestIdFromATokenJSON();
 		}
+		if (url.toString().contains("requests")) {
+			return serviceRequestsJSON();
+		}
 		return "";
 	}
 
@@ -234,6 +237,30 @@ public class MockNetworkManager implements NetworkManager {
 				+ "<lat>37.762221815</lat><long>-122.4651145</long>"
 				+ "<media_url>http://city.gov.s3.amazonaws.com/requests/media/638349.jpg </media_url>"
 				+ "</request></service_requests>";
+	}
+
+	/**
+	 * Mock service requests.
+	 * 
+	 * @return JSON.
+	 */
+	private String serviceRequestsJSON() {
+		return "[{\"service_request_id\":638344,\"status\":\"closed\",\"status_notes\":"
+				+ "\"Duplicate request.\",\"service_name\":\"Sidewalk and Curb Issues\","
+				+ "\"service_code\":\"006\",\"description\":null,\"agency_responsible\":null,"
+				+ "\"service_notice\":null,\"requested_datetime\":\"2010-04-14T06:37:38-08:00\","
+				+ "\"updated_datetime\":\"2010-04-14T06:37:38-08:00\",\"expected_datetime\":"
+				+ "\"2010-04-15T06:37:38-08:00\",\"address\":\"8TH AVE and JUDAH ST\","
+				+ "\"address_id\":545483,\"zipcode\":94122,\"lat\":37.762221815,\"long\":"
+				+ "-122.4651145,\"media_url\":\"http://city.gov.s3.amazonaws.com/requests"
+				+ "/media/638344.jpg \"},{\"service_request_id\":638349,\"status\":\"open\","
+				+ "\"status_notes\":null,\"service_name\":\"Sidewalk and Curb Issues\","
+				+ "\"service_code\":\"006\",\"description\":null,\"agency_responsible\":null,"
+				+ "\"service_notice\":null,\"requested_datetime\":\"2010-04-19T06:37:38-08:00\","
+				+ "\"updated_datetime\":\"2010-04-19T06:37:38-08:00\",\"expected_datetime\":\""
+				+ "2010-04-19T06:37:38-08:00\",\"address\":\"8TH AVE and JUDAH ST\",\"address_id\":"
+				+ "545483,\"zipcode\":94122,\"lat\":37.762221815,\"long\":-122.4651145,"
+				+ "\"media_url\":\"http://city.gov.s3.amazonaws.com/requests/media/638349.jpg\"}]";
 	}
 
 	/**
