@@ -211,7 +211,7 @@ public class JSONParser extends AbstractParser {
 	}
 
 	/**
-	 * Searchs the value of a given tag in a {@link JSONObject}.
+	 * Searches the value of a given tag in a {@link JSONObject}.
 	 * 
 	 * @param object
 	 *            Object to inspect.
