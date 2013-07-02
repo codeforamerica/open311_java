@@ -146,4 +146,14 @@ public class JSONParserTest {
 		parser.parsePostServiceRequestResponse(dataWithError);
 	}
 
+	/**
+	 * Tests if it launches an {@link UnsupportedOperationException}.
+	 * 
+	 * @throws DataParsingException
+	 */
+	@Test(expected = UnsupportedOperationException.class)
+	public void testServiceDiscoveryTest() throws DataParsingException {
+		parser.parseServiceDiscovery("");
+	}
+
 }
