@@ -268,7 +268,8 @@ public class XMLParser extends AbstractParser {
 		Date expectedDatetime = dateParser.parseDate((getTagContent(
 				serviceRequestElement, EXPECTED_DATETIME_TAG)));
 		String address = getTagContent(serviceRequestElement, ADDRESS_TAG);
-		String addressId = getTagContent(serviceRequestElement, ADDRESS_ID_TAG);
+		long addressId = parseLong(getTagContent(serviceRequestElement,
+				ADDRESS_ID_TAG));
 		int zipCode = parseInt(getTagContent(serviceRequestElement, ZIPCODE_TAG));
 		float latitude = parseFloat(getTagContent(serviceRequestElement,
 				LATITUDE_TAG));
@@ -480,6 +481,21 @@ public class XMLParser extends AbstractParser {
 	private int parseInt(String rawInt) {
 		return (rawInt != null && rawInt.length() > 0) ? Integer
 				.parseInt(rawInt) : 0;
+	}
+
+	/**
+	 * Parses a string and returns a long. <b>NOTE<b>: Be careful and notice
+	 * that this function will return a <code>0</code> if the given string is
+	 * not valid. This approach works well here, but not generally.
+	 * 
+	 * @param rawLong
+	 *            A string which represents a long number.
+	 * @return The long value (or <code>0</code> if the rawLong is empty or
+	 *         <code>null</code>).
+	 */
+	private long parseLong(String rawLong) {
+		return (rawLong != null && rawLong.length() > 0) ? Long
+				.parseLong(rawLong) : 0;
 	}
 
 	/**

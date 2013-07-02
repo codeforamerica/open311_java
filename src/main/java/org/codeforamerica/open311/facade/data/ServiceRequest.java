@@ -22,7 +22,7 @@ public class ServiceRequest {
 	private Date updatedDatetime;
 	private Date expectedDatetime;
 	private String address;
-	private String addressId;
+	private long addressId;
 	private int zipCode;
 	private float latitude;
 	private float longitude;
@@ -32,8 +32,8 @@ public class ServiceRequest {
 			String statusNotes, String serviceName, String serviceCode,
 			String description, String agencyResponsible, String serviceNotice,
 			Date requestedDatetime, Date updatedDatetime,
-			Date expectedDatetime, String address, String addressId,
-			int zipCode, float latitude, float longitude, URL mediaUrl) {
+			Date expectedDatetime, String address, long addressId, int zipCode,
+			float latitude, float longitude, URL mediaUrl) {
 		super();
 		this.serviceRequestId = serviceRequestId;
 		this.status = status;
@@ -102,7 +102,7 @@ public class ServiceRequest {
 		return address;
 	}
 
-	public String getAddressId() {
+	public long getAddressId() {
 		return addressId;
 	}
 

@@ -148,7 +148,7 @@ public class JSONParser extends AbstractParser {
 				Date expectedDatetime = dateParser.parseDate(getString(
 						serviceRequest, EXPECTED_DATETIME_TAG));
 				String address = getString(serviceRequest, ADDRESS_TAG);
-				String addressId = getString(serviceRequest, ADDRESS_ID_TAG);
+				long addressId = serviceRequest.getLong(ADDRESS_ID_TAG);
 				int zipCode = serviceRequest.getInt(ZIPCODE_TAG);
 				float latitude = (float) serviceRequest.getDouble(LATITUDE_TAG);
 				float longitude = (float) serviceRequest

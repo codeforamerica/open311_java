@@ -102,7 +102,7 @@ public class GlobalTests {
 				dateParser.printDate(dateParser
 						.parseDate("2010-04-15T06:37:38-08:00")));
 		assertEquals(sr1.getAddress(), "8TH AVE and JUDAH ST");
-		assertEquals(sr1.getAddressId(), "545483");
+		assertEquals(sr1.getAddressId(), 545483);
 		assertEquals(sr1.getZipCode(), 94122);
 		assertTrue(sr1.getLatitude() == 37.762221815F);
 		assertTrue(sr1.getLongitude() == -122.4651145F);
