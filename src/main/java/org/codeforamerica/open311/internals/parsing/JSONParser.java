@@ -206,8 +206,8 @@ public class JSONParser extends AbstractParser {
 	@Override
 	public ServiceDiscoveryInfo parseServiceDiscovery(String rawData)
 			throws DataParsingException {
-		// TODO Auto-generated method stub
-		return null;
+		throw new UnsupportedOperationException(
+				"This operation is expected to be done by an XML parser.");
 	}
 
 	/**
