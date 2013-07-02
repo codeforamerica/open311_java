@@ -2,6 +2,7 @@ package org.codeforamerica.open311.facade.data;
 
 import static org.junit.Assert.assertEquals;
 
+import org.codeforamerica.open311.facade.data.ServiceRequest.Status;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -74,11 +75,20 @@ public class DataPackageTest {
 		assertEquals(Attribute.Datatype.getFromString("Datetime"),
 				Attribute.Datatype.DATETIME);
 	}
-	
+
 	@Test
 	public void serviceTest() {
-		Service service = new Service("001", "Name", "Description", false, null, null, null);
+		Service service = new Service("001", "Name", "Description", false,
+				null, null, null);
 		assertEquals(service.toString(), "[001] Name (Description)");
+	}
+
+	@Test
+	public void serviceRequestTest() {
+		ServiceRequest request = new ServiceRequest("001", Status.OPEN, "", "",
+				"", "A random description", "", "", null, null, null, "", "",
+				0, 0F, 0F, null);
+		assertEquals(request.toString(), "[001] A random description (open)");
 	}
 
 }

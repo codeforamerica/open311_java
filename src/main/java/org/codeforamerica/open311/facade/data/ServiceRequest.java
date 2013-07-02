@@ -122,6 +122,11 @@ public class ServiceRequest {
 		return mediaUrl;
 	}
 
+	public String toString() {
+		return "[" + this.serviceRequestId + "] " + this.description + " ("
+				+ this.status + ")";
+	}
+
 	public static enum Status {
 		OPEN, CLOSED;
 
