@@ -36,6 +36,10 @@ public class APIWrapperException extends Exception {
 		return geoReportErrors;
 	}
 
+	public String toString() {
+		return this.getMessage() + " (" + this.error + ")";
+	}
+
 	/**
 	 * Different types of errors.
 	 */
