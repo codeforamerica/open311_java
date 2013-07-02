@@ -74,5 +74,11 @@ public class DataPackageTest {
 		assertEquals(Attribute.Datatype.getFromString("Datetime"),
 				Attribute.Datatype.DATETIME);
 	}
+	
+	@Test
+	public void serviceTest() {
+		Service service = new Service("001", "Name", "Description", false, null, null, null);
+		assertEquals(service.toString(), "[001] Name (Description)");
+	}
 
 }

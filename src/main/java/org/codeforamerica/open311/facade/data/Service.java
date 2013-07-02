@@ -84,4 +84,9 @@ public class Service {
 		}
 	}
 
+	public String toString() {
+		return "[" + this.serviceCode + "] " + this.serviceName + " ("
+				+ this.description + ")";
+	}
+
 }
