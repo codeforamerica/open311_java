@@ -140,7 +140,7 @@ public class JSONParser extends AbstractParser {
 						AGENCY_RESPONSIBLE_TAG);
 				String serviceNotice = getString(serviceRequest,
 						SERVICE_NOTICE_TAG);
-				DateParsingUtils dateParser = DateParsingUtils.getInstance();
+				DateParser dateParser = DateParser.getInstance();
 				Date requestedDatetime = dateParser.parseDate(getString(
 						serviceRequest, REQUESTED_DATETIME_TAG));
 				Date updatedDatetime = dateParser.parseDate(getString(

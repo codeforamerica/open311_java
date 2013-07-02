@@ -260,7 +260,7 @@ public class XMLParser extends AbstractParser {
 				AGENCY_RESPONSIBLE_TAG);
 		String serviceNotice = getTagContent(serviceRequestElement,
 				SERVICE_NOTICE_TAG);
-		DateParsingUtils dateParser = DateParsingUtils.getInstance();
+		DateParser dateParser = DateParser.getInstance();
 		Date requestedDatetime = dateParser.parseDate((getTagContent(
 				serviceRequestElement, REQUESTED_DATETIME_TAG)));
 		Date updatedDatetime = dateParser.parseDate((getTagContent(
@@ -374,7 +374,7 @@ public class XMLParser extends AbstractParser {
 				Node serviceDiscoveryNode = serviceDiscoveryNodes.item(i);
 				if (serviceDiscoveryNode.getNodeType() == Node.ELEMENT_NODE) {
 					Element serviceDiscoveryElement = (Element) serviceDiscoveryNode;
-					Date changeset = DateParsingUtils.getInstance().parseDate(
+					Date changeset = DateParser.getInstance().parseDate(
 							getTagContent(serviceDiscoveryElement,
 									CHANGESET_TAG));
 					String contact = getTagContent(serviceDiscoveryElement,
@@ -409,7 +409,7 @@ public class XMLParser extends AbstractParser {
 				String specificationUrl = getTagContent(endpointElement,
 						SPECIFICATION_TAG);
 				String url = getTagContent(endpointElement, URL_TAG);
-				Date changeset = DateParsingUtils.getInstance().parseDate(
+				Date changeset = DateParser.getInstance().parseDate(
 						getTagContent(endpointElement, CHANGESET_TAG));
 				EndpointType type = EndpointType.getFromString(getTagContent(
 						endpointElement, TYPE_TAG));

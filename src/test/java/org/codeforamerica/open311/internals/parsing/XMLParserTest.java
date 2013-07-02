@@ -210,7 +210,7 @@ public class XMLParserTest {
 		assertEquals(
 				serviceDiscoveryInfo.getContact(),
 				"Please email ( content.311@sfgov.org )  or call ( 415-701-2311 ) for assistance or to report bugs");
-		assertEquals(serviceDiscoveryInfo.getChangeset(), DateParsingUtils
+		assertEquals(serviceDiscoveryInfo.getChangeset(), DateParser
 				.getInstance().parseDate("2011-04-05T17:48:34Z"));
 		assertEquals(
 				serviceDiscoveryInfo.getKeyService(),
@@ -223,7 +223,7 @@ public class XMLParserTest {
 				"http://wiki.open311.org/GeoReport_v2");
 		assertEquals(endpoint.getUrl(), "https://open311.sfgov.org/dev/v2");
 		assertEquals(endpoint.getType(), EndpointType.TEST);
-		assertEquals(endpoint.getChangeset(), DateParsingUtils.getInstance()
+		assertEquals(endpoint.getChangeset(), DateParser.getInstance()
 				.parseDate("2011-04-20T17:48:34Z"));
 	}
 }

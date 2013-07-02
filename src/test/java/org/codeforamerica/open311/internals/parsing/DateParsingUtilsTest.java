@@ -16,7 +16,7 @@ import org.junit.Test;
  * 
  */
 public class DateParsingUtilsTest {
-	private static DateParsingUtils dateParsingUtils = DateParsingUtils
+	private static DateParser dateParsingUtils = DateParser
 			.getInstance();
 	private static final String ISO8601DATE = "2013-01-01T17:15:00+01:00";
 	private static final String BASIC_DATE = "2013-01-01 17:15";

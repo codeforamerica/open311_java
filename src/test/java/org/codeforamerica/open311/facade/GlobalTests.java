@@ -16,7 +16,7 @@ import org.codeforamerica.open311.facade.data.ServiceRequest;
 import org.codeforamerica.open311.facade.data.ServiceRequest.Status;
 import org.codeforamerica.open311.facade.data.ServiceRequestIdResponse;
 import org.codeforamerica.open311.facade.exceptions.GeoReportV2Error;
-import org.codeforamerica.open311.internals.parsing.DateParsingUtils;
+import org.codeforamerica.open311.internals.parsing.DateParser;
 
 /**
  * This class contains test which will be use for more than one test class. For
@@ -80,24 +80,24 @@ public class GlobalTests {
 		assertEquals(sr1.getDescription(), "");
 		assertEquals(sr1.getAgencyResponsible(), "");
 		assertEquals(sr1.getServiceNotice(), "");
-		DateParsingUtils dateParser = DateParsingUtils.getInstance();
+		DateParser dateParser = DateParser.getInstance();
 
 		/*
 		 * These three following tests do parsing and printing in order to avoid
 		 * timezone differences.
 		 */
 		assertEquals(
-				DateParsingUtils.getInstance().printDate(
+				DateParser.getInstance().printDate(
 						sr1.getRequestedDatetime()),
 				dateParser.printDate(dateParser
 						.parseDate("2010-04-14T06:37:38-08:00")));
 		assertEquals(
-				DateParsingUtils.getInstance().printDate(
+				DateParser.getInstance().printDate(
 						sr1.getUpdatedDatetime()),
 				dateParser.printDate(dateParser
 						.parseDate("2010-04-14T06:37:38-08:00")));
 		assertEquals(
-				DateParsingUtils.getInstance().printDate(
+				DateParser.getInstance().printDate(
 						sr1.getExpectedDatetime()),
 				dateParser.printDate(dateParser
 						.parseDate("2010-04-15T06:37:38-08:00")));

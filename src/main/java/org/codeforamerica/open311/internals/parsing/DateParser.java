@@ -18,9 +18,9 @@ import org.joda.time.format.ISODateTimeFormat;
  * @author Santiago Munín <santimunin@gmail.com>
  * 
  */
-public class DateParsingUtils {
+public class DateParser {
 
-	private static DateParsingUtils instance = new DateParsingUtils();
+	private static DateParser instance = new DateParser();
 	/**
 	 * List of possible formats. Note the order of preference.
 	 */
@@ -28,10 +28,10 @@ public class DateParsingUtils {
 			ISODateTimeFormat.dateTimeNoMillis(),
 			DateTimeFormat.forPattern("YYYY-MM-DD HH:mm") };
 
-	private DateParsingUtils() {
+	private DateParser() {
 	}
 
-	public static DateParsingUtils getInstance() {
+	public static DateParser getInstance() {
 		return instance;
 	}
 

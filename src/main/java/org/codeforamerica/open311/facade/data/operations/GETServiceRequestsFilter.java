@@ -7,7 +7,7 @@ import java.util.Map;
 import org.codeforamerica.open311.facade.APIWrapper;
 import org.codeforamerica.open311.facade.data.ServiceRequest.Status;
 import org.codeforamerica.open311.internals.parsing.DataParser;
-import org.codeforamerica.open311.internals.parsing.DateParsingUtils;
+import org.codeforamerica.open311.internals.parsing.DateParser;
 
 /**
  * Useful to pass optional parameters to the
@@ -20,11 +20,11 @@ import org.codeforamerica.open311.internals.parsing.DateParsingUtils;
  */
 public class GETServiceRequestsFilter {
 	private Map<String, String> parameters;
-	private DateParsingUtils dateParser;
+	private DateParser dateParser;
 
 	public GETServiceRequestsFilter() {
 		parameters = new HashMap<String, String>();
-		dateParser = DateParsingUtils.getInstance();
+		dateParser = DateParser.getInstance();
 	}
 
 	/**
