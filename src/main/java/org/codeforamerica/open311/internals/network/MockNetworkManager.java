@@ -107,9 +107,11 @@ public class MockNetworkManager implements NetworkManager {
 		}
 		if (url.toString().contains("requests.xml")) {
 			// Test api key
-			if (url.toString().contains("api_key")
-					&& url.toString().contains("api_key=key")) {
-				return postServiceRequestResponseXML();
+			if (url.toString().contains("api_key")) {
+				if (url.toString().contains("api_key=key")) {
+					return postServiceRequestResponseXML();
+				} else
+					return errorXML();
 			} else {
 				return postServiceRequestResponseXML();
 			}
@@ -125,11 +127,16 @@ public class MockNetworkManager implements NetworkManager {
 	 * @return Empty if it doesn't find any suitable response.
 	 */
 	private String JSONPOSTResponse(URL url) {
+		if (url.toString().contains("simulateAPIError")) {
+			return errorJSON();
+		}
 		if (url.toString().contains("requests.json")) {
 			// Test api key
-			if (url.toString().contains("api_key")
-					&& url.toString().contains("api_key=key")) {
-				return postServiceRequestResponseJSON();
+			if (url.toString().contains("api_key")) {
+				if (url.toString().contains("api_key=key")) {
+					return postServiceRequestResponseJSON();
+				} else
+					return errorJSON();
 			} else {
 				return postServiceRequestResponseJSON();
 			}
@@ -306,6 +313,15 @@ public class MockNetworkManager implements NetworkManager {
 	public String errorXML() {
 		return "<?xml version=\"1.0\" encoding=\"utf-8\"?><errors><error><code>403</code><description>Invalid api_key received -- can't proceed with create_request.</description></error>"
 				+ "<error><code>404</code><description>Whatever</description></error></errors>";
+	}
+
+	/**
+	 * Mock error.
+	 * 
+	 * @return JSON.
+	 */
+	public String errorJSON() {
+		return "[{\"code\":403,\"description\":\"Invalid api_key received -- can't proceed with create_request.\"},{\"code\":404,\"description\":\"Whatever\"}]";
 	}
 
 	/**
