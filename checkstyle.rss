@@ -9,7 +9,7 @@
     <copyright>&#169;2013 Code for America</copyright>
     <item>
       <title>File: 34,
-             Errors: 4050,
+             Errors: 4084,
              Warnings: 0,
              Infos: 0
       </title>
@@ -85,20 +85,6 @@
               </tr>
                           <tr>
                 <td>
-                  <a href="https://github.com/codeforamerica/open311_java/checkstyle.html#org.codeforamerica.open311.internals.parsing.DataParser.java">org/codeforamerica/open311/internals/parsing/DataParser.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  268
-                </td>
-              </tr>
-                          <tr>
-                <td>
                   <a href="https://github.com/codeforamerica/open311_java/checkstyle.html#org.codeforamerica.open311.internals.network.URLBuilder.java">org/codeforamerica/open311/internals/network/URLBuilder.java</a>
                 </td>
                 <td>
@@ -109,6 +95,20 @@
                 </td>
                 <td>
                   232
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://github.com/codeforamerica/open311_java/checkstyle.html#org.codeforamerica.open311.internals.parsing.DataParser.java">org/codeforamerica/open311/internals/parsing/DataParser.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  268
                 </td>
               </tr>
                           <tr>
@@ -304,7 +304,7 @@
                   0
                 </td>
                 <td>
-                  439
+                  457
                 </td>
               </tr>
                           <tr>
@@ -458,7 +458,7 @@
                   0
                 </td>
                 <td>
-                  278
+                  294
                 </td>
               </tr>
                           <tr>
