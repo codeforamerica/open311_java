@@ -13,6 +13,7 @@ import org.codeforamerica.open311.facade.data.ServiceDefinition;
 import org.codeforamerica.open311.facade.data.ServiceRequest;
 import org.codeforamerica.open311.facade.data.ServiceRequestIdResponse;
 import org.codeforamerica.open311.facade.exceptions.DataParsingException;
+import org.codeforamerica.open311.facade.exceptions.GeoReportV2Error;
 import org.codeforamerica.open311.internals.network.MockNetworkManager;
 import org.codeforamerica.open311.internals.network.NetworkManager;
 import org.junit.AfterClass;
@@ -144,6 +145,29 @@ public class JSONParserTest {
 		String dataWithError = netManager.doPost(
 				new URL(BASE_URL + "/requests.xml"), "").replace("\"", ":");
 		parser.parsePostServiceRequestResponse(dataWithError);
+	}
+
+	/**
+	 * Tests the correct parsing of GeoReport v2 errors.
+	 */
+	@Test
+	public void geoReportV2ErrorTest() throws MalformedURLException,
+			DataParsingException, IOException {
+		List<GeoReportV2Error> list = parser.parseGeoReportV2Errors(netManager
+				.doPost(new URL(BASE_URL + "/requests/simulateAPIError.json"),
+						""));
+		GlobalTests.errorTest(list);
+	}
+
+	/**
+	 * An exception must be thrown if the JSON is not well formed.
+	 */
+	@Test(expected = DataParsingException.class)
+	public void geoReportV2ErrorWithErrorTest() throws MalformedURLException,
+			IOException, DataParsingException {
+		String dataWithError = netManager.doPost(
+				new URL(BASE_URL + "/requests.json"), "").replace("\"", ":");
+		parser.parseGeoReportV2Errors(dataWithError);
 	}
 
 	/**
