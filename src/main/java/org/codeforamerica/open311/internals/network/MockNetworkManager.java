@@ -11,7 +11,7 @@ import org.codeforamerica.open311.facade.Format;
  * @author Santiago Munín <santimunin@gmail.com>
  */
 public class MockNetworkManager implements NetworkManager {
-	private Format format;
+	private Format format = Format.XML;
 
 	@Override
 	public String doGet(URL url) throws IOException {
@@ -61,10 +61,21 @@ public class MockNetworkManager implements NetworkManager {
 		if (url.toString().contains("simulateIOException")) {
 			throw new IOException();
 		}
+		if (format == Format.XML) {
+			return XMLPOSTResponse(url);
+		}
+		if (format == Format.JSON) {
+			return JSONPOSTResponse(url);
+		}
+		return "";
+
+	}
+
+	private String XMLPOSTResponse(URL url) {
 		if (url.toString().contains("simulateAPIError")) {
 			return errorXML();
 		}
-		if (url.toString().contains("requests.XML")) {
+		if (url.toString().contains("requests.xml")) {
 			// Test api key
 			if (url.toString().contains("api_key")
 					&& url.toString().contains("api_key=key")) {
@@ -73,7 +84,10 @@ public class MockNetworkManager implements NetworkManager {
 				return postServiceRequestResponseXML();
 			}
 		}
+		return "";
+	}
 
+	private String JSONPOSTResponse(URL url) {
 		return "";
 	}
 
@@ -88,7 +102,7 @@ public class MockNetworkManager implements NetworkManager {
 	 * @return service list XML.
 	 */
 	private String serviceListXML() {
-		return "<?XML version=\"1.0\" encoding=\"utf-8\"?><services><service><service_code>"
+		return "<?xml version=\"1.0\" encoding=\"utf-8\"?><services><service><service_code>"
 				+ "001</service_code><service_name>Cans left out 24x7</service_name><description>"
 				+ "Garbage or recycling cans that have been left out for more than 24 hours after"
 				+ " collection. Violators will be cited.</description><metadata>true</metadata>"
@@ -112,7 +126,7 @@ public class MockNetworkManager implements NetworkManager {
 	 * @return service definition XML.
 	 */
 	private String serviceDefinitionXML() {
-		return "<?XML version=\"1.0\" encoding=\"utf-8\"?><service_definition>"
+		return "<?xml version=\"1.0\" encoding=\"utf-8\"?><service_definition>"
 				+ "<service_code>DMV66</service_code><attributes><attribute>"
 				+ "<variable>true</variable><code>WHISHETN</code><datatype>singlevaluelist</datatype>"
 				+ "<required>true</required><datatype_description></datatype_description><order>1</order>"
@@ -127,7 +141,7 @@ public class MockNetworkManager implements NetworkManager {
 	 * @return XML.
 	 */
 	private String serviceRequestIdFromATokenXML() {
-		return "<?XML version=\"1.0\" encoding=\"utf-8\"?><service_requests>"
+		return "<?xml version=\"1.0\" encoding=\"utf-8\"?><service_requests>"
 				+ "<request><service_request_id>638344</service_request_id>"
 				+ "<token>12345</token></request><request><service_request_id>"
 				+ "111</service_request_id><token>12345</token>"
@@ -140,7 +154,7 @@ public class MockNetworkManager implements NetworkManager {
 	 * @return XML.
 	 */
 	private String serviceRequestsXML() {
-		return "<?XML version=\"1.0\" encoding=\"utf-8\"?><service_requests>"
+		return "<?xml version=\"1.0\" encoding=\"utf-8\"?><service_requests>"
 				+ "<request><service_request_id>638344</service_request_id>"
 				+ "<status>closed</status><status_notes>Duplicate request."
 				+ "</status_notes><service_name>Sidewalk and Curb Issues</service_name>"
@@ -174,7 +188,7 @@ public class MockNetworkManager implements NetworkManager {
 	 * @return XML.
 	 */
 	public String postServiceRequestResponseXML() {
-		return "<?XML version=\"1.0\" encoding=\"utf-8\"?><service_requests><request>"
+		return "<?xml version=\"1.0\" encoding=\"utf-8\"?><service_requests><request>"
 				+ "<service_request_id>293944</service_request_id><service_notice>"
 				+ "The City will inspect and require the responsible party to correct "
 				+ "within 24 hours and/or issue a Correction Notice or Notice of Violation "
@@ -188,7 +202,7 @@ public class MockNetworkManager implements NetworkManager {
 	 * @return XML.
 	 */
 	public String errorXML() {
-		return "<?XML version=\"1.0\" encoding=\"utf-8\"?><errors><error><code>403</code><description>Invalid api_key received -- can't proceed with create_request.</description></error>"
+		return "<?xml version=\"1.0\" encoding=\"utf-8\"?><errors><error><code>403</code><description>Invalid api_key received -- can't proceed with create_request.</description></error>"
 				+ "<error><code>404</code><description>Whatever</description></error></errors>";
 	}
 
@@ -198,8 +212,8 @@ public class MockNetworkManager implements NetworkManager {
 	 * @return XML.
 	 */
 	public String discoveryXML() {
-		return "<?XML version=\"1.0\" encoding=\"utf-8\"?><discovery XMLns:m=\"http://org/sfgov/sf311v2/services\" "
-				+ "XMLns:soapenv=\"http://schemas.XMLsoap.org/soap/envelope/\">"
+		return "<?xml version=\"1.0\" encoding=\"utf-8\"?><discovery xmlns:m=\"http://org/sfgov/sf311v2/services\" "
+				+ "xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\">"
 				+ "<changeset>2011-04-05T17:48:34Z</changeset><contact>Please email "
 				+ "( content.311@sfgov.org )  or call ( 415-701-2311 ) for assistance "
 				+ "or to report bugs</contact><key_service>To get an API_KEY please "
