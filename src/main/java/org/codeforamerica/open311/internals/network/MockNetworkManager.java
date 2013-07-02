@@ -70,6 +70,9 @@ public class MockNetworkManager implements NetworkManager {
 		if (url.toString().contains("services/")) {
 			return serviceDefinitionJSON();
 		}
+		if (url.toString().contains("tokens/")) {
+			return serviceRequestIdFromATokenJSON();
+		}
 		return "";
 	}
 
@@ -188,6 +191,15 @@ public class MockNetworkManager implements NetworkManager {
 				+ "<token>12345</token></request><request><service_request_id>"
 				+ "111</service_request_id><token>12345</token>"
 				+ "</request></service_requests>";
+	}
+
+	/**
+	 * Mock service request id from a token.
+	 * 
+	 * @return JSON.
+	 */
+	private String serviceRequestIdFromATokenJSON() {
+		return "[{\"service_request_id\":638344,\"token\":12345},{\"service_request_id\":111,\"token\":12345}]";
 	}
 
 	/**

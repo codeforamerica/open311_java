@@ -9,6 +9,7 @@ import org.codeforamerica.open311.facade.Format;
 import org.codeforamerica.open311.facade.GlobalTests;
 import org.codeforamerica.open311.facade.data.Service;
 import org.codeforamerica.open311.facade.data.ServiceDefinition;
+import org.codeforamerica.open311.facade.data.ServiceRequestIdResponse;
 import org.codeforamerica.open311.facade.exceptions.DataParsingException;
 import org.codeforamerica.open311.internals.network.MockNetworkManager;
 import org.codeforamerica.open311.internals.network.NetworkManager;
@@ -49,8 +50,8 @@ public class JSONParserTest {
 	@Test(expected = DataParsingException.class)
 	public void serviceListParsingWithErrorsTest()
 			throws MalformedURLException, IOException, DataParsingException {
-		String dataWithError = netManager.doGet(new URL(BASE_URL
-				+ "/services.json")).replace("\"", "");
+		String dataWithError = netManager.doGet(
+				new URL(BASE_URL + "/services.json")).replace("\"", ":");
 		parser.parseServiceList(dataWithError);
 	}
 
@@ -73,9 +74,32 @@ public class JSONParserTest {
 	@Test(expected = DataParsingException.class)
 	public void serviceDefinitionParsingWithErrorTest()
 			throws MalformedURLException, IOException, DataParsingException {
-		String dataWithError = netManager.doGet(new URL(BASE_URL
-				+ "/services/001.json")).replace("\"", "");
+		String dataWithError = netManager.doGet(
+				new URL(BASE_URL + "/services/001.json")).replace("\"", ":");
 		parser.parseServiceDefinition(dataWithError);
+	}
+
+	/**
+	 * Tests if the parser is able to read service request ids.
+	 */
+	@Test
+	public void serviceRequestIdFromATokenTest() throws MalformedURLException,
+			IOException, DataParsingException {
+		List<ServiceRequestIdResponse> ids = parser
+				.parseServiceRequestIdFromAToken(netManager.doGet(new URL(
+						BASE_URL + "/tokens/222.json")));
+		GlobalTests.serviceIdFromTokenTest(ids);
+	}
+
+	/**
+	 * An exception must be thrown if the JSON is not well formed.
+	 */
+	@Test(expected = DataParsingException.class)
+	public void serviceRequestIdFromATokenTestWithErrorTest()
+			throws MalformedURLException, IOException, DataParsingException {
+		String dataWithError = netManager.doGet(
+				new URL(BASE_URL + "/tokens/001.json")).replace("\"", ":");
+		parser.parseServiceRequestIdFromAToken(dataWithError);
 	}
 
 }
