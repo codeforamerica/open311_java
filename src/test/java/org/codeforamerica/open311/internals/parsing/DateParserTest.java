@@ -15,7 +15,7 @@ import org.junit.Test;
  * @author Santiago Munín <santimunin@gmail.com>
  * 
  */
-public class DateParsingUtilsTest {
+public class DateParserTest {
 	private static DateParser dateParsingUtils;
 	private static final String ISO8601DATE = "2013-01-01T17:15:00+01:00";
 	private static final String BASIC_DATE = "2013-01-01 17:15";
