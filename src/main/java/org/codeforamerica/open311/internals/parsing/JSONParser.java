@@ -24,6 +24,7 @@ import org.json.JSONObject;
 
 public class JSONParser extends AbstractParser {
 	private static final String NULL_STRING_JSON = "null";
+	private DateParser dateParser = new DateParser();
 
 	@Override
 	public List<Service> parseServiceList(String rawData)
@@ -140,7 +141,6 @@ public class JSONParser extends AbstractParser {
 						AGENCY_RESPONSIBLE_TAG);
 				String serviceNotice = getString(serviceRequest,
 						SERVICE_NOTICE_TAG);
-				DateParser dateParser = DateParser.getInstance();
 				Date requestedDatetime = dateParser.parseDate(getString(
 						serviceRequest, REQUESTED_DATETIME_TAG));
 				Date updatedDatetime = dateParser.parseDate(getString(

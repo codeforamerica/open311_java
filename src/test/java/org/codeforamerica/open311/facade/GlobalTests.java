@@ -24,6 +24,7 @@ import org.codeforamerica.open311.internals.parsing.DateParser;
  * whole GET Service done by the APIWrapper.
  */
 public class GlobalTests {
+	private static DateParser dateParser = new DateParser();
 
 	public static void serviceListTest(List<Service> services) {
 		assertEquals(services.size(), 2);
@@ -80,24 +81,23 @@ public class GlobalTests {
 		assertEquals(sr1.getDescription(), "");
 		assertEquals(sr1.getAgencyResponsible(), "");
 		assertEquals(sr1.getServiceNotice(), "");
-		DateParser dateParser = DateParser.getInstance();
 
 		/*
 		 * These three following tests do parsing and printing in order to avoid
 		 * timezone differences.
 		 */
 		assertEquals(
-				DateParser.getInstance().printDate(
+				dateParser.printDate(
 						sr1.getRequestedDatetime()),
 				dateParser.printDate(dateParser
 						.parseDate("2010-04-14T06:37:38-08:00")));
 		assertEquals(
-				DateParser.getInstance().printDate(
+				dateParser.printDate(
 						sr1.getUpdatedDatetime()),
 				dateParser.printDate(dateParser
 						.parseDate("2010-04-14T06:37:38-08:00")));
 		assertEquals(
-				DateParser.getInstance().printDate(
+				dateParser.printDate(
 						sr1.getExpectedDatetime()),
 				dateParser.printDate(dateParser
 						.parseDate("2010-04-15T06:37:38-08:00")));

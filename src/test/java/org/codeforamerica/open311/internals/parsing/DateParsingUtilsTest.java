@@ -16,8 +16,7 @@ import org.junit.Test;
  * 
  */
 public class DateParsingUtilsTest {
-	private static DateParser dateParsingUtils = DateParser
-			.getInstance();
+	private static DateParser dateParsingUtils;
 	private static final String ISO8601DATE = "2013-01-01T17:15:00+01:00";
 	private static final String BASIC_DATE = "2013-01-01 17:15";
 	private static final String INVALID_DATE = " 2013 18:10";
@@ -28,7 +27,7 @@ public class DateParsingUtilsTest {
 		System.out.println("[DATE PARSING UTILS TEST] Starts");
 		System.out.println("Setting the timezone "
 				+ DEFAULT_TIME_ZONE_FOR_TESTING_ID);
-		dateParsingUtils.setTimezone(DateTimeZone
+		dateParsingUtils = new DateParser().withTimezone(DateTimeZone
 				.forID(DEFAULT_TIME_ZONE_FOR_TESTING_ID));
 	}
 

@@ -13,14 +13,12 @@ import org.joda.time.format.ISODateTimeFormat;
  * href="http://wiki.open311.org/GeoReport_v2#Date.2Ftime_format">GeoReport
  * wiki</a> for more information.
  * 
- * Singleton class.
  * 
  * @author Santiago Munín <santimunin@gmail.com>
  * 
  */
 public class DateParser {
 
-	private static DateParser instance = new DateParser();
 	/**
 	 * List of possible formats. Note the order of preference.
 	 */
@@ -28,23 +26,17 @@ public class DateParser {
 			ISODateTimeFormat.dateTimeNoMillis(),
 			DateTimeFormat.forPattern("YYYY-MM-DD HH:mm") };
 
-	private DateParser() {
-	}
-
-	public static DateParser getInstance() {
-		return instance;
-	}
-
 	/**
 	 * Sets the timezone of the system.
 	 * 
 	 * @param timeZone
 	 *            A valid timezone.
 	 */
-	public void setTimezone(DateTimeZone timeZone) {
+	public DateParser withTimezone(DateTimeZone timeZone) {
 		for (int i = 0; i < dateFormats.length; i++) {
 			dateFormats[i] = dateFormats[i].withZone(timeZone);
 		}
+		return this;
 	}
 
 	/**

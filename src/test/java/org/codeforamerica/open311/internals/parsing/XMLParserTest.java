@@ -35,6 +35,7 @@ import org.junit.Test;
  * 
  */
 public class XMLParserTest {
+	private DateParser dateParser = new DateParser();
 	private NetworkManager netManager = new MockNetworkManager();
 	private static final String BASE_URL = "http://www.fakeurl";
 
@@ -210,8 +211,7 @@ public class XMLParserTest {
 		assertEquals(
 				serviceDiscoveryInfo.getContact(),
 				"Please email ( content.311@sfgov.org )  or call ( 415-701-2311 ) for assistance or to report bugs");
-		assertEquals(serviceDiscoveryInfo.getChangeset(), DateParser
-				.getInstance().parseDate("2011-04-05T17:48:34Z"));
+		assertEquals(serviceDiscoveryInfo.getChangeset(), dateParser.parseDate("2011-04-05T17:48:34Z"));
 		assertEquals(
 				serviceDiscoveryInfo.getKeyService(),
 				"To get an API_KEY please visit this website:  http://apps.sfgov.org/Open311API/?page_id=486");
@@ -223,7 +223,7 @@ public class XMLParserTest {
 				"http://wiki.open311.org/GeoReport_v2");
 		assertEquals(endpoint.getUrl(), "https://open311.sfgov.org/dev/v2");
 		assertEquals(endpoint.getType(), EndpointType.TEST);
-		assertEquals(endpoint.getChangeset(), DateParser.getInstance()
+		assertEquals(endpoint.getChangeset(), dateParser
 				.parseDate("2011-04-20T17:48:34Z"));
 	}
 }

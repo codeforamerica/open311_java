@@ -19,13 +19,8 @@ import org.codeforamerica.open311.internals.parsing.DateParser;
  * 
  */
 public class GETServiceRequestsFilter {
-	private Map<String, String> parameters;
-	private DateParser dateParser;
-
-	public GETServiceRequestsFilter() {
-		parameters = new HashMap<String, String>();
-		dateParser = DateParser.getInstance();
-	}
+	private Map<String, String> parameters = new HashMap<String, String>();
+	private DateParser dateParser = new DateParser();
 
 	/**
 	 * Adds one or more service request ids to the filtering parameters.
@@ -51,14 +46,16 @@ public class GETServiceRequestsFilter {
 
 	public GETServiceRequestsFilter setStartDate(Date startDate) {
 		if (startDate != null) {
-			parameters.put(DataParser.START_DATE_TAG, dateParser.printDate(startDate));
+			parameters.put(DataParser.START_DATE_TAG,
+					dateParser.printDate(startDate));
 		}
 		return this;
 	}
 
 	public GETServiceRequestsFilter setEndDate(Date endDate) {
 		if (endDate != null) {
-			parameters.put(DataParser.END_DATE_TAG, dateParser.printDate(endDate));
+			parameters.put(DataParser.END_DATE_TAG,
+					dateParser.printDate(endDate));
 		}
 		return this;
 	}

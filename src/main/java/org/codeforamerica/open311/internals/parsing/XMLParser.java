@@ -45,6 +45,7 @@ import org.xml.sax.SAXException;
 public class XMLParser extends AbstractParser {
 
 	private DocumentBuilder dBuilder;
+	private DateParser dateParser = new DateParser();
 
 	/**
 	 * Creates an instance of an XMLParser creating a {@link DocumentBuilder}.
@@ -260,7 +261,6 @@ public class XMLParser extends AbstractParser {
 				AGENCY_RESPONSIBLE_TAG);
 		String serviceNotice = getTagContent(serviceRequestElement,
 				SERVICE_NOTICE_TAG);
-		DateParser dateParser = DateParser.getInstance();
 		Date requestedDatetime = dateParser.parseDate((getTagContent(
 				serviceRequestElement, REQUESTED_DATETIME_TAG)));
 		Date updatedDatetime = dateParser.parseDate((getTagContent(
@@ -374,9 +374,8 @@ public class XMLParser extends AbstractParser {
 				Node serviceDiscoveryNode = serviceDiscoveryNodes.item(i);
 				if (serviceDiscoveryNode.getNodeType() == Node.ELEMENT_NODE) {
 					Element serviceDiscoveryElement = (Element) serviceDiscoveryNode;
-					Date changeset = DateParser.getInstance().parseDate(
-							getTagContent(serviceDiscoveryElement,
-									CHANGESET_TAG));
+					Date changeset = dateParser.parseDate(getTagContent(
+							serviceDiscoveryElement, CHANGESET_TAG));
 					String contact = getTagContent(serviceDiscoveryElement,
 							CONTACT_TAG);
 					String keyService = getTagContent(serviceDiscoveryElement,
@@ -409,8 +408,8 @@ public class XMLParser extends AbstractParser {
 				String specificationUrl = getTagContent(endpointElement,
 						SPECIFICATION_TAG);
 				String url = getTagContent(endpointElement, URL_TAG);
-				Date changeset = DateParser.getInstance().parseDate(
-						getTagContent(endpointElement, CHANGESET_TAG));
+				Date changeset = dateParser.parseDate(getTagContent(
+						endpointElement, CHANGESET_TAG));
 				EndpointType type = EndpointType.getFromString(getTagContent(
 						endpointElement, TYPE_TAG));
 				NodeList formatNodes = endpointElement
