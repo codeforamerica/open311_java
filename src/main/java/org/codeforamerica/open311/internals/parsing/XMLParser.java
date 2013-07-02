@@ -42,7 +42,7 @@ import org.xml.sax.SAXException;
  * @author Santiago Munín <santimunin@gmail.com>
  * 
  */
-public class XMLParser implements DataParser {
+public class XMLParser extends AbstractParser {
 
 	private DocumentBuilder dBuilder;
 
@@ -496,19 +496,5 @@ public class XMLParser implements DataParser {
 			return nodeList.item(0).getTextContent();
 		}
 		return "";
-	}
-
-	/**
-	 * Parses a comma separated list of keywords.
-	 * 
-	 * @param rawKeywords
-	 * @return An array of strings (keywords).
-	 */
-	private String[] getKeywords(String rawKeywords) {
-		String[] result = rawKeywords.split(KEYWORDS_SEPARATOR);
-		for (int i = 0; i < result.length; i++) {
-			result[i] = result[i].trim();
-		}
-		return result;
 	}
 }
