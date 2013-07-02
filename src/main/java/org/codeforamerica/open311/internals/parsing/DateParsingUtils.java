@@ -3,6 +3,8 @@ package org.codeforamerica.open311.internals.parsing;
 import java.util.Date;
 
 import org.joda.time.DateTime;
+import org.joda.time.DateTimeZone;
+import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 import org.joda.time.format.ISODateTimeFormat;
 
@@ -19,7 +21,12 @@ import org.joda.time.format.ISODateTimeFormat;
 public class DateParsingUtils {
 
 	private static DateParsingUtils instance = new DateParsingUtils();
-	private DateTimeFormatter dateFormat = ISODateTimeFormat.dateTimeNoMillis();
+	/**
+	 * List of possible formats. Note the order of preference.
+	 */
+	private DateTimeFormatter[] dateFormats = {
+			ISODateTimeFormat.dateTimeNoMillis(),
+			DateTimeFormat.forPattern("YYYY-MM-DD HH:mm") };
 
 	private DateParsingUtils() {
 	}
@@ -29,28 +36,52 @@ public class DateParsingUtils {
 	}
 
 	/**
-	 * Parses a string date.
+	 * Sets the timezone of the system.
 	 * 
-	 * @param rawDate
-	 *            ISO 8601 format.
-	 * @return A date object.
+	 * @param timeZone
+	 *            A valid timezone.
 	 */
-	public Date parseDate(String rawDate) {
-		try {
-			return dateFormat.parseDateTime(rawDate).toDate();
-		} catch (Exception e) {
-			return null;
+	public void setTimezone(DateTimeZone timeZone) {
+		for (int i = 0; i < dateFormats.length; i++) {
+			dateFormats[i].withZone(timeZone);
 		}
 	}
 
 	/**
-	 * Prints a date with the ISO 8601 format.
+	 * Parses a string date.
+	 * 
+	 * @param rawDate
+	 *            ISO 8601 is the preferred format. Check
+	 *            <code>dateFormats</code> in order to know all the accepted
+	 *            formats.
+	 * @return A date object.
+	 */
+	public Date parseDate(String rawDate) {
+		for (int i = 0; i < dateFormats.length; i++) {
+			try {
+				return dateFormats[i].parseDateTime(rawDate).toDate();
+			} catch (Exception e) {
+			}
+		}
+		return null;
+	}
+
+	/**
+	 * Prints a date. ISO 8601 is the preferred format. Check
+	 * <code>dateFormats</code> in order to know all the accepted formats.
 	 * 
 	 * @param date
 	 *            Date to print.
-	 * @return ISO 8601 format date.
+	 * @return ISO 8601 format date is possible (else, the first valid) or
+	 *         <code>null</code> if it didn't match any format.
 	 */
 	public String printDate(Date date) {
-		return dateFormat.print(new DateTime(date));
+		for (int i = 0; i < dateFormats.length; i++) {
+			try {
+				return dateFormats[i].print(new DateTime(date));
+			} catch (Exception e) {
+			}
+		}
+		return null;
 	}
 }
