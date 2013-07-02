@@ -27,6 +27,13 @@ public class MockNetworkManager implements NetworkManager {
 		return "";
 	}
 
+	/**
+	 * Selects the response if the format is XML.
+	 * 
+	 * @param url
+	 *            Request URL.
+	 * @return Empty if it doesn't find any suitable response.
+	 */
 	private String XMLResponse(URL url) {
 		if (url.toString().contains("simulateAPIError")) {
 			return errorXML();
@@ -49,6 +56,13 @@ public class MockNetworkManager implements NetworkManager {
 		return "";
 	}
 
+	/**
+	 * Selects the response if the format is JSON.
+	 * 
+	 * @param url
+	 *            Request URL.
+	 * @return Empty if it doesn't find any suitable response.
+	 */
 	private String JSONResponse(URL url) {
 		if (url.toString().contains("services.json")) {
 			return serviceListJSON();
@@ -71,6 +85,13 @@ public class MockNetworkManager implements NetworkManager {
 
 	}
 
+	/**
+	 * Selects the response if the format is JSON.
+	 * 
+	 * @param url
+	 *            Request URL.
+	 * @return Empty if it doesn't find any suitable response.
+	 */
 	private String XMLPOSTResponse(URL url) {
 		if (url.toString().contains("simulateAPIError")) {
 			return errorXML();
@@ -87,6 +108,13 @@ public class MockNetworkManager implements NetworkManager {
 		return "";
 	}
 
+	/**
+	 * Selects the response if the format is JSON.
+	 * 
+	 * @param url
+	 *            Request URL.
+	 * @return Empty if it doesn't find any suitable response.
+	 */
 	private String JSONPOSTResponse(URL url) {
 		return "";
 	}
