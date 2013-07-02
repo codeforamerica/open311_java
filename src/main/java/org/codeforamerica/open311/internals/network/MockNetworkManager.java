@@ -11,28 +11,47 @@ import org.codeforamerica.open311.facade.Format;
  * @author Santiago Munín <santimunin@gmail.com>
  */
 public class MockNetworkManager implements NetworkManager {
+	private Format format;
+
 	@Override
 	public String doGet(URL url) throws IOException {
 		if (url.toString().contains("simulateIOException")) {
 			throw new IOException();
 		}
+		if (format == Format.XML) {
+			return XMLResponse(url);
+		}
+		if (format == Format.JSON) {
+			return JSONResponse(url);
+		}
+		return "";
+	}
+
+	private String XMLResponse(URL url) {
 		if (url.toString().contains("simulateAPIError")) {
-			return errorXml();
+			return errorXML();
 		}
 		if (url.toString().contains("discovery")) {
-			return discoveryXml();
+			return discoveryXML();
 		}
 		if (url.toString().contains("services.xml")) {
-			return serviceListXml();
+			return serviceListXML();
 		}
 		if (url.toString().contains("services/")) {
-			return serviceDefinitionXml();
+			return serviceDefinitionXML();
 		}
 		if (url.toString().contains("tokens/")) {
-			return serviceRequestIdFromATokenXml();
+			return serviceRequestIdFromATokenXML();
 		}
 		if (url.toString().contains("requests")) {
-			return serviceRequestsXml();
+			return serviceRequestsXML();
+		}
+		return "";
+	}
+
+	private String JSONResponse(URL url) {
+		if (url.toString().contains("services.json")) {
+			return serviceListJSON();
 		}
 		return "";
 	}
@@ -43,15 +62,15 @@ public class MockNetworkManager implements NetworkManager {
 			throw new IOException();
 		}
 		if (url.toString().contains("simulateAPIError")) {
-			return errorXml();
+			return errorXML();
 		}
-		if (url.toString().contains("requests.xml")) {
+		if (url.toString().contains("requests.XML")) {
 			// Test api key
 			if (url.toString().contains("api_key")
 					&& url.toString().contains("api_key=key")) {
-				return postServiceRequestResponseXml();
+				return postServiceRequestResponseXML();
 			} else {
-				return postServiceRequestResponseXml();
+				return postServiceRequestResponseXML();
 			}
 		}
 
@@ -60,7 +79,7 @@ public class MockNetworkManager implements NetworkManager {
 
 	@Override
 	public void setFormat(Format format) {
-
+		this.format = format;
 	}
 
 	/**
@@ -68,8 +87,8 @@ public class MockNetworkManager implements NetworkManager {
 	 * 
 	 * @return service list XML.
 	 */
-	private String serviceListXml() {
-		return "<?xml version=\"1.0\" encoding=\"utf-8\"?><services><service><service_code>"
+	private String serviceListXML() {
+		return "<?XML version=\"1.0\" encoding=\"utf-8\"?><services><service><service_code>"
 				+ "001</service_code><service_name>Cans left out 24x7</service_name><description>"
 				+ "Garbage or recycling cans that have been left out for more than 24 hours after"
 				+ " collection. Violators will be cited.</description><metadata>true</metadata>"
@@ -81,13 +100,19 @@ public class MockNetworkManager implements NetworkManager {
 				+ "</description></service></services>";
 	}
 
+	private String serviceListJSON() {
+		return "[{\"service_code\":\"001\",\"service_name\":\"Cans left out 24x7\",\"description\":\"Garbage or recycling cans that have been left out for more than 24 hours after collection. Violators will be cited.\",\"metadata\":true,\"type\":\"realtime\","
+				+ "\"keywords\":\"lorem, ipsum, dolor\",\"group\":\"sanitation\"},{\"service_code\":\"002\",\"metadata\":true,\"type\":\"realtime\",\"keywords\":\"lorem, ipsum, dolor\",\"group\":\"street\",\"service_name\":\"Construction plate shifted\","
+				+ "\"description\":\"Metal construction plate covering the street or sidewalk has been moved.\"}]";
+	}
+
 	/**
 	 * Mock service definition.
 	 * 
 	 * @return service definition XML.
 	 */
-	private String serviceDefinitionXml() {
-		return "<?xml version=\"1.0\" encoding=\"utf-8\"?><service_definition>"
+	private String serviceDefinitionXML() {
+		return "<?XML version=\"1.0\" encoding=\"utf-8\"?><service_definition>"
 				+ "<service_code>DMV66</service_code><attributes><attribute>"
 				+ "<variable>true</variable><code>WHISHETN</code><datatype>singlevaluelist</datatype>"
 				+ "<required>true</required><datatype_description></datatype_description><order>1</order>"
@@ -101,8 +126,8 @@ public class MockNetworkManager implements NetworkManager {
 	 * 
 	 * @return XML.
 	 */
-	private String serviceRequestIdFromATokenXml() {
-		return "<?xml version=\"1.0\" encoding=\"utf-8\"?><service_requests>"
+	private String serviceRequestIdFromATokenXML() {
+		return "<?XML version=\"1.0\" encoding=\"utf-8\"?><service_requests>"
 				+ "<request><service_request_id>638344</service_request_id>"
 				+ "<token>12345</token></request><request><service_request_id>"
 				+ "111</service_request_id><token>12345</token>"
@@ -114,8 +139,8 @@ public class MockNetworkManager implements NetworkManager {
 	 * 
 	 * @return XML.
 	 */
-	private String serviceRequestsXml() {
-		return "<?xml version=\"1.0\" encoding=\"utf-8\"?><service_requests>"
+	private String serviceRequestsXML() {
+		return "<?XML version=\"1.0\" encoding=\"utf-8\"?><service_requests>"
 				+ "<request><service_request_id>638344</service_request_id>"
 				+ "<status>closed</status><status_notes>Duplicate request."
 				+ "</status_notes><service_name>Sidewalk and Curb Issues</service_name>"
@@ -148,8 +173,8 @@ public class MockNetworkManager implements NetworkManager {
 	 * 
 	 * @return XML.
 	 */
-	public String postServiceRequestResponseXml() {
-		return "<?xml version=\"1.0\" encoding=\"utf-8\"?><service_requests><request>"
+	public String postServiceRequestResponseXML() {
+		return "<?XML version=\"1.0\" encoding=\"utf-8\"?><service_requests><request>"
 				+ "<service_request_id>293944</service_request_id><service_notice>"
 				+ "The City will inspect and require the responsible party to correct "
 				+ "within 24 hours and/or issue a Correction Notice or Notice of Violation "
@@ -162,8 +187,8 @@ public class MockNetworkManager implements NetworkManager {
 	 * 
 	 * @return XML.
 	 */
-	public String errorXml() {
-		return "<?xml version=\"1.0\" encoding=\"utf-8\"?><errors><error><code>403</code><description>Invalid api_key received -- can't proceed with create_request.</description></error>"
+	public String errorXML() {
+		return "<?XML version=\"1.0\" encoding=\"utf-8\"?><errors><error><code>403</code><description>Invalid api_key received -- can't proceed with create_request.</description></error>"
 				+ "<error><code>404</code><description>Whatever</description></error></errors>";
 	}
 
@@ -172,9 +197,9 @@ public class MockNetworkManager implements NetworkManager {
 	 * 
 	 * @return XML.
 	 */
-	public String discoveryXml() {
-		return "<?xml version=\"1.0\" encoding=\"utf-8\"?><discovery xmlns:m=\"http://org/sfgov/sf311v2/services\" "
-				+ "xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\">"
+	public String discoveryXML() {
+		return "<?XML version=\"1.0\" encoding=\"utf-8\"?><discovery XMLns:m=\"http://org/sfgov/sf311v2/services\" "
+				+ "XMLns:soapenv=\"http://schemas.XMLsoap.org/soap/envelope/\">"
 				+ "<changeset>2011-04-05T17:48:34Z</changeset><contact>Please email "
 				+ "( content.311@sfgov.org )  or call ( 415-701-2311 ) for assistance "
 				+ "or to report bugs</contact><key_service>To get an API_KEY please "
@@ -183,15 +208,15 @@ public class MockNetworkManager implements NetworkManager {
 				+ "<endpoint><specification>http://wiki.open311.org/GeoReport_v2"
 				+ "</specification><url>https://open311.sfgov.org/dev/v2</url>"
 				+ "<changeset>2011-04-20T17:48:34Z</changeset>"
-				+ "<type>test</type><formats><format>text/xml</format></formats>"
+				+ "<type>test</type><formats><format>text/XML</format></formats>"
 				+ "</endpoint><endpoint><specification>http://wiki.open311.org/GeoReport_v2</specification>"
 				+ "<url>https://open311.sfgov.org/v2</url><changeset>"
 				+ "2011-04-25T17:48:34Z</changeset><type>production</type><formats>"
-				+ "<format>text/xml</format></formats></endpoint>"
+				+ "<format>text/XML</format></formats></endpoint>"
 				+ "<endpoint><specification>http://wiki.open311.org/GeoReport_v1</specification>"
 				+ "<url>https://open311.sfgov.org/dev/v1</url>"
 				+ "<changeset>2011-04-20T17:48:34Z</changeset><type>test</type><formats>"
-				+ "<format>text/xml</format></formats></endpoint>"
+				+ "<format>text/XML</format></formats></endpoint>"
 				+ "<endpoint><specification>http://wiki.open311.org/GeoReport_v1"
 				+ "</specification><url>https://open311.sfgov.org/v1</url>"
 				+ "<changeset>2011-04-25T17:48:34Z</changeset>"
