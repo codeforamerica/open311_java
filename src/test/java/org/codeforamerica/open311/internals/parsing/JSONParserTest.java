@@ -7,6 +7,7 @@ import java.util.List;
 
 import org.codeforamerica.open311.facade.Format;
 import org.codeforamerica.open311.facade.GlobalTests;
+import org.codeforamerica.open311.facade.data.POSTServiceRequestResponse;
 import org.codeforamerica.open311.facade.data.Service;
 import org.codeforamerica.open311.facade.data.ServiceDefinition;
 import org.codeforamerica.open311.facade.data.ServiceRequest;
@@ -123,6 +124,26 @@ public class JSONParserTest {
 		String dataWithError = netManager.doGet(
 				new URL(BASE_URL + "/requests.json")).replace("\"", ":");
 		parser.parseServiceRequests(dataWithError);
+	}
+
+	@Test
+	public void postServiceRequestResponseTest() throws MalformedURLException,
+			IOException, DataParsingException {
+		List<POSTServiceRequestResponse> list = parser
+				.parsePostServiceRequestResponse(netManager.doPost(new URL(
+						BASE_URL + "/requests.json"), ""));
+		GlobalTests.postServiceRequestsTest(list);
+	}
+
+	/**
+	 * An exception must be thrown if the JSON is not well formed.
+	 */
+	@Test(expected = DataParsingException.class)
+	public void postServiceRequestResponseWithErrorTest()
+			throws MalformedURLException, IOException, DataParsingException {
+		String dataWithError = netManager.doPost(
+				new URL(BASE_URL + "/requests.xml"), "").replace("\"", ":");
+		parser.parsePostServiceRequestResponse(dataWithError);
 	}
 
 }

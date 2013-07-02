@@ -27,6 +27,21 @@ public class MockNetworkManager implements NetworkManager {
 		return "";
 	}
 
+	@Override
+	public String doPost(URL url, String body) throws IOException {
+		if (url.toString().contains("simulateIOException")) {
+			throw new IOException();
+		}
+		if (format == Format.XML) {
+			return XMLPOSTResponse(url);
+		}
+		if (format == Format.JSON) {
+			return JSONPOSTResponse(url);
+		}
+		return "";
+
+	}
+
 	/**
 	 * Selects the response if the format is XML.
 	 * 
@@ -79,21 +94,6 @@ public class MockNetworkManager implements NetworkManager {
 		return "";
 	}
 
-	@Override
-	public String doPost(URL url, String body) throws IOException {
-		if (url.toString().contains("simulateIOException")) {
-			throw new IOException();
-		}
-		if (format == Format.XML) {
-			return XMLPOSTResponse(url);
-		}
-		if (format == Format.JSON) {
-			return JSONPOSTResponse(url);
-		}
-		return "";
-
-	}
-
 	/**
 	 * Selects the response if the format is JSON.
 	 * 
@@ -125,6 +125,15 @@ public class MockNetworkManager implements NetworkManager {
 	 * @return Empty if it doesn't find any suitable response.
 	 */
 	private String JSONPOSTResponse(URL url) {
+		if (url.toString().contains("requests.json")) {
+			// Test api key
+			if (url.toString().contains("api_key")
+					&& url.toString().contains("api_key=key")) {
+				return postServiceRequestResponseJSON();
+			} else {
+				return postServiceRequestResponseJSON();
+			}
+		}
 		return "";
 	}
 
@@ -275,6 +284,18 @@ public class MockNetworkManager implements NetworkManager {
 				+ "within 24 hours and/or issue a Correction Notice or Notice of Violation "
 				+ "of the Public Works Code</service_notice><account_id/></request>"
 				+ "</service_requests>";
+	}
+
+	/**
+	 * Mock post service request response.
+	 * 
+	 * @return JSON.
+	 */
+	public String postServiceRequestResponseJSON() {
+		return "[{\"service_request_id\":293944,\"service_notice\":"
+				+ "\"The City will inspect and require the responsible party to correct within 24"
+				+ " hours and/or issue a Correction Notice or Notice of Violation of the Public Works Code\","
+				+ "\"account_id\":null}]";
 	}
 
 	/**

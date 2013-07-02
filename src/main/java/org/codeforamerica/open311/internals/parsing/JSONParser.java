@@ -172,8 +172,28 @@ public class JSONParser extends AbstractParser {
 	@Override
 	public List<POSTServiceRequestResponse> parsePostServiceRequestResponse(
 			String rawData) throws DataParsingException {
-		// TODO Auto-generated method stub
-		return null;
+		List<POSTServiceRequestResponse> result = new LinkedList<POSTServiceRequestResponse>();
+		JSONArray postServiceRequestResponseArray;
+		try {
+			postServiceRequestResponseArray = new JSONArray(rawData);
+
+			for (int i = 0; i < postServiceRequestResponseArray.length(); i++) {
+				JSONObject postServiceRequestResponse = postServiceRequestResponseArray
+						.getJSONObject(i);
+				String token = getString(postServiceRequestResponse, TOKEN_TAG);
+				String serviceRequestId = getString(postServiceRequestResponse,
+						SERVICE_REQUEST_ID_TAG);
+				String serviceNotice = getString(postServiceRequestResponse,
+						SERVICE_NOTICE_TAG);
+				String accountId = getString(postServiceRequestResponse,
+						ACCOUNT_ID_TAG);
+				result.add(new POSTServiceRequestResponse(serviceRequestId,
+						token, serviceNotice, accountId));
+			}
+			return result;
+		} catch (JSONException e) {
+			throw new DataParsingException(e.getMessage());
+		}
 	}
 
 	@Override
@@ -199,13 +219,15 @@ public class JSONParser extends AbstractParser {
 	 *            Tag to search.
 	 * @return The string value of the tag, <code>null</code> if it wasn't
 	 *         found.
-	 * @throws JSONException
-	 *             If was any problem other than not finding the given tag.
 	 */
-	private String getString(JSONObject object, String tag)
-			throws JSONException {
-		String result = object.getString(tag);
-		return result.equals(NULL_STRING_JSON) ? "" : result;
+	private String getString(JSONObject object, String tag) {
+		String result;
+		try {
+			result = object.getString(tag);
+			return result.equals(NULL_STRING_JSON) ? "" : result;
+		} catch (JSONException e) {
+			return "";
+		}
 	}
 
 }
