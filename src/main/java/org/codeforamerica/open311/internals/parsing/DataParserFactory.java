@@ -30,8 +30,10 @@ public class DataParserFactory {
 	public DataParser buildDataParser(Format format) {
 		if (format == Format.XML) {
 			return new XMLParser();
-		} else {
-			return null;
 		}
+		if (format == Format.JSON) {
+			return new JSONParser();
+		}
+		return null;
 	}
 }
