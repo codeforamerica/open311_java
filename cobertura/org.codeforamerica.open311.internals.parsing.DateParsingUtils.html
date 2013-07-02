@@ -81,7 +81,7 @@
   <td class="src"><pre class="src">&nbsp;</pre></td></tr>
 <tr>  <td class="numLine">&nbsp;34</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;        <span class="keyword">public</span> <span class="keyword">static</span> DateParsingUtils getInstance() {</pre></td></tr>
-<tr>  <td class="numLineCover">&nbsp;35</td>  <td class="nbHitsCovered">&nbsp;32</td>  <td class="src"><pre class="src">&nbsp;                <span class="keyword">return</span> instance;</pre></td></tr>
+<tr>  <td class="numLineCover">&nbsp;35</td>  <td class="nbHitsCovered">&nbsp;38</td>  <td class="src"><pre class="src">&nbsp;                <span class="keyword">return</span> instance;</pre></td></tr>
 <tr>  <td class="numLine">&nbsp;36</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;        }</pre></td></tr>
 <tr>  <td class="numLine">&nbsp;37</td>  <td class="nbHits">&nbsp;</td>
@@ -127,10 +127,10 @@
   <td class="src"><pre class="src">&nbsp;<span class="comment">         */</span></pre></td></tr>
 <tr>  <td class="numLine">&nbsp;59</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;        <span class="keyword">public</span> Date parseDate(String rawDate) {</pre></td></tr>
-<tr>  <td class="numLineCover">&nbsp;60</td>  <td class="nbHitsCovered"><a title="Line 60: Conditional coverage 100% (2/2).">&nbsp;45</a></td>  <td class="src"><pre class="src">&nbsp;<a title="Line 60: Conditional coverage 100% (2/2).">                <span class="keyword">for</span> (<span class="keyword">int</span> i = 0; i &lt; dateFormats.length; i++) {</a></pre></td></tr>
+<tr>  <td class="numLineCover">&nbsp;60</td>  <td class="nbHitsCovered"><a title="Line 60: Conditional coverage 100% (2/2).">&nbsp;54</a></td>  <td class="src"><pre class="src">&nbsp;<a title="Line 60: Conditional coverage 100% (2/2).">                <span class="keyword">for</span> (<span class="keyword">int</span> i = 0; i &lt; dateFormats.length; i++) {</a></pre></td></tr>
 <tr>  <td class="numLine">&nbsp;61</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;                        <span class="keyword">try</span> {</pre></td></tr>
-<tr>  <td class="numLineCover">&nbsp;62</td>  <td class="nbHitsCovered">&nbsp;44</td>  <td class="src"><pre class="src">&nbsp;                                <span class="keyword">return</span> dateFormats[i].parseDateTime(rawDate).toDate();</pre></td></tr>
+<tr>  <td class="numLineCover">&nbsp;62</td>  <td class="nbHitsCovered">&nbsp;53</td>  <td class="src"><pre class="src">&nbsp;                                <span class="keyword">return</span> dateFormats[i].parseDateTime(rawDate).toDate();</pre></td></tr>
 <tr>  <td class="numLineCover">&nbsp;63</td>  <td class="nbHitsCovered">&nbsp;3</td>  <td class="src"><pre class="src">&nbsp;                        } <span class="keyword">catch</span> (Exception e) {</pre></td></tr>
 <tr>  <td class="numLine">&nbsp;64</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;                        }</pre></td></tr>
@@ -161,10 +161,10 @@
   <td class="src"><pre class="src">&nbsp;<span class="comment">         */</span></pre></td></tr>
 <tr>  <td class="numLine">&nbsp;78</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;        <span class="keyword">public</span> String printDate(Date date) {</pre></td></tr>
-<tr>  <td class="numLineCover">&nbsp;79</td>  <td class="nbHitsUncovered"><a title="Line 79: Conditional coverage 50% (1/2).">&nbsp;20</a></td>  <td class="src"><pre class="src"><span class="srcUncovered">&nbsp;<a title="Line 79: Conditional coverage 50% (1/2).">                <span class="keyword">for</span> (<span class="keyword">int</span> i = 0; i &lt; dateFormats.length; i++) {</a></span></pre></td></tr>
+<tr>  <td class="numLineCover">&nbsp;79</td>  <td class="nbHitsUncovered"><a title="Line 79: Conditional coverage 50% (1/2).">&nbsp;26</a></td>  <td class="src"><pre class="src"><span class="srcUncovered">&nbsp;<a title="Line 79: Conditional coverage 50% (1/2).">                <span class="keyword">for</span> (<span class="keyword">int</span> i = 0; i &lt; dateFormats.length; i++) {</a></span></pre></td></tr>
 <tr>  <td class="numLine">&nbsp;80</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;                        <span class="keyword">try</span> {</pre></td></tr>
-<tr>  <td class="numLineCover">&nbsp;81</td>  <td class="nbHitsCovered">&nbsp;20</td>  <td class="src"><pre class="src">&nbsp;                                <span class="keyword">return</span> dateFormats[i].print(<span class="keyword">new</span> DateTime(date));</pre></td></tr>
+<tr>  <td class="numLineCover">&nbsp;81</td>  <td class="nbHitsCovered">&nbsp;26</td>  <td class="src"><pre class="src">&nbsp;                                <span class="keyword">return</span> dateFormats[i].print(<span class="keyword">new</span> DateTime(date));</pre></td></tr>
 <tr>  <td class="numLineCover">&nbsp;82</td>  <td class="nbHitsUncovered">&nbsp;0</td>  <td class="src"><pre class="src"><span class="srcUncovered">&nbsp;                        } <span class="keyword">catch</span> (Exception e) {</span></pre></td></tr>
 <tr>  <td class="numLine">&nbsp;83</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;                        }</pre></td></tr>
@@ -177,6 +177,6 @@
   <td class="src"><pre class="src">&nbsp;}</pre></td></tr>
 </table>
 
-<div class="footer">Report generated by <a href="http://cobertura.sourceforge.net/" target="_top">Cobertura</a> 1.9.4.1 on 7/2/13 5:32 PM.</div>
+<div class="footer">Report generated by <a href="http://cobertura.sourceforge.net/" target="_top">Cobertura</a> 1.9.4.1 on 7/2/13 5:57 PM.</div>
 </body>
 </html>
