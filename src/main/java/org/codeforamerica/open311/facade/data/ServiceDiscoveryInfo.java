@@ -1,13 +1,21 @@
 package org.codeforamerica.open311.facade.data;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
 import org.codeforamerica.open311.facade.EndpointType;
 
-public class ServiceDiscoveryInfo {
+/**
+ * Contains information regarding to a city (endpoints, allowed formats...).
+ * 
+ * @author Santiago Munín <santimunin@gmail.com>
+ * 
+ */
+public class ServiceDiscoveryInfo implements Serializable {
 
+	private static final long serialVersionUID = 5804902138488110319L;
 	private final static String GEO_REPORT_V2_SPECIFICATION_URL = "http://wiki.open311.org/GeoReport_v2";
 	private Date changeset;
 	private String contact;
