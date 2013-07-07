@@ -9,6 +9,8 @@ import org.codeforamerica.open311.facade.data.ServiceDiscoveryInfo;
 import org.codeforamerica.open311.facade.exceptions.APIWrapperException;
 import org.codeforamerica.open311.facade.exceptions.APIWrapperException.Error;
 import org.codeforamerica.open311.facade.exceptions.DataParsingException;
+import org.codeforamerica.open311.internals.caching.Cache;
+import org.codeforamerica.open311.internals.caching.CacheFactory;
 import org.codeforamerica.open311.internals.network.HTTPNetworkManager;
 import org.codeforamerica.open311.internals.network.NetworkManager;
 import org.codeforamerica.open311.internals.parsing.DataParser;
@@ -28,9 +30,11 @@ public class APIWrapperFactory {
 	private EndpointType endpointType = EndpointType.PRODUCTION;
 	private String apiKey = "";
 	private NetworkManager networkManager = new HTTPNetworkManager(Format.XML);
+	private Cache cache;
 
 	public APIWrapperFactory(City city) {
 		this.city = city;
+		this.cache = CacheFactory.getInstance().buildCache();
 	}
 
 	/**
@@ -73,6 +77,11 @@ public class APIWrapperFactory {
 		return this;
 	}
 
+	public APIWrapperFactory setCache(Cache cache) {
+		this.cache = cache;
+		return this;
+	}
+
 	/**
 	 * Builds an {@link APIWrapper}. <b>NOTE</b>: This operation could require
 	 * some time to be done (it involves network operations).
@@ -112,9 +121,14 @@ public class APIWrapperFactory {
 		try {
 			DataParser dataParser = DataParserFactory.getInstance()
 					.buildDataParser(Format.XML);
-			ServiceDiscoveryInfo serviceDiscoveryInfo = dataParser
-					.parseServiceDiscovery(networkManager.doGet(new URL(city
-							.getDiscoveryUrl())));
+			ServiceDiscoveryInfo serviceDiscoveryInfo = cache
+					.retrieveCachedServiceDiscoveryInfo(city);
+			if (serviceDiscoveryInfo == null) {
+				serviceDiscoveryInfo = dataParser
+						.parseServiceDiscovery(networkManager.doGet(new URL(
+								city.getDiscoveryUrl())));
+				cache.saveServiceDiscovery(city, serviceDiscoveryInfo);
+			}
 			Endpoint endpoint = serviceDiscoveryInfo
 					.getMoreSuitableEndpoint(endpointType);
 			Format format = endpoint.getBestFormat();
@@ -124,8 +138,8 @@ public class APIWrapperFactory {
 						format);
 			}
 			return new APIWrapper(endpoint.getUrl(), format, endpointType,
-					dataParser, networkManager, city.getJurisdictionId(),
-					apiKey);
+					dataParser, networkManager, cache,
+					city.getJurisdictionId(), apiKey);
 		} catch (MalformedURLException e) {
 			throw new APIWrapperException(e.getMessage(), Error.URL_BUILDER,
 					null);
