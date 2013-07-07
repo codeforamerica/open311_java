@@ -1,28 +1,16 @@
 package org.codeforamerica.open311.internals.caching;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.io.Serializable;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Properties;
 
-import org.apache.commons.codec.binary.Base64;
 import org.codeforamerica.open311.facade.City;
 import org.codeforamerica.open311.facade.data.Service;
 import org.codeforamerica.open311.facade.data.ServiceDefinition;
 import org.codeforamerica.open311.facade.data.ServiceDiscoveryInfo;
 import org.codeforamerica.open311.facade.data.ServiceRequest;
 import org.codeforamerica.open311.facade.data.operations.GETServiceRequestsFilter;
-import org.joda.time.DateTime;
 
 public abstract class AbstractCache implements Cache {
 
@@ -124,9 +112,6 @@ public abstract class AbstractCache implements Cache {
 		return null;
 	}
 
-	@Override
-	public abstract void deleteCache();
-
 	/**
 	 * Saves a property. The given parameters must be valid strings with content
 	 * (empty or <code>null</code> strings are not allowed).
@@ -147,31 +132,4 @@ public abstract class AbstractCache implements Cache {
 	 * @return The property value of <code>null</code> if the key doesn't exist.
 	 */
 	protected abstract String getProperty(String key);
-
-	/**
-	 * Defines a simple "pair" class useful to define the time to live of each
-	 * cache operation.
-	 * 
-	 * @author Santiago Munín <santimunin@gmail.com>
-	 * 
-	 */
-	private static class TimeToLivePair {
-		private String operation;
-		private int timeToLiveInHours;
-
-		public TimeToLivePair(String operation, int timeToLiveInHours) {
-			super();
-			this.operation = operation;
-			this.timeToLiveInHours = timeToLiveInHours;
-		}
-
-		public String getOperation() {
-			return operation;
-		}
-
-		public int getTimeToLiveInDays() {
-			return timeToLiveInHours;
-		}
-
-	}
 }
