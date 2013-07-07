@@ -1,5 +1,6 @@
 package org.codeforamerica.open311.facade.data;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
@@ -11,7 +12,8 @@ import org.codeforamerica.open311.facade.Format;
  * 
  * @author Santiago Munín <santimunin@gmail.com>
  */
-public class Endpoint {
+public class Endpoint implements Serializable {
+	private static final long serialVersionUID = -5512681512770606630L;
 	private String specificationUrl;
 	private String url;
 	private Date changeset;
