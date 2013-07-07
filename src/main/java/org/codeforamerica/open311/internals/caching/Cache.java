@@ -18,6 +18,21 @@ import org.codeforamerica.open311.facade.data.operations.GETServiceRequestsFilte
  */
 public interface Cache {
 	/**
+	 * Saves the endpoints-service discovery relationships.
+	 * 
+	 * @param data
+	 *            A JSON list.
+	 */
+	public void saveEndpointsInfo(String data);
+
+	/**
+	 * Looks for the endpoints-service discovery relationships.
+	 * 
+	 * @return A JSON list or <code>null</code> if it wasn't found.
+	 */
+	public String loadEndpointsInfo();
+
+	/**
 	 * Saves a {@link ServiceDiscoveryInfo object} related to a city.
 	 * 
 	 * @param city
@@ -127,5 +142,10 @@ public interface Cache {
 	 * @return A ServiceRequest or <code>null</code> if it wasn't cached.
 	 */
 	public ServiceRequest retrieveCachedServiceRequest(String serviceRequestId);
+
+	/**
+	 * Deletes the cache.
+	 */
+	public void deleteCache();
 
 }
