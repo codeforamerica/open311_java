@@ -21,6 +21,7 @@ import org.codeforamerica.open311.facade.exceptions.APIWrapperException.Error;
 import org.codeforamerica.open311.facade.exceptions.DataParsingException;
 import org.codeforamerica.open311.facade.exceptions.GeoReportV2Error;
 import org.codeforamerica.open311.facade.exceptions.InvalidValueError;
+import org.codeforamerica.open311.internals.caching.Cache;
 import org.codeforamerica.open311.internals.network.NetworkManager;
 import org.codeforamerica.open311.internals.network.URLBuilder;
 import org.codeforamerica.open311.internals.parsing.DataParser;
@@ -40,6 +41,7 @@ public class APIWrapper {
 	private DataParser dataParser;
 	private NetworkManager networkManager;
 	private URLBuilder urlBuilder;
+	private Cache cache;
 
 	/**
 	 * Builds an API wrapper from its components. Note that this constructor
@@ -56,16 +58,22 @@ public class APIWrapper {
 	 */
 	/* package */APIWrapper(String endpointUrl, Format format,
 			EndpointType type, DataParser dataParser,
-			NetworkManager networkManager, String jurisdictionId, String apiKey) {
+			NetworkManager networkManager, Cache cache, String jurisdictionId,
+			String apiKey) {
 		super();
 		this.endpointUrl = endpointUrl;
 		this.type = type;
 		this.dataParser = dataParser;
 		this.networkManager = networkManager;
+		this.cache = cache;
 		this.jurisdictionId = jurisdictionId;
 		this.apiKey = apiKey;
 		this.urlBuilder = new URLBuilder(endpointUrl, this.jurisdictionId,
 				format.toString());
+	}
+
+	public String getEndpointUrl() {
+		return endpointUrl;
 	}
 
 	/**
@@ -87,7 +95,6 @@ public class APIWrapper {
 	public void setFormat(Format format) {
 		urlBuilder = new URLBuilder(endpointUrl, jurisdictionId,
 				format.toString());
-
 	}
 
 	/**
@@ -100,18 +107,24 @@ public class APIWrapper {
 	 *             If there was any problem (data parsing, I/O...).
 	 */
 	public List<Service> getServiceList() throws APIWrapperException {
-		String rawServiceListData = "";
-		try {
-			URL serviceListUrl = urlBuilder.buildGetServiceListUrl();
-			rawServiceListData = networkGet(serviceListUrl);
-			return dataParser.parseServiceList(rawServiceListData);
-		} catch (DataParsingException e) {
-			tryToParseError(rawServiceListData);
-			return null;
-		} catch (MalformedURLException e) {
-			throw new APIWrapperException(e.getMessage(), Error.URL_BUILDER,
-					null);
+		List<Service> result;
+		result = cache.retrieveCachedServiceList(this.endpointUrl);
+		if (result == null) {
+			String rawServiceListData = "";
+			try {
+				URL serviceListUrl = urlBuilder.buildGetServiceListUrl();
+				rawServiceListData = networkGet(serviceListUrl);
+				result = dataParser.parseServiceList(rawServiceListData);
+			} catch (DataParsingException e) {
+				tryToParseError(rawServiceListData);
+				return null;
+			} catch (MalformedURLException e) {
+				throw new APIWrapperException(e.getMessage(),
+						Error.URL_BUILDER, null);
+			}
 		}
+		cache.saveListOfServices(endpointUrl, result);
+		return result;
 	}
 
 	/**
