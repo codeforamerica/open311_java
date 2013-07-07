@@ -51,11 +51,11 @@
   <td class="src"><pre class="src">&nbsp;        <span class="keyword">private</span> String format;</pre></td></tr>
 <tr>  <td class="numLine">&nbsp;17</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;</pre></td></tr>
-<tr>  <td class="numLineCover">&nbsp;18</td>  <td class="nbHitsCovered">&nbsp;6</td>  <td class="src"><pre class="src">&nbsp;        <span class="keyword">public</span> URLBuilder(String baseUrl, String jurisdictionId, String format) {</pre></td></tr>
-<tr>  <td class="numLineCover">&nbsp;19</td>  <td class="nbHitsCovered">&nbsp;6</td>  <td class="src"><pre class="src">&nbsp;                <span class="keyword">this</span>.baseUrl = baseUrl;</pre></td></tr>
-<tr>  <td class="numLineCover">&nbsp;20</td>  <td class="nbHitsCovered">&nbsp;6</td>  <td class="src"><pre class="src">&nbsp;                <span class="keyword">this</span>.jurisdictionId = jurisdictionId;</pre></td></tr>
-<tr>  <td class="numLineCover">&nbsp;21</td>  <td class="nbHitsCovered">&nbsp;6</td>  <td class="src"><pre class="src">&nbsp;                <span class="keyword">this</span>.format = format;</pre></td></tr>
-<tr>  <td class="numLineCover">&nbsp;22</td>  <td class="nbHitsCovered">&nbsp;6</td>  <td class="src"><pre class="src">&nbsp;        }</pre></td></tr>
+<tr>  <td class="numLineCover">&nbsp;18</td>  <td class="nbHitsCovered">&nbsp;8</td>  <td class="src"><pre class="src">&nbsp;        <span class="keyword">public</span> URLBuilder(String baseUrl, String jurisdictionId, String format) {</pre></td></tr>
+<tr>  <td class="numLineCover">&nbsp;19</td>  <td class="nbHitsCovered">&nbsp;8</td>  <td class="src"><pre class="src">&nbsp;                <span class="keyword">this</span>.baseUrl = baseUrl;</pre></td></tr>
+<tr>  <td class="numLineCover">&nbsp;20</td>  <td class="nbHitsCovered">&nbsp;8</td>  <td class="src"><pre class="src">&nbsp;                <span class="keyword">this</span>.jurisdictionId = jurisdictionId;</pre></td></tr>
+<tr>  <td class="numLineCover">&nbsp;21</td>  <td class="nbHitsCovered">&nbsp;8</td>  <td class="src"><pre class="src">&nbsp;                <span class="keyword">this</span>.format = format;</pre></td></tr>
+<tr>  <td class="numLineCover">&nbsp;22</td>  <td class="nbHitsCovered">&nbsp;8</td>  <td class="src"><pre class="src">&nbsp;        }</pre></td></tr>
 <tr>  <td class="numLine">&nbsp;23</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;</pre></td></tr>
 <tr>  <td class="numLine">&nbsp;24</td>  <td class="nbHits">&nbsp;</td>
@@ -76,8 +76,8 @@
   <td class="src"><pre class="src">&nbsp;<span class="comment">         */</span></pre></td></tr>
 <tr>  <td class="numLine">&nbsp;32</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;        <span class="keyword">public</span> URL buildGetServiceListUrl() <span class="keyword">throws</span> MalformedURLException {</pre></td></tr>
-<tr>  <td class="numLineCover">&nbsp;33</td>  <td class="nbHitsCovered">&nbsp;2</td>  <td class="src"><pre class="src">&nbsp;                String url = baseUrl + <span class="string">"/"</span> + GET_SERVICE_LIST + <span class="string">"."</span> + format;</pre></td></tr>
-<tr>  <td class="numLineCover">&nbsp;34</td>  <td class="nbHitsCovered">&nbsp;2</td>  <td class="src"><pre class="src">&nbsp;                <span class="keyword">return</span> <span class="keyword">new</span> URL(addJurisdictionId(url, jurisdictionId));</pre></td></tr>
+<tr>  <td class="numLineCover">&nbsp;33</td>  <td class="nbHitsCovered">&nbsp;3</td>  <td class="src"><pre class="src">&nbsp;                String url = baseUrl + <span class="string">"/"</span> + GET_SERVICE_LIST + <span class="string">"."</span> + format;</pre></td></tr>
+<tr>  <td class="numLineCover">&nbsp;34</td>  <td class="nbHitsCovered">&nbsp;3</td>  <td class="src"><pre class="src">&nbsp;                <span class="keyword">return</span> <span class="keyword">new</span> URL(addJurisdictionId(url, jurisdictionId));</pre></td></tr>
 <tr>  <td class="numLine">&nbsp;35</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;        }</pre></td></tr>
 <tr>  <td class="numLine">&nbsp;36</td>  <td class="nbHits">&nbsp;</td>
@@ -366,8 +366,8 @@
   <td class="src"><pre class="src">&nbsp;<span class="comment">         */</span></pre></td></tr>
 <tr>  <td class="numLine">&nbsp;192</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;        <span class="keyword">private</span> String addJurisdictionId(String url, String jurisdictionId) {</pre></td></tr>
-<tr>  <td class="numLineCover">&nbsp;193</td>  <td class="nbHitsCovered"><a title="Line 193: Conditional coverage 100% (2/2).">&nbsp;14</a></td>  <td class="src"><pre class="src">&nbsp;<a title="Line 193: Conditional coverage 100% (2/2).">                <span class="keyword">if</span> (jurisdictionId.length() &gt; 0) {</a></pre></td></tr>
-<tr>  <td class="numLineCover">&nbsp;194</td>  <td class="nbHitsCovered">&nbsp;5</td>  <td class="src"><pre class="src">&nbsp;                        <span class="keyword">return</span> url += <span class="string">"?jurisdiction_id="</span> + jurisdictionId;</pre></td></tr>
+<tr>  <td class="numLineCover">&nbsp;193</td>  <td class="nbHitsCovered"><a title="Line 193: Conditional coverage 100% (2/2).">&nbsp;15</a></td>  <td class="src"><pre class="src">&nbsp;<a title="Line 193: Conditional coverage 100% (2/2).">                <span class="keyword">if</span> (jurisdictionId.length() &gt; 0) {</a></pre></td></tr>
+<tr>  <td class="numLineCover">&nbsp;194</td>  <td class="nbHitsCovered">&nbsp;6</td>  <td class="src"><pre class="src">&nbsp;                        <span class="keyword">return</span> url += <span class="string">"?jurisdiction_id="</span> + jurisdictionId;</pre></td></tr>
 <tr>  <td class="numLine">&nbsp;195</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;                }</pre></td></tr>
 <tr>  <td class="numLineCover">&nbsp;196</td>  <td class="nbHitsCovered">&nbsp;9</td>  <td class="src"><pre class="src">&nbsp;                <span class="keyword">return</span> url;</pre></td></tr>
@@ -377,6 +377,6 @@
   <td class="src"><pre class="src">&nbsp;}</pre></td></tr>
 </table>
 
-<div class="footer">Report generated by <a href="http://cobertura.sourceforge.net/" target="_top">Cobertura</a> 1.9.4.1 on 7/6/13 10:52 AM.</div>
+<div class="footer">Report generated by <a href="http://cobertura.sourceforge.net/" target="_top">Cobertura</a> 1.9.4.1 on 7/7/13 9:06 AM.</div>
 </body>
 </html>
