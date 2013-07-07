@@ -1,12 +1,15 @@
 package org.codeforamerica.open311.facade.data;
 
+import java.io.Serializable;
+
 /**
  * Represents a GeoReport service.
  * 
  * @author Santiago Munín <santimunin@gmail.com>
  * 
  */
-public class Service {
+public class Service implements Serializable {
+	private static final long serialVersionUID = 1124990264010718071L;
 	private String serviceCode;
 	private String serviceName;
 	private String description;
