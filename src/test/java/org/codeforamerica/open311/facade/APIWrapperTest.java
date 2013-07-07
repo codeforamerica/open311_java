@@ -15,6 +15,7 @@ import org.codeforamerica.open311.facade.data.ServiceRequestIdResponse;
 import org.codeforamerica.open311.facade.data.operations.GETServiceRequestsFilter;
 import org.codeforamerica.open311.facade.data.operations.POSTServiceRequestData;
 import org.codeforamerica.open311.facade.exceptions.APIWrapperException;
+import org.codeforamerica.open311.internals.caching.CacheFactory;
 import org.codeforamerica.open311.internals.network.MockNetworkManager;
 import org.codeforamerica.open311.internals.parsing.DataParser;
 import org.codeforamerica.open311.internals.parsing.XMLParser;
@@ -37,13 +38,15 @@ public class APIWrapperTest {
 		System.out.println("[API WRAPPER TEST] Starts");
 		wrapper = new APIWrapper("http://www.fakeurl/", Format.XML,
 				EndpointType.TEST, new XMLParser(), new MockNetworkManager(),
-				null, "", "");
+				CacheFactory.getInstance().buildCache(), "", "");
 		errorWrapper = new APIWrapper("http://www.fakeurl/simulateIOException",
 				Format.XML, EndpointType.TEST, new XMLParser(),
-				new MockNetworkManager(), null, "", "");
+				new MockNetworkManager(), CacheFactory.getInstance()
+						.buildCache(), "", "");
 		apierrorWrapper = new APIWrapper("http://www.fakeurl/simulateAPIError",
 				Format.XML, EndpointType.TEST, new XMLParser(),
-				new MockNetworkManager(), null, "", "key");
+				new MockNetworkManager(), CacheFactory.getInstance()
+						.buildCache(), "", "key");
 	}
 
 	@AfterClass
