@@ -16,3 +16,6 @@ jreport.iml
 .classpath
 .project
 .settings/
+
+# Default cache file
+cache.prop
