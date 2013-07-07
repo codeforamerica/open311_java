@@ -1,5 +1,4 @@
-# Open311 Java wrapper (Jreport)
-
+# Open311 Java wrapper (Jreport) [![Build Status](https://travis-ci.org/codeforamerica/open311_java.png)](https://travis-ci.org/codeforamerica/open311_java)
 
 This is a Java language binding (wrapper) to the Open311 GeoReport REST API. Under construction.
 
