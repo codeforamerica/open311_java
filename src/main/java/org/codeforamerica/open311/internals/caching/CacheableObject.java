@@ -56,10 +56,14 @@ public class CacheableObject implements Serializable {
 	 * @return A base64 encoded string version of the object.
 	 */
 	public String serialize() {
+		return serialize(this);
+	}
+
+	public static String serialize(Serializable object) {
 		try {
 			ByteArrayOutputStream baos = new ByteArrayOutputStream();
 			ObjectOutputStream oos = new ObjectOutputStream(baos);
-			oos.writeObject(this);
+			oos.writeObject(object);
 			oos.close();
 			return new String(Base64.encodeBase64(baos.toByteArray()));
 		} catch (IOException e) {

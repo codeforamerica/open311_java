@@ -1,5 +1,6 @@
 package org.codeforamerica.open311.facade.data.operations;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -18,7 +19,9 @@ import org.codeforamerica.open311.internals.parsing.DateParser;
  * @author Santiago Munín <santimunin@gmail.com>
  * 
  */
-public class GETServiceRequestsFilter {
+public class GETServiceRequestsFilter implements Serializable {
+
+	private static final long serialVersionUID = 3037178220547056225L;
 	private Map<String, String> parameters = new HashMap<String, String>();
 	private DateParser dateParser = new DateParser();
 

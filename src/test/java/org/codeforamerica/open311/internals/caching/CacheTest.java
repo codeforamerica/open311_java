@@ -9,6 +9,8 @@ import org.codeforamerica.open311.facade.APIWrapperFactory;
 import org.codeforamerica.open311.facade.City;
 import org.codeforamerica.open311.facade.data.Service;
 import org.codeforamerica.open311.facade.data.ServiceDefinition;
+import org.codeforamerica.open311.facade.data.ServiceRequest;
+import org.codeforamerica.open311.facade.data.operations.GETServiceRequestsFilter;
 import org.codeforamerica.open311.facade.exceptions.APIWrapperException;
 import org.codeforamerica.open311.internals.network.MockNetworkManager;
 import org.junit.AfterClass;
@@ -81,5 +83,24 @@ public class CacheTest {
 				cachedServiceDefinition.getServiceCode());
 		assertEquals(serviceDefinition.getAttributes().size(),
 				cachedServiceDefinition.getAttributes().size());
+	}
+
+	@Test
+	public void testServiceRequestsCaching() throws APIWrapperException {
+		APIWrapperFactory wrapperFactory = new APIWrapperFactory(
+				City.SAN_FRANCISCO).setCache(cache).setNetworkManager(
+				new MockNetworkManager());
+		APIWrapper wrapper = wrapperFactory.build();
+		assertNull(cache.retrieveCachedServiceRequests(
+				wrapper.getEndpointUrl(),
+				new GETServiceRequestsFilter().setServiceCode("001")));
+		List<ServiceRequest> requests = wrapper
+				.getServiceRequests(new GETServiceRequestsFilter()
+						.setServiceCode("001"));
+		List<ServiceRequest> cachedRequests = cache
+				.retrieveCachedServiceRequests(wrapper.getEndpointUrl(),
+						new GETServiceRequestsFilter().setServiceCode("001"));
+		assertNotNull(cachedRequests);
+		assertEquals(cachedRequests.size(), requests.size());
 	}
 }

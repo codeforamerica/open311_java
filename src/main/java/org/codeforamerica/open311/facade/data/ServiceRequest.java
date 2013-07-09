@@ -1,5 +1,6 @@
 package org.codeforamerica.open311.facade.data;
 
+import java.io.Serializable;
 import java.net.URL;
 import java.util.Date;
 
@@ -9,7 +10,8 @@ import java.util.Date;
  * @author Santiago Munín <santimunin@gmail.com>
  * 
  */
-public class ServiceRequest {
+public class ServiceRequest implements Serializable {
+	private static final long serialVersionUID = -3276480125287251085L;
 	private String serviceRequestId;
 	private Status status;
 	private String statusNotes;

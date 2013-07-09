@@ -202,21 +202,27 @@ public class APIWrapper {
 	 */
 	public List<ServiceRequest> getServiceRequests(
 			GETServiceRequestsFilter operationData) throws APIWrapperException {
-		String rawServiceRequests = "";
-		try {
-			URL serviceRequestsUrl = operationData != null ? urlBuilder
-					.buildGetServiceRequests(operationData
-							.getOptionalParametersMap()) : urlBuilder
-					.buildGetServiceRequests(null);
-			rawServiceRequests = networkGet(serviceRequestsUrl);
-			return dataParser.parseServiceRequests(rawServiceRequests);
-		} catch (DataParsingException e) {
-			tryToParseError(rawServiceRequests);
-			return null;
-		} catch (MalformedURLException e) {
-			throw new APIWrapperException(e.getMessage(), Error.URL_BUILDER,
-					null);
+		List<ServiceRequest> result = cache.retrieveCachedServiceRequests(
+				endpointUrl, operationData);
+		if (result == null) {
+			String rawServiceRequests = "";
+			try {
+				URL serviceRequestsUrl = operationData != null ? urlBuilder
+						.buildGetServiceRequests(operationData
+								.getOptionalParametersMap()) : urlBuilder
+						.buildGetServiceRequests(null);
+				rawServiceRequests = networkGet(serviceRequestsUrl);
+				result = dataParser.parseServiceRequests(rawServiceRequests);
+				cache.saveServiceRequestList(endpointUrl, operationData, result);
+			} catch (DataParsingException e) {
+				tryToParseError(rawServiceRequests);
+				return null;
+			} catch (MalformedURLException e) {
+				throw new APIWrapperException(e.getMessage(),
+						Error.URL_BUILDER, null);
+			}
 		}
+		return result;
 	}
 
 	/**

@@ -17,6 +17,7 @@ public abstract class AbstractCache implements Cache {
 	private final static String SERVICE_DISCOVERY = "service_discovery";
 	private final static String SERVICE_LIST = "service_list";
 	private final static String SERVICE_DEFINITION = "service_definition";
+	private final static String SERVICE_REQUEST_LIST = "service_requests";
 	private final Map<String, Integer> timeToLive;
 
 	public AbstractCache() {
@@ -24,6 +25,7 @@ public abstract class AbstractCache implements Cache {
 		timeToLive.put(SERVICE_DISCOVERY, 720);
 		timeToLive.put(SERVICE_LIST, 24);
 		timeToLive.put(SERVICE_DEFINITION, 24);
+		timeToLive.put(SERVICE_REQUEST_LIST, 24);
 	}
 
 	@Override
@@ -100,14 +102,27 @@ public abstract class AbstractCache implements Cache {
 	@Override
 	public void saveServiceRequestList(String endpointUrl,
 			GETServiceRequestsFilter filter, List<ServiceRequest> requests) {
-		// TODO Auto-generated method stub
+		if (endpointUrl != null && endpointUrl.length() > 0 && filter != null
+				&& requests != null) {
+			Serializable list = (Serializable) requests;
+			CacheableObject cacheableObject = new CacheableObject(list,
+					timeToLive.get(SERVICE_REQUEST_LIST));
+			saveProperty(
+					SERVICE_REQUEST_LIST + endpointUrl
+							+ CacheableObject.serialize(filter),
+					cacheableObject.serialize());
+		}
 
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<ServiceRequest> retrieveCachedServiceRequests(
-		// TODO Auto-generated method stub
-		return null;
+			String endpointUrl, GETServiceRequestsFilter filter) {
+		String rawData = getProperty(SERVICE_REQUEST_LIST + endpointUrl
+				+ CacheableObject.serialize(filter));
+		CacheableObject deserializedObject = new CacheableObject(rawData);
+		return (List<ServiceRequest>) deserializedObject.getObject();
 	}
 
 	@Override
