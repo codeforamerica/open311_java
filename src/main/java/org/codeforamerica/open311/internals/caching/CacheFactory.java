@@ -27,7 +27,7 @@ public class CacheFactory {
 	public Cache buildCache() {
 		if (System.getProperty("java.vm.name").equalsIgnoreCase("Dalvik")) {
 			// Android
-			return null;
+			return new NoCache();
 		} else {
 			return new RegularJavaCache();
 		}
