@@ -64,7 +64,7 @@ public class NoCache implements Cache {
 
 	@Override
 	public List<ServiceRequest> retrieveCachedServiceRequests(
-			GETServiceRequestsFilter filter) {
+			String endpointUrl, GETServiceRequestsFilter filter) {
 		return null;
 	}
 

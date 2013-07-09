@@ -113,13 +113,15 @@ public interface Cache {
 	/**
 	 * Looks for a cached GET service requests response.
 	 * 
+	 * @param endpointUrl
+	 *            Url of the endpoint.
 	 * @param filter
 	 *            The desired filter.
 	 * @return A list of ServiceRequest or <code>null</code> if they aren't
 	 *         cached.
 	 */
 	public List<ServiceRequest> retrieveCachedServiceRequests(
-			GETServiceRequestsFilter filter);
+			String endpointUrl, GETServiceRequestsFilter filter);
 
 	/**
 	 * Saves a service request.

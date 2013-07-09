@@ -106,7 +106,6 @@ public abstract class AbstractCache implements Cache {
 
 	@Override
 	public List<ServiceRequest> retrieveCachedServiceRequests(
-			GETServiceRequestsFilter filter) {
 		// TODO Auto-generated method stub
 		return null;
 	}
