@@ -12,12 +12,20 @@ import org.codeforamerica.open311.facade.data.ServiceDiscoveryInfo;
 import org.codeforamerica.open311.facade.data.ServiceRequest;
 import org.codeforamerica.open311.facade.data.operations.GETServiceRequestsFilter;
 
+/**
+ * Implements all the operations of the {@link Cache} interface. Classes which
+ * extend this have to implement the protected methods.
+ * 
+ * @author Santiago Munín <santimunin@gmail.com>
+ * 
+ */
 public abstract class AbstractCache implements Cache {
 
 	private final static String SERVICE_DISCOVERY = "service_discovery";
 	private final static String SERVICE_LIST = "service_list";
 	private final static String SERVICE_DEFINITION = "service_definition";
 	private final static String SERVICE_REQUEST_LIST = "service_requests";
+	private final static String SERVICE_REQUEST = "service_request";
 	private final Map<String, Integer> timeToLive;
 
 	public AbstractCache() {
@@ -26,6 +34,7 @@ public abstract class AbstractCache implements Cache {
 		timeToLive.put(SERVICE_LIST, 24);
 		timeToLive.put(SERVICE_DEFINITION, 24);
 		timeToLive.put(SERVICE_REQUEST_LIST, 24);
+		timeToLive.put(SERVICE_REQUEST, 24);
 	}
 
 	@Override
@@ -128,14 +137,23 @@ public abstract class AbstractCache implements Cache {
 	@Override
 	public void saveSingleServiceRequest(String endpointUrl,
 			String serviceRequestId, ServiceRequest request) {
-		// TODO Auto-generated method stub
-
+		if (endpointUrl != null && endpointUrl.length() > 0
+				&& serviceRequestId != null && serviceRequestId.length() > 0
+				&& request != null) {
+			CacheableObject cacheableServiceRequest = new CacheableObject(
+					request, timeToLive.get(SERVICE_REQUEST));
+			saveProperty(SERVICE_REQUEST + endpointUrl + serviceRequestId,
+					cacheableServiceRequest.serialize());
+		}
 	}
 
 	@Override
-	public ServiceRequest retrieveCachedServiceRequest(String serviceRequestId) {
-		// TODO Auto-generated method stub
-		return null;
+	public ServiceRequest retrieveCachedServiceRequest(String endpointUrl,
+			String serviceRequestId) {
+		String rawData = getProperty(SERVICE_DEFINITION + endpointUrl
+				+ serviceRequestId);
+		CacheableObject deserializedObject = new CacheableObject(rawData);
+		return (ServiceRequest) deserializedObject.getObject();
 	}
 
 	/**

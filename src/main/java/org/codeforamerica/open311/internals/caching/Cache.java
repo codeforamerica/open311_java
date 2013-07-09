@@ -139,11 +139,14 @@ public interface Cache {
 	/**
 	 * Looks for a cached GET service request response.
 	 * 
+	 * @param endpointUrl
+	 *            Url of the endpoint.
 	 * @param The
 	 *            service request's id.
 	 * @return A ServiceRequest or <code>null</code> if it wasn't cached.
 	 */
-	public ServiceRequest retrieveCachedServiceRequest(String serviceRequestId);
+	public ServiceRequest retrieveCachedServiceRequest(String endpointUrl,
+			String serviceRequestId);
 
 	/**
 	 * Deletes the cache.

@@ -74,7 +74,8 @@ public class NoCache implements Cache {
 	}
 
 	@Override
-	public ServiceRequest retrieveCachedServiceRequest(String serviceRequestId) {
+	public ServiceRequest retrieveCachedServiceRequest(String endpointUrl,
+			String serviceRequestId) {
 		return null;
 	}
 
