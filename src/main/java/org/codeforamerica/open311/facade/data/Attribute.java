@@ -1,5 +1,6 @@
 package org.codeforamerica.open311.facade.data;
 
+import java.io.Serializable;
 import java.util.Map;
 import java.util.Map.Entry;
 
@@ -9,7 +10,9 @@ import java.util.Map.Entry;
  * @author Santiago Munín <santimunin@gmail.com>
  * 
  */
-public class Attribute {
+public class Attribute implements Serializable {
+
+	private static final long serialVersionUID = -6704474615491645869L;
 
 	private static final String ATTIBUTE_KEY = "attribute";
 

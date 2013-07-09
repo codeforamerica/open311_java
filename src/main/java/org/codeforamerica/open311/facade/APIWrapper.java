@@ -140,19 +140,28 @@ public class APIWrapper {
 	 */
 	public ServiceDefinition getServiceDefinition(String serviceCode)
 			throws APIWrapperException {
-		String rawServiceDefinitionData = "";
-		try {
-			URL serviceDefinitionUrl = urlBuilder
-					.buildGetServiceDefinitionUrl(serviceCode);
-			rawServiceDefinitionData = networkGet(serviceDefinitionUrl);
-			return dataParser.parseServiceDefinition(rawServiceDefinitionData);
-		} catch (DataParsingException e) {
-			tryToParseError(rawServiceDefinitionData);
-			return null;
-		} catch (MalformedURLException e) {
-			throw new APIWrapperException(e.getMessage(), Error.URL_BUILDER,
-					null);
+		ServiceDefinition result = cache.retrieveCachedServiceDefinition(
+				endpointUrl, serviceCode);
+		if (result == null) {
+			String rawServiceDefinitionData = "";
+
+			try {
+				URL serviceDefinitionUrl = urlBuilder
+						.buildGetServiceDefinitionUrl(serviceCode);
+				rawServiceDefinitionData = networkGet(serviceDefinitionUrl);
+				result = dataParser
+						.parseServiceDefinition(rawServiceDefinitionData);
+				cache.saveServiceDefinition(endpointUrl, serviceCode, result);
+				return result;
+			} catch (DataParsingException e) {
+				tryToParseError(rawServiceDefinitionData);
+				return null;
+			} catch (MalformedURLException e) {
+				throw new APIWrapperException(e.getMessage(),
+						Error.URL_BUILDER, null);
+			}
 		}
+		return result;
 	}
 
 	/**

@@ -1,5 +1,6 @@
 package org.codeforamerica.open311.facade.data;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -10,8 +11,9 @@ import java.util.List;
  * @author Santiago Munín <santimunin@gmail.com>
  * 
  */
-public class ServiceDefinition {
+public class ServiceDefinition implements Serializable {
 
+	private static final long serialVersionUID = -2002090161736619870L;
 	private String serviceCode;
 	private List<Attribute> attributes;
 

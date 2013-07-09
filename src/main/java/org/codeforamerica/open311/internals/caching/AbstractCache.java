@@ -16,12 +16,14 @@ public abstract class AbstractCache implements Cache {
 
 	private final static String SERVICE_DISCOVERY = "service_discovery";
 	private final static String SERVICE_LIST = "service_list";
+	private final static String SERVICE_DEFINITION = "service_definition";
 	private final Map<String, Integer> timeToLive;
 
 	public AbstractCache() {
 		timeToLive = new HashMap<String, Integer>();
 		timeToLive.put(SERVICE_DISCOVERY, 720);
 		timeToLive.put(SERVICE_LIST, 24);
+		timeToLive.put(SERVICE_DEFINITION, 24);
 	}
 
 	@Override
@@ -74,15 +76,25 @@ public abstract class AbstractCache implements Cache {
 	@Override
 	public void saveServiceDefinition(String endpointUrl, String serviceCode,
 			ServiceDefinition serviceDefinition) {
-		// TODO Auto-generated method stub
+		if (endpointUrl != null && endpointUrl.length() > 0
+				&& serviceCode != null && serviceCode.length() > 0
+				&& serviceDefinition != null) {
+			Serializable definition = (Serializable) serviceDefinition;
+			CacheableObject cacheableObject = new CacheableObject(definition,
+					timeToLive.get(SERVICE_DEFINITION));
+			saveProperty(SERVICE_DEFINITION + endpointUrl + serviceCode,
+					cacheableObject.serialize());
+		}
 
 	}
 
 	@Override
 	public ServiceDefinition retrieveCachedServiceDefinition(
 			String endpointUrl, String serviceCode) {
-		// TODO Auto-generated method stub
-		return null;
+		String rawData = getProperty(SERVICE_DEFINITION + endpointUrl
+				+ serviceCode);
+		CacheableObject deserializedObject = new CacheableObject(rawData);
+		return (ServiceDefinition) deserializedObject.getObject();
 	}
 
 	@Override
