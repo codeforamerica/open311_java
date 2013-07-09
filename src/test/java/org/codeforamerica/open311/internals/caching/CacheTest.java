@@ -119,4 +119,12 @@ public class CacheTest {
 		assertEquals(cachedRequest.getServiceCode(), request.getServiceCode());
 		assertEquals(cachedRequest.getDescription(), request.getDescription());
 	}
+
+	@Test
+	public void testCitiesInfoCaching() {
+		assertNull(cache.retrieveCitiesInfo());
+		cache.saveCitiesInfo("test");
+		assertNotNull(cache.retrieveCitiesInfo());
+		assertEquals(cache.retrieveCitiesInfo(), "test");
+	}
 }

@@ -26,6 +26,7 @@ public abstract class AbstractCache implements Cache {
 	private final static String SERVICE_DEFINITION = "service_definition";
 	private final static String SERVICE_REQUEST_LIST = "service_requests";
 	private final static String SERVICE_REQUEST = "service_request";
+	private final static String CITIES_INFO = "service_request";
 	private final Map<String, Integer> timeToLive;
 
 	public AbstractCache() {
@@ -35,16 +36,20 @@ public abstract class AbstractCache implements Cache {
 		timeToLive.put(SERVICE_DEFINITION, 24);
 		timeToLive.put(SERVICE_REQUEST_LIST, 24);
 		timeToLive.put(SERVICE_REQUEST, 24);
+		timeToLive.put(CITIES_INFO, 1440);
 	}
 
 	@Override
-	public void saveEndpointsInfo(String data) {
-
+	public void saveCitiesInfo(String data) {
+		CacheableObject cacheableObject = new CacheableObject(data,
+				timeToLive.get(CITIES_INFO));
+		saveProperty(CITIES_INFO, cacheableObject.serialize());
 	}
 
 	@Override
-	public String loadEndpointsInfo() {
-		return null;
+	public String retrieveCitiesInfo() {
+		return (String) new CacheableObject(getProperty(CITIES_INFO))
+				.getObject();
 	}
 
 	@Override

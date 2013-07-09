@@ -19,11 +19,11 @@ import org.codeforamerica.open311.facade.data.operations.GETServiceRequestsFilte
 public class NoCache implements Cache {
 
 	@Override
-	public void saveEndpointsInfo(String data) {
+	public void saveCitiesInfo(String data) {
 	}
 
 	@Override
-	public String loadEndpointsInfo() {
+	public String retrieveCitiesInfo() {
 		return null;
 	}
 

@@ -23,14 +23,14 @@ public interface Cache {
 	 * @param data
 	 *            A JSON list.
 	 */
-	public void saveEndpointsInfo(String data);
+	public void saveCitiesInfo(String data);
 
 	/**
 	 * Looks for the endpoints-service discovery relationships.
 	 * 
 	 * @return A JSON list or <code>null</code> if it wasn't found.
 	 */
-	public String loadEndpointsInfo();
+	public String retrieveCitiesInfo();
 
 	/**
 	 * Saves a {@link ServiceDiscoveryInfo object} related to a city.
