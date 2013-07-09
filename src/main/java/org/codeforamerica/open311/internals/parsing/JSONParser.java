@@ -148,7 +148,7 @@ public class JSONParser extends AbstractParser {
 				Date expectedDatetime = dateParser.parseDate(getString(
 						serviceRequest, EXPECTED_DATETIME_TAG));
 				String address = getString(serviceRequest, ADDRESS_TAG);
-				long addressId = serviceRequest.getLong(ADDRESS_ID_TAG);
+				long addressId = getLong(serviceRequest, ADDRESS_ID_TAG);
 				int zipCode = serviceRequest.getInt(ZIPCODE_TAG);
 				float latitude = (float) serviceRequest.getDouble(LATITUDE_TAG);
 				float longitude = (float) serviceRequest
@@ -241,4 +241,23 @@ public class JSONParser extends AbstractParser {
 		}
 	}
 
+	/**
+	 * Searches the value of a given tag in a {@link JSONObject}.
+	 * 
+	 * @param object
+	 *            Object to inspect.
+	 * @param tag
+	 *            Tag to search.
+	 * @return The long value of the tag, <code>Long.MIN_VALUE</code> if it
+	 *         wasn't found.
+	 */
+	private long getLong(JSONObject object, String tag) {
+		long result;
+		try {
+			result = object.getLong(tag);
+		} catch (JSONException e) {
+			result = Long.MIN_VALUE;
+		}
+		return result;
+	}
 }
