@@ -152,7 +152,6 @@ public class APIWrapper {
 				result = dataParser
 						.parseServiceDefinition(rawServiceDefinitionData);
 				cache.saveServiceDefinition(endpointUrl, serviceCode, result);
-				return result;
 			} catch (DataParsingException e) {
 				tryToParseError(rawServiceDefinitionData);
 				return null;
