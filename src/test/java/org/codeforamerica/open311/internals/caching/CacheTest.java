@@ -103,4 +103,20 @@ public class CacheTest {
 		assertNotNull(cachedRequests);
 		assertEquals(cachedRequests.size(), requests.size());
 	}
+
+	@Test
+	public void testServiceRequestCaching() throws APIWrapperException {
+		APIWrapperFactory wrapperFactory = new APIWrapperFactory(
+				City.SAN_FRANCISCO).setCache(cache).setNetworkManager(
+				new MockNetworkManager());
+		APIWrapper wrapper = wrapperFactory.build();
+		assertNull(cache.retrieveCachedServiceRequest(wrapper.getEndpointUrl(),
+				"001"));
+		ServiceRequest request = wrapper.getServiceRequest("001");
+		ServiceRequest cachedRequest = cache.retrieveCachedServiceRequest(
+				wrapper.getEndpointUrl(), "001");
+		assertNotNull(cachedRequest);
+		assertEquals(cachedRequest.getServiceCode(), request.getServiceCode());
+		assertEquals(cachedRequest.getDescription(), request.getDescription());
+	}
 }

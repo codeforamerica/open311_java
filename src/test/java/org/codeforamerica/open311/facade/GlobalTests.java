@@ -69,10 +69,8 @@ public class GlobalTests {
 		assertEquals(id2.getServiceRequestId(), "111");
 	}
 
-	public static void serviceRequestsTest(List<ServiceRequest> requests)
+	public static void serviceRequestTest(ServiceRequest sr1)
 			throws MalformedURLException {
-		assertEquals(requests.size(), 2);
-		ServiceRequest sr1 = requests.get(0);
 		assertEquals(sr1.getServiceRequestId(), "638344");
 		assertEquals(sr1.getStatus(), Status.CLOSED);
 		assertEquals(sr1.getStatusNotes(), "Duplicate request.");
@@ -81,24 +79,13 @@ public class GlobalTests {
 		assertEquals(sr1.getDescription(), "");
 		assertEquals(sr1.getAgencyResponsible(), "");
 		assertEquals(sr1.getServiceNotice(), "");
-
-		/*
-		 * These three following tests do parsing and printing in order to avoid
-		 * timezone differences.
-		 */
-		assertEquals(
-				dateParser.printDate(
-						sr1.getRequestedDatetime()),
+		assertEquals(dateParser.printDate(sr1.getRequestedDatetime()),
 				dateParser.printDate(dateParser
 						.parseDate("2010-04-14T06:37:38-08:00")));
-		assertEquals(
-				dateParser.printDate(
-						sr1.getUpdatedDatetime()),
+		assertEquals(dateParser.printDate(sr1.getUpdatedDatetime()),
 				dateParser.printDate(dateParser
 						.parseDate("2010-04-14T06:37:38-08:00")));
-		assertEquals(
-				dateParser.printDate(
-						sr1.getExpectedDatetime()),
+		assertEquals(dateParser.printDate(sr1.getExpectedDatetime()),
 				dateParser.printDate(dateParser
 						.parseDate("2010-04-15T06:37:38-08:00")));
 		assertEquals(sr1.getAddress(), "8TH AVE and JUDAH ST");
@@ -108,6 +95,13 @@ public class GlobalTests {
 		assertTrue(sr1.getLongitude() == -122.4651145F);
 		assertEquals(sr1.getMediaUrl(), new URL(
 				"http://city.gov.s3.amazonaws.com/requests/media/638344.jpg"));
+	}
+
+	public static void serviceRequestsTest(List<ServiceRequest> requests)
+			throws MalformedURLException {
+		assertEquals(requests.size(), 2);
+		ServiceRequest sr1 = requests.get(0);
+		serviceRequestTest(sr1);
 	}
 
 	public static void postServiceRequestsTest(
@@ -129,7 +123,9 @@ public class GlobalTests {
 		assertEquals(error1.getCode(), "403");
 		assertEquals(error1.getDescription(),
 				"Invalid api_key received -- can't proceed with create_request.");
-		assertEquals(error1.toString(), "GeoReportError #403: Invalid api_key received -- can't proceed with create_request.");
+		assertEquals(
+				error1.toString(),
+				"GeoReportError #403: Invalid api_key received -- can't proceed with create_request.");
 		GeoReportV2Error error2 = error.get(1);
 		assertEquals(error2.getCode(), "404");
 		assertEquals(error2.getDescription(), "Whatever");

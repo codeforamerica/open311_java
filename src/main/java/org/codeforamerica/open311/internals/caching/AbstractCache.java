@@ -150,7 +150,7 @@ public abstract class AbstractCache implements Cache {
 	@Override
 	public ServiceRequest retrieveCachedServiceRequest(String endpointUrl,
 			String serviceRequestId) {
-		String rawData = getProperty(SERVICE_DEFINITION + endpointUrl
+		String rawData = getProperty(SERVICE_REQUEST + endpointUrl
 				+ serviceRequestId);
 		CacheableObject deserializedObject = new CacheableObject(rawData);
 		return (ServiceRequest) deserializedObject.getObject();

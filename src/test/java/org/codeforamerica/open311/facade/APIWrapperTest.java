@@ -101,8 +101,8 @@ public class APIWrapperTest {
 	@Test
 	public void getServiceRequest() throws APIWrapperException,
 			MalformedURLException {
-		List<ServiceRequest> serviceRequests = wrapper.getServiceRequest("006");
-		GlobalTests.serviceRequestsTest(serviceRequests);
+		ServiceRequest serviceRequest = wrapper.getServiceRequest("006");
+		GlobalTests.serviceRequestTest(serviceRequest);
 	}
 
 	@Test
