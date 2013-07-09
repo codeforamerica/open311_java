@@ -122,8 +122,8 @@ public class APIWrapper {
 				throw new APIWrapperException(e.getMessage(),
 						Error.URL_BUILDER, null);
 			}
+			cache.saveListOfServices(endpointUrl, result);
 		}
-		cache.saveListOfServices(endpointUrl, result);
 		return result;
 	}
 
