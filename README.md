@@ -82,3 +82,12 @@ This library tries to save some responses for a certain time in order to avoid e
  + If you don't want to cache anything: `factory = new APIWrapperFactory().setCache(new NoCache());`
  + Using an Android app: `factory = new APIWrapperFactory().setCache(new AndroidCache(getApplicationContext()));`
  + Using a special platform which doesn't allow to create or write to files: Extend the [AbstractCache](https://github.com/codeforamerica/open311_java/blob/master/src/main/java/org/codeforamerica/open311/internals/caching/AbstractCache.java) class and `factory = new APIWrapperFactory().setCache(new YourCacheImplementation());`
+
+## SSL certificates
+Some of the endpoints could have SSL certificates which signature won't be recognize by Java. I am working to make them working in Android, but there is already a solution if you are using just Java:
+
+You can add the certificates to your java keystore (those certificates are in the `/certificates` folder of this repository). Your keystore probably is in `$JAVA_HOME/lib/security/cacerts` or `$JAVA_HOME/jre/lib/security/cacerts`. The password should be *changeit* (try *changeme* if you are on a Mac and *changeit* doesn't work).
+
+```bash
+sudo sh add_certificates.sh <path/to/your/key/store>
+``` 
