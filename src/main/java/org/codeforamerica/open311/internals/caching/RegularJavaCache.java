@@ -10,7 +10,7 @@ public class RegularJavaCache extends AbstractCache {
 	private final static String FILE = "cache.prop";
 	private Properties properties;
 
-	public RegularJavaCache() {
+	/* package */RegularJavaCache() {
 		super();
 		try {
 			File cacheFile = new File(FILE);
