@@ -23,7 +23,6 @@ public class GETServiceRequestsFilter implements Serializable {
 
 	private static final long serialVersionUID = 3037178220547056225L;
 	private Map<String, String> parameters = new HashMap<String, String>();
-	private DateParser dateParser = new DateParser();
 
 	/**
 	 * Adds one or more service request ids to the filtering parameters.
@@ -50,7 +49,7 @@ public class GETServiceRequestsFilter implements Serializable {
 	public GETServiceRequestsFilter setStartDate(Date startDate) {
 		if (startDate != null) {
 			parameters.put(DataParser.START_DATE_TAG,
-					dateParser.printDate(startDate));
+					new DateParser().printDate(startDate));
 		}
 		return this;
 	}
@@ -58,7 +57,7 @@ public class GETServiceRequestsFilter implements Serializable {
 	public GETServiceRequestsFilter setEndDate(Date endDate) {
 		if (endDate != null) {
 			parameters.put(DataParser.END_DATE_TAG,
-					dateParser.printDate(endDate));
+					new DateParser().printDate(endDate));
 		}
 		return this;
 	}
