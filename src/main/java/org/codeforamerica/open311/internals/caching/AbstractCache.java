@@ -101,7 +101,6 @@ public abstract class AbstractCache implements Cache {
 			saveProperty(SERVICE_DEFINITION + endpointUrl + serviceCode,
 					cacheableObject.serialize());
 		}
-
 	}
 
 	@Override
@@ -126,7 +125,6 @@ public abstract class AbstractCache implements Cache {
 							+ CacheableObject.serialize(filter),
 					cacheableObject.serialize());
 		}
-
 	}
 
 	@SuppressWarnings("unchecked")
