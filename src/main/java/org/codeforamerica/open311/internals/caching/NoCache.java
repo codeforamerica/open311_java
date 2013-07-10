@@ -18,7 +18,7 @@ import org.codeforamerica.open311.facade.data.operations.GETServiceRequestsFilte
  */
 public class NoCache implements Cache {
 
-	/* package */NoCache() {
+	public NoCache() {
 
 	}
 

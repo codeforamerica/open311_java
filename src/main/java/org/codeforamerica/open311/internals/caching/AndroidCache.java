@@ -16,7 +16,7 @@ public class AndroidCache extends AbstractCache {
 
 	private SharedPreferences preferences;
 
-	/* package */AndroidCache(Context context) {
+	public AndroidCache(Context context) {
 		preferences = context.getSharedPreferences(FILE, 0);
 	}
 

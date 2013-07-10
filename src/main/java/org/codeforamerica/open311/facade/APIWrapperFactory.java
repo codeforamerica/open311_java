@@ -77,6 +77,13 @@ public class APIWrapperFactory {
 		return this;
 	}
 
+	/**
+	 * Sets a desired cache system.
+	 * 
+	 * @param cache
+	 *            Implementation of the {@link Cache} interface.
+	 * @return The same instance with the new specified {@link Cache}.
+	 */
 	public APIWrapperFactory setCache(Cache cache) {
 		this.cache = cache;
 		return this;

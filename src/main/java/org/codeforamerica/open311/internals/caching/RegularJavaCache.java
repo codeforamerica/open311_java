@@ -9,7 +9,7 @@ import java.util.Properties;
 public class RegularJavaCache extends AbstractCache {
 	private Properties properties;
 
-	/* package */RegularJavaCache() {
+	public RegularJavaCache() {
 		super();
 		try {
 			File cacheFile = new File(FILE);
