@@ -3,6 +3,5 @@ org.codeforamerica.open311.facade.data
 org.codeforamerica.open311.facade.data.operations
 org.codeforamerica.open311.facade.exceptions
 org.codeforamerica.open311.internals.caching
-org.codeforamerica.open311.internals.caching.android
 org.codeforamerica.open311.internals.network
 org.codeforamerica.open311.internals.parsing
