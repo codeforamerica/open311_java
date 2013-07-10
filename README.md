@@ -36,7 +36,8 @@ POSTServiceRequestResponse response = wrapper.postServiceRequest(
   new POSTServiceRequestData("serviceCode", addressId, listOfattributes));
 
 // GET service_request_id from a token
-List<ServiceRequestIdResponse> serviceRequestIdresponse = wrapper.getServiceRequestIdFromToken("token");
+List<ServiceRequestIdResponse> serviceRequestIdresponse =
+  wrapper.getServiceRequestIdFromToken("token");
 
 // GET service requests
 List<ServiceRequest> serviceRequests = wrapper.getServiceRequests(
