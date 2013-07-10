@@ -2,6 +2,48 @@
 
 This is a Java language binding (wrapper) to the Open311 GeoReport REST API. Under construction.
 
+## Usage
+
+### Build a wrapper
+```java
+// Simple wrapper
+APIWrapper wrapper = new APIWrapperFactory(City.SAN_FRANCISCO).build();
+
+// Test endpoint wrapper
+wrapper = new APIWrapperFactory(City.SAN_FRANCISCO).setEndpointType(EndpointType.TEST).build();
+
+// With the api key
+wrapper = new APIWrapperFactory(City.SAN_FRANCISCO).setApiKey("your api key").build();
+
+// All together?
+wrapper = new APIWrapperFactory(City.SAN_FRANCISCO).setEndpointType(EndpointType.TEST).setApiKey("your api key").build();
+```
+
+Check all the possible parameters of the `APIWrapperFactory` in the [documentation](http://codeforamerica.github.io/open311_java/apidocs/index.html).
+
+
+### Invoke operations
+```java
+// GET service list
+List<Service> listOfServices = wrapper.getServiceList();
+
+// GET service definition
+ServiceDefinition definition = wrapper.getServiceDefinition("serviceCode");
+
+// POST service request
+POSTServiceRequestResponse response = wrapper.postServiceRequest(new POSTServiceRequestData("serviceCode", addressId, listOfattributes));
+
+// GET service_request_id from a token
+List<ServiceRequestIdResponse> serviceRequestIdresponse = wrapper.getServiceRequestIdFromToken("token");
+
+// GET service requests
+List<ServiceRequest> serviceRequests = wrapper.getServiceRequests(new GETServiceRequestsFilter().setStatus(Status.OPEN));
+
+// GET service request 
+ServiceRequest serviceRequest = wrapper.getServiceRequest("serviceRequestId");
+```
+
+**IMPORTANT**: It is worth it to check the [documentation](http://codeforamerica.github.io/open311_java/apidocs/index.html) and find all the possible parameters of the `GETServiceRequestFilter` and `POSTServiceRequestData` classes.
 ## Testing and building
 
 
