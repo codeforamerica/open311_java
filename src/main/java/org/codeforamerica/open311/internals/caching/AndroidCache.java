@@ -38,5 +38,4 @@ public class AndroidCache extends AbstractCache {
 	protected String getProperty(String key) {
 		return preferences.getString(key, "");
 	}
-
 }
