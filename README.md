@@ -24,9 +24,15 @@ mvn package
 mvn assembly:single
 ```
 
-### Output
+### Testing and building outputs
 
  + `mvn cobertura:cobertura` will write its output in `target/site/cobertura/`, open the `index.html` file to check it.
  + `mvn package` will output the `target/jreport-{version}.jar` file.
  + `mvn assembly:single` will output the `target/jreport-{version}-jar-with-dependencies.jar` file.
 
+## Caching
+This library tries to save some responses for a certain time in order to avoid expensive network operations.
+ + In a regular Java application, it is activated by default.
+ + If you don't want to cache anything: `factory = new APIWrapperFactory().setCache(new NoCache());`
+ + Using an Android app: `factory = new APIWrapperFactory().setCache(new AndroidCache(getApplicationContext()));`
+ + Using a special platform which doesn't allow to create or write to files: Extend the [AbstractCache](https://github.com/codeforamerica/open311_java/blob/master/src/main/java/org/codeforamerica/open311/internals/caching/AbstractCache.java) class and `factory = new APIWrapperFactory().setCache(new YourCacheImplementation());`
