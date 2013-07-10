@@ -5,6 +5,7 @@ This is a Java language binding (wrapper) to the Open311 GeoReport REST API. Und
 ## Usage
 
 ### Build a wrapper
+**IMPORTANT**: You could have problems with some endpoints of cities because of their SSL certificates. Check the [solution](README.md#ssl-certificates).
 ```java
 // Simple wrapper
 APIWrapper wrapper = new APIWrapperFactory(City.SAN_FRANCISCO).build();
@@ -18,6 +19,7 @@ wrapper = new APIWrapperFactory(City.SAN_FRANCISCO).setApiKey("your api key").bu
 // All together?
 wrapper = new APIWrapperFactory(City.SAN_FRANCISCO).setEndpointType(EndpointType.TEST).
   setApiKey("your api key").build();
+
 ```
 
 Check all the possible parameters of the `APIWrapperFactory` in the [documentation](http://codeforamerica.github.io/open311_java/apidocs/index.html).
@@ -47,7 +49,7 @@ List<ServiceRequest> serviceRequests = wrapper.getServiceRequests(
 ServiceRequest serviceRequest = wrapper.getServiceRequest("serviceRequestId");
 ```
 
-**IMPORTANT**: It is worth it to check the [documentation](http://codeforamerica.github.io/open311_java/apidocs/index.html) and find all the possible parameters of the `GETServiceRequestFilter` and `POSTServiceRequestData` classes.
+It is worth it to check the [documentation](http://codeforamerica.github.io/open311_java/apidocs/index.html) and find all the possible parameters of the `GETServiceRequestFilter` and `POSTServiceRequestData` classes.
 ## Testing and building
 
 
@@ -79,14 +81,14 @@ mvn assembly:single
 ## Caching
 This library tries to save some responses for a certain time in order to avoid expensive network operations.
  + In a regular Java application, it is activated by default.
- + If you don't want to cache anything: `factory = new APIWrapperFactory().setCache(new NoCache());`
+ + If you do not want to cache anything: `factory = new APIWrapperFactory().setCache(new NoCache());`
  + Using an Android app: `factory = new APIWrapperFactory().setCache(new AndroidCache(getApplicationContext()));`
  + Using a special platform which doesn't allow to create or write to files: Extend the [AbstractCache](https://github.com/codeforamerica/open311_java/blob/master/src/main/java/org/codeforamerica/open311/internals/caching/AbstractCache.java) class and `factory = new APIWrapperFactory().setCache(new YourCacheImplementation());`
 
 ## SSL certificates
-Some of the endpoints could have SSL certificates which signature won't be recognize by Java. I am working to make them working in Android, but there is already a solution if you are using just Java:
+Some of the endpoints could have SSL certificates which signature won't be recognize by Java. We are working to make them valid in Android, but there is already a solution if you are using just Java:
 
-You can add the certificates to your java keystore (those certificates are in the `/certificates` folder of this repository). Your keystore probably is in `$JAVA_HOME/lib/security/cacerts` or `$JAVA_HOME/jre/lib/security/cacerts`. The password should be *changeit* (try *changeme* if you are on a Mac and *changeit* doesn't work).
+You can add the certificates to the Java's keystore (those certificates are in the `/certificates` folder of this repository). The keystore is probably in `$JAVA_HOME/lib/security/cacerts` or `$JAVA_HOME/jre/lib/security/cacerts`. The password should be *changeit* (try *changeme* if you are on a Mac and *changeit* doesn't work).
 
 ```bash
 sudo sh add_certificates.sh <path/to/your/key/store>
