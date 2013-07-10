@@ -202,6 +202,8 @@ public class APIWrapper {
 	 */
 	public List<ServiceRequest> getServiceRequests(
 			GETServiceRequestsFilter operationData) throws APIWrapperException {
+		operationData = operationData == null ? new GETServiceRequestsFilter()
+				: operationData;
 		List<ServiceRequest> result = cache.retrieveCachedServiceRequests(
 				endpointUrl, operationData);
 		if (result == null) {

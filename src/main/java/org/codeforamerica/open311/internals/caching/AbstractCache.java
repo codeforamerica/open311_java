@@ -20,7 +20,7 @@ import org.codeforamerica.open311.facade.data.operations.GETServiceRequestsFilte
  * 
  */
 public abstract class AbstractCache implements Cache {
-
+	protected final static String FILE = "cache.prop";
 	private final static String SERVICE_DISCOVERY = "service_discovery";
 	private final static String SERVICE_LIST = "service_list";
 	private final static String SERVICE_DEFINITION = "service_definition";

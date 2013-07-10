@@ -7,7 +7,6 @@ import java.io.IOException;
 import java.util.Properties;
 
 public class RegularJavaCache extends AbstractCache {
-	private final static String FILE = "cache.prop";
 	private Properties properties;
 
 	/* package */RegularJavaCache() {

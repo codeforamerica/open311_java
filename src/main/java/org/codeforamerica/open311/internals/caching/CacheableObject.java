@@ -1,14 +1,11 @@
 package org.codeforamerica.open311.internals.caching;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.Date;
 
-import org.apache.commons.codec.binary.Base64;
+import net.iharder.Base64;
+
 import org.joda.time.DateTime;
 
 /**
@@ -31,12 +28,8 @@ public class CacheableObject implements Serializable {
 
 	public CacheableObject(String base64object) {
 		try {
-			byte[] rawDataInBytes = Base64.decodeBase64(base64object);
-			ObjectInputStream ois = new ObjectInputStream(
-					new ByteArrayInputStream(rawDataInBytes));
-			Object o = ois.readObject();
-			ois.close();
-			CacheableObject thisObject = (CacheableObject) o;
+			CacheableObject thisObject = (CacheableObject) Base64
+					.decodeToObject(base64object);
 			this.object = thisObject.object;
 			this.expirationTime = thisObject.expirationTime;
 		} catch (Exception e) {
@@ -61,11 +54,7 @@ public class CacheableObject implements Serializable {
 
 	public static String serialize(Serializable object) {
 		try {
-			ByteArrayOutputStream baos = new ByteArrayOutputStream();
-			ObjectOutputStream oos = new ObjectOutputStream(baos);
-			oos.writeObject(object);
-			oos.close();
-			return new String(Base64.encodeBase64(baos.toByteArray()));
+			return new String(Base64.encodeObject(object));
 		} catch (IOException e) {
 			return null;
 		}

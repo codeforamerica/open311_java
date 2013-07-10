@@ -1,5 +1,7 @@
 package org.codeforamerica.open311.internals.caching;
 
+import org.codeforamerica.open311.internals.caching.android.MyApp;
+
 /**
  * Builds a cache taking care of the used platform (regular Java, Android...).
  * 
@@ -26,8 +28,7 @@ public class CacheFactory {
 	 */
 	public Cache buildCache() {
 		if (System.getProperty("java.vm.name").equalsIgnoreCase("Dalvik")) {
-			// Android
-			return new NoCache();
+			return new AndroidCache(MyApp.getCustomAppContext());
 		} else {
 			return new RegularJavaCache();
 		}
