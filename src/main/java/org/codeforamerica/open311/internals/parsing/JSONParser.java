@@ -22,6 +22,12 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+/**
+ * Implementation of a {@link DataParser} which takes JSON data as input.
+ * 
+ * @author Santiago Munín <santimunin@gmail.com>
+ * 
+ */
 public class JSONParser extends AbstractParser {
 	private static final String NULL_STRING_JSON = "null";
 	private DateParser dateParser = new DateParser();
@@ -81,7 +87,7 @@ public class JSONParser extends AbstractParser {
 				boolean required = attribute.getBoolean(REQUIRED_TAG);
 				String datatypeDescription = getString(attribute,
 						DATATYPE_DESCRIPTION_TAG);
-				int order = attribute.getInt(ORDER_TAG);
+				int order = (int) getLong(attribute, ORDER_TAG);
 				String description = getString(attribute, DESCRIPTION_TAG);
 				JSONArray valuesArray = attribute.getJSONArray(VALUES_TAG);
 				Map<String, String> values = new HashMap<String, String>();
@@ -150,9 +156,9 @@ public class JSONParser extends AbstractParser {
 				String address = getString(serviceRequest, ADDRESS_TAG);
 				long addressId = getLong(serviceRequest, ADDRESS_ID_TAG);
 				int zipCode = (int) getLong(serviceRequest, ZIPCODE_TAG);
-				float latitude = (float) serviceRequest.getDouble(LATITUDE_TAG);
-				float longitude = (float) serviceRequest
-						.getDouble(LONGITUDE_TAG);
+				float latitude = (float) getDouble(serviceRequest, LATITUDE_TAG);
+				float longitude = (float) getDouble(serviceRequest,
+						LONGITUDE_TAG);
 				String rawMediaUrl = getString(serviceRequest, MEDIA_URL_TAG)
 						.trim();
 				URL mediaUrl = rawMediaUrl.length() > 0 ? new URL(rawMediaUrl)
@@ -257,6 +263,26 @@ public class JSONParser extends AbstractParser {
 			result = object.getLong(tag);
 		} catch (JSONException e) {
 			result = Long.MIN_VALUE;
+		}
+		return result;
+	}
+
+	/**
+	 * Searches the value of a given tag in a {@link JSONObject}.
+	 * 
+	 * @param object
+	 *            Object to inspect.
+	 * @param tag
+	 *            Tag to search.
+	 * @return The double value of the tag, <code>Double.MIN_VALUE</code> if it
+	 *         wasn't found.
+	 */
+	private double getDouble(JSONObject object, String tag) {
+		double result;
+		try {
+			result = object.getDouble(tag);
+		} catch (JSONException e) {
+			result = Double.MIN_VALUE;
 		}
 		return result;
 	}
