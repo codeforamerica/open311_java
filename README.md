@@ -16,7 +16,8 @@ wrapper = new APIWrapperFactory(City.SAN_FRANCISCO).setEndpointType(EndpointType
 wrapper = new APIWrapperFactory(City.SAN_FRANCISCO).setApiKey("your api key").build();
 
 // All together?
-wrapper = new APIWrapperFactory(City.SAN_FRANCISCO).setEndpointType(EndpointType.TEST).setApiKey("your api key").build();
+wrapper = new APIWrapperFactory(City.SAN_FRANCISCO).setEndpointType(EndpointType.TEST).
+  setApiKey("your api key").build();
 ```
 
 Check all the possible parameters of the `APIWrapperFactory` in the [documentation](http://codeforamerica.github.io/open311_java/apidocs/index.html).
@@ -31,13 +32,15 @@ List<Service> listOfServices = wrapper.getServiceList();
 ServiceDefinition definition = wrapper.getServiceDefinition("serviceCode");
 
 // POST service request
-POSTServiceRequestResponse response = wrapper.postServiceRequest(new POSTServiceRequestData("serviceCode", addressId, listOfattributes));
+POSTServiceRequestResponse response = wrapper.postServiceRequest(
+  new POSTServiceRequestData("serviceCode", addressId, listOfattributes));
 
 // GET service_request_id from a token
 List<ServiceRequestIdResponse> serviceRequestIdresponse = wrapper.getServiceRequestIdFromToken("token");
 
 // GET service requests
-List<ServiceRequest> serviceRequests = wrapper.getServiceRequests(new GETServiceRequestsFilter().setStatus(Status.OPEN));
+List<ServiceRequest> serviceRequests = wrapper.getServiceRequests(
+  new GETServiceRequestsFilter().setStatus(Status.OPEN));
 
 // GET service request 
 ServiceRequest serviceRequest = wrapper.getServiceRequest("serviceRequestId");
