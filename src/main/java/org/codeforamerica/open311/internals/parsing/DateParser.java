@@ -9,10 +9,9 @@ import org.joda.time.format.DateTimeFormatter;
 import org.joda.time.format.ISODateTimeFormat;
 
 /**
- * Provides operations to handle date parsing. Check the <a
+ * Provides operations to handle dates. Check the <a
  * href="http://wiki.open311.org/GeoReport_v2#Date.2Ftime_format">GeoReport
  * wiki</a> for more information.
- * 
  * 
  * @author Santiago Munín <santimunin@gmail.com>
  * 
@@ -20,7 +19,7 @@ import org.joda.time.format.ISODateTimeFormat;
 public class DateParser {
 
 	/**
-	 * List of possible formats. Note the order of preference.
+	 * List of possible formats sorted by preference.
 	 */
 	private DateTimeFormatter[] dateFormats = {
 			ISODateTimeFormat.dateTimeNoMillis(),
@@ -40,12 +39,11 @@ public class DateParser {
 	}
 
 	/**
-	 * Parses a string date.
+	 * Parses a string representing a date.
 	 * 
 	 * @param rawDate
 	 *            ISO 8601 is the preferred format. Check
-	 *            <code>dateFormats</code> in order to know all the accepted
-	 *            formats.
+	 *            <code>dateFormats</code> to check all the accepted formats.
 	 * @return A date object.
 	 */
 	public Date parseDate(String rawDate) {
@@ -60,11 +58,11 @@ public class DateParser {
 
 	/**
 	 * Prints a date. ISO 8601 is the preferred format. Check
-	 * <code>dateFormats</code> in order to know all the accepted formats.
+	 * <code>dateFormats</code> to check all the accepted formats.
 	 * 
 	 * @param date
 	 *            Date to print.
-	 * @return ISO 8601 format date is possible (else, the first valid) or
+	 * @return ISO 8601 format date if possible (else, the first valid) or
 	 *         <code>null</code> if it didn't match any format.
 	 */
 	public String printDate(Date date) {
