@@ -72,7 +72,7 @@ mvn package
 mvn assembly:single
 ```
 
-### Testing and building outputs
+### Locations
 
  + `mvn cobertura:cobertura` will write its output in `target/site/cobertura/`, open the `index.html` file to check it.
  + `mvn package` will output the `target/jreport-{version}.jar` file.
