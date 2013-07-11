@@ -1,5 +1,6 @@
 package org.codeforamerica.open311.internals.parsing;
 
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Date;
 import java.util.HashMap;
@@ -55,6 +56,7 @@ public class JSONParser extends AbstractParser {
 	 *            JSONObject which represents a service.
 	 * @return An object with its state given by the JSONObject
 	 * @throws JSONException
+	 *             If the given service isn't correct.
 	 */
 	private Service getService(JSONObject service) throws JSONException {
 		String code = getString(service, SERVICE_CODE_TAG);
@@ -77,34 +79,48 @@ public class JSONParser extends AbstractParser {
 			String serviceCode = getString(serviceDefinition, SERVICE_CODE_TAG);
 			JSONArray attributesArray = serviceDefinition
 					.getJSONArray(ATTRIBUTES_TAG);
-			List<Attribute> attributes = new LinkedList<Attribute>();
-			for (int i = 0; i < attributesArray.length(); i++) {
-				JSONObject attribute = attributesArray.getJSONObject(i);
-				boolean variable = attribute.getBoolean(VARIABLE_TAG);
-				String code = getString(attribute, CODE_TAG);
-				Datatype datatype = Datatype.getFromString(getString(attribute,
-						DATATYPE_TAG));
-				boolean required = attribute.getBoolean(REQUIRED_TAG);
-				String datatypeDescription = getString(attribute,
-						DATATYPE_DESCRIPTION_TAG);
-				int order = (int) getLong(attribute, ORDER_TAG);
-				String description = getString(attribute, DESCRIPTION_TAG);
-				JSONArray valuesArray = attribute.getJSONArray(VALUES_TAG);
-				Map<String, String> values = new HashMap<String, String>();
-				for (int j = 0; j < valuesArray.length(); j++) {
-					JSONObject valueObject = valuesArray.getJSONObject(j);
-					String key = getString(valueObject, KEY_TAG);
-					String name = getString(valueObject, NAME_TAG);
-					values.put(key, name);
-				}
-				attributes.add(new Attribute(variable, code, datatype,
-						required, datatypeDescription, order, description,
-						values));
-			}
-			return new ServiceDefinition(serviceCode, attributes);
+			return new ServiceDefinition(serviceCode,
+					parseAttributeList(attributesArray));
 		} catch (JSONException e) {
 			throw new DataParsingException(e.getMessage());
 		}
+	}
+
+	/**
+	 * Parses the list of attributes attached to a service definition.
+	 * 
+	 * @param attributesArray
+	 *            The JSONArray object.
+	 * @return List of attributes.
+	 * @throws JSONException
+	 *             If the given object is not correct.
+	 */
+	private List<Attribute> parseAttributeList(JSONArray attributesArray)
+			throws JSONException {
+		List<Attribute> attributes = new LinkedList<Attribute>();
+		for (int i = 0; i < attributesArray.length(); i++) {
+			JSONObject attribute = attributesArray.getJSONObject(i);
+			boolean variable = attribute.getBoolean(VARIABLE_TAG);
+			String code = getString(attribute, CODE_TAG);
+			Datatype datatype = Datatype.getFromString(getString(attribute,
+					DATATYPE_TAG));
+			boolean required = attribute.getBoolean(REQUIRED_TAG);
+			String datatypeDescription = getString(attribute,
+					DATATYPE_DESCRIPTION_TAG);
+			int order = (int) getLong(attribute, ORDER_TAG);
+			String description = getString(attribute, DESCRIPTION_TAG);
+			JSONArray valuesArray = attribute.getJSONArray(VALUES_TAG);
+			Map<String, String> values = new HashMap<String, String>();
+			for (int j = 0; j < valuesArray.length(); j++) {
+				JSONObject valueObject = valuesArray.getJSONObject(j);
+				String key = getString(valueObject, KEY_TAG);
+				String name = getString(valueObject, NAME_TAG);
+				values.put(key, name);
+			}
+			attributes.add(new Attribute(variable, code, datatype, required,
+					datatypeDescription, order, description, values));
+		}
+		return attributes;
 	}
 
 	@Override
@@ -135,44 +151,54 @@ public class JSONParser extends AbstractParser {
 			for (int i = 0; i < serviceRequestsArray.length(); i++) {
 				JSONObject serviceRequest = serviceRequestsArray
 						.getJSONObject(i);
-				String serviceRequestId = getString(serviceRequest,
-						SERVICE_REQUEST_ID_TAG);
-				Status status = Status.getFromString(getString(serviceRequest,
-						STATUS_TAG));
-				String statusNotes = getString(serviceRequest, STATUS_NOTES_TAG);
-				String serviceName = getString(serviceRequest, SERVICE_NAME_TAG);
-				String serviceCode = getString(serviceRequest, SERVICE_CODE_TAG);
-				String description = getString(serviceRequest, DESCRIPTION_TAG);
-				String agencyResponsible = getString(serviceRequest,
-						AGENCY_RESPONSIBLE_TAG);
-				String serviceNotice = getString(serviceRequest,
-						SERVICE_NOTICE_TAG);
-				Date requestedDatetime = dateParser.parseDate(getString(
-						serviceRequest, REQUESTED_DATETIME_TAG));
-				Date updatedDatetime = dateParser.parseDate(getString(
-						serviceRequest, UPDATED_DATETIME_TAG));
-				Date expectedDatetime = dateParser.parseDate(getString(
-						serviceRequest, EXPECTED_DATETIME_TAG));
-				String address = getString(serviceRequest, ADDRESS_TAG);
-				long addressId = getLong(serviceRequest, ADDRESS_ID_TAG);
-				int zipCode = (int) getLong(serviceRequest, ZIPCODE_TAG);
-				float latitude = (float) getDouble(serviceRequest, LATITUDE_TAG);
-				float longitude = (float) getDouble(serviceRequest,
-						LONGITUDE_TAG);
-				String rawMediaUrl = getString(serviceRequest, MEDIA_URL_TAG)
-						.trim();
-				URL mediaUrl = rawMediaUrl.length() > 0 ? new URL(rawMediaUrl)
-						: null;
-				result.add(new ServiceRequest(serviceRequestId, status,
-						statusNotes, serviceName, serviceCode, description,
-						agencyResponsible, serviceNotice, requestedDatetime,
-						updatedDatetime, expectedDatetime, address, addressId,
-						zipCode, latitude, longitude, mediaUrl));
+				result.add(parseServiceRequest(serviceRequest));
 			}
 			return result;
 		} catch (Exception e) {
 			throw new DataParsingException(e.getMessage());
 		}
+	}
+
+	/**
+	 * Builds a service request object from a JSONObject.
+	 * 
+	 * @param serviceRequest
+	 *            JSONObject representing the service definition data.
+	 * @return A service request object.
+	 * @throws MalformedURLException
+	 *             If the media URL isn't correct.
+	 */
+	private ServiceRequest parseServiceRequest(JSONObject serviceRequest)
+			throws MalformedURLException {
+		String serviceRequestId = getString(serviceRequest,
+				SERVICE_REQUEST_ID_TAG);
+		Status status = Status.getFromString(getString(serviceRequest,
+				STATUS_TAG));
+		String statusNotes = getString(serviceRequest, STATUS_NOTES_TAG);
+		String serviceName = getString(serviceRequest, SERVICE_NAME_TAG);
+		String serviceCode = getString(serviceRequest, SERVICE_CODE_TAG);
+		String description = getString(serviceRequest, DESCRIPTION_TAG);
+		String agencyResponsible = getString(serviceRequest,
+				AGENCY_RESPONSIBLE_TAG);
+		String serviceNotice = getString(serviceRequest, SERVICE_NOTICE_TAG);
+		Date requestedDatetime = dateParser.parseDate(getString(serviceRequest,
+				REQUESTED_DATETIME_TAG));
+		Date updatedDatetime = dateParser.parseDate(getString(serviceRequest,
+				UPDATED_DATETIME_TAG));
+		Date expectedDatetime = dateParser.parseDate(getString(serviceRequest,
+				EXPECTED_DATETIME_TAG));
+		String address = getString(serviceRequest, ADDRESS_TAG);
+		long addressId = getLong(serviceRequest, ADDRESS_ID_TAG);
+		int zipCode = (int) getLong(serviceRequest, ZIPCODE_TAG);
+		float latitude = (float) getDouble(serviceRequest, LATITUDE_TAG);
+		float longitude = (float) getDouble(serviceRequest, LONGITUDE_TAG);
+		String rawMediaUrl = getString(serviceRequest, MEDIA_URL_TAG).trim();
+		URL mediaUrl = rawMediaUrl.length() > 0 ? new URL(rawMediaUrl) : null;
+		return new ServiceRequest(serviceRequestId, status, statusNotes,
+				serviceName, serviceCode, description, agencyResponsible,
+				serviceNotice, requestedDatetime, updatedDatetime,
+				expectedDatetime, address, addressId, zipCode, latitude,
+				longitude, mediaUrl);
 	}
 
 	@Override
