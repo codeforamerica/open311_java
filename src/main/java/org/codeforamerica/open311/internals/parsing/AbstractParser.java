@@ -12,6 +12,7 @@ public abstract class AbstractParser implements DataParser {
 	 * Parses a comma separated list of keywords.
 	 * 
 	 * @param rawKeywords
+	 *            A comma separated list of keywords.
 	 * @return An array of strings (keywords).
 	 */
 	protected String[] getKeywords(String rawKeywords) {
@@ -21,5 +22,4 @@ public abstract class AbstractParser implements DataParser {
 		}
 		return result;
 	}
-
 }
