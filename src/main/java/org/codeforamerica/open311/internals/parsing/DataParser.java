@@ -86,14 +86,14 @@ public interface DataParser {
 			throws DataParsingException;
 
 	/**
-	 * Parses a list of services (XML/UTF-8 format).
+	 * Parses a service definition.
 	 * 
 	 * @param rawData
 	 *            Text data.
 	 * @throws DataParsingException
 	 *             If there was any problem parsing the data.
 	 * 
-	 * @return List of service objects.
+	 * @return A service definition object.
 	 */
 	public ServiceDefinition parseServiceDefinition(String rawData)
 			throws DataParsingException;
@@ -103,7 +103,7 @@ public interface DataParser {
 	 * 
 	 * @param rawData
 	 *            Text data.
-	 * @return token and service request id.
+	 * @return the given token and the service request id.
 	 * @throws DataParsingException
 	 *             If there was any problem parsing the data.
 	 */
@@ -153,6 +153,7 @@ public interface DataParser {
 	 *            Text data.
 	 * @return Service discovery information (endpoints and their formats).
 	 * @throws DataParsingException
+	 *             If there was any problem parsing the data.
 	 */
 	public ServiceDiscoveryInfo parseServiceDiscovery(String rawData)
 			throws DataParsingException;
