@@ -4,6 +4,12 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Map;
 
+/**
+ * Builds the necessary URLs to communicate with the endpoints.
+ * 
+ * @author Santiago Munín <santimunin@gmail.com>
+ * 
+ */
 public class URLBuilder {
 
 	private static final String GET_SERVICE_LIST = "services";
