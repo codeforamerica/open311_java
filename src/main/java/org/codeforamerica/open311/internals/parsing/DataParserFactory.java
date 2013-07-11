@@ -5,6 +5,8 @@ import org.codeforamerica.open311.facade.Format;
 /**
  * Builds instances of {@link DataParser}.
  * 
+ * Singleton class.
+ * 
  * @author Santiago Munín <santimunin@gmail.com>
  * 
  */
