@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.net.URL;
 
 import org.apache.http.client.HttpClient;
-import org.apache.http.client.ResponseHandler;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
@@ -35,8 +34,7 @@ public class HTTPNetworkManager implements NetworkManager {
 			HttpGet httpGet = new HttpGet(url.toURI());
 			httpGet.setHeader("Content-Type", format.getHTTPContentType());
 			httpGet.setHeader("charset", CHARSET);
-			ResponseHandler<String> responseHandler = new BasicResponseHandler();
-			return httpClient.execute(httpGet, responseHandler);
+			return httpClient.execute(httpGet, new BasicResponseHandler());
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw new IOException(e.getMessage());
@@ -49,10 +47,8 @@ public class HTTPNetworkManager implements NetworkManager {
 			HttpPost httpPost = new HttpPost(url.toURI());
 			httpPost.setHeader("Content-Type", POST_CONTENT_TYPE);
 			httpPost.setHeader("charset", CHARSET);
-			StringEntity entity = new StringEntity(body);
-			httpPost.setEntity(entity);
-			ResponseHandler<String> responseHandler = new BasicResponseHandler();
-			return httpClient.execute(httpPost, responseHandler);
+			httpPost.setEntity(new StringEntity(body));
+			return httpClient.execute(httpPost, new BasicResponseHandler());
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw new IOException(e);
