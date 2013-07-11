@@ -27,7 +27,8 @@ import org.codeforamerica.open311.internals.network.URLBuilder;
 import org.codeforamerica.open311.internals.parsing.DataParser;
 
 /**
- * Base class of wrapper of the API. This is the entry point to the system.
+ * Base class of the API. This is the entry point to the system. You can build
+ * objects of this class using the {@link APIWrapperFactory} class.
  * 
  * @author Santiago Munín <santimunin@gmail.com>
  * 
@@ -45,8 +46,8 @@ public class APIWrapper {
 
 	/**
 	 * Builds an API wrapper from its components. Note that this constructor
-	 * can't be called outside the package. If you are a user the library please
-	 * check the {@link APIWrapperFactory} class.
+	 * can't be invoked from outside the package. If you are a user the library
+	 * please check the {@link APIWrapperFactory} class.
 	 * 
 	 * @param endpointUrl
 	 *            Base url of the endpoint.
@@ -107,24 +108,36 @@ public class APIWrapper {
 	 *             If there was any problem (data parsing, I/O...).
 	 */
 	public List<Service> getServiceList() throws APIWrapperException {
-		List<Service> result;
-		result = cache.retrieveCachedServiceList(this.endpointUrl);
+		List<Service> result = cache
+				.retrieveCachedServiceList(this.endpointUrl);
 		if (result == null) {
-			String rawServiceListData = "";
-			try {
-				URL serviceListUrl = urlBuilder.buildGetServiceListUrl();
-				rawServiceListData = networkGet(serviceListUrl);
-				result = dataParser.parseServiceList(rawServiceListData);
-			} catch (DataParsingException e) {
-				tryToParseError(rawServiceListData);
-				return null;
-			} catch (MalformedURLException e) {
-				throw new APIWrapperException(e.getMessage(),
-						Error.URL_BUILDER, null);
-			}
+			result = askEndpointForTheServiceList();
 			cache.saveListOfServices(endpointUrl, result);
 		}
 		return result;
+	}
+
+	/**
+	 * Makes a network operation to ask the endpoint for the service list.
+	 * 
+	 * @return The list of services of the endpoint.
+	 * @throws APIWrapperException
+	 *             If there was any problem (data parsing, I/O...).
+	 */
+	private List<Service> askEndpointForTheServiceList()
+			throws APIWrapperException {
+		String rawServiceListData = "";
+		try {
+			URL serviceListUrl = urlBuilder.buildGetServiceListUrl();
+			rawServiceListData = networkGet(serviceListUrl);
+			return dataParser.parseServiceList(rawServiceListData);
+		} catch (DataParsingException e) {
+			tryToParseError(rawServiceListData);
+			return null;
+		} catch (MalformedURLException e) {
+			throw new APIWrapperException(e.getMessage(), Error.URL_BUILDER,
+					null);
+		}
 	}
 
 	/**
@@ -143,24 +156,35 @@ public class APIWrapper {
 		ServiceDefinition result = cache.retrieveCachedServiceDefinition(
 				endpointUrl, serviceCode);
 		if (result == null) {
-			String rawServiceDefinitionData = "";
-
-			try {
-				URL serviceDefinitionUrl = urlBuilder
-						.buildGetServiceDefinitionUrl(serviceCode);
-				rawServiceDefinitionData = networkGet(serviceDefinitionUrl);
-				result = dataParser
-						.parseServiceDefinition(rawServiceDefinitionData);
-				cache.saveServiceDefinition(endpointUrl, serviceCode, result);
-			} catch (DataParsingException e) {
-				tryToParseError(rawServiceDefinitionData);
-				return null;
-			} catch (MalformedURLException e) {
-				throw new APIWrapperException(e.getMessage(),
-						Error.URL_BUILDER, null);
-			}
+			result = askEndpointForAServiceDefinition(serviceCode);
+			cache.saveServiceDefinition(endpointUrl, serviceCode, result);
 		}
 		return result;
+	}
+
+	/**
+	 * Makes a network operation to ask the endpoint for the service definition.
+	 * 
+	 * @param serviceCode
+	 *            Code of the service of interest.
+	 * @return All the information related to the given code.
+	 * @throws APIWrapperException
+	 */
+	private ServiceDefinition askEndpointForAServiceDefinition(
+			String serviceCode) throws APIWrapperException {
+		String rawServiceDefinitionData = "";
+		try {
+			URL serviceDefinitionUrl = urlBuilder
+					.buildGetServiceDefinitionUrl(serviceCode);
+			rawServiceDefinitionData = networkGet(serviceDefinitionUrl);
+			return dataParser.parseServiceDefinition(rawServiceDefinitionData);
+		} catch (DataParsingException e) {
+			tryToParseError(rawServiceDefinitionData);
+			return null;
+		} catch (MalformedURLException e) {
+			throw new APIWrapperException(e.getMessage(), Error.URL_BUILDER,
+					null);
+		}
 	}
 
 	/**
@@ -207,24 +231,38 @@ public class APIWrapper {
 		List<ServiceRequest> result = cache.retrieveCachedServiceRequests(
 				endpointUrl, operationData);
 		if (result == null) {
-			String rawServiceRequests = "";
-			try {
-				URL serviceRequestsUrl = operationData != null ? urlBuilder
-						.buildGetServiceRequests(operationData
-								.getOptionalParametersMap()) : urlBuilder
-						.buildGetServiceRequests(null);
-				rawServiceRequests = networkGet(serviceRequestsUrl);
-				result = dataParser.parseServiceRequests(rawServiceRequests);
-				cache.saveServiceRequestList(endpointUrl, operationData, result);
-			} catch (DataParsingException e) {
-				tryToParseError(rawServiceRequests);
-				return null;
-			} catch (MalformedURLException e) {
-				throw new APIWrapperException(e.getMessage(),
-						Error.URL_BUILDER, null);
-			}
+			result = askEndpointForServiceRequests(operationData);
+			cache.saveServiceRequestList(endpointUrl, operationData, result);
 		}
 		return result;
+	}
+
+	/**
+	 * Makes a network operation to ask the endpoint for service requests.
+	 * 
+	 * @param operationData
+	 *            Filter to apply to the search in the endpoint.
+	 * @return A list of service requests.
+	 * @throws APIWrapperException
+	 *             If there was any problem.
+	 */
+	private List<ServiceRequest> askEndpointForServiceRequests(
+			GETServiceRequestsFilter operationData) throws APIWrapperException {
+		String rawServiceRequests = "";
+		try {
+			URL serviceRequestsUrl = operationData != null ? urlBuilder
+					.buildGetServiceRequests(operationData
+							.getOptionalParametersMap()) : urlBuilder
+					.buildGetServiceRequests(null);
+			rawServiceRequests = networkGet(serviceRequestsUrl);
+			return dataParser.parseServiceRequests(rawServiceRequests);
+		} catch (DataParsingException e) {
+			tryToParseError(rawServiceRequests);
+			return null;
+		} catch (MalformedURLException e) {
+			throw new APIWrapperException(e.getMessage(), Error.URL_BUILDER,
+					null);
+		}
 	}
 
 	/**
@@ -232,7 +270,7 @@ public class APIWrapper {
 	 * 
 	 * @param serviceRequestId
 	 *            ID of the request to be fetched.
-	 * @return A list of service request with the same ID.
+	 * @return The info related to the given ID.
 	 * @throws APIWrapperException
 	 *             If there was any problem.
 	 */
@@ -241,24 +279,37 @@ public class APIWrapper {
 		ServiceRequest result = cache.retrieveCachedServiceRequest(endpointUrl,
 				serviceRequestId);
 		if (result == null) {
-			String rawServiceRequests = "";
-			try {
-				URL serviceRequestsUrl = urlBuilder
-						.buildGetServiceRequest(serviceRequestId);
-				rawServiceRequests = networkGet(serviceRequestsUrl);
-				result = dataParser.parseServiceRequests(rawServiceRequests)
-						.get(0);
-				cache.saveSingleServiceRequest(endpointUrl, serviceRequestId,
-						result);
-			} catch (DataParsingException e) {
-				tryToParseError(rawServiceRequests);
-				return null;
-			} catch (MalformedURLException e) {
-				throw new APIWrapperException(e.getMessage(),
-						Error.URL_BUILDER, null);
-			}
+			result = askEndpointForAServiceRequest(serviceRequestId);
+			cache.saveSingleServiceRequest(endpointUrl, serviceRequestId,
+					result);
 		}
 		return result;
+	}
+
+	/**
+	 * Makes a network operation to ask the endpoint for a service request.
+	 * 
+	 * @param serviceRequestId
+	 *            Id of the request.
+	 * @return The info related to the given ID.
+	 * @throws APIWrapperException
+	 *             If there was any problem.
+	 */
+	private ServiceRequest askEndpointForAServiceRequest(String serviceRequestId)
+			throws APIWrapperException {
+		String rawServiceRequests = "";
+		try {
+			URL serviceRequestsUrl = urlBuilder
+					.buildGetServiceRequest(serviceRequestId);
+			rawServiceRequests = networkGet(serviceRequestsUrl);
+			return dataParser.parseServiceRequests(rawServiceRequests).get(0);
+		} catch (DataParsingException e) {
+			tryToParseError(rawServiceRequests);
+			return null;
+		} catch (MalformedURLException e) {
+			throw new APIWrapperException(e.getMessage(), Error.URL_BUILDER,
+					null);
+		}
 	}
 
 	/**
