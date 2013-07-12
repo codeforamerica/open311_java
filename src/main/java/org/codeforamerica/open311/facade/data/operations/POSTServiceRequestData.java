@@ -98,7 +98,7 @@ public class POSTServiceRequestData {
 	 * 
 	 * @param serviceCode
 	 *            Code of the service related to the request.
-	 * @param address_id
+	 * @param addressId
 	 *            The internal address ID used by a jurisdiction's master
 	 *            address repository or other addressing system.
 	 * @param attributes
