@@ -77,13 +77,21 @@ mvn assembly:single
  + `mvn cobertura:cobertura` will write its output in `target/site/cobertura/`, open the `index.html` file to check it.
  + `mvn package` will output the `target/jreport-{version}.jar` file.
  + `mvn assembly:single` will output the `target/jreport-{version}-jar-with-dependencies.jar` file.
+ 
+## Useful information
+
+ + [Javadocs](http://codeforamerica.github.io/open311_java/apidocs/index.html)
+ + [Cobertura report (code coverage)](http://codeforamerica.github.io/open311_java/cobertura/index.html)
+ + [Team](http://codeforamerica.github.io/open311_java/team-list.html)
+ + [Dependencies](http://codeforamerica.github.io/open311_java/dependencies.html)
+ + [Continuous Integration System](https://travis-ci.org/codeforamerica/open311_java)
 
 ## Caching
 This library tries to save some responses for a certain time in order to avoid expensive network operations.
  + In a regular Java application, it is activated by default.
  + If you do not want to cache anything: `factory = new APIWrapperFactory().setCache(new NoCache());`
  + Using an Android app: `factory = new APIWrapperFactory().setCache(new AndroidCache(getApplicationContext()));`
- + Using a special platform which doesn't allow to create or write to files: Extend the [AbstractCache](https://github.com/codeforamerica/open311_java/blob/master/src/main/java/org/codeforamerica/open311/internals/caching/AbstractCache.java) class and `factory = new APIWrapperFactory().setCache(new YourCacheImplementation());`
+ + Using a special platform which doesn't allow to create or write to files: Extend the [AbstractCache](http://codeforamerica.github.io/open311_java/apidocs/index.html) class and `factory = new APIWrapperFactory().setCache(new YourCacheImplementation());`
 
 ## SSL certificates
 Some of the endpoints could have SSL certificates which signature won't be recognize by Java. We are working to make them valid in Android, but there is already a solution if you are using just Java:
