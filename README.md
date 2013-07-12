@@ -6,23 +6,33 @@ This is a Java language binding (wrapper) to the Open311 GeoReport REST API. Thi
 
 ### Build a wrapper
 **IMPORTANT**: You could have problems with some endpoints of cities because of their SSL certificates. Check the [solution](README.md#ssl-certificates).
+
+You will need the [APIWrapperFactory](http://codeforamerica.github.io/open311_java/apidocs/org/codeforamerica/open311/facade/APIWrapperFactory.html) in order to build the [APIWrapper](http://codeforamerica.github.io/open311_java/apidocs/org/codeforamerica/open311/facade/APIWrapper.html) (which will allow you to query the endpoint). There are two different ways of creating the factory:
+ + Specifiying the desired **city** and **type** of the endpoint (production, test...). The wrapper will get the most suitable endpoint and data interchange format for you.
+ + Specifiying the **url of endpoint**, the **jurisdiction_id** parameter and the **data interchange format**. It is your responsibility to check if the format you desire is supported.
+
 ```java
-// Simple wrapper
+// From the city (EndpointType.PRODUCTION is selected by default)
 APIWrapper wrapper = new APIWrapperFactory(City.SAN_FRANCISCO).build();
 
-// Test endpoint wrapper
-wrapper = new APIWrapperFactory(City.SAN_FRANCISCO).setEndpointType(EndpointType.TEST).build();
+// From the city, test endpoint.
+APIWrapper wrapper = new APIWrapperFactory(City.SAN_FRANCISCO, EndpointType.TEST).build();
+
+// From the url of the endpoint
+APIWrapper wrapper = new APIWrapperFactory("https://www.myendpointurl.com/").build();
+
+// From the url of the endpoint, the jurisdiction_id, and the data interchange format
+APIWrapper wrapper = new APIWrapperFactory("https://www.myendpointurl.com/", "myjurisdictionId", Format.JSON).build();
 
 // With the api key
 wrapper = new APIWrapperFactory(City.SAN_FRANCISCO).setApiKey("your api key").build();
 
-// All together?
-wrapper = new APIWrapperFactory(City.SAN_FRANCISCO).setEndpointType(EndpointType.TEST).
+// Without caching data and the api key
+wrapper = new APIWrapperFactory(City.SAN_FRANCISCO).setCache(new NoCache()).
   setApiKey("your api key").build();
-
 ```
 
-Check all the possible parameters of the `APIWrapperFactory` in the [documentation](http://codeforamerica.github.io/open311_java/apidocs/index.html).
+Check all the possible parameters and constructors of the `APIWrapperFactory` in its [documentation page](http://codeforamerica.github.io/open311_java/apidocs/org/codeforamerica/open311/facade/APIWrapperFactory.html).
 
 
 ### Invoke operations
@@ -91,7 +101,7 @@ This library tries to save some responses for a certain time in order to avoid e
  + In a regular Java application, it is activated by default.
  + If you do not want to cache anything: `factory = new APIWrapperFactory().setCache(new NoCache());`
  + Using an Android app: `factory = new APIWrapperFactory().setCache(new AndroidCache(getApplicationContext()));`
- + Using a special platform which doesn't allow to create or write to files: Extend the [AbstractCache](http://codeforamerica.github.io/open311_java/apidocs/index.html) class and `factory = new APIWrapperFactory().setCache(new YourCacheImplementation());`
+ + Using a special platform which doesn't allow to create or write to files: Extend the [AbstractCache](http://codeforamerica.github.io/open311_java/apidocs/org/codeforamerica/open311/internals/caching/AbstractCache.html) class and `factory = new APIWrapperFactory().setCache(new YourCacheImplementation());`
 
 ## SSL certificates
 Some of the endpoints could have SSL certificates which signature won't be recognize by Java. We are working to make them valid in Android, but there is already a solution if you are using just Java:
