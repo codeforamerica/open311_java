@@ -153,4 +153,24 @@ public interface Cache {
 	 */
 	public void deleteCache();
 
+	/**
+	 * Set a custom time to live to a given operation.
+	 * 
+	 * @param operation
+	 *            Operation which time to live will be changed.
+	 * @param timeToLiveInHours
+	 *            New time to live (in hours).
+	 */
+	public void setCustomTimeToLive(CacheableOperation operation,
+			int timeToLiveInHours);
+
+	/**
+	 * Set of operations which will be cached.
+	 * 
+	 * @author Santiago Munín <santimunin@gmail.com>
+	 * 
+	 */
+	public static enum CacheableOperation {
+		GET_SERVICE_DISCOVERY, GET_SERVICE_LIST, GET_SERVICE_DEFINITION, GET_SERVICE_REQUEST_LIST, GET_SINGLE_SERVICE_REQUEST, GET_CITIES_SERVICE_DISCOVERY_URLS;
+	}
 }

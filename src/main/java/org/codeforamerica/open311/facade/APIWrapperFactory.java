@@ -84,6 +84,20 @@ public class APIWrapperFactory {
 	}
 
 	/**
+	 * Builds an instance from the endpoint url and the data interchange format.
+	 * 
+	 * @param endpointUrl
+	 *            Url of the endpoint.
+	 * @param format
+	 *            Data format. It is your responsibility to check if the given
+	 *            format is allowed.
+	 */
+	public APIWrapperFactory(String endpointUrl, Format format) {
+		this(endpointUrl);
+		this.format = format;
+	}
+
+	/**
 	 * Builds an instance from the endpoint url and the jurisdiction_id.
 	 * 
 	 * @param endpointUrl
@@ -91,7 +105,8 @@ public class APIWrapperFactory {
 	 * @param jurisdictionId
 	 *            Desired jurisdiction_id (can be <code>null</code>).
 	 * @param format
-	 *            Data format.
+	 *            Data format. It is your responsibility to check if the given
+	 *            format is allowed.
 	 */
 	public APIWrapperFactory(String endpointUrl, String jurisdictionId,
 			Format format) {

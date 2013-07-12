@@ -87,4 +87,9 @@ public class NoCache implements Cache {
 	public void deleteCache() {
 	}
 
+	@Override
+	public void setCustomTimeToLive(CacheableOperation operation,
+			int timeToLiveInHours) {
+	}
+
 }
