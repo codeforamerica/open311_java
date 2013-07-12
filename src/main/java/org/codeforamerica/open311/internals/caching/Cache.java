@@ -141,8 +141,8 @@ public interface Cache {
 	 * 
 	 * @param endpointUrl
 	 *            Url of the endpoint.
-	 * @param The
-	 *            service request's id.
+	 * @param serviceRequestId
+	 *            The service request's id.
 	 * @return A ServiceRequest or <code>null</code> if it wasn't cached.
 	 */
 	public ServiceRequest retrieveCachedServiceRequest(String endpointUrl,
