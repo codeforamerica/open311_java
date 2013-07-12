@@ -6,6 +6,13 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Properties;
 
+/**
+ * Basic implementation of the {@link Cache} interface. It uses a properties
+ * file to save the data.
+ * 
+ * @author Santiago Munín <santimunin@gmail.com>
+ * 
+ */
 public class RegularJavaCache extends AbstractCache {
 	private Properties properties;
 
