@@ -17,37 +17,115 @@ import org.codeforamerica.open311.internals.parsing.DataParser;
 import org.codeforamerica.open311.internals.parsing.DataParserFactory;
 
 /**
- * Builds {@link APIWrapper} instances from different aspects of the system and
- * the chosen city. To set the optional parameters, use the setter methods and,
- * then, <code>build</code>.
+ * Builds {@link APIWrapper} instances from different aspects specified by the
+ * user. To set the optional parameters, use the setter methods and, then, call
+ * {@link #build()}.
  * 
  * @author Santiago Munin <santimunin@gmail.com>
  * 
  */
 public class APIWrapperFactory {
-
-	private City city;
-	private EndpointType endpointType = EndpointType.PRODUCTION;
+	;
+	/**
+	 * Used for the first way of building the {@link APIWrapper} (
+	 * {@link #APIWrapperFactory(String, String, Format)}).
+	 * 
+	 */
+	private String endpointUrl = null;
+	/**
+	 * Used for the first way of building the {@link APIWrapper} (
+	 * {@link #APIWrapperFactory(String, String, Format)}).
+	 * 
+	 */
+	private String jurisdictionId = null;
+	/**
+	 * Used for the second way of building the {@link APIWrapper} (
+	 * {@link APIWrapperFactory#APIWrapperFactory(City, EndpointType)}).
+	 * 
+	 */
+	private City city = null;
+	/**
+	 * Used for the second way of building the {@link APIWrapper} (
+	 * {@link APIWrapperFactory#APIWrapperFactory(City, EndpointType)}).
+	 */
+	private EndpointType endpointType = null;
+	/**
+	 * Used for the second way of building the {@link APIWrapper} (
+	 * {@link APIWrapperFactory#APIWrapperFactory(City, EndpointType)}).
+	 */
+	private Format format = null;
 	private String apiKey = "";
 	private NetworkManager networkManager = new HTTPNetworkManager(Format.XML);
-	private Cache cache;
+	private Cache cache = CacheFactory.getInstance().buildCache();
 
-	public APIWrapperFactory(City city) {
-		this.city = city;
-		this.cache = CacheFactory.getInstance().buildCache();
+	/**
+	 * Builds an instance from the endpoint url.
+	 * 
+	 * @param endpointUrl
+	 *            Url of the endpoint.
+	 */
+	public APIWrapperFactory(String endpointUrl) {
+		this.endpointUrl = endpointUrl;
+		this.jurisdictionId = "";
+		this.format = Format.XML;
 	}
 
 	/**
-	 * Sets the endpoint type. <code>PRODUCTION</code> type is chosen by
-	 * default.
+	 * Builds an instance from the endpoint url and the jurisdiction_id.
 	 * 
-	 * @param endpointType
-	 *            Desired type of the endpoint.
-	 * @return The same instance with the new specified endpoint type.
+	 * @param endpointUrl
+	 *            Url of the endpoint.
+	 * @param jurisdictionId
+	 *            Desired jurisdiction_id (can be <code>null</code>).
 	 */
-	public APIWrapperFactory setEndpointType(EndpointType endpointType) {
+	public APIWrapperFactory(String endpointUrl, String jurisdictionId) {
+		this(endpointUrl);
+		this.jurisdictionId = jurisdictionId == null ? "" : jurisdictionId;
+	}
+
+	/**
+	 * Builds an instance from the endpoint url and the jurisdiction_id.
+	 * 
+	 * @param endpointUrl
+	 *            Url of the endpoint.
+	 * @param jurisdictionId
+	 *            Desired jurisdiction_id (can be <code>null</code>).
+	 * @param format
+	 *            Data format.
+	 */
+	public APIWrapperFactory(String endpointUrl, String jurisdictionId,
+			Format format) {
+		this(endpointUrl, jurisdictionId);
+		this.format = format;
+	}
+
+	/**
+	 * Builds an instance from the desired city.
+	 * 
+	 * The type of the endpoint will be {@link EndpointType#PRODUCTION}) and the
+	 * format will be {@link Format#XML}.
+	 * 
+	 * @param city
+	 *            Desired city.
+	 */
+	public APIWrapperFactory(City city) {
+		this.city = city;
+		this.endpointType = EndpointType.PRODUCTION;
+		this.format = Format.XML;
+	}
+
+	/**
+	 * Builds an instance from the desired city and endpoint type. The format
+	 * will be {@link Format#XML}.
+	 * 
+	 * @param city
+	 *            Desired city.
+	 * @param endpointType
+	 *            Desired endpoint type.
+	 */
+	public APIWrapperFactory(City city, EndpointType endpointType) {
+		this(city);
 		this.endpointType = endpointType;
-		return this;
 	}
 
 	/**
@@ -90,20 +168,49 @@ public class APIWrapperFactory {
 	}
 
 	/**
-	 * Builds an {@link APIWrapper}. <b>NOTE</b>: This operation could require
-	 * some time to be done (it involves network operations).
+	 * Builds an {@link APIWrapper}. <b>WARNING</b>: This operation could
+	 * require some time to be done (it could involve network operations).
 	 * 
-	 * @return An instance built from the given parameters to this objects.
+	 * @return An instance built from the given parameters to this object.
 	 * @throws APIWrapperException
 	 *             If there was any problem.
 	 */
 	public APIWrapper build() throws APIWrapperException {
-		return buildWrapper(city, endpointType, apiKey, networkManager);
+		if (city != null) {
+			return buildWrapperFromCity(city, endpointType, apiKey,
+					networkManager);
+		}
+		if (endpointUrl != null) {
+			return buildWrapperFromEndpointUrl(endpointUrl, jurisdictionId,
+					format);
+		}
+		return null;
 	}
 
 	/**
-	 * Builds an {@link APIWrapper}. <b>NOTE</b>: This operation could require
-	 * some time to be done (it involves network operations).
+	 * Builds an {@link APIWrapper} ignoring the {@link APIWrapperFactory#city}
+	 * and {@link APIWrapperFactory#endpointType} parameters.
+	 * 
+	 * @param endpointUrl
+	 *            Endpoint's url.
+	 * @param jurisdictionId
+	 *            Jurisdiction id of the city. <b>WARNING</b>: This operation
+	 *            does not check if the given format is allowed by the endpoint.
+	 * @param format
+	 *            Desired format to use.
+	 * @return An instance built from the given parameters to this object.
+	 */
+	private APIWrapper buildWrapperFromEndpointUrl(String endpointUrl,
+			String jurisdictionId, Format format) {
+		return new APIWrapper(endpointUrl, format, EndpointType.UNKNOWN,
+				DataParserFactory.getInstance().buildDataParser(format),
+				networkManager, cache, jurisdictionId, apiKey);
+	}
+
+	/**
+	 * Builds an {@link APIWrapper} ignoring the {@link #endpointUrl} and
+	 * {@link #jurisdictionId} parameters. <b>NOTE</b>: This operation could
+	 * require some time to be done (it involves network operations).
 	 * 
 	 * @param city
 	 *            Desired city to work with.
@@ -122,9 +229,9 @@ public class APIWrapperFactory {
 	 * @throws APIWrapperException
 	 *             If there was any problem.
 	 */
-	private APIWrapper buildWrapper(City city, EndpointType endpointType,
-			String apiKey, NetworkManager networkManager)
-			throws APIWrapperException {
+	private APIWrapper buildWrapperFromCity(City city,
+			EndpointType endpointType, String apiKey,
+			NetworkManager networkManager) throws APIWrapperException {
 		try {
 			DataParser dataParser = DataParserFactory.getInstance()
 					.buildDataParser(Format.XML);

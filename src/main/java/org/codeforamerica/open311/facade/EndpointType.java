@@ -7,7 +7,8 @@ package org.codeforamerica.open311.facade;
  * 
  */
 public enum EndpointType {
-	PRODUCTION, TEST, ACCEPTATION;
+	PRODUCTION, TEST, ACCEPTATION, UNKNOWN;
+
 	/**
 	 * Builds an instance from a string.
 	 * 

@@ -27,11 +27,19 @@ public class APIWrapperFactoryTest {
 
 	@Test
 	public void buildTest() throws APIWrapperException {
-		APIWrapper wrapper = new APIWrapperFactory(City.SAN_FRANCISCO)
-				.setEndpointType(EndpointType.TEST)
-				.setNetworkManager(new MockNetworkManager())
+		APIWrapper wrapper = new APIWrapperFactory(City.SAN_FRANCISCO,
+				EndpointType.TEST).setNetworkManager(new MockNetworkManager())
 				.build();
 		assertEquals(wrapper.getWrapperInfo(),
 				"https://open311.sfgov.org/dev/v2 - TEST");
+	}
+
+	@Test
+	public void buildFromEndpointTest() throws APIWrapperException {
+		APIWrapper wrapper = new APIWrapperFactory("https://www.endpoint.com",
+				"jurisdictionId").setNetworkManager(new MockNetworkManager())
+				.build();
+		assertEquals(wrapper.getWrapperInfo(),
+				"https://www.endpoint.com - UNKNOWN");
 	}
 }
