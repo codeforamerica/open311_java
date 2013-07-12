@@ -14,7 +14,7 @@ import org.codeforamerica.open311.facade.data.operations.GETServiceRequestsFilte
 
 /**
  * Implements all the operations of the {@link Cache} interface. Classes which
- * extend this have to implement the protected methods.
+ * extend this will have to implement the abstract methods.
  * 
  * @author Santiago Munín <santimunin@gmail.com>
  * 
