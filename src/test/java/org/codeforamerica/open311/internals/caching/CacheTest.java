@@ -1,6 +1,8 @@
 package org.codeforamerica.open311.internals.caching;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 
 import java.util.List;
 
@@ -13,13 +15,14 @@ import org.codeforamerica.open311.facade.data.ServiceRequest;
 import org.codeforamerica.open311.facade.data.operations.GETServiceRequestsFilter;
 import org.codeforamerica.open311.facade.exceptions.APIWrapperException;
 import org.codeforamerica.open311.internals.network.MockNetworkManager;
+import org.codeforamerica.open311.internals.platform.PlatformManager;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
 public class CacheTest {
-	private Cache cache = CacheFactory.getInstance().buildCache();
+	private Cache cache = PlatformManager.getInstance().buildCache();
 
 	@BeforeClass
 	public static void testInitialization() {
@@ -35,12 +38,12 @@ public class CacheTest {
 	public void cleanUp() {
 		System.out.println("Deleting the existing cache.");
 		cache.deleteCache();
-		cache = CacheFactory.getInstance().buildCache();
+		cache = PlatformManager.getInstance().buildCache();
 	}
 
 	@Test
 	public void testServiceDiscoveryCaching() throws APIWrapperException {
-		Cache cache = CacheFactory.getInstance().buildCache();
+		Cache cache = PlatformManager.getInstance().buildCache();
 		assertNull(cache.retrieveCachedServiceDiscoveryInfo(City.SAN_FRANCISCO));
 		APIWrapperFactory wrapperFactory = new APIWrapperFactory(
 				City.SAN_FRANCISCO).setCache(cache).setNetworkManager(

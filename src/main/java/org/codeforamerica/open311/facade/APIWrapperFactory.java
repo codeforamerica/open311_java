@@ -10,11 +10,11 @@ import org.codeforamerica.open311.facade.exceptions.APIWrapperException;
 import org.codeforamerica.open311.facade.exceptions.APIWrapperException.Error;
 import org.codeforamerica.open311.facade.exceptions.DataParsingException;
 import org.codeforamerica.open311.internals.caching.Cache;
-import org.codeforamerica.open311.internals.caching.CacheFactory;
 import org.codeforamerica.open311.internals.network.HTTPNetworkManager;
 import org.codeforamerica.open311.internals.network.NetworkManager;
 import org.codeforamerica.open311.internals.parsing.DataParser;
 import org.codeforamerica.open311.internals.parsing.DataParserFactory;
+import org.codeforamerica.open311.internals.platform.PlatformManager;
 
 /**
  * Builds {@link APIWrapper} instances from different aspects specified by the
@@ -56,7 +56,7 @@ public class APIWrapperFactory {
 	private Format format = null;
 	private String apiKey = "";
 	private NetworkManager networkManager = new HTTPNetworkManager(Format.XML);
-	private Cache cache = CacheFactory.getInstance().buildCache();
+	private Cache cache = PlatformManager.getInstance().buildCache();
 
 	/**
 	 * Builds an instance from the endpoint url.
