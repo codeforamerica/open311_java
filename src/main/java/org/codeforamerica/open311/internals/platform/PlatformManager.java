@@ -49,5 +49,14 @@ public class PlatformManager {
 		return androidPlatform ? new NoCache() : new RegularJavaCache();
 	}
 
+	/**
+	 * Builds a logger instance taking care of the execution environment.
+	 * 
+	 * @return {@link AndroidLogger} under Android. {@link RegularJavaLogger}
+	 *         otherwise.
+	 */
+	public Logger buildLogger() {
+		return androidPlatform ? new AndroidLogger() : new RegularJavaLogger();
+	}
 
 }
