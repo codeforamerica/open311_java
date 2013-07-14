@@ -22,7 +22,8 @@ APIWrapper wrapper = new APIWrapperFactory(City.SAN_FRANCISCO, EndpointType.TEST
 APIWrapper wrapper = new APIWrapperFactory("https://www.myendpointurl.com/").build();
 
 // From the url of the endpoint, the jurisdiction_id, and the data interchange format
-APIWrapper wrapper = new APIWrapperFactory("https://www.myendpointurl.com/", "myjurisdictionId", Format.JSON).build();
+APIWrapper wrapper = new APIWrapperFactory("https://www.myendpointurl.com/",
+  "myjurisdictionId", Format.JSON).build();
 
 // With the api key
 wrapper = new APIWrapperFactory(City.SAN_FRANCISCO).setApiKey("your api key").build();
