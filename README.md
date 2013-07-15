@@ -2,7 +2,7 @@
 
 This is a Java language binding (wrapper) to the Open311 GeoReport REST API. This library is in a early stage of its development but it is already usable. If you find any problem or miss any feature, just open an [issue](https://github.com/codeforamerica/open311_java/issues?state=open).
 
-If you are insterested about new features or the development process please check this [blog](http://santimunin.blogspot.com.es/).
+If you are insterested about new features or the development process please check this [blog](http://santimunin.blogspot.com.es/search?q=open311).
 
 ## Usage
 
