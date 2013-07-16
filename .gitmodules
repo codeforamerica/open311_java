@@ -1,0 +1,3 @@
+[submodule "servers"]
+	path = servers
+	url = https://github.com/SantiMunin/GeoReportv2-endpoints.git
