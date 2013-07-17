@@ -10,6 +10,7 @@ import org.codeforamerica.open311.facade.exceptions.APIWrapperException;
 import org.codeforamerica.open311.facade.exceptions.APIWrapperException.Error;
 import org.codeforamerica.open311.facade.exceptions.DataParsingException;
 import org.codeforamerica.open311.internals.caching.Cache;
+import org.codeforamerica.open311.internals.logging.LogManager;
 import org.codeforamerica.open311.internals.network.HTTPNetworkManager;
 import org.codeforamerica.open311.internals.network.NetworkManager;
 import org.codeforamerica.open311.internals.parsing.DataParser;
@@ -57,6 +58,10 @@ public class APIWrapperFactory {
 	private String apiKey = "";
 	private NetworkManager networkManager = new HTTPNetworkManager(Format.XML);
 	private Cache cache = PlatformManager.getInstance().buildCache();
+	/**
+	 * <code>true</code> if the built instance should be logged.
+	 */
+	private boolean log = false;
 
 	/**
 	 * Builds an instance from the endpoint url.
@@ -183,6 +188,16 @@ public class APIWrapperFactory {
 	}
 
 	/**
+	 * The built instance will be logged.
+	 * 
+	 * @return The same instance.
+	 */
+	public APIWrapperFactory withLogs() {
+		this.log = true;
+		return this;
+	}
+
+	/**
 	 * Builds an {@link APIWrapper}. <b>WARNING</b>: This operation could
 	 * require some time to be done (it could involve network operations).
 	 * 
@@ -217,9 +232,10 @@ public class APIWrapperFactory {
 	 */
 	private APIWrapper buildWrapperFromEndpointUrl(String endpointUrl,
 			String jurisdictionId, Format format) {
-		return new APIWrapper(endpointUrl, format, EndpointType.UNKNOWN,
-				DataParserFactory.getInstance().buildDataParser(format),
-				networkManager, cache, jurisdictionId, apiKey);
+		return activateLoginIfRequested(new APIWrapper(endpointUrl, format,
+				EndpointType.UNKNOWN, DataParserFactory.getInstance()
+						.buildDataParser(format), networkManager, cache,
+				jurisdictionId, apiKey));
 	}
 
 	/**
@@ -266,9 +282,10 @@ public class APIWrapperFactory {
 				dataParser = DataParserFactory.getInstance().buildDataParser(
 						format);
 			}
-			return new APIWrapper(endpoint.getUrl(), format, endpointType,
-					dataParser, networkManager, cache,
-					city.getJurisdictionId(), apiKey);
+
+			return activateLoginIfRequested(new APIWrapper(endpoint.getUrl(),
+					format, endpointType, dataParser, networkManager, cache,
+					city.getJurisdictionId(), apiKey));
 		} catch (MalformedURLException e) {
 			throw new APIWrapperException(e.getMessage(), Error.URL_BUILDER,
 					null);
@@ -279,5 +296,19 @@ public class APIWrapperFactory {
 			throw new APIWrapperException(e.getMessage(),
 					Error.NETWORK_MANAGER, null);
 		}
+	}
+
+	/**
+	 * Activates a wrapper in the {@link LogManager} if it was requested.
+	 * 
+	 * @param wrapperInstance
+	 *            Instance of the wrapper which could be logged.
+	 * @return the given instance.
+	 */
+	private APIWrapper activateLoginIfRequested(APIWrapper wrapperInstance) {
+		if (log) {
+			LogManager.getInstance().activate(wrapperInstance);
+		}
+		return wrapperInstance;
 	}
 }
