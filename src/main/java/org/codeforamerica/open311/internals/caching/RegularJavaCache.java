@@ -49,9 +49,10 @@ public class RegularJavaCache extends AbstractCache {
 
 	@Override
 	public void deleteCache() {
-		File cache = new File(FILE);
-		if (cache.exists()) {
-			cache.delete();
+		try {
+			properties.clear();
+			properties.store(new FileOutputStream(FILE), null);
+		} catch (IOException e) {
 		}
 	}
 
