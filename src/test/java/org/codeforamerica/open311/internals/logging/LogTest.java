@@ -10,6 +10,7 @@ import org.codeforamerica.open311.facade.APIWrapperFactory;
 import org.codeforamerica.open311.facade.City;
 import org.codeforamerica.open311.facade.Format;
 import org.codeforamerica.open311.facade.exceptions.APIWrapperException;
+import org.codeforamerica.open311.internals.caching.NoCache;
 import org.codeforamerica.open311.internals.network.MockNetworkManager;
 import org.codeforamerica.open311.internals.platform.PlatformManager;
 import org.junit.After;
@@ -26,12 +27,12 @@ public class LogTest {
 	@BeforeClass
 	public static void setUpWrapper() throws APIWrapperException {
 		wrapper = new APIWrapperFactory(City.SAN_FRANCISCO)
-				.setNetworkManager(new MockNetworkManager()).withLogs().build();
+				.setNetworkManager(new MockNetworkManager())
+				.setCache(new NoCache()).withLogs().build();
 	}
 
 	@Before
 	public void setUpStreams() {
-		PlatformManager.getInstance().buildCache().deleteCache();
 		outContent = new ByteArrayOutputStream();
 		errContent = new ByteArrayOutputStream();
 		System.setOut(new PrintStream(outContent));
@@ -66,6 +67,15 @@ public class LogTest {
 						+ "GET Service List is not cached, asking endpoint.\n"
 						+ LOG_HEAD
 						+ "HTTP GET https://open311.sfgov.org/v2/services.xml?jurisdiction_id=sfgov.org\n");
+	}
+
+	@Test
+	public void getServiceWithNoLoggingTest() throws APIWrapperException {
+		LogManager.getInstance().disable(wrapper);
+		wrapper.getServiceList();
+		assertEquals(outContent.toString(), "");
+		PlatformManager.getInstance().buildCache().deleteCache();
+		LogManager.getInstance().activate(wrapper);
 	}
 
 	@Test
