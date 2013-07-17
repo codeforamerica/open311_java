@@ -1,22 +1,32 @@
 package org.codeforamerica.open311.internals.logging;
 
+import java.util.HashSet;
+import java.util.Set;
+
+import org.codeforamerica.open311.facade.APIWrapper;
 import org.codeforamerica.open311.internals.platform.PlatformManager;
 
 /**
  * Manages all the login related operations.
+ * 
+ * Singleton class.
  * 
  * @author Santiago Munín <santimunin@gmail.com>
  * 
  */
 public class LogManager {
 	/**
+	 * Unique instance of the logger.
+	 */
+	private Logger logger = PlatformManager.getInstance().buildLogger();
+	/**
 	 * Unique instance of the class.
 	 */
-	private static Logger logger = PlatformManager.getInstance().buildLogger();
+	private static LogManager instance = new LogManager();
 	/**
-	 * <code>true</code> if the logging is activated.
+	 * Contains a wrapper if it has to be logged.
 	 */
-	private static boolean working;
+	private static Set<APIWrapper> loggedWrappers = new HashSet<APIWrapper>();
 
 	/**
 	 * Prevents other classes to instantiate this class.
@@ -25,41 +35,72 @@ public class LogManager {
 	}
 
 	/**
-	 * Activates the logging.
+	 * Returns the unique instance of the class.
+	 * 
+	 * @return unique instance of the class.
 	 */
-	public static void activate() {
-		working = true;
+	public static LogManager getInstance() {
+		return instance;
 	}
 
 	/**
-	 * Disables the logging.
+	 * Activates the logging for a concrete wrapper.
+	 * 
+	 * @param wrapperInstance
+	 *            Wrapper to be logged.
 	 */
-	public static void disable() {
-		working = false;
+	public void activate(APIWrapper wrapperInstance) {
+		loggedWrappers.add(wrapperInstance);
+	}
+
+	/**
+	 * Disables the logging for a concrete wrapper.
+	 * 
+	 * @param wrapperInstance
+	 *            Wrapper which logging will be disabled.
+	 */
+	public void disable(APIWrapper wrapperInstance) {
+		loggedWrappers.remove(wrapperInstance);
 	}
 
 	/**
 	 * Logs a non-critical event.
 	 * 
+	 * @param wrapper
+	 *            Origin of the message.
 	 * @param message
 	 *            Event message.
 	 */
-	public static void logInfo(String message) {
-		if (working) {
-			logger.logInfo(message);
+	public void logInfo(APIWrapper wrapper, String message) {
+		if (loggedWrappers.contains(wrapper)) {
+			logger.logInfo(buildMessage(wrapper, message));
 		}
 	}
 
 	/**
 	 * Logs any problem.
 	 * 
+	 * @param wrapper
+	 *            Origin of the message.
 	 * @param message
 	 *            Event message.
 	 */
-	public static void logError(String message) {
-		if (working) {
-			logger.logError(message);
+	public void logError(APIWrapper wrapper, String message) {
+		if (loggedWrappers.contains(wrapper)) {
+			logger.logError(buildMessage(wrapper, message));
 		}
 	}
 
+	/**
+	 * Builds a log message containing the wrapper information.
+	 * 
+	 * @param wrapper
+	 *            Origin of the message.
+	 * @param message
+	 *            Event message.
+	 * @return
+	 */
+	private static String buildMessage(APIWrapper wrapper, String message) {
+		return "(" + wrapper.getWrapperInfo() + ") --> " + message;
+	}
 }
