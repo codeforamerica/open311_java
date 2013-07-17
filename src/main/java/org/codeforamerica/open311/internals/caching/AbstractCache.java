@@ -69,10 +69,13 @@ public abstract class AbstractCache implements Cache {
 
 	@Override
 	public ServiceDiscoveryInfo retrieveCachedServiceDiscoveryInfo(City city) {
-		String rawData = getProperty(CacheableOperation.GET_SERVICE_DISCOVERY
-				+ city.toString());
-		CacheableObject deserializedObject = new CacheableObject(rawData);
-		return (ServiceDiscoveryInfo) deserializedObject.getObject();
+		if (city != null) {
+			String rawData = getProperty(CacheableOperation.GET_SERVICE_DISCOVERY
+					+ city.toString());
+			CacheableObject deserializedObject = new CacheableObject(rawData);
+			return (ServiceDiscoveryInfo) deserializedObject.getObject();
+		}
+		return null;
 	}
 
 	@Override
