@@ -5,7 +5,7 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 
 /**
- * Test of the Format enum.
+ * Test of the {@link Format} enum.
  * 
  * @author Santiago Munín <santimunin@gmail.com>
  * 
