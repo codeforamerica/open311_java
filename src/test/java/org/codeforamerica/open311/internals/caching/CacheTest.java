@@ -130,4 +130,13 @@ public class CacheTest {
 		assertNotNull(cache.retrieveCitiesInfo());
 		assertEquals(cache.retrieveCitiesInfo(), "test");
 	}
+
+	@Test
+	public void testDeleteCache() {
+		cache.saveCitiesInfo("test");
+		assertNotNull(cache.retrieveCitiesInfo());
+		cache.deleteCache();
+		assertNull(cache.retrieveCitiesInfo());
+
+	}
 }
