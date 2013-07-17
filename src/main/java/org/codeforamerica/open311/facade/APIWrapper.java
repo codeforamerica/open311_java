@@ -22,6 +22,7 @@ import org.codeforamerica.open311.facade.exceptions.DataParsingException;
 import org.codeforamerica.open311.facade.exceptions.GeoReportV2Error;
 import org.codeforamerica.open311.facade.exceptions.InvalidValueError;
 import org.codeforamerica.open311.internals.caching.Cache;
+import org.codeforamerica.open311.internals.logging.LogManager;
 import org.codeforamerica.open311.internals.network.NetworkManager;
 import org.codeforamerica.open311.internals.network.URLBuilder;
 import org.codeforamerica.open311.internals.parsing.DataParser;
@@ -43,6 +44,10 @@ public class APIWrapper {
 	private NetworkManager networkManager;
 	private URLBuilder urlBuilder;
 	private Cache cache;
+	/**
+	 * Useful to log events.
+	 */
+	private LogManager logManager = LogManager.getInstance();
 
 	/**
 	 * Builds an API wrapper from its components. Note that this constructor
@@ -94,6 +99,8 @@ public class APIWrapper {
 	 *            New format.
 	 */
 	public void setFormat(Format format) {
+		logManager.logInfo(this,
+				"Changing wrapper format to " + format.toString());
 		urlBuilder = new URLBuilder(endpointUrl, jurisdictionId,
 				format.toString());
 	}
@@ -108,6 +115,7 @@ public class APIWrapper {
 	 *             If there was any problem (data parsing, I/O...).
 	 */
 	public List<Service> getServiceList() throws APIWrapperException {
+		logManager.logInfo(this, "GET Service List");
 		List<Service> result = cache
 				.retrieveCachedServiceList(this.endpointUrl);
 		if (result == null) {
@@ -126,6 +134,8 @@ public class APIWrapper {
 	 */
 	private List<Service> askEndpointForTheServiceList()
 			throws APIWrapperException {
+		logManager.logInfo(this,
+				"GET Service List is not cached, asking endpoint.");
 		String rawServiceListData = "";
 		try {
 			URL serviceListUrl = urlBuilder.buildGetServiceListUrl();
@@ -153,6 +163,8 @@ public class APIWrapper {
 	 */
 	public ServiceDefinition getServiceDefinition(String serviceCode)
 			throws APIWrapperException {
+		logManager.logInfo(this, "GET Service Definition (service_code: "
+				+ serviceCode + ")");
 		ServiceDefinition result = cache.retrieveCachedServiceDefinition(
 				endpointUrl, serviceCode);
 		if (result == null) {
@@ -172,6 +184,8 @@ public class APIWrapper {
 	 */
 	private ServiceDefinition askEndpointForAServiceDefinition(
 			String serviceCode) throws APIWrapperException {
+		logManager.logInfo(this, "GET Service Definition (service_code: "
+				+ serviceCode + ") is not cached, asking endpoint.");
 		String rawServiceDefinitionData = "";
 		try {
 			URL serviceDefinitionUrl = urlBuilder
@@ -198,6 +212,8 @@ public class APIWrapper {
 	 */
 	public List<ServiceRequestIdResponse> getServiceRequestIdFromToken(
 			String token) throws APIWrapperException {
+		logManager.logInfo(this, "GET Service Request Id from token (token: "
+				+ token + "), asking endpoint.");
 		String rawServiceRequestId = "";
 		try {
 			URL serviceDefinitionUrl = urlBuilder
@@ -226,6 +242,7 @@ public class APIWrapper {
 	 */
 	public List<ServiceRequest> getServiceRequests(
 			GETServiceRequestsFilter operationData) throws APIWrapperException {
+		logManager.logInfo(this, "GET Service Requests");
 		operationData = operationData == null ? new GETServiceRequestsFilter()
 				: operationData;
 		List<ServiceRequest> result = cache.retrieveCachedServiceRequests(
@@ -248,6 +265,9 @@ public class APIWrapper {
 	 */
 	private List<ServiceRequest> askEndpointForServiceRequests(
 			GETServiceRequestsFilter operationData) throws APIWrapperException {
+		logManager
+				.logInfo(this,
+						"GET Service Requests with the given filter is not cached, asking endpoint.");
 		String rawServiceRequests = "";
 		try {
 			URL serviceRequestsUrl = operationData != null ? urlBuilder
@@ -276,6 +296,8 @@ public class APIWrapper {
 	 */
 	public ServiceRequest getServiceRequest(String serviceRequestId)
 			throws APIWrapperException {
+		logManager.logInfo(this, "GET Service Request (service_request_id: "
+				+ serviceRequestId + ")");
 		ServiceRequest result = cache.retrieveCachedServiceRequest(endpointUrl,
 				serviceRequestId);
 		if (result == null) {
@@ -297,6 +319,8 @@ public class APIWrapper {
 	 */
 	private ServiceRequest askEndpointForAServiceRequest(String serviceRequestId)
 			throws APIWrapperException {
+		logManager.logInfo(this, "GET Service Request (service_request_id: "
+				+ serviceRequestId + ") is not cached, asking endpoint.");
 		String rawServiceRequests = "";
 		try {
 			URL serviceRequestsUrl = urlBuilder
@@ -324,6 +348,7 @@ public class APIWrapper {
 	 */
 	public List<POSTServiceRequestResponse> postServiceRequest(
 			POSTServiceRequestData operationData) throws APIWrapperException {
+		logManager.logInfo(this, "POST Service Request");
 		if (operationData == null) {
 			throw new InvalidValueError("The given parameter is null");
 		}
@@ -407,6 +432,7 @@ public class APIWrapper {
 	 *             <code>rawData</code> the exact {@link Error}.
 	 */
 	private void tryToParseError(String rawData) throws APIWrapperException {
+		logManager.logError(this, "There was an error, trying to parse it");
 		try {
 			List<GeoReportV2Error> errors = dataParser
 					.parseGeoReportV2Errors(rawData);
@@ -428,9 +454,11 @@ public class APIWrapper {
 	 *             If there was any problem with the request.
 	 */
 	private String networkGet(URL url) throws APIWrapperException {
+		logManager.logInfo(this, "HTTP GET " + url.toString());
 		try {
 			return networkManager.doGet(url);
 		} catch (IOException e) {
+			logManager.logError(this, "HTTP GET error: " + e.getMessage());
 			throw new APIWrapperException(e.getMessage(),
 					Error.NETWORK_MANAGER, null);
 		}
@@ -448,9 +476,11 @@ public class APIWrapper {
 	 *             If there was any problem with the request.
 	 */
 	private String networkPost(URL url, String body) throws APIWrapperException {
+		logManager.logInfo(this, "HTTP POST " + url.toString());
 		try {
 			return networkManager.doPost(url, body);
 		} catch (IOException e) {
+			logManager.logError(this, "HTTP POST error: " + e.getMessage());
 			throw new APIWrapperException(e.getMessage(),
 					Error.NETWORK_MANAGER, null);
 		}
