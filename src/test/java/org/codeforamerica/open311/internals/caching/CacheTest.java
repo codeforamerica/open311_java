@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 
+import java.util.LinkedList;
 import java.util.List;
 
 import org.codeforamerica.open311.facade.APIWrapper;
@@ -43,7 +44,6 @@ public class CacheTest {
 
 	@Test
 	public void testServiceDiscoveryCaching() throws APIWrapperException {
-		Cache cache = PlatformManager.getInstance().buildCache();
 		assertNull(cache.retrieveCachedServiceDiscoveryInfo(City.SAN_FRANCISCO));
 		APIWrapperFactory wrapperFactory = new APIWrapperFactory(
 				City.SAN_FRANCISCO).setCache(cache).setNetworkManager(
@@ -51,7 +51,6 @@ public class CacheTest {
 		wrapperFactory.build();
 		assertNotNull(cache
 				.retrieveCachedServiceDiscoveryInfo(City.SAN_FRANCISCO));
-		cache.deleteCache();
 	}
 
 	@Test
@@ -137,6 +136,25 @@ public class CacheTest {
 		assertNotNull(cache.retrieveCitiesInfo());
 		cache.deleteCache();
 		assertNull(cache.retrieveCitiesInfo());
+	}
 
+	@Test
+	public void testNullCaching() {
+		cache.saveCitiesInfo(null);
+		assertNull(cache.retrieveCitiesInfo());
+		cache.saveListOfServices(null, null);
+		assertNull(cache.retrieveCachedServiceList(null));
+		cache.saveListOfServices("a", null);
+		assertNull(cache.retrieveCachedServiceList("a"));
+		cache.saveListOfServices(null, new LinkedList<Service>());
+		assertNull(cache.retrieveCachedServiceList(null));
+		cache.saveServiceDefinition(null, null, null);
+		assertNull(cache.retrieveCachedServiceDefinition(null, null));
+		cache.saveServiceDiscovery(null, null);
+		assertNull(cache.retrieveCachedServiceDiscoveryInfo(null));
+		cache.saveServiceRequestList(null, null, null);
+		assertNull(cache.retrieveCachedServiceRequest(null, null));
+		cache.saveSingleServiceRequest(null, null, null);
+		assertNull(cache.retrieveCachedServiceRequest(null, null));
 	}
 }
