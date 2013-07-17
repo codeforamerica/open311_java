@@ -73,9 +73,9 @@ public class APIWrapperTest {
 
 	@Test
 	public void getServiceRequestIdFromTokenTest() throws APIWrapperException {
-		List<ServiceRequestIdResponse> ids = wrapper
+		ServiceRequestIdResponse id = wrapper
 				.getServiceRequestIdFromToken("222");
-		GlobalTests.serviceIdFromTokenTest(ids);
+		GlobalTests.serviceIdFromTokenTest(id);
 	}
 
 	@Test

@@ -107,7 +107,7 @@ public interface DataParser {
 	 * @throws DataParsingException
 	 *             If there was any problem parsing the data.
 	 */
-	public List<ServiceRequestIdResponse> parseServiceRequestIdFromAToken(
+	public ServiceRequestIdResponse parseServiceRequestIdFromAToken(
 			String rawData) throws DataParsingException;
 
 	/**

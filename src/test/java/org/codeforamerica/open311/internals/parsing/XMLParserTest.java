@@ -104,10 +104,10 @@ public class XMLParserTest {
 	@Test
 	public void serviceRequestIdFromATokenTest() throws MalformedURLException,
 			IOException, DataParsingException {
-		List<ServiceRequestIdResponse> ids = parser
+		ServiceRequestIdResponse id = parser
 				.parseServiceRequestIdFromAToken(netManager.doGet(new URL(
 						BASE_URL + "/tokens/222.xml")));
-		GlobalTests.serviceIdFromTokenTest(ids);
+		GlobalTests.serviceIdFromTokenTest(id);
 	}
 
 	/**
@@ -199,7 +199,8 @@ public class XMLParserTest {
 		assertEquals(
 				serviceDiscoveryInfo.getContact(),
 				"Please email ( content.311@sfgov.org )  or call ( 415-701-2311 ) for assistance or to report bugs");
-		assertEquals(serviceDiscoveryInfo.getChangeset(), dateParser.parseDate("2011-04-05T17:48:34Z"));
+		assertEquals(serviceDiscoveryInfo.getChangeset(),
+				dateParser.parseDate("2011-04-05T17:48:34Z"));
 		assertEquals(
 				serviceDiscoveryInfo.getKeyService(),
 				"To get an API_KEY please visit this website:  http://apps.sfgov.org/Open311API/?page_id=486");
@@ -211,7 +212,7 @@ public class XMLParserTest {
 				"http://wiki.open311.org/GeoReport_v2");
 		assertEquals(endpoint.getUrl(), "https://open311.sfgov.org/dev/v2");
 		assertEquals(endpoint.getType(), EndpointType.TEST);
-		assertEquals(endpoint.getChangeset(), dateParser
-				.parseDate("2011-04-20T17:48:34Z"));
+		assertEquals(endpoint.getChangeset(),
+				dateParser.parseDate("2011-04-20T17:48:34Z"));
 	}
 }

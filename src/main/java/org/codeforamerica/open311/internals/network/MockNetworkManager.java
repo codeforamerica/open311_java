@@ -207,9 +207,7 @@ public class MockNetworkManager implements NetworkManager {
 	private String serviceRequestIdFromATokenXML() {
 		return "<?xml version=\"1.0\" encoding=\"utf-8\"?><service_requests>"
 				+ "<request><service_request_id>638344</service_request_id>"
-				+ "<token>12345</token></request><request><service_request_id>"
-				+ "111</service_request_id><token>12345</token>"
-				+ "</request></service_requests>";
+				+ "<token>12345</token></request></service_requests>";
 	}
 
 	/**

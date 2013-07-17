@@ -59,14 +59,9 @@ public class GlobalTests {
 		assertEquals(at1.getValues().get("124"), "Chrysler");
 	}
 
-	public static void serviceIdFromTokenTest(List<ServiceRequestIdResponse> ids) {
-		assertEquals(ids.size(), 2);
-		ServiceRequestIdResponse id1 = ids.get(0);
-		ServiceRequestIdResponse id2 = ids.get(1);
-		assertEquals(id1.getToken(), "12345");
-		assertEquals(id1.getServiceRequestId(), "638344");
-		assertEquals(id2.getToken(), "12345");
-		assertEquals(id2.getServiceRequestId(), "111");
+	public static void serviceIdFromTokenTest(ServiceRequestIdResponse id) {
+		assertEquals(id.getToken(), "12345");
+		assertEquals(id.getServiceRequestId(), "638344");
 	}
 
 	public static void serviceRequestTest(ServiceRequest sr1)

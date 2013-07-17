@@ -10,12 +10,12 @@ import java.util.Map;
 
 import org.codeforamerica.open311.facade.data.Attribute;
 import org.codeforamerica.open311.facade.data.Attribute.Datatype;
-import org.codeforamerica.open311.facade.data.ServiceRequest.Status;
 import org.codeforamerica.open311.facade.data.POSTServiceRequestResponse;
 import org.codeforamerica.open311.facade.data.Service;
 import org.codeforamerica.open311.facade.data.ServiceDefinition;
 import org.codeforamerica.open311.facade.data.ServiceDiscoveryInfo;
 import org.codeforamerica.open311.facade.data.ServiceRequest;
+import org.codeforamerica.open311.facade.data.ServiceRequest.Status;
 import org.codeforamerica.open311.facade.data.ServiceRequestIdResponse;
 import org.codeforamerica.open311.facade.exceptions.DataParsingException;
 import org.codeforamerica.open311.facade.exceptions.GeoReportV2Error;
@@ -124,19 +124,18 @@ public class JSONParser extends AbstractParser {
 	}
 
 	@Override
-	public List<ServiceRequestIdResponse> parseServiceRequestIdFromAToken(
+	public ServiceRequestIdResponse parseServiceRequestIdFromAToken(
 			String rawData) throws DataParsingException {
-		List<ServiceRequestIdResponse> result = new LinkedList<ServiceRequestIdResponse>();
 		try {
 			JSONArray responsesArray = new JSONArray(rawData);
-			for (int i = 0; i < responsesArray.length(); i++) {
-				JSONObject response = responsesArray.getJSONObject(i);
-				String token = getString(response, TOKEN_TAG);
-				String serviceRequestId = getString(response,
-						SERVICE_REQUEST_ID_TAG);
-				result.add(new ServiceRequestIdResponse(serviceRequestId, token));
+			if (responsesArray.length() == 0) {
+				return null;
 			}
-			return result;
+			JSONObject response = responsesArray.getJSONObject(0);
+			String token = getString(response, TOKEN_TAG);
+			String serviceRequestId = getString(response,
+					SERVICE_REQUEST_ID_TAG);
+			return new ServiceRequestIdResponse(serviceRequestId, token);
 		} catch (Exception e) {
 			throw new DataParsingException(e.getMessage());
 		}

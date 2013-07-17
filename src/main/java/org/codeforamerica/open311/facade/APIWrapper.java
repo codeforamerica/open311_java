@@ -210,7 +210,7 @@ public class APIWrapper {
 	 * @throws APIWrapperException
 	 *             If there was any problem.
 	 */
-	public List<ServiceRequestIdResponse> getServiceRequestIdFromToken(
+	public ServiceRequestIdResponse getServiceRequestIdFromToken(
 			String token) throws APIWrapperException {
 		logManager.logInfo(this, "GET Service Request Id from token (token: "
 				+ token + "), asking endpoint.");

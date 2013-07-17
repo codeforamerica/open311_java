@@ -88,10 +88,10 @@ public class JSONParserTest {
 	@Test
 	public void serviceRequestIdFromATokenTest() throws MalformedURLException,
 			IOException, DataParsingException {
-		List<ServiceRequestIdResponse> ids = parser
+		ServiceRequestIdResponse id = parser
 				.parseServiceRequestIdFromAToken(netManager.doGet(new URL(
 						BASE_URL + "/tokens/222.json")));
-		GlobalTests.serviceIdFromTokenTest(ids);
+		GlobalTests.serviceIdFromTokenTest(id);
 	}
 
 	/**
