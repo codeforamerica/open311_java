@@ -1,8 +1,8 @@
-Open311 Java wrapper (Jreport)
+Jreport: Open311 Java wrapper
 
- This is a Java language binding (wrapper) to the Open311 GeoReport REST API. This library is in a early stage of its development but it is already usable.
+ This is a Java language binding (wrapper) to the {{{http://wiki.open311.org/GeoReport_v2}Open311 GeoReport REST API}}. This library is in a early stage of its development but it is already usable.
  
- This is not a simple wrapper of some api calls, it includes the following features:
+* Features
  
 	* Caching
 	
@@ -12,7 +12,7 @@ Open311 Java wrapper (Jreport)
  	
 	* Compatible with Android (transparently, it selects the correct components from your execution environment)
  	
-  Useful links:
+* Links
   
    	* {{{https://github.com/codeforamerica/open311_java}GitHub repository}}
    	
