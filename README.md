@@ -91,6 +91,13 @@ mvn package
 mvn assembly:assembly
 ```
 
+The `git clone --recursive` command could fail if you are using an out-of-dated version of git, in that case:
+```bash
+git clone https://github.com/codeforamerica/open311_java.git
+cd open311_java
+git sumodule update --init
+```
+
 ### Locations
 
  + `mvn cobertura:cobertura` will write its output in `target/site/cobertura/`, open the `index.html` file to check it.
