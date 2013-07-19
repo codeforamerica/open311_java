@@ -95,7 +95,7 @@ mvn assembly:assembly
 
  + `mvn cobertura:cobertura` will write its output in `target/site/cobertura/`, open the `index.html` file to check it.
  + `mvn package` will output the `target/jreport-{version}.jar` file.
- + `mvn assembly:single` will output the `target/jreport-{version}-jar-with-dependencies.jar` file.
+ + `mvn assembly:assembly` will output the `target/jreport-{version}-jar-with-dependencies.jar` file.
  
 ## Useful information
 
