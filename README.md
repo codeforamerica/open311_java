@@ -71,6 +71,9 @@ In order to compile and test this project you should have [Maven](http://maven.a
 git clone --recursive https://github.com/codeforamerica/open311_java.git
 cd open311_java
 
+# Make sure you have the last version of the submodule
+git submodule foreach git pull origin master
+
 # The following commands are independent. Execute which you need (probably the last one).
 # Compile the project (and download dependencies)
 mvn compile
