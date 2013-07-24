@@ -210,8 +210,8 @@ public class APIWrapper {
 	 * @throws APIWrapperException
 	 *             If there was any problem.
 	 */
-	public ServiceRequestIdResponse getServiceRequestIdFromToken(
-			String token) throws APIWrapperException {
+	public ServiceRequestIdResponse getServiceRequestIdFromToken(String token)
+			throws APIWrapperException {
 		logManager.logInfo(this, "GET Service Request Id from token (token: "
 				+ token + "), asking endpoint.");
 		String rawServiceRequestId = "";
@@ -326,7 +326,10 @@ public class APIWrapper {
 			URL serviceRequestsUrl = urlBuilder
 					.buildGetServiceRequest(serviceRequestId);
 			rawServiceRequests = networkGet(serviceRequestsUrl);
-			return dataParser.parseServiceRequests(rawServiceRequests).get(0);
+			List<ServiceRequest> parsedServiceRequests = dataParser
+					.parseServiceRequests(rawServiceRequests);
+			return parsedServiceRequests.size() > 0 ? parsedServiceRequests
+					.get(0) : null;
 		} catch (DataParsingException e) {
 			tryToParseError(rawServiceRequests);
 			return null;
