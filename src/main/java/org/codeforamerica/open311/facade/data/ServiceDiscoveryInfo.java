@@ -63,12 +63,17 @@ public class ServiceDiscoveryInfo implements Serializable {
 				typeFilteredEndpoints.add(endpoint);
 			}
 		}
+		Endpoint candidate = null;
 		for (Endpoint endpoint : typeFilteredEndpoints) {
+			// Some endpoints doesn't follows the specification so it does this
+			// "double check", which has been proved working.
 			if (endpoint.getSpecificationUrl() == GEO_REPORT_V2_SPECIFICATION_URL) {
-				return endpoint;
+				if (endpoint.getUrl().contains("v2")) {
+					return endpoint;
+				}
+				candidate = endpoint;
 			}
 		}
-		return typeFilteredEndpoints.size() == 0 ? null : typeFilteredEndpoints
-				.get(0);
+		return candidate;
 	}
 }
