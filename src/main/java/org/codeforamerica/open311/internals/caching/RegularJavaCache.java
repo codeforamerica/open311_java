@@ -8,15 +8,26 @@ import java.util.Properties;
 
 /**
  * Basic implementation of the {@link Cache} interface. It uses a properties
- * file to save the data.
+ * file to save the data. Singleton class.
  * 
  * @author Santiago Munín <santimunin@gmail.com>
  * 
  */
 public class RegularJavaCache extends AbstractCache {
 	private Properties properties;
+	/**
+	 * Unique instance of the class.
+	 */
+	private static RegularJavaCache instance = new RegularJavaCache();
 
-	public RegularJavaCache() {
+	/**
+	 * Returns the unique instance of the class.
+	 */
+	public static RegularJavaCache getInstance() {
+		return instance;
+	}
+
+	private RegularJavaCache() {
 		super();
 		try {
 			File cacheFile = new File(FILE);

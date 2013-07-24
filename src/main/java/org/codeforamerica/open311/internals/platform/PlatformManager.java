@@ -46,7 +46,7 @@ public class PlatformManager {
 	 *         otherwise. {@link AndroidCache} has to be built explicitly.
 	 */
 	public Cache buildCache() {
-		return androidPlatform ? new NoCache() : new RegularJavaCache();
+		return androidPlatform ? new NoCache() : RegularJavaCache.getInstance();
 	}
 
 	/**

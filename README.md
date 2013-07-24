@@ -116,7 +116,7 @@ git sumodule update --init
 This library tries to save some responses for a certain time in order to avoid expensive network operations.
  + In a regular Java application, it is activated by default.
  + If you do not want to cache anything: `factory = new APIWrapperFactory().setCache(new NoCache());`
- + Using an Android app: `factory = new APIWrapperFactory().setCache(new AndroidCache(getApplicationContext()));`
+ + Using an Android app: `factory = new APIWrapperFactory().setCache(AndroidCache.getInsance(getApplicationContext()));`
  + Using a special platform which doesn't allow to create or write to files: Extend the [AbstractCache](http://codeforamerica.github.io/open311_java/apidocs/org/codeforamerica/open311/internals/caching/AbstractCache.html) class and `factory = new APIWrapperFactory().setCache(new YourCacheImplementation());`
 
 ## SSL certificates
