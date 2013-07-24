@@ -30,9 +30,9 @@ import org.apache.http.impl.client.BasicResponseHandler;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.impl.conn.tsccm.ThreadSafeClientConnManager;
 import org.apache.http.params.BasicHttpParams;
+import org.apache.http.params.HttpConnectionParams;
 import org.apache.http.params.HttpParams;
 import org.apache.http.params.HttpProtocolParams;
-import org.apache.http.protocol.HTTP;
 import org.codeforamerica.open311.facade.Format;
 
 /**
@@ -45,6 +45,8 @@ import org.codeforamerica.open311.facade.Format;
 public class HTTPNetworkManager implements NetworkManager {
 	private HttpClient httpClient;
 	private Format format;
+	private static final int TIMEOUT = 5000;
+	private static final String BOM_CHAR = "ï»¿";
 
 	public HTTPNetworkManager(Format format) {
 		this.format = format;
@@ -57,9 +59,9 @@ public class HTTPNetworkManager implements NetworkManager {
 			HttpGet httpGet = new HttpGet(url.toURI());
 			httpGet.setHeader("Content-Type", format.getHTTPContentType());
 			httpGet.setHeader("charset", CHARSET);
-			return httpClient.execute(httpGet, new BasicResponseHandler());
+			return sanitizeOutput(httpClient.execute(httpGet,
+					new BasicResponseHandler()));
 		} catch (Exception e) {
-			e.printStackTrace();
 			throw new IOException(e.getMessage());
 		}
 	}
@@ -71,9 +73,10 @@ public class HTTPNetworkManager implements NetworkManager {
 			httpPost.setHeader("Content-Type", POST_CONTENT_TYPE);
 			httpPost.setHeader("charset", CHARSET);
 			httpPost.setEntity(new StringEntity(body));
-			return httpClient.execute(httpPost, new BasicResponseHandler());
+			return sanitizeOutput(httpClient.execute(httpPost,
+					new BasicResponseHandler()));
+
 		} catch (Exception e) {
-			e.printStackTrace();
 			throw new IOException(e);
 		}
 	}
@@ -81,6 +84,18 @@ public class HTTPNetworkManager implements NetworkManager {
 	@Override
 	public void setFormat(Format format) {
 		this.format = format;
+	}
+
+	/**
+	 * Removes the <a href="http://en.wikipedia.org/wiki/Byte_order_mark">Byte
+	 * order mark</> character.
+	 * 
+	 * @param output
+	 *            Received text from the server.
+	 * @return Sanitized output.
+	 */
+	private String sanitizeOutput(String output) {
+		return output.replace(BOM_CHAR, "");
 	}
 
 	/**
@@ -99,7 +114,8 @@ public class HTTPNetworkManager implements NetworkManager {
 
 			HttpParams params = new BasicHttpParams();
 			HttpProtocolParams.setVersion(params, HttpVersion.HTTP_1_1);
-			HttpProtocolParams.setContentCharset(params, HTTP.UTF_8);
+			HttpProtocolParams.setContentCharset(params, CHARSET);
+			HttpConnectionParams.setConnectionTimeout(params, TIMEOUT);
 
 			SchemeRegistry registry = new SchemeRegistry();
 			registry.register(new Scheme("http", PlainSocketFactory
@@ -108,7 +124,6 @@ public class HTTPNetworkManager implements NetworkManager {
 
 			ClientConnectionManager ccm = new ThreadSafeClientConnManager(
 					params, registry);
-
 			return new DefaultHttpClient(ccm, params);
 		} catch (Exception e) {
 			return new DefaultHttpClient();
