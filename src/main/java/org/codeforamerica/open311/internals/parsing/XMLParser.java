@@ -478,8 +478,12 @@ public class XMLParser extends AbstractParser {
 	 *         <code>null</code>).
 	 */
 	private int parseInt(String rawInt) {
-		return (rawInt != null && rawInt.length() > 0) ? Integer
-				.parseInt(rawInt) : 0;
+		try {
+			return (rawInt != null && rawInt.length() > 0) ? Integer
+					.parseInt(rawInt) : 0;
+		} catch (NumberFormatException e) {
+			return -1;
+		}
 	}
 
 	/**
@@ -493,8 +497,12 @@ public class XMLParser extends AbstractParser {
 	 *         <code>null</code>).
 	 */
 	private long parseLong(String rawLong) {
-		return (rawLong != null && rawLong.length() > 0) ? Long
-				.parseLong(rawLong) : 0;
+		try {
+			return (rawLong != null && rawLong.length() > 0) ? Long
+					.parseLong(rawLong) : 0;
+		} catch (NumberFormatException e) {
+			return -1;
+		}
 	}
 
 	/**
