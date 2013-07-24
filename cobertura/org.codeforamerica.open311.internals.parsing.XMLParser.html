@@ -12,7 +12,7 @@
 <div class="separator">&nbsp;</div>
 <table class="report">
 <thead><tr>  <td class="heading">Classes in this File</td>  <td class="heading"><a class="dfn" href="help.html" onclick="popupwindow('help.html'); return false;">Line Coverage</a></td>  <td class="heading"><a class="dfn" href="help.html" onclick="popupwindow('help.html'); return false;">Branch Coverage</a></td>  <td class="heading"><a class="dfn" href="help.html" onclick="popupwindow('help.html'); return false;">Complexity</a></td></tr></thead>
-  <tr><td><a href="org.codeforamerica.open311.internals.parsing.XMLParser.html">XMLParser</a></td><td><table cellpadding="0px" cellspacing="0px" class="percentgraph"><tr class="percentgraph"><td align="right" class="percentgraph" width="40">94%</td><td class="percentgraph"><div class="percentgraph"><div class="greenbar" style="width:94px"><span class="text">165/174</span></div></div></td></tr></table></td><td><table cellpadding="0px" cellspacing="0px" class="percentgraph"><tr class="percentgraph"><td align="right" class="percentgraph" width="40">65%</td><td class="percentgraph"><div class="percentgraph"><div class="greenbar" style="width:65px"><span class="text">39/60</span></div></div></td></tr></table></td><td class="value"><span class="hidden">3.6;</span>3.6</td></tr>
+  <tr><td><a href="org.codeforamerica.open311.internals.parsing.XMLParser.html">XMLParser</a></td><td><table cellpadding="0px" cellspacing="0px" class="percentgraph"><tr class="percentgraph"><td align="right" class="percentgraph" width="40">92%</td><td class="percentgraph"><div class="percentgraph"><div class="greenbar" style="width:92px"><span class="text">165/178</span></div></div></td></tr></table></td><td><table cellpadding="0px" cellspacing="0px" class="percentgraph"><tr class="percentgraph"><td align="right" class="percentgraph" width="40">65%</td><td class="percentgraph"><div class="percentgraph"><div class="greenbar" style="width:65px"><span class="text">38/58</span></div></div></td></tr></table></td><td class="value"><span class="hidden">3.75;</span>3.75</td></tr>
 
 </table>
 <div class="separator">&nbsp;</div>
@@ -472,7 +472,7 @@
 <tr>  <td class="numLineCover">&nbsp;277</td>  <td class="nbHitsCovered">&nbsp;10</td>  <td class="src"><pre class="src">&nbsp;                String rawMediaUrl = getTagContent(serviceRequestElement, MEDIA_URL_TAG)</pre></td></tr>
 <tr>  <td class="numLine">&nbsp;278</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;                                .trim();</pre></td></tr>
-<tr>  <td class="numLineCover">&nbsp;279</td>  <td class="nbHitsUncovered"><a title="Line 279: Conditional coverage 50% (1/2).">&nbsp;10</a></td>  <td class="src"><pre class="src"><span class="srcUncovered">&nbsp;<a title="Line 279: Conditional coverage 50% (1/2).">                URL mediaUrl = rawMediaUrl.length() &gt; 0 ? <span class="keyword">new</span> URL(rawMediaUrl) : <span class="keyword">null</span>;</a></span></pre></td></tr>
+<tr>  <td class="numLineCover">&nbsp;279</td>  <td class="nbHitsCovered">&nbsp;10</td>  <td class="src"><pre class="src">&nbsp;                URL mediaUrl = buildUrl(rawMediaUrl);</pre></td></tr>
 <tr>  <td class="numLineCover">&nbsp;280</td>  <td class="nbHitsCovered">&nbsp;10</td>  <td class="src"><pre class="src">&nbsp;                <span class="keyword">return</span> <span class="keyword">new</span> ServiceRequest(serviceRequestId, status, statusNotes,</pre></td></tr>
 <tr>  <td class="numLine">&nbsp;281</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;                                serviceName, serviceCode, description, agencyResponsible,</pre></td></tr>
@@ -806,73 +806,85 @@
   <td class="src"><pre class="src">&nbsp;<span class="comment">         */</span></pre></td></tr>
 <tr>  <td class="numLine">&nbsp;480</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;        <span class="keyword">private</span> <span class="keyword">int</span> parseInt(String rawInt) {</pre></td></tr>
-<tr>  <td class="numLineCover">&nbsp;481</td>  <td class="nbHitsUncovered"><a title="Line 481: Conditional coverage 50% (2/4) [each condition: 50%, 50%].">&nbsp;10</a></td>  <td class="src"><pre class="src"><span class="srcUncovered">&nbsp;<a title="Line 481: Conditional coverage 50% (2/4) [each condition: 50%, 50%].">                <span class="keyword">return</span> (rawInt != <span class="keyword">null</span> &amp;&amp; rawInt.length() &gt; 0) ? Integer</a></span></pre></td></tr>
-<tr>  <td class="numLine">&nbsp;482</td>  <td class="nbHits">&nbsp;</td>
-  <td class="src"><pre class="src">&nbsp;                                .parseInt(rawInt) : 0;</pre></td></tr>
+<tr>  <td class="numLine">&nbsp;481</td>  <td class="nbHits">&nbsp;</td>
+  <td class="src"><pre class="src">&nbsp;                <span class="keyword">try</span> {</pre></td></tr>
+<tr>  <td class="numLineCover">&nbsp;482</td>  <td class="nbHitsUncovered"><a title="Line 482: Conditional coverage 50% (2/4) [each condition: 50%, 50%].">&nbsp;10</a></td>  <td class="src"><pre class="src"><span class="srcUncovered">&nbsp;<a title="Line 482: Conditional coverage 50% (2/4) [each condition: 50%, 50%].">                        <span class="keyword">return</span> (rawInt != <span class="keyword">null</span> &amp;&amp; rawInt.length() &gt; 0) ? Integer</a></span></pre></td></tr>
 <tr>  <td class="numLine">&nbsp;483</td>  <td class="nbHits">&nbsp;</td>
-  <td class="src"><pre class="src">&nbsp;        }</pre></td></tr>
-<tr>  <td class="numLine">&nbsp;484</td>  <td class="nbHits">&nbsp;</td>
-  <td class="src"><pre class="src">&nbsp;</pre></td></tr>
-<tr>  <td class="numLine">&nbsp;485</td>  <td class="nbHits">&nbsp;</td>
-  <td class="src"><pre class="src">&nbsp;        <span class="comment">/**</span></pre></td></tr>
+  <td class="src"><pre class="src">&nbsp;                                        .parseInt(rawInt) : 0;</pre></td></tr>
+<tr>  <td class="numLineCover">&nbsp;484</td>  <td class="nbHitsUncovered">&nbsp;0</td>  <td class="src"><pre class="src"><span class="srcUncovered">&nbsp;                } <span class="keyword">catch</span> (NumberFormatException e) {</span></pre></td></tr>
+<tr>  <td class="numLineCover">&nbsp;485</td>  <td class="nbHitsUncovered">&nbsp;0</td>  <td class="src"><pre class="src"><span class="srcUncovered">&nbsp;                        <span class="keyword">return</span> -1;</span></pre></td></tr>
 <tr>  <td class="numLine">&nbsp;486</td>  <td class="nbHits">&nbsp;</td>
-  <td class="src"><pre class="src">&nbsp;<span class="comment">         * Parses a string and returns a long. &lt;b&gt;NOTE&lt;b&gt;: Be careful and notice</span></pre></td></tr>
+  <td class="src"><pre class="src">&nbsp;                }</pre></td></tr>
 <tr>  <td class="numLine">&nbsp;487</td>  <td class="nbHits">&nbsp;</td>
-  <td class="src"><pre class="src">&nbsp;<span class="comment">         * that this function will return a &lt;code&gt;0&lt;/code&gt; if the given string is</span></pre></td></tr>
+  <td class="src"><pre class="src">&nbsp;        }</pre></td></tr>
 <tr>  <td class="numLine">&nbsp;488</td>  <td class="nbHits">&nbsp;</td>
-  <td class="src"><pre class="src">&nbsp;<span class="comment">         * not valid. This approach works well here, but not generally.</span></pre></td></tr>
-<tr>  <td class="numLine">&nbsp;489</td>  <td class="nbHits">&nbsp;</td>
-  <td class="src"><pre class="src">&nbsp;<span class="comment">         * </span></pre></td></tr>
-<tr>  <td class="numLine">&nbsp;490</td>  <td class="nbHits">&nbsp;</td>
-  <td class="src"><pre class="src">&nbsp;<span class="comment">         * @param rawLong</span></pre></td></tr>
-<tr>  <td class="numLine">&nbsp;491</td>  <td class="nbHits">&nbsp;</td>
-  <td class="src"><pre class="src">&nbsp;<span class="comment">         *            A string which represents a long number.</span></pre></td></tr>
-<tr>  <td class="numLine">&nbsp;492</td>  <td class="nbHits">&nbsp;</td>
-  <td class="src"><pre class="src">&nbsp;<span class="comment">         * @return The long value (or &lt;code&gt;0&lt;/code&gt; if the rawLong is empty or</span></pre></td></tr>
-<tr>  <td class="numLine">&nbsp;493</td>  <td class="nbHits">&nbsp;</td>
-  <td class="src"><pre class="src">&nbsp;<span class="comment">         *         &lt;code&gt;null&lt;/code&gt;).</span></pre></td></tr>
-<tr>  <td class="numLine">&nbsp;494</td>  <td class="nbHits">&nbsp;</td>
-  <td class="src"><pre class="src">&nbsp;<span class="comment">         */</span></pre></td></tr>
-<tr>  <td class="numLine">&nbsp;495</td>  <td class="nbHits">&nbsp;</td>
-  <td class="src"><pre class="src">&nbsp;        <span class="keyword">private</span> <span class="keyword">long</span> parseLong(String rawLong) {</pre></td></tr>
-<tr>  <td class="numLineCover">&nbsp;496</td>  <td class="nbHitsUncovered"><a title="Line 496: Conditional coverage 50% (2/4) [each condition: 50%, 50%].">&nbsp;10</a></td>  <td class="src"><pre class="src"><span class="srcUncovered">&nbsp;<a title="Line 496: Conditional coverage 50% (2/4) [each condition: 50%, 50%].">                <span class="keyword">return</span> (rawLong != <span class="keyword">null</span> &amp;&amp; rawLong.length() &gt; 0) ? Long</a></span></pre></td></tr>
-<tr>  <td class="numLine">&nbsp;497</td>  <td class="nbHits">&nbsp;</td>
-  <td class="src"><pre class="src">&nbsp;                                .parseLong(rawLong) : 0;</pre></td></tr>
-<tr>  <td class="numLine">&nbsp;498</td>  <td class="nbHits">&nbsp;</td>
-  <td class="src"><pre class="src">&nbsp;        }</pre></td></tr>
-<tr>  <td class="numLine">&nbsp;499</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;</pre></td></tr>
-<tr>  <td class="numLine">&nbsp;500</td>  <td class="nbHits">&nbsp;</td>
+<tr>  <td class="numLine">&nbsp;489</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;        <span class="comment">/**</span></pre></td></tr>
-<tr>  <td class="numLine">&nbsp;501</td>  <td class="nbHits">&nbsp;</td>
-  <td class="src"><pre class="src">&nbsp;<span class="comment">         * Parses a string and returns a float. &lt;b&gt;NOTE&lt;b&gt;: Be careful and notice</span></pre></td></tr>
-<tr>  <td class="numLine">&nbsp;502</td>  <td class="nbHits">&nbsp;</td>
+<tr>  <td class="numLine">&nbsp;490</td>  <td class="nbHits">&nbsp;</td>
+  <td class="src"><pre class="src">&nbsp;<span class="comment">         * Parses a string and returns a long. &lt;b&gt;NOTE&lt;b&gt;: Be careful and notice</span></pre></td></tr>
+<tr>  <td class="numLine">&nbsp;491</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;<span class="comment">         * that this function will return a &lt;code&gt;0&lt;/code&gt; if the given string is</span></pre></td></tr>
-<tr>  <td class="numLine">&nbsp;503</td>  <td class="nbHits">&nbsp;</td>
+<tr>  <td class="numLine">&nbsp;492</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;<span class="comment">         * not valid. This approach works well here, but not generally.</span></pre></td></tr>
-<tr>  <td class="numLine">&nbsp;504</td>  <td class="nbHits">&nbsp;</td>
+<tr>  <td class="numLine">&nbsp;493</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;<span class="comment">         * </span></pre></td></tr>
-<tr>  <td class="numLine">&nbsp;505</td>  <td class="nbHits">&nbsp;</td>
-  <td class="src"><pre class="src">&nbsp;<span class="comment">         * @param rawFloat</span></pre></td></tr>
-<tr>  <td class="numLine">&nbsp;506</td>  <td class="nbHits">&nbsp;</td>
-  <td class="src"><pre class="src">&nbsp;<span class="comment">         *            A string which represents a float number.</span></pre></td></tr>
-<tr>  <td class="numLine">&nbsp;507</td>  <td class="nbHits">&nbsp;</td>
-  <td class="src"><pre class="src">&nbsp;<span class="comment">         * @return The float value (or &lt;code&gt;0&lt;/code&gt; if the rawInt is empty or</span></pre></td></tr>
-<tr>  <td class="numLine">&nbsp;508</td>  <td class="nbHits">&nbsp;</td>
+<tr>  <td class="numLine">&nbsp;494</td>  <td class="nbHits">&nbsp;</td>
+  <td class="src"><pre class="src">&nbsp;<span class="comment">         * @param rawLong</span></pre></td></tr>
+<tr>  <td class="numLine">&nbsp;495</td>  <td class="nbHits">&nbsp;</td>
+  <td class="src"><pre class="src">&nbsp;<span class="comment">         *            A string which represents a long number.</span></pre></td></tr>
+<tr>  <td class="numLine">&nbsp;496</td>  <td class="nbHits">&nbsp;</td>
+  <td class="src"><pre class="src">&nbsp;<span class="comment">         * @return The long value (or &lt;code&gt;0&lt;/code&gt; if the rawLong is empty or</span></pre></td></tr>
+<tr>  <td class="numLine">&nbsp;497</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;<span class="comment">         *         &lt;code&gt;null&lt;/code&gt;).</span></pre></td></tr>
-<tr>  <td class="numLine">&nbsp;509</td>  <td class="nbHits">&nbsp;</td>
+<tr>  <td class="numLine">&nbsp;498</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;<span class="comment">         */</span></pre></td></tr>
-<tr>  <td class="numLine">&nbsp;510</td>  <td class="nbHits">&nbsp;</td>
-  <td class="src"><pre class="src">&nbsp;        <span class="keyword">private</span> <span class="keyword">float</span> parseFloat(String rawFloat) {</pre></td></tr>
-<tr>  <td class="numLineCover">&nbsp;511</td>  <td class="nbHitsUncovered"><a title="Line 511: Conditional coverage 50% (2/4) [each condition: 50%, 50%].">&nbsp;20</a></td>  <td class="src"><pre class="src"><span class="srcUncovered">&nbsp;<a title="Line 511: Conditional coverage 50% (2/4) [each condition: 50%, 50%].">                <span class="keyword">return</span> (rawFloat != <span class="keyword">null</span> &amp;&amp; rawFloat.length() &gt; 0) ? Float</a></span></pre></td></tr>
-<tr>  <td class="numLine">&nbsp;512</td>  <td class="nbHits">&nbsp;</td>
-  <td class="src"><pre class="src">&nbsp;                                .parseFloat(rawFloat) : 0;</pre></td></tr>
-<tr>  <td class="numLine">&nbsp;513</td>  <td class="nbHits">&nbsp;</td>
+<tr>  <td class="numLine">&nbsp;499</td>  <td class="nbHits">&nbsp;</td>
+  <td class="src"><pre class="src">&nbsp;        <span class="keyword">private</span> <span class="keyword">long</span> parseLong(String rawLong) {</pre></td></tr>
+<tr>  <td class="numLine">&nbsp;500</td>  <td class="nbHits">&nbsp;</td>
+  <td class="src"><pre class="src">&nbsp;                <span class="keyword">try</span> {</pre></td></tr>
+<tr>  <td class="numLineCover">&nbsp;501</td>  <td class="nbHitsUncovered"><a title="Line 501: Conditional coverage 50% (2/4) [each condition: 50%, 50%].">&nbsp;10</a></td>  <td class="src"><pre class="src"><span class="srcUncovered">&nbsp;<a title="Line 501: Conditional coverage 50% (2/4) [each condition: 50%, 50%].">                        <span class="keyword">return</span> (rawLong != <span class="keyword">null</span> &amp;&amp; rawLong.length() &gt; 0) ? Long</a></span></pre></td></tr>
+<tr>  <td class="numLine">&nbsp;502</td>  <td class="nbHits">&nbsp;</td>
+  <td class="src"><pre class="src">&nbsp;                                        .parseLong(rawLong) : 0;</pre></td></tr>
+<tr>  <td class="numLineCover">&nbsp;503</td>  <td class="nbHitsUncovered">&nbsp;0</td>  <td class="src"><pre class="src"><span class="srcUncovered">&nbsp;                } <span class="keyword">catch</span> (NumberFormatException e) {</span></pre></td></tr>
+<tr>  <td class="numLineCover">&nbsp;504</td>  <td class="nbHitsUncovered">&nbsp;0</td>  <td class="src"><pre class="src"><span class="srcUncovered">&nbsp;                        <span class="keyword">return</span> -1;</span></pre></td></tr>
+<tr>  <td class="numLine">&nbsp;505</td>  <td class="nbHits">&nbsp;</td>
+  <td class="src"><pre class="src">&nbsp;                }</pre></td></tr>
+<tr>  <td class="numLine">&nbsp;506</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;        }</pre></td></tr>
+<tr>  <td class="numLine">&nbsp;507</td>  <td class="nbHits">&nbsp;</td>
+  <td class="src"><pre class="src">&nbsp;</pre></td></tr>
+<tr>  <td class="numLine">&nbsp;508</td>  <td class="nbHits">&nbsp;</td>
+  <td class="src"><pre class="src">&nbsp;        <span class="comment">/**</span></pre></td></tr>
+<tr>  <td class="numLine">&nbsp;509</td>  <td class="nbHits">&nbsp;</td>
+  <td class="src"><pre class="src">&nbsp;<span class="comment">         * Parses a string and returns a float. &lt;b&gt;NOTE&lt;b&gt;: Be careful and notice</span></pre></td></tr>
+<tr>  <td class="numLine">&nbsp;510</td>  <td class="nbHits">&nbsp;</td>
+  <td class="src"><pre class="src">&nbsp;<span class="comment">         * that this function will return a &lt;code&gt;0&lt;/code&gt; if the given string is</span></pre></td></tr>
+<tr>  <td class="numLine">&nbsp;511</td>  <td class="nbHits">&nbsp;</td>
+  <td class="src"><pre class="src">&nbsp;<span class="comment">         * not valid. This approach works well here, but not generally.</span></pre></td></tr>
+<tr>  <td class="numLine">&nbsp;512</td>  <td class="nbHits">&nbsp;</td>
+  <td class="src"><pre class="src">&nbsp;<span class="comment">         * </span></pre></td></tr>
+<tr>  <td class="numLine">&nbsp;513</td>  <td class="nbHits">&nbsp;</td>
+  <td class="src"><pre class="src">&nbsp;<span class="comment">         * @param rawFloat</span></pre></td></tr>
 <tr>  <td class="numLine">&nbsp;514</td>  <td class="nbHits">&nbsp;</td>
+  <td class="src"><pre class="src">&nbsp;<span class="comment">         *            A string which represents a float number.</span></pre></td></tr>
+<tr>  <td class="numLine">&nbsp;515</td>  <td class="nbHits">&nbsp;</td>
+  <td class="src"><pre class="src">&nbsp;<span class="comment">         * @return The float value (or &lt;code&gt;0&lt;/code&gt; if the rawInt is empty or</span></pre></td></tr>
+<tr>  <td class="numLine">&nbsp;516</td>  <td class="nbHits">&nbsp;</td>
+  <td class="src"><pre class="src">&nbsp;<span class="comment">         *         &lt;code&gt;null&lt;/code&gt;).</span></pre></td></tr>
+<tr>  <td class="numLine">&nbsp;517</td>  <td class="nbHits">&nbsp;</td>
+  <td class="src"><pre class="src">&nbsp;<span class="comment">         */</span></pre></td></tr>
+<tr>  <td class="numLine">&nbsp;518</td>  <td class="nbHits">&nbsp;</td>
+  <td class="src"><pre class="src">&nbsp;        <span class="keyword">private</span> <span class="keyword">float</span> parseFloat(String rawFloat) {</pre></td></tr>
+<tr>  <td class="numLineCover">&nbsp;519</td>  <td class="nbHitsUncovered"><a title="Line 519: Conditional coverage 50% (2/4) [each condition: 50%, 50%].">&nbsp;20</a></td>  <td class="src"><pre class="src"><span class="srcUncovered">&nbsp;<a title="Line 519: Conditional coverage 50% (2/4) [each condition: 50%, 50%].">                <span class="keyword">return</span> (rawFloat != <span class="keyword">null</span> &amp;&amp; rawFloat.length() &gt; 0) ? Float</a></span></pre></td></tr>
+<tr>  <td class="numLine">&nbsp;520</td>  <td class="nbHits">&nbsp;</td>
+  <td class="src"><pre class="src">&nbsp;                                .parseFloat(rawFloat) : 0;</pre></td></tr>
+<tr>  <td class="numLine">&nbsp;521</td>  <td class="nbHits">&nbsp;</td>
+  <td class="src"><pre class="src">&nbsp;        }</pre></td></tr>
+<tr>  <td class="numLine">&nbsp;522</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;}</pre></td></tr>
 </table>
 
-<div class="footer">Report generated by <a href="http://cobertura.sourceforge.net/" target="_top">Cobertura</a> 1.9.4.1 on 7/24/13 11:08 AM.</div>
+<div class="footer">Report generated by <a href="http://cobertura.sourceforge.net/" target="_top">Cobertura</a> 1.9.4.1 on 7/24/13 12:26 PM.</div>
 </body>
 </html>
