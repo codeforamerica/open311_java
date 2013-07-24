@@ -276,7 +276,7 @@ public class XMLParser extends AbstractParser {
 				LONGITUDE_TAG));
 		String rawMediaUrl = getTagContent(serviceRequestElement, MEDIA_URL_TAG)
 				.trim();
-		URL mediaUrl = rawMediaUrl.length() > 0 ? new URL(rawMediaUrl) : null;
+		URL mediaUrl = buildUrl(rawMediaUrl);
 		return new ServiceRequest(serviceRequestId, status, statusNotes,
 				serviceName, serviceCode, description, agencyResponsible,
 				serviceNotice, requestedDatetime, updatedDatetime,

@@ -198,7 +198,7 @@ public class JSONParser extends AbstractParser {
 		float latitude = (float) getDouble(serviceRequest, LATITUDE_TAG);
 		float longitude = (float) getDouble(serviceRequest, LONGITUDE_TAG);
 		String rawMediaUrl = getString(serviceRequest, MEDIA_URL_TAG).trim();
-		URL mediaUrl = rawMediaUrl.length() > 0 ? new URL(rawMediaUrl) : null;
+		URL mediaUrl = buildUrl(rawMediaUrl);
 		return new ServiceRequest(serviceRequestId, status, statusNotes,
 				serviceName, serviceCode, description, agencyResponsible,
 				serviceNotice, requestedDatetime, updatedDatetime,
