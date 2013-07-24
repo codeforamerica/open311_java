@@ -183,7 +183,9 @@ public class APIWrapperFactory {
 	 * @return The same instance with the new specified {@link Cache}.
 	 */
 	public APIWrapperFactory setCache(Cache cache) {
-		this.cache = cache;
+		if (cache != null) {
+			this.cache = cache;
+		}
 		return this;
 	}
 
