@@ -146,7 +146,13 @@ public class JSONParser extends AbstractParser {
 			throws DataParsingException {
 		List<ServiceRequest> result = new LinkedList<ServiceRequest>();
 		try {
-			JSONArray serviceRequestsArray = new JSONArray(rawData);
+			JSONArray serviceRequestsArray;
+			if (rawData.contains("{\"service_requests\"")) {
+				serviceRequestsArray = new JSONObject(rawData)
+						.getJSONArray(SERVICE_REQUESTS_TAG);
+			} else {
+				serviceRequestsArray = new JSONArray(rawData);
+			}
 			for (int i = 0; i < serviceRequestsArray.length(); i++) {
 				JSONObject serviceRequest = serviceRequestsArray
 						.getJSONObject(i);

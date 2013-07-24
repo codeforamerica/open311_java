@@ -42,6 +42,7 @@ public interface DataParser {
 	public static final String KEY_TAG = "key";
 	public static final String NAME_TAG = "name";
 	public static final String SERVICE_REQUEST_TAG = "request";
+	public static final String SERVICE_REQUESTS_TAG = "service_requests";
 	public static final String TOKEN_TAG = "token";
 	public static final String SERVICE_REQUEST_ID_TAG = "service_request_id";
 	public static final String STATUS_TAG = "status";
