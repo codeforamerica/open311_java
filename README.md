@@ -119,5 +119,12 @@ This library tries to save some responses for a certain time in order to avoid e
  + Using an Android app: `factory = new APIWrapperFactory().setCache(AndroidCache.getInsance(getApplicationContext()));`
  + Using a special platform which doesn't allow to create or write to files: Extend the [AbstractCache](http://codeforamerica.github.io/open311_java/apidocs/org/codeforamerica/open311/internals/caching/AbstractCache.html) class and `factory = new APIWrapperFactory().setCache(new YourCacheImplementation());`
 
+In case you want to delete the cache:
+ + Use your wrapper's cache: `wrapper.getCache().delete()`
+ + Get your platform's cache:
+    * `RegularJavaCache.getInstance().delete()`
+    * `AndroidCache.getInstance(getApplicationContext()).delete()`
+
+Please, note that when you delete the cache you will delete **ALL** the cached data.
 ## SSL certificates
 Some of the endpoints could have SSL certificates which signature won't be recognize by Java. Up to now, the HTTP client used by this library ignores those certificate signature problems so it is your responsibility to make sure that you are providing a secure url.

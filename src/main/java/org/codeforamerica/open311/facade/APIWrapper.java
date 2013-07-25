@@ -92,6 +92,15 @@ public class APIWrapper {
 	}
 
 	/**
+	 * Returns the cache used by the wrapper.
+	 * 
+	 * @return Cache used by the wrapper, useful to delete it.
+	 */
+	public Cache getCache() {
+		return cache;
+	}
+
+	/**
 	 * Updates the format of the wrapper. A new {@link URLBuilder} will be
 	 * instantiated.
 	 * 
