@@ -16,7 +16,7 @@ jreport.iml
 .classpath
 .project
 .settings/
-.README.md.html
+.*.md.html
 
 # Default cache file
 cache.prop
