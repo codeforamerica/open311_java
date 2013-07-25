@@ -3,7 +3,6 @@ package org.codeforamerica.open311.internals.logging;
 import java.util.HashSet;
 import java.util.Set;
 
-import org.codeforamerica.open311.facade.APIWrapper;
 import org.codeforamerica.open311.internals.platform.PlatformManager;
 
 /**
@@ -26,7 +25,7 @@ public class LogManager {
 	/**
 	 * Contains a wrapper if it has to be logged.
 	 */
-	private static Set<APIWrapper> loggedWrappers = new HashSet<APIWrapper>();
+	private static Set<Object> loggedObjects = new HashSet<Object>();
 
 	/**
 	 * Prevents other classes to instantiate this class.
@@ -46,61 +45,62 @@ public class LogManager {
 	/**
 	 * Activates the logging for a concrete wrapper.
 	 * 
-	 * @param wrapperInstance
-	 *            Wrapper to be logged.
+	 * @param objectToBeLogged
+	 *            Object to be logged.
 	 */
-	public void activate(APIWrapper wrapperInstance) {
-		loggedWrappers.add(wrapperInstance);
+	public void activate(Object objectToBeLogged) {
+		loggedObjects.add(objectToBeLogged);
 	}
 
 	/**
 	 * Disables the logging for a concrete wrapper.
 	 * 
-	 * @param wrapperInstance
-	 *            Wrapper which logging will be disabled.
+	 * @param loggedObject
+	 *            Object which logging will be disabled.
 	 */
-	public void disable(APIWrapper wrapperInstance) {
-		loggedWrappers.remove(wrapperInstance);
+	public void disable(Object loggedObject) {
+		loggedObjects.remove(loggedObject);
 	}
 
 	/**
 	 * Logs a non-critical event.
 	 * 
-	 * @param wrapper
-	 *            Origin of the message.
+	 * @param messageCreator
+	 *            origin of the message.
 	 * @param message
 	 *            Event message.
 	 */
-	public void logInfo(APIWrapper wrapper, String message) {
-		if (loggedWrappers.contains(wrapper)) {
-			logger.logInfo(buildMessage(wrapper, message));
+	public void logInfo(Object messageCreator, String message) {
+		if (loggedObjects.contains(messageCreator)) {
+			logger.logInfo(buildMessage(messageCreator, message));
 		}
 	}
 
 	/**
 	 * Logs any problem.
 	 * 
-	 * @param wrapper
-	 *            Origin of the message.
+	 * @param messageCreator
+	 *            origin of the message.
 	 * @param message
 	 *            Event message.
 	 */
-	public void logError(APIWrapper wrapper, String message) {
-		if (loggedWrappers.contains(wrapper)) {
-			logger.logError(buildMessage(wrapper, message));
+	public void logError(Object messageCreator, String message) {
+		if (loggedObjects.contains(messageCreator)) {
+			logger.logError(buildMessage(messageCreator, message));
 		}
 	}
 
 	/**
 	 * Builds a log message containing the wrapper information.
 	 * 
-	 * @param wrapper
-	 *            Origin of the message.
+	 * @param messageCreator
+	 *            origin of the message.
+	 * 
 	 * @param message
 	 *            Event message.
 	 * @return
 	 */
-	private static String buildMessage(APIWrapper wrapper, String message) {
-		return "(" + wrapper.getWrapperInfo() + ") --> " + message;
+	private static String buildMessage(Object messageCreator, String message) {
+		return "(" + messageCreator + ") --> " + message;
 	}
 }

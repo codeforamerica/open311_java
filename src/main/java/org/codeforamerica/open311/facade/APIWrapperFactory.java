@@ -57,11 +57,18 @@ public class APIWrapperFactory {
 	private Format format = null;
 	private String apiKey = "";
 	private NetworkManager networkManager = new HTTPNetworkManager(Format.XML);
+	/**
+	 * Suitable cache (depends on the execution environment).
+	 */
 	private Cache cache = PlatformManager.getInstance().buildCache();
 	/**
 	 * <code>true</code> if the built instance should be logged.
 	 */
 	private boolean log = false;
+	/**
+	 * Reference to the {@link LogManager}.
+	 */
+	private LogManager logManager = LogManager.getInstance();
 
 	/**
 	 * Builds an instance from the endpoint url.
@@ -196,6 +203,7 @@ public class APIWrapperFactory {
 	 */
 	public APIWrapperFactory withLogs() {
 		this.log = true;
+		LogManager.getInstance().activate(this);
 		return this;
 	}
 
@@ -234,6 +242,10 @@ public class APIWrapperFactory {
 	 */
 	private APIWrapper buildWrapperFromEndpointUrl(String endpointUrl,
 			String jurisdictionId, Format format) {
+		logManager.logInfo(this,
+				"Building a wrapper from the given endpoint url: "
+						+ endpointUrl + ", jurisdiction_id: \""
+						+ jurisdictionId + "\", format: " + format);
 		return activateLoginIfRequested(new APIWrapper(endpointUrl, format,
 				EndpointType.UNKNOWN, DataParserFactory.getInstance()
 						.buildDataParser(format), networkManager, cache,
@@ -266,11 +278,15 @@ public class APIWrapperFactory {
 			EndpointType endpointType, String apiKey,
 			NetworkManager networkManager) throws APIWrapperException {
 		try {
+			logManager.logInfo(this, "Getting the service discovery file.");
 			DataParser dataParser = DataParserFactory.getInstance()
 					.buildDataParser(Format.XML);
 			ServiceDiscoveryInfo serviceDiscoveryInfo = cache
 					.retrieveCachedServiceDiscoveryInfo(city);
 			if (serviceDiscoveryInfo == null) {
+				logManager
+						.logInfo(this,
+								"Service discovery file was not cached, downloading it.");
 				serviceDiscoveryInfo = dataParser
 						.parseServiceDiscovery(networkManager.doGet(new URL(
 								city.getDiscoveryUrl())));
@@ -278,8 +294,21 @@ public class APIWrapperFactory {
 			}
 			Endpoint endpoint = serviceDiscoveryInfo
 					.getMoreSuitableEndpoint(endpointType);
+			if (endpoint == null) {
+				logManager.logError(this, "No suitable endpoint was found.");
+				throw new APIWrapperException(
+						"No suitable endpoint was found.",
+						Error.NOT_SUITABLE_ENDPOINT_FOUND, null);
+			}
+			logManager.logInfo(this, "Selected the more suitable endpoint.");
 			Format format = endpoint.getBestFormat();
 			if (format != Format.XML) {
+				logManager
+						.logInfo(
+								this,
+								"The selected endpoint allows to use the "
+										+ format
+										+ " format which is a best option, selecting it.");
 				networkManager.setFormat(format);
 				dataParser = DataParserFactory.getInstance().buildDataParser(
 						format);
@@ -289,12 +318,17 @@ public class APIWrapperFactory {
 					format, endpointType, dataParser, networkManager, cache,
 					city.getJurisdictionId(), apiKey));
 		} catch (MalformedURLException e) {
+			logManager.logError(this, "Problem building the url");
 			throw new APIWrapperException(e.getMessage(), Error.URL_BUILDER,
 					null);
 		} catch (DataParsingException e) {
+			logManager.logError(this,
+					"Problem parsing reveived data: " + e.getMessage());
 			throw new APIWrapperException(e.getMessage(), Error.DATA_PARSING,
 					null);
 		} catch (IOException e) {
+			logManager.logError(this,
+					"Problem with the network request: " + e.getMessage());
 			throw new APIWrapperException(e.getMessage(),
 					Error.NETWORK_MANAGER, null);
 		}
@@ -312,5 +346,16 @@ public class APIWrapperFactory {
 			LogManager.getInstance().activate(wrapperInstance);
 		}
 		return wrapperInstance;
+	}
+
+	public String toString() {
+		StringBuilder builder = new StringBuilder("APIWrapperFactory");
+		if (city != null) {
+			builder.append(" - building from a City object");
+		}
+		if (endpointUrl != null) {
+			builder.append(" - building from an endpoint url");
+		}
+		return builder.toString();
 	}
 }

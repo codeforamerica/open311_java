@@ -47,7 +47,8 @@ public class APIWrapperException extends Exception {
 		DATA_PARSING("Problem while parsing text data."), NETWORK_MANAGER(
 				"Network problem."), URL_BUILDER(
 				"Problem while building a valid URL."), GEO_REPORT_V2(
-				"GeoReport v2 problem.");
+				"GeoReport v2 problem."), NOT_SUITABLE_ENDPOINT_FOUND(
+				"Problem finding a suitable endpoint.");
 		private String description;
 
 		private Error(String description) {
