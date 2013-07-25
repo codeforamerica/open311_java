@@ -383,7 +383,8 @@ public class XMLParser extends AbstractParser {
 					return new ServiceDiscoveryInfo(changeset, contact,
 							keyService,
 							parseEndpoints(serviceDiscoveryElement
-									.getElementsByTagName(ENDPOINT_TAG)));
+									.getElementsByTagName(ENDPOINT_TAG),
+									serviceDiscoveryElement));
 				}
 			}
 		} catch (Exception e) {
@@ -397,9 +398,14 @@ public class XMLParser extends AbstractParser {
 	 * 
 	 * @param endpointsList
 	 *            List of nodes with the "endpoint" tag.
+	 * @param serviceDiscoveryElement
+	 *            In some service discovery files, the specification url is not
+	 *            inside the endpoint field but in the same level. This
+	 *            parameter allows to fetch it in that case.
 	 * @return List of endpoints.
 	 */
-	private List<Endpoint> parseEndpoints(NodeList endpointsList) {
+	private List<Endpoint> parseEndpoints(NodeList endpointsList,
+			Element serviceDiscoveryElement) {
 		List<Endpoint> result = new LinkedList<Endpoint>();
 		for (int i = 0; i < endpointsList.getLength(); i++) {
 			Node endpointNode = endpointsList.item(i);
@@ -407,6 +413,10 @@ public class XMLParser extends AbstractParser {
 				Element endpointElement = (Element) endpointNode;
 				String specificationUrl = getTagContent(endpointElement,
 						SPECIFICATION_TAG);
+				if (specificationUrl.length() == 0) {
+					specificationUrl = getTagContent(serviceDiscoveryElement,
+							SPECIFICATION_TAG);
+				}
 				String url = getTagContent(endpointElement, URL_TAG);
 				Date changeset = dateParser.parseDate(getTagContent(
 						endpointElement, CHANGESET_TAG));
