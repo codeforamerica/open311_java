@@ -503,4 +503,8 @@ public class APIWrapper {
 					Error.NETWORK_MANAGER, null);
 		}
 	}
+
+	public String toString() {
+		return this.getWrapperInfo();
+	}
 }
