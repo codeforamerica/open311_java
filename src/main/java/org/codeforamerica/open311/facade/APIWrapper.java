@@ -435,7 +435,11 @@ public class APIWrapper {
 	 *             <code>rawData</code> the exact {@link Error}.
 	 */
 	private void tryToParseError(String rawData) throws APIWrapperException {
-		logManager.logError(this, "There was an error, trying to parse it");
+		logManager.logError(
+				this,
+				"There was an error, trying to parse it (first 50 chars of the received data: "
+						+ rawData.substring(0, rawData.length() > 50 ? 50
+								: rawData.length()) + "...)");
 		try {
 			List<GeoReportV2Error> errors = dataParser
 					.parseGeoReportV2Errors(rawData);
