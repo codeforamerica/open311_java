@@ -23,7 +23,7 @@ public class AndroidCache extends AbstractCache {
 	 * Returns the unique instance of the class.
 	 * 
 	 * @param context
-	 *            Needed the first time is called to build the
+	 *            Android context. Needed the first time is called to build the
 	 *            {@link SharedPreferences}.
 	 * @return Unique instance of the class.
 	 */
@@ -34,6 +34,13 @@ public class AndroidCache extends AbstractCache {
 		return instance;
 	}
 
+	/**
+	 * Prevents this class to be instantiate from outside itself.
+	 * 
+	 * @param context
+	 *            Android context. Needed the first time is called to build the
+	 *            {@link SharedPreferences}.
+	 */
 	private AndroidCache(Context context) {
 		preferences = context.getSharedPreferences(FILE, 0);
 	}
