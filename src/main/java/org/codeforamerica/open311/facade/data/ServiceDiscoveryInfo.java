@@ -65,7 +65,7 @@ public class ServiceDiscoveryInfo implements Serializable {
 		}
 		Endpoint candidate = null;
 		for (Endpoint endpoint : typeFilteredEndpoints) {
-			// Some endpoints doesn't follows the specification so it does this
+			// Some endpoints don't follows the specification so it does this
 			// "double check", which has been proved working.
 			if (endpoint.getSpecificationUrl().equals(GEO_REPORT_V2_SPECIFICATION_URL)) {
 				if (endpoint.getUrl().contains("v2")) {
