@@ -57,8 +57,11 @@ public class JSONParser extends AbstractParser {
 	 * @return An object with its state given by the JSONObject
 	 * @throws JSONException
 	 *             If the given service isn't correct.
+	 * @throws DataParsingException
+	 *             If the received parameters are not valid.
 	 */
-	private Service getService(JSONObject service) throws JSONException {
+	private Service getService(JSONObject service) throws JSONException,
+			DataParsingException {
 		String code = getString(service, SERVICE_CODE_TAG);
 		String name = getString(service, SERVICE_NAME_TAG);
 		String description = getString(service, DESCRIPTION_TAG);
@@ -67,6 +70,7 @@ public class JSONParser extends AbstractParser {
 		String[] keywords = getKeywords(getString(service, KEYWORDS_TAG));
 		Service.Type type = Service.Type.getFromString(getString(service,
 				TYPE_TAG));
+		checkParameters(code);
 		return new Service(code, name, description, metadata, type, keywords,
 				group);
 	}
@@ -94,9 +98,10 @@ public class JSONParser extends AbstractParser {
 	 * @return List of attributes.
 	 * @throws JSONException
 	 *             If the given object is not correct.
+	 * @throws DataParsingException If the code parameter is missing.
 	 */
 	private List<AttributeInfo> parseAttributeList(JSONArray attributesArray)
-			throws JSONException {
+			throws JSONException, DataParsingException {
 		List<AttributeInfo> attributes = new LinkedList<AttributeInfo>();
 		for (int i = 0; i < attributesArray.length(); i++) {
 			JSONObject attribute = attributesArray.getJSONObject(i);
@@ -117,8 +122,9 @@ public class JSONParser extends AbstractParser {
 				String name = getString(valueObject, NAME_TAG);
 				values.put(key, name);
 			}
-			attributes.add(new AttributeInfo(variable, code, datatype, required,
-					datatypeDescription, order, description, values));
+			checkParameters(code);
+			attributes.add(new AttributeInfo(variable, code, datatype,
+					required, datatypeDescription, order, description, values));
 		}
 		return attributes;
 	}
@@ -135,6 +141,7 @@ public class JSONParser extends AbstractParser {
 			String token = getString(response, TOKEN_TAG);
 			String serviceRequestId = getString(response,
 					SERVICE_REQUEST_ID_TAG);
+			checkParameters(token, serviceRequestId);
 			return new ServiceRequestIdResponse(serviceRequestId, token);
 		} catch (Exception e) {
 			throw new DataParsingException(e.getMessage());
@@ -172,9 +179,10 @@ public class JSONParser extends AbstractParser {
 	 * @return A service request object.
 	 * @throws MalformedURLException
 	 *             If the media URL isn't correct.
+	 * @throws DataParsingException If the received parameters are not valid.
 	 */
 	private ServiceRequest parseServiceRequest(JSONObject serviceRequest)
-			throws MalformedURLException {
+			throws MalformedURLException, DataParsingException {
 		String serviceRequestId = getString(serviceRequest,
 				SERVICE_REQUEST_ID_TAG);
 		Status status = Status.getFromString(getString(serviceRequest,
@@ -199,6 +207,7 @@ public class JSONParser extends AbstractParser {
 		float longitude = (float) getDouble(serviceRequest, LONGITUDE_TAG);
 		String rawMediaUrl = getString(serviceRequest, MEDIA_URL_TAG).trim();
 		URL mediaUrl = buildUrl(rawMediaUrl);
+		checkParameters(serviceCode);
 		return new ServiceRequest(serviceRequestId, status, statusNotes,
 				serviceName, serviceCode, description, agencyResponsible,
 				serviceNotice, requestedDatetime, updatedDatetime,
@@ -224,9 +233,7 @@ public class JSONParser extends AbstractParser {
 						SERVICE_NOTICE_TAG);
 				String accountId = getString(postServiceRequestResponse,
 						ACCOUNT_ID_TAG);
-				if (serviceRequestId.length() == 0 && token.length() == 0) {
-					throw new JSONException("service_request_id or token field were not found");
-				}
+				checkParameters(serviceRequestId, token);
 				result.add(new POSTServiceRequestResponse(serviceRequestId,
 						token, serviceNotice, accountId));
 			}
@@ -246,6 +253,7 @@ public class JSONParser extends AbstractParser {
 				JSONObject errorObject = errorsArray.getJSONObject(i);
 				String code = getString(errorObject, CODE_TAG);
 				String description = getString(errorObject, DESCRIPTION_TAG);
+				checkParameters(code, description);
 				errors.add(new GeoReportV2Error(code, description));
 			}
 			return errors;

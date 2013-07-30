@@ -2,6 +2,8 @@ package org.codeforamerica.open311.internals.parsing;
 
 import java.net.URL;
 
+import org.codeforamerica.open311.facade.exceptions.DataParsingException;
+
 /**
  * Contains common methods of the different {@link DataParser} implementations.
  * 
@@ -37,6 +39,38 @@ public abstract class AbstractParser implements DataParser {
 			return new URL(url);
 		} catch (Exception e) {
 			return null;
+		}
+	}
+
+	/**
+	 * Check if all the given strings are empty.
+	 * 
+	 * @param strings
+	 *            List of strings.
+	 * @return <code>true</code> is all are empty.
+	 */
+	protected boolean allStringsAreEmpty(String... strings) {
+		for (int i = 0; i < strings.length; i++) {
+			if (strings[i] != null && strings[i].length() > 0) {
+				return false;
+			}
+		}
+		return true;
+	}
+
+	/**
+	 * Checks if any parameter is valid.
+	 * 
+	 * @param strings
+	 *            List of parameters.
+	 * @throws DataParsingException
+	 *             If all parameters are missing.
+	 */
+	protected void checkParameters(String... strings)
+			throws DataParsingException {
+		if (allStringsAreEmpty(strings)) {
+			throw new DataParsingException(
+					"Invalid data, required fields wasn't received.");
 		}
 	}
 }
