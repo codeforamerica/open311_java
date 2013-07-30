@@ -427,11 +427,8 @@ public class APIWrapper {
 	 *             <code>rawData</code> the exact {@link Error}.
 	 */
 	private void tryToParseError(String rawData) throws APIWrapperException {
-		logManager.logError(
-				this,
-				"There was an error, trying to parse it (first 50 chars of the received data: "
-						+ rawData.substring(0, rawData.length() > 50 ? 50
-								: rawData.length()) + "...)");
+		logManager.logError(this,
+				"There was an error, trying checking if it was an API error");
 		try {
 			List<GeoReportV2Error> errors = dataParser
 					.parseGeoReportV2Errors(rawData);
@@ -457,7 +454,13 @@ public class APIWrapper {
 	private String networkGet(URL url) throws APIWrapperException {
 		logManager.logInfo(this, "HTTP GET " + url.toString());
 		try {
-			return networkManager.doGet(url);
+			String response = networkManager.doGet(url);
+			String cutResponse = response.length() > 50 ? response.substring(0,
+					50) + "..." : response;
+			logManager.logInfo(this,
+					"HTTP GET response (50 or less first characters)"
+							+ cutResponse);
+			return response;
 		} catch (IOException e) {
 			logManager.logError(this, "HTTP GET error: " + e.getMessage());
 			throw new APIWrapperException(e.getMessage(),
@@ -480,7 +483,13 @@ public class APIWrapper {
 			throws APIWrapperException {
 		logManager.logInfo(this, "HTTP POST " + url.toString());
 		try {
-			return networkManager.doPost(url, parameters);
+			String response = networkManager.doPost(url, parameters);
+			String cutResponse = response.length() > 50 ? response.substring(0,
+					50) + "..." : response;
+			logManager.logInfo(this,
+					"HTTP POST response (50 or less first characters)"
+							+ cutResponse);
+			return response;
 		} catch (IOException e) {
 			logManager.logError(this, "HTTP POST error: " + e.getMessage());
 			throw new APIWrapperException(e.getMessage(),
