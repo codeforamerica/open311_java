@@ -2,6 +2,7 @@ package org.codeforamerica.open311.internals.network;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Map;
 
 import org.codeforamerica.open311.facade.Format;
 
@@ -31,13 +32,13 @@ public interface NetworkManager {
 	 * 
 	 * @param url
 	 *            Target.
-	 * @param body
-	 *            Body of the POST operation.
+	 * @param parameters
+	 *            Parameters of the POST operation.
 	 * @return Server response.
 	 * @throws IOException
 	 *             If there was any problem with the connection.
 	 */
-	public String doPost(URL url, String body) throws IOException;
+	public String doPost(URL url, Map<String, String> parameters) throws IOException;
 
 	/**
 	 * Sets the desired format of the requests.

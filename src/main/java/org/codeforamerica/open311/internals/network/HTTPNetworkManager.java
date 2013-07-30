@@ -1,6 +1,7 @@
 package org.codeforamerica.open311.internals.network;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.net.Socket;
 import java.net.URL;
 import java.net.UnknownHostException;
@@ -11,13 +12,21 @@ import java.security.NoSuchAlgorithmException;
 import java.security.UnrecoverableKeyException;
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 
 import javax.net.ssl.SSLContext;
 import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
 
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
 import org.apache.http.HttpVersion;
+import org.apache.http.NameValuePair;
 import org.apache.http.client.HttpClient;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.conn.ClientConnectionManager;
@@ -25,14 +34,15 @@ import org.apache.http.conn.scheme.PlainSocketFactory;
 import org.apache.http.conn.scheme.Scheme;
 import org.apache.http.conn.scheme.SchemeRegistry;
 import org.apache.http.conn.ssl.SSLSocketFactory;
-import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.BasicResponseHandler;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.impl.conn.tsccm.ThreadSafeClientConnManager;
+import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.params.BasicHttpParams;
 import org.apache.http.params.HttpConnectionParams;
 import org.apache.http.params.HttpParams;
 import org.apache.http.params.HttpProtocolParams;
+import org.apache.http.util.EntityUtils;
 import org.codeforamerica.open311.facade.Format;
 
 /**
@@ -67,15 +77,15 @@ public class HTTPNetworkManager implements NetworkManager {
 	}
 
 	@Override
-	public String doPost(URL url, String body) throws IOException {
+	public String doPost(URL url, Map<String, String> parameters)
+			throws IOException {
 		try {
 			HttpPost httpPost = new HttpPost(url.toURI());
 			httpPost.setHeader("Content-Type", POST_CONTENT_TYPE);
 			httpPost.setHeader("charset", CHARSET);
-			httpPost.setEntity(new StringEntity(body));
-			return sanitizeOutput(httpClient.execute(httpPost,
-					new BasicResponseHandler()));
-
+			httpPost.setEntity(generateHttpEntityFromParameters(parameters));
+			HttpResponse response = httpClient.execute(httpPost);
+			return sanitizeOutput(EntityUtils.toString(response.getEntity()));
 		} catch (Exception e) {
 			throw new IOException(e);
 		}
@@ -84,6 +94,27 @@ public class HTTPNetworkManager implements NetworkManager {
 	@Override
 	public void setFormat(Format format) {
 		this.format = format;
+	}
+
+	/**
+	 * Builds an {@link HttpEntity} with all the given parameters.
+	 * 
+	 * @param parameters
+	 *            A list of parameters of a POST request.
+	 * @return An {@link UrlEncodedFormEntity} with the given parameters.
+	 * @throws UnsupportedEncodingException
+	 *             if the default encoding isn't supported.
+	 */
+	private HttpEntity generateHttpEntityFromParameters(
+			Map<String, String> parameters) throws UnsupportedEncodingException {
+		List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
+		if (parameters != null) {
+			for (Entry<String, String> parameterEntry : parameters.entrySet()) {
+				nameValuePairs.add(new BasicNameValuePair(parameterEntry
+						.getKey(), parameterEntry.getValue()));
+			}
+		}
+		return new UrlEncodedFormEntity(nameValuePairs);
 	}
 
 	/**
