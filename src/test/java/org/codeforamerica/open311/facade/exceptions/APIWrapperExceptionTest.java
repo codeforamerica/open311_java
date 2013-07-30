@@ -2,7 +2,7 @@ package org.codeforamerica.open311.facade.exceptions;
 
 import static org.junit.Assert.assertEquals;
 
-import org.codeforamerica.open311.facade.data.Attribute;
+import org.codeforamerica.open311.facade.data.AttributeInfo;
 import org.codeforamerica.open311.facade.data.Service;
 import org.codeforamerica.open311.facade.data.ServiceRequest;
 import org.codeforamerica.open311.facade.exceptions.APIWrapperException.Error;
@@ -51,25 +51,25 @@ public class APIWrapperExceptionTest {
 
 	@Test
 	public void attributeTypeTest() {
-		assertEquals(Attribute.Datatype.getFromString("string"),
-				Attribute.Datatype.STRING);
-		assertEquals(Attribute.Datatype.getFromString("number"),
-				Attribute.Datatype.NUMBER);
-		assertEquals(Attribute.Datatype.getFromString("datetime"),
-				Attribute.Datatype.DATETIME);
-		assertEquals(Attribute.Datatype.getFromString("text"),
-				Attribute.Datatype.TEXT);
-		assertEquals(Attribute.Datatype.getFromString("singlevaluelist"),
-				Attribute.Datatype.SINGLEVALUELIST);
-		assertEquals(Attribute.Datatype.getFromString("multivaluelist"),
-				Attribute.Datatype.MULTIVALUELIST);
-		assertEquals(Attribute.Datatype.getFromString(""), null);
-		assertEquals(Attribute.Datatype.getFromString("STRING"),
-				Attribute.Datatype.STRING);
-		assertEquals(Attribute.Datatype.getFromString("nUmBer"),
-				Attribute.Datatype.NUMBER);
-		assertEquals(Attribute.Datatype.getFromString("Datetime"),
-				Attribute.Datatype.DATETIME);
+		assertEquals(AttributeInfo.Datatype.getFromString("string"),
+				AttributeInfo.Datatype.STRING);
+		assertEquals(AttributeInfo.Datatype.getFromString("number"),
+				AttributeInfo.Datatype.NUMBER);
+		assertEquals(AttributeInfo.Datatype.getFromString("datetime"),
+				AttributeInfo.Datatype.DATETIME);
+		assertEquals(AttributeInfo.Datatype.getFromString("text"),
+				AttributeInfo.Datatype.TEXT);
+		assertEquals(AttributeInfo.Datatype.getFromString("singlevaluelist"),
+				AttributeInfo.Datatype.SINGLEVALUELIST);
+		assertEquals(AttributeInfo.Datatype.getFromString("multivaluelist"),
+				AttributeInfo.Datatype.MULTIVALUELIST);
+		assertEquals(AttributeInfo.Datatype.getFromString(""), null);
+		assertEquals(AttributeInfo.Datatype.getFromString("STRING"),
+				AttributeInfo.Datatype.STRING);
+		assertEquals(AttributeInfo.Datatype.getFromString("nUmBer"),
+				AttributeInfo.Datatype.NUMBER);
+		assertEquals(AttributeInfo.Datatype.getFromString("Datetime"),
+				AttributeInfo.Datatype.DATETIME);
 	}
 
 	@Test

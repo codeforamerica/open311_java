@@ -17,8 +17,8 @@ import javax.xml.parsers.ParserConfigurationException;
 
 import org.codeforamerica.open311.facade.EndpointType;
 import org.codeforamerica.open311.facade.Format;
-import org.codeforamerica.open311.facade.data.Attribute;
-import org.codeforamerica.open311.facade.data.Attribute.Datatype;
+import org.codeforamerica.open311.facade.data.AttributeInfo;
+import org.codeforamerica.open311.facade.data.AttributeInfo.Datatype;
 import org.codeforamerica.open311.facade.data.Endpoint;
 import org.codeforamerica.open311.facade.data.POSTServiceRequestResponse;
 import org.codeforamerica.open311.facade.data.Service;
@@ -136,7 +136,7 @@ public class XMLParser extends AbstractParser {
 				SERVICE_CODE_TAG);
 		NodeList attributesNodeList = serviceDefinitionElement
 				.getElementsByTagName(ATTRIBUTE_TAG);
-		List<Attribute> attributes = new LinkedList<Attribute>();
+		List<AttributeInfo> attributes = new LinkedList<AttributeInfo>();
 		for (int j = 0; j < attributesNodeList.getLength(); j++) {
 			Node attributeNode = attributesNodeList.item(j);
 			if (attributeNode.getNodeType() == Node.ELEMENT_NODE) {
@@ -166,7 +166,7 @@ public class XMLParser extends AbstractParser {
 						values.put(key, name);
 					}
 				}
-				attributes.add(new Attribute(variable, code, datatype,
+				attributes.add(new AttributeInfo(variable, code, datatype,
 						required, datatypeDescription, order, description,
 						values));
 			}

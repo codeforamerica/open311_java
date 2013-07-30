@@ -2,7 +2,11 @@ package org.codeforamerica.open311.internals.network;
 
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+
+import org.codeforamerica.open311.facade.data.AttributeInfo;
 
 /**
  * Builds the necessary URLs to communicate with the endpoints.
@@ -67,7 +71,6 @@ public class URLBuilder {
 	 */
 	public URL buildPostServiceRequestUrl() throws MalformedURLException {
 		String base = baseUrl + "/" + POST_SERVICE_REQUEST + "." + format;
-		base = addJurisdictionId(base, jurisdictionId);
 		return new URL(base);
 	}
 
@@ -126,20 +129,44 @@ public class URLBuilder {
 	}
 
 	/**
-	 * Builds the body of a POST service request body.
+	 * Builds the list of arguments of a POST service request.
 	 * 
 	 * @param arguments
 	 *            List of (key, value) pairs.
 	 * @param attributes
-	 *            List of (key, value) attributes.
-	 * @return A string of the form (key=value&key2=value2&...).
+	 *            List of attributes.
+	 * @return A list of (key, value) pairs with all the given data (arguments
+	 *         and attributes).
 	 * @throws MalformedURLException
 	 *             If any of the arguments given is not allowed.
 	 */
-	public String buildPostServiceRequestBody(Map<String, String> arguments,
-			Map<String, String> attributes) throws MalformedURLException {
-		arguments.putAll(attributes);
-		return buildParameterString(arguments);
+	public Map<String, String> buildPostServiceRequestBody(
+			Map<String, String> arguments, List<AttributeInfo> attributes)
+			throws MalformedURLException {
+		Map<String, String> attributesMap = buildAttributes(attributes);
+		arguments = arguments == null ? new HashMap<String, String>()
+				: arguments;
+		arguments.putAll(attributesMap);
+		return arguments;
+	}
+
+	/**
+	 * Builds a map of (key, value) pairs from the attributes.
+	 * 
+	 * @param attributes
+	 *            Request attributes.
+	 * @return Map of (key, value) pairs.
+	 */
+	private Map<String, String> buildAttributes(List<AttributeInfo> attributes) {
+		Map<String, String> result = new HashMap<String, String>();
+		if (attributes != null) {
+			for (AttributeInfo attribute : attributes) {
+				String attributeToString = attribute.toString();
+				String[] parts = attributeToString.split("=");
+				result.put(parts[0], parts[1]);
+			}
+		}
+		return result;
 	}
 
 	/**

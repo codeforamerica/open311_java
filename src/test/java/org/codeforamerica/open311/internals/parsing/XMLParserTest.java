@@ -150,7 +150,7 @@ public class XMLParserTest {
 			IOException, DataParsingException {
 		List<POSTServiceRequestResponse> list = parser
 				.parsePostServiceRequestResponse(netManager.doPost(new URL(
-						BASE_URL + "/requests.xml"), ""));
+						BASE_URL + "/requests.xml"), null));
 		GlobalTests.postServiceRequestsTest(list);
 	}
 
@@ -161,7 +161,7 @@ public class XMLParserTest {
 	public void postServiceRequestResponseWithErrorTest()
 			throws MalformedURLException, IOException, DataParsingException {
 		String dataWithError = netManager.doPost(new URL(BASE_URL
-				+ "/requests.xml"), "")
+				+ "/requests.xml"), null)
 				+ "ERRORSTRING";
 		parser.parsePostServiceRequestResponse(dataWithError);
 	}
@@ -174,7 +174,7 @@ public class XMLParserTest {
 			DataParsingException, IOException {
 		List<GeoReportV2Error> list = parser.parseGeoReportV2Errors(netManager
 				.doPost(new URL(BASE_URL + "/requests/simulateAPIError.xml"),
-						""));
+						null));
 		GlobalTests.errorTest(list);
 	}
 
@@ -185,7 +185,7 @@ public class XMLParserTest {
 	public void geoReportV2ErrorWithErrorTest() throws MalformedURLException,
 			IOException, DataParsingException {
 		String dataWithError = netManager.doPost(new URL(BASE_URL
-				+ "/requests.xml"), "")
+				+ "/requests.xml"), null)
 				+ "ERRORSTRING";
 		parser.parseGeoReportV2Errors(dataWithError);
 	}

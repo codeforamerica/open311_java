@@ -2,6 +2,8 @@ package org.codeforamerica.open311.facade.data;
 
 import static org.junit.Assert.assertEquals;
 
+import java.util.Map;
+
 import org.codeforamerica.open311.facade.data.ServiceRequest.Status;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
@@ -55,25 +57,25 @@ public class DataPackageTest {
 
 	@Test
 	public void attributeTypeTest() {
-		assertEquals(Attribute.Datatype.getFromString("string"),
-				Attribute.Datatype.STRING);
-		assertEquals(Attribute.Datatype.getFromString("number"),
-				Attribute.Datatype.NUMBER);
-		assertEquals(Attribute.Datatype.getFromString("datetime"),
-				Attribute.Datatype.DATETIME);
-		assertEquals(Attribute.Datatype.getFromString("text"),
-				Attribute.Datatype.TEXT);
-		assertEquals(Attribute.Datatype.getFromString("singlevaluelist"),
-				Attribute.Datatype.SINGLEVALUELIST);
-		assertEquals(Attribute.Datatype.getFromString("multivaluelist"),
-				Attribute.Datatype.MULTIVALUELIST);
-		assertEquals(Attribute.Datatype.getFromString(""), null);
-		assertEquals(Attribute.Datatype.getFromString("STRING"),
-				Attribute.Datatype.STRING);
-		assertEquals(Attribute.Datatype.getFromString("nUmBer"),
-				Attribute.Datatype.NUMBER);
-		assertEquals(Attribute.Datatype.getFromString("Datetime"),
-				Attribute.Datatype.DATETIME);
+		assertEquals(AttributeInfo.Datatype.getFromString("string"),
+				AttributeInfo.Datatype.STRING);
+		assertEquals(AttributeInfo.Datatype.getFromString("number"),
+				AttributeInfo.Datatype.NUMBER);
+		assertEquals(AttributeInfo.Datatype.getFromString("datetime"),
+				AttributeInfo.Datatype.DATETIME);
+		assertEquals(AttributeInfo.Datatype.getFromString("text"),
+				AttributeInfo.Datatype.TEXT);
+		assertEquals(AttributeInfo.Datatype.getFromString("singlevaluelist"),
+				AttributeInfo.Datatype.SINGLEVALUELIST);
+		assertEquals(AttributeInfo.Datatype.getFromString("multivaluelist"),
+				AttributeInfo.Datatype.MULTIVALUELIST);
+		assertEquals(AttributeInfo.Datatype.getFromString(""), null);
+		assertEquals(AttributeInfo.Datatype.getFromString("STRING"),
+				AttributeInfo.Datatype.STRING);
+		assertEquals(AttributeInfo.Datatype.getFromString("nUmBer"),
+				AttributeInfo.Datatype.NUMBER);
+		assertEquals(AttributeInfo.Datatype.getFromString("Datetime"),
+				AttributeInfo.Datatype.DATETIME);
 	}
 
 	@Test
@@ -89,6 +91,21 @@ public class DataPackageTest {
 				"", "A random description", "", "", null, null, null, "", 0, 0,
 				0F, 0F, null);
 		assertEquals(request.toString(), "[001] A random description (open)");
+	}
+
+	@Test
+	public void attributeTest() {
+		Attribute att = new SingleValueAttribute("CODE1", "VALUE1");
+		Map<String, String> parameters = att.generatePOSTRequestParameter();
+		assertEquals(parameters.get("attribute[CODE1]"), "VALUE1");
+
+		Attribute multiAtt = new MultiValueAttribute("CODE1", "VALUE1",
+				"VALUE2", "VALUE3");
+		parameters = multiAtt.generatePOSTRequestParameter();
+		assertEquals(parameters.size(), 3);
+		assertEquals(parameters.get("attribute[CODE1][0]"), "VALUE1");
+		assertEquals(parameters.get("attribute[CODE1][1]"), "VALUE2");
+		assertEquals(parameters.get("attribute[CODE1][2]"), "VALUE3");
 	}
 
 }

@@ -15,9 +15,9 @@ public class ServiceDefinition implements Serializable {
 
 	private static final long serialVersionUID = -2002090161736619870L;
 	private String serviceCode;
-	private List<Attribute> attributes;
+	private List<AttributeInfo> attributes;
 
-	public ServiceDefinition(String serviceCode, List<Attribute> attributes) {
+	public ServiceDefinition(String serviceCode, List<AttributeInfo> attributes) {
 		super();
 		this.serviceCode = serviceCode;
 		this.attributes = attributes;
@@ -27,7 +27,7 @@ public class ServiceDefinition implements Serializable {
 		return serviceCode;
 	}
 
-	public List<Attribute> getAttributes() {
+	public List<AttributeInfo> getAttributes() {
 		return attributes;
 	}
 

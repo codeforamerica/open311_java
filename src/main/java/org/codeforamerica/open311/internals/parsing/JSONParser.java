@@ -8,8 +8,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-import org.codeforamerica.open311.facade.data.Attribute;
-import org.codeforamerica.open311.facade.data.Attribute.Datatype;
+import org.codeforamerica.open311.facade.data.AttributeInfo;
+import org.codeforamerica.open311.facade.data.AttributeInfo.Datatype;
 import org.codeforamerica.open311.facade.data.POSTServiceRequestResponse;
 import org.codeforamerica.open311.facade.data.Service;
 import org.codeforamerica.open311.facade.data.ServiceDefinition;
@@ -95,9 +95,9 @@ public class JSONParser extends AbstractParser {
 	 * @throws JSONException
 	 *             If the given object is not correct.
 	 */
-	private List<Attribute> parseAttributeList(JSONArray attributesArray)
+	private List<AttributeInfo> parseAttributeList(JSONArray attributesArray)
 			throws JSONException {
-		List<Attribute> attributes = new LinkedList<Attribute>();
+		List<AttributeInfo> attributes = new LinkedList<AttributeInfo>();
 		for (int i = 0; i < attributesArray.length(); i++) {
 			JSONObject attribute = attributesArray.getJSONObject(i);
 			boolean variable = attribute.getBoolean(VARIABLE_TAG);
@@ -117,7 +117,7 @@ public class JSONParser extends AbstractParser {
 				String name = getString(valueObject, NAME_TAG);
 				values.put(key, name);
 			}
-			attributes.add(new Attribute(variable, code, datatype, required,
+			attributes.add(new AttributeInfo(variable, code, datatype, required,
 					datatypeDescription, order, description, values));
 		}
 		return attributes;
@@ -224,6 +224,9 @@ public class JSONParser extends AbstractParser {
 						SERVICE_NOTICE_TAG);
 				String accountId = getString(postServiceRequestResponse,
 						ACCOUNT_ID_TAG);
+				if (serviceRequestId.length() == 0 && token.length() == 0) {
+					throw new JSONException("service_request_id or token field were not found");
+				}
 				result.add(new POSTServiceRequestResponse(serviceRequestId,
 						token, serviceNotice, accountId));
 			}

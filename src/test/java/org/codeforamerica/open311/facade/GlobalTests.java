@@ -7,8 +7,8 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.List;
 
-import org.codeforamerica.open311.facade.data.Attribute;
-import org.codeforamerica.open311.facade.data.Attribute.Datatype;
+import org.codeforamerica.open311.facade.data.AttributeInfo;
+import org.codeforamerica.open311.facade.data.AttributeInfo.Datatype;
 import org.codeforamerica.open311.facade.data.POSTServiceRequestResponse;
 import org.codeforamerica.open311.facade.data.Service;
 import org.codeforamerica.open311.facade.data.ServiceDefinition;
@@ -47,7 +47,7 @@ public class GlobalTests {
 
 	public static void serviceDefinitionTest(ServiceDefinition serviceDefinition) {
 		assertEquals(serviceDefinition.getServiceCode(), "DMV66");
-		Attribute at1 = serviceDefinition.getAttributes().get(0);
+		AttributeInfo at1 = serviceDefinition.getAttributes().get(0);
 		assertEquals(at1.isVariable(), true);
 		assertEquals(at1.getCode(), "WHISHETN");
 		assertEquals(at1.getDatatype(), Datatype.SINGLEVALUELIST);
