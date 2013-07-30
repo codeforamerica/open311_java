@@ -6,7 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.codeforamerica.open311.facade.data.AttributeInfo;
+import org.codeforamerica.open311.facade.data.Attribute;
 
 /**
  * Builds the necessary URLs to communicate with the endpoints.
@@ -141,7 +141,7 @@ public class URLBuilder {
 	 *             If any of the arguments given is not allowed.
 	 */
 	public Map<String, String> buildPostServiceRequestBody(
-			Map<String, String> arguments, List<AttributeInfo> attributes)
+			Map<String, String> arguments, List<Attribute> attributes)
 			throws MalformedURLException {
 		Map<String, String> attributesMap = buildAttributes(attributes);
 		arguments = arguments == null ? new HashMap<String, String>()
@@ -157,13 +157,11 @@ public class URLBuilder {
 	 *            Request attributes.
 	 * @return Map of (key, value) pairs.
 	 */
-	private Map<String, String> buildAttributes(List<AttributeInfo> attributes) {
+	private Map<String, String> buildAttributes(List<Attribute> attributes) {
 		Map<String, String> result = new HashMap<String, String>();
 		if (attributes != null) {
-			for (AttributeInfo attribute : attributes) {
-				String attributeToString = attribute.toString();
-				String[] parts = attributeToString.split("=");
-				result.put(parts[0], parts[1]);
+			for (Attribute attribute : attributes) {
+				result.putAll(attribute.generatePOSTRequestParameter());
 			}
 		}
 		return result;

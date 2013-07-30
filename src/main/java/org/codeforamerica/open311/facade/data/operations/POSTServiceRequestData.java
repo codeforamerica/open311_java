@@ -7,7 +7,7 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import org.codeforamerica.open311.facade.data.AttributeInfo;
+import org.codeforamerica.open311.facade.data.Attribute;
 import org.codeforamerica.open311.internals.parsing.DataParser;
 
 /**
@@ -26,7 +26,7 @@ public class POSTServiceRequestData {
 			"^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$",
 			Pattern.CASE_INSENSITIVE);
 	private Map<String, String> parameters;
-	private List<AttributeInfo> attributes;
+	private List<Attribute> attributes;
 
 	/**
 	 * Basic constructor. It isn't public because this operation needs at least
@@ -38,9 +38,9 @@ public class POSTServiceRequestData {
 	 *            List of attributes, <code>null</code> value is allowed.
 	 */
 	private POSTServiceRequestData(String serviceCode,
-			List<AttributeInfo> attributes) {
+			List<Attribute> attributes) {
 		this.parameters = new HashMap<String, String>();
-		this.attributes = new LinkedList<AttributeInfo>();
+		this.attributes = new LinkedList<Attribute>();
 		if (serviceCode != null && serviceCode.length() > 0) {
 			parameters.put(DataParser.SERVICE_CODE_TAG, serviceCode);
 			if (attributes != null) {
@@ -66,7 +66,7 @@ public class POSTServiceRequestData {
 	 *            List of attributes.
 	 */
 	public POSTServiceRequestData(String serviceCode, float latitude,
-			float longitude, List<AttributeInfo> attributes) {
+			float longitude, List<Attribute> attributes) {
 		this(serviceCode, attributes);
 		this.setLatLong(latitude, longitude);
 	}
@@ -82,7 +82,7 @@ public class POSTServiceRequestData {
 	 *            List of attributes.
 	 */
 	public POSTServiceRequestData(String serviceCode, String address,
-			List<AttributeInfo> attributes) {
+			List<Attribute> attributes) {
 		this(serviceCode, attributes);
 		if (address != null && address.length() > 0) {
 			this.setAddress(address);
@@ -105,7 +105,7 @@ public class POSTServiceRequestData {
 	 *            List of attributes.
 	 */
 	public POSTServiceRequestData(String serviceCode, long addressId,
-			List<AttributeInfo> attributes) {
+			List<Attribute> attributes) {
 		this(serviceCode, attributes);
 		this.setAddressId(addressId);
 	}
@@ -290,8 +290,8 @@ public class POSTServiceRequestData {
 	 * 
 	 * @return A copy of the inner attribute list.
 	 */
-	public List<AttributeInfo> getAttributes() {
-		List<AttributeInfo> result = new LinkedList<AttributeInfo>();
+	public List<Attribute> getAttributes() {
+		List<Attribute> result = new LinkedList<Attribute>();
 		result.addAll(attributes);
 		return result;
 	}

@@ -8,7 +8,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-import org.codeforamerica.open311.facade.data.AttributeInfo;
+import org.codeforamerica.open311.facade.data.Attribute;
 import org.codeforamerica.open311.facade.data.POSTServiceRequestResponse;
 import org.codeforamerica.open311.facade.data.Service;
 import org.codeforamerica.open311.facade.data.ServiceDefinition;
@@ -367,8 +367,8 @@ public class APIWrapper {
 		Map<String, String> optionalArguments = operationData
 				.getBodyRequestParameters() != null ? operationData
 				.getBodyRequestParameters() : new HashMap<String, String>();
-		List<AttributeInfo> attributes = operationData.getAttributes() != null ? operationData
-				.getAttributes() : new LinkedList<AttributeInfo>();
+		List<Attribute> attributes = operationData.getAttributes() != null ? operationData
+				.getAttributes() : new LinkedList<Attribute>();
 		try {
 			URL url = urlBuilder.buildPostServiceRequestUrl();
 			return postServiceRequestInternal(url, optionalArguments,
@@ -395,7 +395,7 @@ public class APIWrapper {
 	 *             If any attribute is not valid.
 	 */
 	private List<POSTServiceRequestResponse> postServiceRequestInternal(
-			URL url, Map<String, String> arguments, List<AttributeInfo> attributes)
+			URL url, Map<String, String> arguments, List<Attribute> attributes)
 			throws APIWrapperException, MalformedURLException {
 		if (apiKey.length() > 0) {
 			arguments.put("api_key", apiKey);

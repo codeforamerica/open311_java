@@ -9,7 +9,9 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-import org.codeforamerica.open311.facade.data.AttributeInfo;
+import org.codeforamerica.open311.facade.data.Attribute;
+import org.codeforamerica.open311.facade.data.MultiValueAttribute;
+import org.codeforamerica.open311.facade.data.SingleValueAttribute;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -64,24 +66,24 @@ public class URLBuilderTest {
 		arguments.put("long", "4.12");
 		arguments.put("account_id", "1");
 		arguments.put("api_key", "2");
-		//TODO
-		List<AttributeInfo> attributes = new LinkedList<AttributeInfo>();
-		/*attributes.add(new Attribute());
-		attributes.put("ATTRIBUTE[code]", "value1");
-		attributes.put("ATTRIBUTE[code2]", "value2");*/
-		String body = builder
-				.buildPostServiceRequestBody(arguments, attributes).toString();
-		assertTrue(body.contains("api_key=2"));
-		assertTrue(body.contains("lat=8.12"));
-		assertTrue(body.contains("long=4.12"));
-		assertTrue(body.contains("account_id=1"));
-		//assertTrue(body.contains("ATTRIBUTE[code]=value1"));
-		//assertTrue(body.contains("ATTRIBUTE[code2]=value2"));
-		//assertEquals(StringUtils.countMatches(body, "&"), 5);
+
+		List<Attribute> attributes = new LinkedList<Attribute>();
+		attributes.add(new SingleValueAttribute("code", "value1"));
+		attributes.add(new SingleValueAttribute("code2", "value2"));
+		attributes.add(new MultiValueAttribute("code3", "value1", "value2"));
+		Map<String, String> bodyParameters = builder
+				.buildPostServiceRequestBody(arguments, attributes);
+		assertEquals(bodyParameters.get("api_key"),"2");
+		assertEquals(bodyParameters.get("lat"),"8.12");
+		assertEquals(bodyParameters.get("long"),"4.12");
+		assertEquals(bodyParameters.get("account_id"),"1");
+		assertEquals(bodyParameters.get("attribute[code]"),"value1");
+		assertEquals(bodyParameters.get("attribute[code2]"),"value2");
+		assertEquals(bodyParameters.get("attribute[code3][0]"),"value1");
+		assertEquals(bodyParameters.get("attribute[code3][1]"),"value2");
 
 		String url = builder.buildPostServiceRequestUrl().toString();
-		assertEquals(url,
-				"https://api.city.gov/dev/v2/requests.xml");		
+		assertEquals(url, "https://api.city.gov/dev/v2/requests.xml");
 
 		arguments = new HashMap<String, String>();
 		arguments.put("start_date", "2010-05-24T00:00:00Z");
@@ -93,7 +95,6 @@ public class URLBuilderTest {
 		assertTrue(url.contains("end_date=2010-06-24T00:00:00Z"));
 		assertTrue(url.contains("status=open"));
 		assertTrue(url.contains("jurisdiction_id=city.gov"));
-
 
 		arguments = new HashMap<String, String>();
 		arguments.put("service_request_id", "2");
