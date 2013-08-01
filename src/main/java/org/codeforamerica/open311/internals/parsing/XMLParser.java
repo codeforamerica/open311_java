@@ -285,9 +285,8 @@ public class XMLParser extends AbstractParser {
 	}
 
 	@Override
-	public List<POSTServiceRequestResponse> parsePostServiceRequestResponse(
+	public POSTServiceRequestResponse parsePostServiceRequestResponse(
 			String rawData) throws DataParsingException {
-		List<POSTServiceRequestResponse> result = new LinkedList<POSTServiceRequestResponse>();
 		try {
 			Document doc = getDocument(rawData);
 			NodeList serviceRequestsIdList = doc
@@ -295,13 +294,14 @@ public class XMLParser extends AbstractParser {
 			for (int i = 0; i < serviceRequestsIdList.getLength(); i++) {
 				Node serviceRequestIdNode = serviceRequestsIdList.item(i);
 				if (serviceRequestIdNode.getNodeType() == Node.ELEMENT_NODE) {
-					result.add(getPostServiceRequestResponse((Element) serviceRequestIdNode));
+					return getPostServiceRequestResponse((Element) serviceRequestIdNode);
 				}
 			}
 		} catch (Exception e) {
 			throw new DataParsingException(e.getMessage());
 		}
-		return result;
+		throw new DataParsingException(
+				"The obtained response couldn't be parsed, it may be an error.");
 	}
 
 	/**

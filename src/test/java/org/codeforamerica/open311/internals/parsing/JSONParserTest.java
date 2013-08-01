@@ -130,10 +130,10 @@ public class JSONParserTest {
 	@Test
 	public void postServiceRequestResponseTest() throws MalformedURLException,
 			IOException, DataParsingException {
-		List<POSTServiceRequestResponse> list = parser
+		POSTServiceRequestResponse response = parser
 				.parsePostServiceRequestResponse(netManager.doPost(new URL(
 						BASE_URL + "/requests.json"), null));
-		GlobalTests.postServiceRequestsTest(list);
+		GlobalTests.postServiceRequestsTest(response);
 	}
 
 	/**

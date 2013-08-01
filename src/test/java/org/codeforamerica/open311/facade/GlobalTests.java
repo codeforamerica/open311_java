@@ -100,9 +100,7 @@ public class GlobalTests {
 	}
 
 	public static void postServiceRequestsTest(
-			List<POSTServiceRequestResponse> responses) {
-		assertEquals(responses.size(), 1);
-		POSTServiceRequestResponse response = responses.get(0);
+			POSTServiceRequestResponse response) {
 		assertEquals(response.getAccountId(), "");
 		assertEquals(response.getToken(), "");
 		assertEquals(response.getServiceRequestId(), "293944");

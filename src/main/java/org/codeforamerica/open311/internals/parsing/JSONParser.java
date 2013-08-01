@@ -222,16 +222,14 @@ public class JSONParser extends AbstractParser {
 	}
 
 	@Override
-	public List<POSTServiceRequestResponse> parsePostServiceRequestResponse(
+	public POSTServiceRequestResponse parsePostServiceRequestResponse(
 			String rawData) throws DataParsingException {
-		List<POSTServiceRequestResponse> result = new LinkedList<POSTServiceRequestResponse>();
 		JSONArray postServiceRequestResponseArray;
 		try {
 			postServiceRequestResponseArray = new JSONArray(rawData);
-
-			for (int i = 0; i < postServiceRequestResponseArray.length(); i++) {
+			if (postServiceRequestResponseArray.length() > 0) {
 				JSONObject postServiceRequestResponse = postServiceRequestResponseArray
-						.getJSONObject(i);
+						.getJSONObject(0);
 				String token = getString(postServiceRequestResponse, TOKEN_TAG);
 				String serviceRequestId = getString(postServiceRequestResponse,
 						SERVICE_REQUEST_ID_TAG);
@@ -240,10 +238,11 @@ public class JSONParser extends AbstractParser {
 				String accountId = getString(postServiceRequestResponse,
 						ACCOUNT_ID_TAG);
 				checkParameters(serviceRequestId, token);
-				result.add(new POSTServiceRequestResponse(serviceRequestId,
-						token, serviceNotice, accountId));
+				return new POSTServiceRequestResponse(serviceRequestId, token,
+						serviceNotice, accountId);
 			}
-			return result;
+			throw new DataParsingException(
+					"The obtained response couldn't be parsed, it may be an error.");
 		} catch (JSONException e) {
 			throw new DataParsingException(e.getMessage());
 		}

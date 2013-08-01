@@ -112,16 +112,16 @@ public class APIWrapperTest {
 						.setMediaUrl("").getBodyRequestParameters());
 		assertEquals(postData.getBodyRequestParameters().get("address_id"), "1");
 		assertEquals(postData.getBodyRequestParameters().size(), 2);
-		List<POSTServiceRequestResponse> responses = wrapper
+		POSTServiceRequestResponse response = wrapper
 				.postServiceRequest(postData);
-		GlobalTests.postServiceRequestsTest(responses);
+		GlobalTests.postServiceRequestsTest(response);
 
 		postData = new POSTServiceRequestData("001", "address!", null);
 		assertEquals(postData.getBodyRequestParameters().size(), 2);
 		assertEquals(postData.getBodyRequestParameters().get("address"),
 				"address!");
-		responses = wrapper.postServiceRequest(postData);
-		GlobalTests.postServiceRequestsTest(responses);
+		response = wrapper.postServiceRequest(postData);
+		GlobalTests.postServiceRequestsTest(response);
 
 		postData = new POSTServiceRequestData("001", 12F, 8F, null);
 		assertEquals(postData.getBodyRequestParameters().size(), 3);
@@ -132,8 +132,8 @@ public class APIWrapperTest {
 		assertEquals(postData.setDeviceId("device id works!")
 				.getBodyRequestParameters().get("device_id"),
 				"device id works!");
-		responses = wrapper.postServiceRequest(postData);
-		GlobalTests.postServiceRequestsTest(responses);
+		response = wrapper.postServiceRequest(postData);
+		GlobalTests.postServiceRequestsTest(response);
 	}
 
 	@Test(expected = APIWrapperException.class)

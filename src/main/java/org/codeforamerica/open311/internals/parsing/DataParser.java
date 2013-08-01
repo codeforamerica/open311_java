@@ -128,11 +128,11 @@ public interface DataParser {
 	 * 
 	 * @param rawData
 	 *            Text data.
-	 * @return a list of objects containing the response information.
+	 * @return an object containing the response information.
 	 * @throws DataParsingException
 	 *             If there was any problem parsing the data.
 	 */
-	public List<POSTServiceRequestResponse> parsePostServiceRequestResponse(
+	public POSTServiceRequestResponse parsePostServiceRequestResponse(
 			String rawData) throws DataParsingException;
 
 	/**

@@ -358,12 +358,12 @@ public class APIWrapper {
 	 * 
 	 * @param operationData
 	 *            An object with all the desired parameters and attributes to be
-	 *            sents.
-	 * @return A list of responses
+	 *            sent.
+	 * @return The server's response.
 	 * @throws APIWrapperException
 	 *             If there was any problem.
 	 */
-	public List<POSTServiceRequestResponse> postServiceRequest(
+	public POSTServiceRequestResponse postServiceRequest(
 			POSTServiceRequestData operationData) throws APIWrapperException {
 		logManager.logInfo(this, "POST Service Request");
 		if (operationData == null) {
@@ -393,14 +393,14 @@ public class APIWrapper {
 	 *            Pairs (key,value) of optional arguments.
 	 * @param attributes
 	 *            List of attributes (check the GeoReport v2 wiki).
-	 * @return List of Service Request responses.
+	 * @return The server's response.
 	 * @throws APIWrapperException
 	 *             If there was any problem.
 	 * @throws MalformedURLException
 	 *             If any attribute is not valid.
 	 */
-	private List<POSTServiceRequestResponse> postServiceRequestInternal(
-			URL url, Map<String, String> arguments, List<Attribute> attributes)
+	private POSTServiceRequestResponse postServiceRequestInternal(URL url,
+			Map<String, String> arguments, List<Attribute> attributes)
 			throws APIWrapperException, MalformedURLException {
 		if (apiKey.length() > 0) {
 			arguments.put("api_key", apiKey);
