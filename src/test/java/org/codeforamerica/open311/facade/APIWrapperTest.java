@@ -9,6 +9,7 @@ import org.codeforamerica.open311.facade.data.POSTServiceRequestResponse;
 import org.codeforamerica.open311.facade.data.Service;
 import org.codeforamerica.open311.facade.data.ServiceDefinition;
 import org.codeforamerica.open311.facade.data.ServiceRequest;
+import org.codeforamerica.open311.facade.data.Service.Type;
 import org.codeforamerica.open311.facade.data.ServiceRequest.Status;
 import org.codeforamerica.open311.facade.data.ServiceRequestIdResponse;
 import org.codeforamerica.open311.facade.data.operations.GETServiceRequestsFilter;
@@ -159,4 +160,13 @@ public class APIWrapperTest {
 		Service randomService = services.get(0);
 		assertNotNull(randomService.getServiceDefinition());
 	}
+
+	@Test(expected = APIWrapperException.class)
+	public void serviceServiceDefinitionRelationshipWithoutWrapper()
+			throws APIWrapperException {
+		Service service = new Service("code", "name", "description", false,
+				Type.BATCH, null, "group");
+		service.getServiceDefinition();
+	}
+
 }
