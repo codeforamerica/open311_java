@@ -13,9 +13,6 @@ import java.util.Map.Entry;
 public class AttributeInfo implements Serializable {
 
 	private static final long serialVersionUID = -6704474615491645869L;
-
-	private static final String ATTIBUTE_KEY = "attribute";
-
 	private boolean variable;
 	private String code;
 	private Datatype datatype;
@@ -93,20 +90,13 @@ public class AttributeInfo implements Serializable {
 	 * value2,...valueN</code>.
 	 */
 	public String toString() {
-		StringBuilder keyBuilder = new StringBuilder(ATTIBUTE_KEY);
-		StringBuilder valueBuilder = new StringBuilder();
-		boolean first = true;
+		StringBuilder strBuilder = new StringBuilder("code: " + code + "\n");
+		strBuilder.append("values: ");
 		for (Entry<String, String> pair : values.entrySet()) {
-			keyBuilder.append("[" + pair.getKey() + "]");
-			if (first) {
-				first = false;
-			} else {
-				valueBuilder.append(",");
-			}
-			valueBuilder.append(pair.getValue());
+			strBuilder.append("\n");
+			strBuilder.append("\t" + pair.getKey() + " -> " + pair.getValue());
 		}
-		keyBuilder.append("=");
-		return keyBuilder.toString() + valueBuilder.toString();
+		return strBuilder.toString();
 	}
 
 	public static enum Datatype {
