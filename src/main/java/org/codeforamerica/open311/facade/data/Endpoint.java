@@ -59,6 +59,17 @@ public class Endpoint implements Serializable {
 			return Format.XML;
 		}
 		return null;
+	}
 
+	/**
+	 * Returns whether it allows the given format or not.
+	 * 
+	 * @param format
+	 *            Desired format.
+	 * @return <code>true</code> if it allows the given format, else
+	 *         <code>false</code>.
+	 */
+	public boolean isCompatibleWithFormat(Format format) {
+		return formats.contains(format);
 	}
 }

@@ -156,6 +156,18 @@ public class APIWrapperFactory {
 	}
 
 	/**
+	 * Selects the desired data exchange format.
+	 * 
+	 * @param format
+	 *            Desired format.
+	 * @return The same instance with the new selected format.
+	 */
+	public APIWrapperFactory setFormat(Format format) {
+		this.format = format;
+		return this;
+	}
+
+	/**
 	 * Sets the api key. <code>""</code> by default.
 	 * 
 	 * @param apiKey
@@ -301,7 +313,7 @@ public class APIWrapperFactory {
 						Error.NOT_SUITABLE_ENDPOINT_FOUND, null);
 			}
 			logManager.logInfo(this, "Selected the more suitable endpoint.");
-			Format format = endpoint.getBestFormat();
+			Format format = selectFormat(this.format, endpoint);
 			if (format != Format.XML) {
 				logManager
 						.logInfo(
@@ -331,6 +343,25 @@ public class APIWrapperFactory {
 					"Problem with the network request: " + e.getMessage());
 			throw new APIWrapperException(e.getMessage(),
 					Error.NETWORK_MANAGER, null);
+		}
+	}
+
+	/**
+	 * Selects the given {@link Format} if it is allowed by the {@link Endpoint}
+	 * .
+	 * 
+	 * @param format
+	 *            Desired format.
+	 * @param endpoint
+	 *            Selected endpoint.
+	 * @return The given format if it is allowed by the endpoint, the more
+	 *         suitable otherwise.
+	 */
+	private Format selectFormat(Format format, Endpoint endpoint) {
+		if (format != null && endpoint.isCompatibleWithFormat(format)) {
+			return format;
+		} else {
+			return endpoint.getBestFormat();
 		}
 	}
 
