@@ -10,6 +10,7 @@ import java.util.Map;
 
 import org.codeforamerica.open311.facade.data.Attribute;
 import org.codeforamerica.open311.facade.data.POSTServiceRequestResponse;
+import org.codeforamerica.open311.facade.data.RelationshipManager;
 import org.codeforamerica.open311.facade.data.Service;
 import org.codeforamerica.open311.facade.data.ServiceDefinition;
 import org.codeforamerica.open311.facade.data.ServiceRequest;
@@ -130,6 +131,10 @@ public class APIWrapper {
 		if (result == null) {
 			result = askEndpointForTheServiceList();
 			cache.saveListOfServices(endpointUrl, result);
+		}
+		if (result != null) {
+			RelationshipManager.getInstance().addServiceWrapperRelationship(
+					result, this);
 		}
 		return result;
 	}

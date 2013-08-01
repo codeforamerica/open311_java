@@ -2,6 +2,8 @@ package org.codeforamerica.open311.facade.data;
 
 import java.io.Serializable;
 
+import org.codeforamerica.open311.facade.exceptions.APIWrapperException;
+
 /**
  * Represents a GeoReport service.
  * 
@@ -13,6 +15,10 @@ public class Service implements Serializable {
 	private String serviceCode;
 	private String serviceName;
 	private String description;
+	private boolean metadata;
+	private Type type;
+	private String[] keywords;
+	private String group;
 
 	public Service(String serviceCode, String serviceName, String description,
 			boolean metadata, Type type, String[] keywords, String group) {
@@ -54,10 +60,22 @@ public class Service implements Serializable {
 		return group;
 	}
 
-	private boolean metadata;
-	private Type type;
-	private String[] keywords;
-	private String group;
+	/**
+	 * Retrieves the {@link ServiceDefinition} of this instance. This may take a
+	 * lot of time so it is a good idea not to do it in the UI thread.
+	 * 
+	 * @return The <a
+	 *         href="http://wiki.open311.org/GeoReport_v2#GET_Service_Definition"
+	 *         >definition</a> of the service which represents the instance.
+	 * @throws APIWrapperException
+	 *             If there was any problem getting the definition (such as IO,
+	 *             response parsing...) or if the instance wasn't created by an
+	 *             {@link APIWrapperException}.
+	 */
+	public ServiceDefinition getServiceDefinition() throws APIWrapperException {
+		return RelationshipManager.getInstance()
+				.getServiceDefinitionFromService(this);
+	}
 
 	/**
 	 * Different types of Service.

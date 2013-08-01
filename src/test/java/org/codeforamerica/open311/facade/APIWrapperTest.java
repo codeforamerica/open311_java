@@ -1,7 +1,6 @@
 package org.codeforamerica.open311.facade;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 import java.net.MalformedURLException;
 import java.util.List;
@@ -151,5 +150,13 @@ public class APIWrapperTest {
 		} catch (APIWrapperException e) {
 			GlobalTests.errorTest(e.getGeoReportErrors());
 		}
+	}
+
+	@Test
+	public void serviceServiceDefinitionRelationship()
+			throws APIWrapperException {
+		List<Service> services = wrapper.getServiceList();
+		Service randomService = services.get(0);
+		assertNotNull(randomService.getServiceDefinition());
 	}
 }

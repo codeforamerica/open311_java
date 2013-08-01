@@ -48,7 +48,8 @@ public class APIWrapperException extends Exception {
 				"Network problem."), URL_BUILDER(
 				"Problem while building a valid URL."), GEO_REPORT_V2(
 				"GeoReport v2 problem."), NOT_SUITABLE_ENDPOINT_FOUND(
-				"Problem finding a suitable endpoint.");
+				"Problem finding a suitable endpoint."), NOT_CREATED_BY_A_WRAPPER(
+				"The given object wasn't created by any wrapper");
 		private String description;
 
 		private Error(String description) {
