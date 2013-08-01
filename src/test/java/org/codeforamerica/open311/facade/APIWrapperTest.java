@@ -148,7 +148,7 @@ public class APIWrapperTest {
 			apierrorWrapper.postServiceRequest(new POSTServiceRequestData(
 					"001", 0, null));
 		} catch (APIWrapperException e) {
-			GlobalTests.errorTest(e.getGeoReportErrors());
+			GlobalTests.errorTest(e.getGeoReportError());
 		}
 	}
 

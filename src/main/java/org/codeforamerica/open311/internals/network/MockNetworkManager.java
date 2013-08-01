@@ -29,7 +29,8 @@ public class MockNetworkManager implements NetworkManager {
 	}
 
 	@Override
-	public String doPost(URL url, Map<String, String> parameters) throws IOException {
+	public String doPost(URL url, Map<String, String> parameters)
+			throws IOException {
 		if (url.toString().contains("simulateIOException")) {
 			throw new IOException();
 		}
@@ -311,7 +312,7 @@ public class MockNetworkManager implements NetworkManager {
 	 */
 	public String errorXML() {
 		return "<?xml version=\"1.0\" encoding=\"utf-8\"?><errors><error><code>403</code><description>Invalid api_key received -- can't proceed with create_request.</description></error>"
-				+ "<error><code>404</code><description>Whatever</description></error></errors>";
+				+ "</errors>";
 	}
 
 	/**
@@ -320,7 +321,7 @@ public class MockNetworkManager implements NetworkManager {
 	 * @return JSON.
 	 */
 	public String errorJSON() {
-		return "[{\"code\":403,\"description\":\"Invalid api_key received -- can't proceed with create_request.\"},{\"code\":404,\"description\":\"Whatever\"}]";
+		return "[{\"code\":403,\"description\":\"Invalid api_key received -- can't proceed with create_request.\"}]";
 	}
 
 	/**

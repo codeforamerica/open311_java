@@ -172,10 +172,10 @@ public class XMLParserTest {
 	@Test
 	public void geoReportV2ErrorTest() throws MalformedURLException,
 			DataParsingException, IOException {
-		List<GeoReportV2Error> list = parser.parseGeoReportV2Errors(netManager
+		GeoReportV2Error error = parser.parseGeoReportV2Errors(netManager
 				.doPost(new URL(BASE_URL + "/requests/simulateAPIError.xml"),
 						null));
-		GlobalTests.errorTest(list);
+		GlobalTests.errorTest(error);
 	}
 
 	/**

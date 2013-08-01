@@ -249,19 +249,20 @@ public class JSONParser extends AbstractParser {
 	}
 
 	@Override
-	public List<GeoReportV2Error> parseGeoReportV2Errors(String rawData)
+	public GeoReportV2Error parseGeoReportV2Errors(String rawData)
 			throws DataParsingException {
-		List<GeoReportV2Error> errors = new LinkedList<GeoReportV2Error>();
 		try {
 			JSONArray errorsArray = new JSONArray(rawData);
-			for (int i = 0; i < errorsArray.length(); i++) {
-				JSONObject errorObject = errorsArray.getJSONObject(i);
+			if (errorsArray.length() > 0) {
+				JSONObject errorObject = errorsArray.getJSONObject(0);
 				String code = getString(errorObject, CODE_TAG);
 				String description = getString(errorObject, DESCRIPTION_TAG);
 				checkParameters(code, description);
-				errors.add(new GeoReportV2Error(code, description));
+				return new GeoReportV2Error(code, description);
+			} else {
+				throw new DataParsingException(
+						"The obtained response is not an error object");
 			}
-			return errors;
 		} catch (JSONException e) {
 			throw new DataParsingException(e.getMessage());
 		}

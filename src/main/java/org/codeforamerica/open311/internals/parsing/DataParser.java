@@ -144,7 +144,7 @@ public interface DataParser {
 	 * @throws DataParsingException
 	 *             If there was any problem parsing the data.
 	 */
-	public List<GeoReportV2Error> parseGeoReportV2Errors(String rawData)
+	public GeoReportV2Error parseGeoReportV2Errors(String rawData)
 			throws DataParsingException;
 
 	/**

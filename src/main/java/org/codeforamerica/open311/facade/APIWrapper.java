@@ -435,10 +435,9 @@ public class APIWrapper {
 		logManager.logError(this,
 				"There was an error, trying checking if it was an API error");
 		try {
-			List<GeoReportV2Error> errors = dataParser
-					.parseGeoReportV2Errors(rawData);
+			GeoReportV2Error error = dataParser.parseGeoReportV2Errors(rawData);
 			throw new APIWrapperException("GeoReport_v2 error",
-					Error.GEO_REPORT_V2, errors);
+					Error.GEO_REPORT_V2, error);
 		} catch (DataParsingException ex) {
 			logManager.logError(this,
 					"The error couldn't be parsed (it is not an API error.)");

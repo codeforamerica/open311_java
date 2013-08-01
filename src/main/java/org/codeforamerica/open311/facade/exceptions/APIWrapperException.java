@@ -1,7 +1,5 @@
 package org.codeforamerica.open311.facade.exceptions;
 
-import java.util.List;
-
 import org.codeforamerica.open311.facade.APIWrapper;
 
 /**
@@ -15,13 +13,13 @@ public class APIWrapperException extends Exception {
 
 	private static final long serialVersionUID = 1L;
 	private Error error;
-	private List<GeoReportV2Error> geoReportErrors;
+	private GeoReportV2Error geoReportError;
 
 	public APIWrapperException(String message, Error error,
-			List<GeoReportV2Error> geoReportErrors) {
+			GeoReportV2Error geoReportError) {
 		super(message);
 		this.error = error;
-		this.geoReportErrors = geoReportErrors;
+		this.geoReportError = geoReportError;
 	}
 
 	public static long getSerialversionuid() {
@@ -32,12 +30,17 @@ public class APIWrapperException extends Exception {
 		return error;
 	}
 
-	public List<GeoReportV2Error> getGeoReportErrors() {
-		return geoReportErrors;
+	public GeoReportV2Error getGeoReportError() {
+		return geoReportError;
 	}
 
 	public String toString() {
-		return this.getMessage() + " (" + this.error + ")";
+		String result = this.getMessage() + " (" + this.error;
+		if (geoReportError != null) {
+			result += " -- " + geoReportError.toString();
+		}
+		result += ")";
+		return result;
 	}
 
 	/**

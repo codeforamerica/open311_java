@@ -328,19 +328,19 @@ public class XMLParser extends AbstractParser {
 	}
 
 	@Override
-	public List<GeoReportV2Error> parseGeoReportV2Errors(String rawData)
+	public GeoReportV2Error parseGeoReportV2Errors(String rawData)
 			throws DataParsingException {
 		try {
-			List<GeoReportV2Error> errors = new LinkedList<GeoReportV2Error>();
 			Document doc = getDocument(rawData);
 			NodeList errorNodes = doc.getElementsByTagName(ERROR_TAG);
 			for (int i = 0; i < errorNodes.getLength(); i++) {
 				Node errorNode = errorNodes.item(i);
 				if (errorNode.getNodeType() == Node.ELEMENT_NODE) {
-					errors.add(getGeoReportErrorFromXMLElement((Element) errorNode));
+					return getGeoReportErrorFromXMLElement((Element) errorNode);
 				}
 			}
-			return errors;
+			throw new DataParsingException(
+					"The obtained response is not an error object");
 		} catch (Exception e) {
 			throw new DataParsingException(e.getMessage());
 		}
