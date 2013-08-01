@@ -83,6 +83,7 @@ public class JSONParser extends AbstractParser {
 			String serviceCode = getString(serviceDefinition, SERVICE_CODE_TAG);
 			JSONArray attributesArray = serviceDefinition
 					.getJSONArray(ATTRIBUTES_TAG);
+			checkParameters(serviceCode);
 			return new ServiceDefinition(serviceCode,
 					parseAttributeList(attributesArray));
 		} catch (JSONException e) {
@@ -98,7 +99,8 @@ public class JSONParser extends AbstractParser {
 	 * @return List of attributes.
 	 * @throws JSONException
 	 *             If the given object is not correct.
-	 * @throws DataParsingException If the code parameter is missing.
+	 * @throws DataParsingException
+	 *             If the code parameter is missing.
 	 */
 	private List<AttributeInfo> parseAttributeList(JSONArray attributesArray)
 			throws JSONException, DataParsingException {
@@ -114,13 +116,16 @@ public class JSONParser extends AbstractParser {
 					DATATYPE_DESCRIPTION_TAG);
 			int order = (int) getLong(attribute, ORDER_TAG);
 			String description = getString(attribute, DESCRIPTION_TAG);
-			JSONArray valuesArray = attribute.getJSONArray(VALUES_TAG);
-			Map<String, String> values = new HashMap<String, String>();
-			for (int j = 0; j < valuesArray.length(); j++) {
-				JSONObject valueObject = valuesArray.getJSONObject(j);
-				String key = getString(valueObject, KEY_TAG);
-				String name = getString(valueObject, NAME_TAG);
-				values.put(key, name);
+			Map<String, String> values = null;
+			if (attribute.has(VALUES_TAG)) {
+				JSONArray valuesArray = attribute.getJSONArray(VALUES_TAG);
+				values = new HashMap<String, String>();
+				for (int j = 0; j < valuesArray.length(); j++) {
+					JSONObject valueObject = valuesArray.getJSONObject(j);
+					String key = getString(valueObject, KEY_TAG);
+					String name = getString(valueObject, NAME_TAG);
+					values.put(key, name);
+				}
 			}
 			checkParameters(code);
 			attributes.add(new AttributeInfo(variable, code, datatype,
@@ -179,7 +184,8 @@ public class JSONParser extends AbstractParser {
 	 * @return A service request object.
 	 * @throws MalformedURLException
 	 *             If the media URL isn't correct.
-	 * @throws DataParsingException If the received parameters are not valid.
+	 * @throws DataParsingException
+	 *             If the received parameters are not valid.
 	 */
 	private ServiceRequest parseServiceRequest(JSONObject serviceRequest)
 			throws MalformedURLException, DataParsingException {
