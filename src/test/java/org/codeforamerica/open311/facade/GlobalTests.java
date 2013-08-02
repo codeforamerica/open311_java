@@ -53,7 +53,7 @@ public class GlobalTests {
 		assertEquals(at1.getDatatype(), Datatype.SINGLEVALUELIST);
 		assertEquals(at1.isRequired(), true);
 		assertEquals(at1.getDatatypeDescription(), "");
-		assertEquals(at1.getOrder(), 1);
+		assertEquals(at1.getOrder().intValue(), 1);
 		assertEquals(at1.getDescription(), "What is the ticket/tag/DL number?");
 		assertEquals(at1.getValues().get("123"), "Ford");
 		assertEquals(at1.getValues().get("124"), "Chrysler");
@@ -84,8 +84,8 @@ public class GlobalTests {
 				dateParser.printDate(dateParser
 						.parseDate("2010-04-15T06:37:38-08:00")));
 		assertEquals(sr1.getAddress(), "8TH AVE and JUDAH ST");
-		assertEquals(sr1.getAddressId(), 545483);
-		assertEquals(sr1.getZipCode(), 94122);
+		assertEquals(sr1.getAddressId().longValue(), 545483);
+		assertEquals(sr1.getZipCode().intValue(), 94122);
 		assertTrue(sr1.getLatitude() == 37.762221815F);
 		assertTrue(sr1.getLongitude() == -122.4651145F);
 		assertEquals(sr1.getMediaUrl(), new URL(

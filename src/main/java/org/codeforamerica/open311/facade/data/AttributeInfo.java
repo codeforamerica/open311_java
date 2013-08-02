@@ -13,12 +13,12 @@ import java.util.Map.Entry;
 public class AttributeInfo implements Serializable {
 
 	private static final long serialVersionUID = -6704474615491645869L;
-	private boolean variable;
+	private Boolean variable;
 	private String code;
 	private Datatype datatype;
-	private boolean required;
+	private Boolean required;
 	private String datatypeDescription;
-	private int order;
+	private Integer order;
 	private String description;
 	/**
 	 * Pair key, name. Check the attribute section of the <a
@@ -27,20 +27,8 @@ public class AttributeInfo implements Serializable {
 	 */
 	private Map<String, String> values;
 
-	/**
-	 * Creates an attribute object using the given parameters.
-	 * 
-	 * @param variable
-	 * @param code
-	 * @param datatype
-	 * @param required
-	 * @param datatypeDescription
-	 * @param order
-	 * @param description
-	 * @param values
-	 */
-	public AttributeInfo(boolean variable, String code, Datatype datatype,
-			boolean required, String datatypeDescription, int order,
+	public AttributeInfo(Boolean variable, String code, Datatype datatype,
+			Boolean required, String datatypeDescription, Integer order,
 			String description, Map<String, String> values) {
 		super();
 		this.variable = variable;
@@ -53,7 +41,7 @@ public class AttributeInfo implements Serializable {
 		this.values = values;
 	}
 
-	public boolean isVariable() {
+	public Boolean isVariable() {
 		return variable;
 	}
 
@@ -65,7 +53,7 @@ public class AttributeInfo implements Serializable {
 		return datatype;
 	}
 
-	public int getOrder() {
+	public Integer getOrder() {
 		return order;
 	}
 
@@ -77,7 +65,7 @@ public class AttributeInfo implements Serializable {
 		return values;
 	}
 
-	public boolean isRequired() {
+	public Boolean isRequired() {
 		return required;
 	}
 

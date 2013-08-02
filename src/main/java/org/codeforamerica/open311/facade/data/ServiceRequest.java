@@ -24,18 +24,18 @@ public class ServiceRequest implements Serializable {
 	private Date updatedDatetime;
 	private Date expectedDatetime;
 	private String address;
-	private long addressId;
-	private int zipCode;
-	private float latitude;
-	private float longitude;
+	private Long addressId;
+	private Integer zipCode;
+	private Float latitude;
+	private Float longitude;
 	private URL mediaUrl;
 
 	public ServiceRequest(String serviceRequestId, Status status,
 			String statusNotes, String serviceName, String serviceCode,
 			String description, String agencyResponsible, String serviceNotice,
 			Date requestedDatetime, Date updatedDatetime,
-			Date expectedDatetime, String address, long addressId, int zipCode,
-			float latitude, float longitude, URL mediaUrl) {
+			Date expectedDatetime, String address, Long addressId,
+			Integer zipCode, Float latitude, Float longitude, URL mediaUrl) {
 		super();
 		this.serviceRequestId = serviceRequestId;
 		this.status = status;
@@ -104,19 +104,19 @@ public class ServiceRequest implements Serializable {
 		return address;
 	}
 
-	public long getAddressId() {
+	public Long getAddressId() {
 		return addressId;
 	}
 
-	public int getZipCode() {
+	public Integer getZipCode() {
 		return zipCode;
 	}
 
-	public float getLatitude() {
+	public Float getLatitude() {
 		return latitude;
 	}
 
-	public float getLongitude() {
+	public Float getLongitude() {
 		return longitude;
 	}
 

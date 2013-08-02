@@ -65,7 +65,7 @@ public class JSONParser extends AbstractParser {
 		String code = getString(service, SERVICE_CODE_TAG);
 		String name = getString(service, SERVICE_NAME_TAG);
 		String description = getString(service, DESCRIPTION_TAG);
-		boolean metadata = service.getBoolean(METADATA_TAG);
+		Boolean metadata = getBoolean(service, METADATA_TAG);
 		String group = getString(service, SERVICE_GROUP_TAG);
 		String[] keywords = getKeywords(getString(service, KEYWORDS_TAG));
 		Service.Type type = Service.Type.getFromString(getString(service,
@@ -107,14 +107,14 @@ public class JSONParser extends AbstractParser {
 		List<AttributeInfo> attributes = new LinkedList<AttributeInfo>();
 		for (int i = 0; i < attributesArray.length(); i++) {
 			JSONObject attribute = attributesArray.getJSONObject(i);
-			boolean variable = attribute.getBoolean(VARIABLE_TAG);
+			Boolean variable = getBoolean(attribute, VARIABLE_TAG);
 			String code = getString(attribute, CODE_TAG);
 			Datatype datatype = Datatype.getFromString(getString(attribute,
 					DATATYPE_TAG));
-			boolean required = attribute.getBoolean(REQUIRED_TAG);
+			Boolean required = getBoolean(attribute, REQUIRED_TAG);
 			String datatypeDescription = getString(attribute,
 					DATATYPE_DESCRIPTION_TAG);
-			int order = (int) getLong(attribute, ORDER_TAG);
+			Integer order = getInteger(attribute, ORDER_TAG);
 			String description = getString(attribute, DESCRIPTION_TAG);
 			Map<String, String> values = null;
 			if (attribute.has(VALUES_TAG)) {
@@ -186,9 +186,11 @@ public class JSONParser extends AbstractParser {
 	 *             If the media URL isn't correct.
 	 * @throws DataParsingException
 	 *             If the received parameters are not valid.
+	 * @throws JSONException
+	 *             If there was any problem parsing any parameter.
 	 */
 	private ServiceRequest parseServiceRequest(JSONObject serviceRequest)
-			throws MalformedURLException, DataParsingException {
+			throws MalformedURLException, DataParsingException, JSONException {
 		String serviceRequestId = getString(serviceRequest,
 				SERVICE_REQUEST_ID_TAG);
 		Status status = Status.getFromString(getString(serviceRequest,
@@ -207,10 +209,10 @@ public class JSONParser extends AbstractParser {
 		Date expectedDatetime = dateParser.parseDate(getString(serviceRequest,
 				EXPECTED_DATETIME_TAG));
 		String address = getString(serviceRequest, ADDRESS_TAG);
-		long addressId = getLong(serviceRequest, ADDRESS_ID_TAG);
-		int zipCode = (int) getLong(serviceRequest, ZIPCODE_TAG);
-		float latitude = (float) getDouble(serviceRequest, LATITUDE_TAG);
-		float longitude = (float) getDouble(serviceRequest, LONGITUDE_TAG);
+		Long addressId = getLong(serviceRequest, ADDRESS_ID_TAG);
+		Integer zipCode = getInteger(serviceRequest, ZIPCODE_TAG);
+		Float latitude = getFloat(serviceRequest, LATITUDE_TAG);
+		Float longitude = getFloat(serviceRequest, LONGITUDE_TAG);
 		String rawMediaUrl = getString(serviceRequest, MEDIA_URL_TAG).trim();
 		URL mediaUrl = buildUrl(rawMediaUrl);
 		checkParameters(serviceCode);
@@ -302,17 +304,16 @@ public class JSONParser extends AbstractParser {
 	 *            Object to inspect.
 	 * @param tag
 	 *            Tag to search.
-	 * @return The long value of the tag, <code>Long.MIN_VALUE</code> if it
-	 *         wasn't found.
+	 * @return The integer value of the tag, <code>null</code> if it wasn't
+	 *         found.
+	 * @throws JSONException
+	 *             If there was any problem with the parsing.
 	 */
-	private long getLong(JSONObject object, String tag) {
-		long result;
-		try {
-			result = object.getLong(tag);
-		} catch (JSONException e) {
-			result = Long.MIN_VALUE;
-		}
-		return result;
+	private Integer getInteger(JSONObject object, String tag)
+			throws JSONException {
+		Long result = getLong(object, tag);
+		return result != null ? result.intValue() : null;
+
 	}
 
 	/**
@@ -322,16 +323,69 @@ public class JSONParser extends AbstractParser {
 	 *            Object to inspect.
 	 * @param tag
 	 *            Tag to search.
-	 * @return The double value of the tag, <code>Double.MIN_VALUE</code> if it
-	 *         wasn't found.
+	 * @return The long value of the tag, <code>null</code> if it wasn't found.
+	 * @throws JSONException
+	 *             If there was any problem with the parsing.
 	 */
-	private double getDouble(JSONObject object, String tag) {
-		double result;
-		try {
-			result = object.getDouble(tag);
-		} catch (JSONException e) {
-			result = Double.MIN_VALUE;
+	private Long getLong(JSONObject object, String tag) throws JSONException {
+		if (object.has(tag)) {
+			return object.getLong(tag);
 		}
-		return result;
+		return null;
+	}
+
+	/**
+	 * Searches the value of a given tag in a {@link JSONObject}.
+	 * 
+	 * @param object
+	 *            Object to inspect.
+	 * @param tag
+	 *            Tag to search.
+	 * @return The float value of the tag, <code>null</code> if it wasn't found.
+	 * @throws JSONException
+	 *             If there was any problem with the parsing.
+	 */
+	private Float getFloat(JSONObject object, String tag) throws JSONException {
+		Double result = getDouble(object, tag);
+		return result != null ? result.floatValue() : null;
+	}
+
+	/**
+	 * Searches the value of a given tag in a {@link JSONObject}.
+	 * 
+	 * @param object
+	 *            Object to inspect.
+	 * @param tag
+	 *            Tag to search.
+	 * @return The double value of the tag, <code>null</code> if it wasn't
+	 *         found.
+	 * @throws JSONException
+	 *             If there was any problem with the parsing.
+	 */
+	private Double getDouble(JSONObject object, String tag)
+			throws JSONException {
+		if (object.has(tag)) {
+			return object.getDouble(tag);
+		}
+		return null;
+	}
+
+	/**
+	 * Parses a boolean.
+	 * 
+	 * @param object
+	 *            Object to inspect.
+	 * @param tag
+	 *            Tag to search.
+	 * @return <code>null</code> if it wasn't found.
+	 * @throws JSONException
+	 *             If there was any problem.
+	 */
+	private Boolean getBoolean(JSONObject object, String tag)
+			throws JSONException {
+		if (object.has(tag)) {
+			return new Boolean(object.getBoolean(tag));
+		}
+		return null;
 	}
 }

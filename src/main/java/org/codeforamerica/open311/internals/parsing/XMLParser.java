@@ -91,7 +91,7 @@ public class XMLParser extends AbstractParser {
 		String code = getTagContent(serviceElement, SERVICE_CODE_TAG);
 		String name = getTagContent(serviceElement, SERVICE_NAME_TAG);
 		String description = getTagContent(serviceElement, DESCRIPTION_TAG);
-		boolean metadata = Boolean.parseBoolean(getTagContent(serviceElement,
+		Boolean metadata = parseBoolean(getTagContent(serviceElement,
 				METADATA_TAG));
 		String group = getTagContent(serviceElement, SERVICE_GROUP_TAG);
 		String[] keywords = getKeywords(getTagContent(serviceElement,
@@ -141,16 +141,16 @@ public class XMLParser extends AbstractParser {
 			Node attributeNode = attributesNodeList.item(j);
 			if (attributeNode.getNodeType() == Node.ELEMENT_NODE) {
 				Element attributeElement = (Element) attributeNode;
-				boolean variable = Boolean.parseBoolean(getTagContent(
-						attributeElement, VARIABLE_TAG));
+				Boolean variable = parseBoolean(getTagContent(attributeElement,
+						VARIABLE_TAG));
 				String code = getTagContent(attributeElement, CODE_TAG);
 				Datatype datatype = Datatype.getFromString(getTagContent(
 						attributeElement, DATATYPE_TAG));
-				boolean required = Boolean.parseBoolean(getTagContent(
-						attributeElement, REQUIRED_TAG));
+				Boolean required = parseBoolean(getTagContent(attributeElement,
+						REQUIRED_TAG));
 				String datatypeDescription = getTagContent(attributeElement,
 						DATATYPE_DESCRIPTION_TAG);
-				int order = Integer.parseInt(getTagContent(attributeElement,
+				Integer order = parseInt(getTagContent(attributeElement,
 						ORDER_TAG));
 				String description = getTagContent(attributeElement,
 						DESCRIPTION_TAG);
@@ -267,12 +267,13 @@ public class XMLParser extends AbstractParser {
 		Date expectedDatetime = dateParser.parseDate((getTagContent(
 				serviceRequestElement, EXPECTED_DATETIME_TAG)));
 		String address = getTagContent(serviceRequestElement, ADDRESS_TAG);
-		long addressId = parseLong(getTagContent(serviceRequestElement,
+		Long addressId = parseLong(getTagContent(serviceRequestElement,
 				ADDRESS_ID_TAG));
-		int zipCode = parseInt(getTagContent(serviceRequestElement, ZIPCODE_TAG));
-		float latitude = parseFloat(getTagContent(serviceRequestElement,
+		Integer zipCode = parseInt(getTagContent(serviceRequestElement,
+				ZIPCODE_TAG));
+		Float latitude = parseFloat(getTagContent(serviceRequestElement,
 				LATITUDE_TAG));
-		float longitude = parseFloat(getTagContent(serviceRequestElement,
+		Float longitude = parseFloat(getTagContent(serviceRequestElement,
 				LONGITUDE_TAG));
 		String rawMediaUrl = getTagContent(serviceRequestElement, MEDIA_URL_TAG)
 				.trim();
@@ -479,12 +480,12 @@ public class XMLParser extends AbstractParser {
 
 	/**
 	 * Parses a string and returns an integer. <b>NOTE<b>: Be careful and notice
-	 * that this function will return a <code>0</code> if the given string is
+	 * that this function will return a <code>null</code> if the given string is
 	 * not valid. This approach works well here, but not generally.
 	 * 
 	 * @param rawInt
 	 *            A string which represents an integer number.
-	 * @return The integer value (or <code>0</code> if the rawInt is empty or
+	 * @return The integer value (or <code>null</code> if the rawInt is empty or
 	 *         <code>null</code>).
 	 */
 	private int parseInt(String rawInt) {
@@ -498,12 +499,12 @@ public class XMLParser extends AbstractParser {
 
 	/**
 	 * Parses a string and returns a long. <b>NOTE<b>: Be careful and notice
-	 * that this function will return a <code>0</code> if the given string is
+	 * that this function will return a <code>null</code> if the given string is
 	 * not valid. This approach works well here, but not generally.
 	 * 
 	 * @param rawLong
 	 *            A string which represents a long number.
-	 * @return The long value (or <code>0</code> if the rawLong is empty or
+	 * @return The long value (or <code>null</code> if the rawLong is empty or
 	 *         <code>null</code>).
 	 */
 	private long parseLong(String rawLong) {
@@ -517,16 +518,31 @@ public class XMLParser extends AbstractParser {
 
 	/**
 	 * Parses a string and returns a float. <b>NOTE<b>: Be careful and notice
-	 * that this function will return a <code>0</code> if the given string is
-	 * not valid. This approach works well here, but not generally.
+	 * that this function will return a <code>null</code> if the given string is
+	 * not valid.
 	 * 
 	 * @param rawFloat
 	 *            A string which represents a float number.
-	 * @return The float value (or <code>0</code> if the rawInt is empty or
+	 * @return The float value (or <code>null</code> if the rawFloat is empty or
 	 *         <code>null</code>).
 	 */
-	private float parseFloat(String rawFloat) {
+	private Float parseFloat(String rawFloat) {
 		return (rawFloat != null && rawFloat.length() > 0) ? Float
-				.parseFloat(rawFloat) : 0;
+				.valueOf(rawFloat) : null;
+	}
+
+	/**
+	 * Parses a string and returns a boolean. <b>NOTE<b>: Be careful and notice
+	 * that this function will return a <code>null</code> if the given string is
+	 * not valid.
+	 * 
+	 * @param rawBoolean
+	 *            A string which represents a boolean.
+	 * @return The float value (or <code>null</code> if the rawBoolean is empty
+	 *         or <code>null</code>).
+	 */
+	private Boolean parseBoolean(String rawBoolean) {
+		return (rawBoolean != null && rawBoolean.length() > 0) ? Boolean
+				.valueOf(rawBoolean) : null;
 	}
 }

@@ -88,8 +88,8 @@ public class DataPackageTest {
 	@Test
 	public void serviceRequestTest() {
 		ServiceRequest request = new ServiceRequest("001", Status.OPEN, "", "",
-				"", "A random description", "", "", null, null, null, "", 0, 0,
-				0F, 0F, null);
+				"", "A random description", "", "", null, null, null, "", 0L,
+				0, 0F, 0F, null);
 		assertEquals(request.toString(), "[001] A random description (open)");
 	}
 

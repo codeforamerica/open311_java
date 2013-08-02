@@ -15,13 +15,13 @@ public class Service implements Serializable {
 	private String serviceCode;
 	private String serviceName;
 	private String description;
-	private boolean metadata;
+	private Boolean metadata;
 	private Type type;
 	private String[] keywords;
 	private String group;
 
 	public Service(String serviceCode, String serviceName, String description,
-			boolean metadata, Type type, String[] keywords, String group) {
+			Boolean metadata, Type type, String[] keywords, String group) {
 		super();
 		this.serviceCode = serviceCode;
 		this.serviceName = serviceName;
@@ -44,7 +44,7 @@ public class Service implements Serializable {
 		return description;
 	}
 
-	public boolean hasMetadata() {
+	public Boolean hasMetadata() {
 		return metadata;
 	}
 
