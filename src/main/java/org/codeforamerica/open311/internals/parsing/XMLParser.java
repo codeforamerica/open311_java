@@ -435,8 +435,10 @@ public class XMLParser extends AbstractParser {
 										.getTextContent()));
 					}
 				}
-				result.add(new Endpoint(specificationUrl, url, changeset, type,
-						formats));
+				if (url != null && url.length() > 0) {
+					result.add(new Endpoint(specificationUrl, url, changeset,
+							type, formats));
+				}
 			}
 		}
 		return result;
