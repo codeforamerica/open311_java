@@ -258,8 +258,8 @@ public class APIWrapperFactory {
 				"Building a wrapper from the given endpoint url: "
 						+ endpointUrl + ", jurisdiction_id: \""
 						+ jurisdictionId + "\", format: " + format);
-		return activateLoginIfRequested(new APIWrapper(endpointUrl, format,
-				EndpointType.UNKNOWN, DataParserFactory.getInstance()
+		return activateLoginIfRequested(createMostSuitableWrapper(endpointUrl,
+				format, EndpointType.UNKNOWN, DataParserFactory.getInstance()
 						.buildDataParser(format), networkManager, cache,
 				jurisdictionId, apiKey));
 	}
@@ -326,9 +326,9 @@ public class APIWrapperFactory {
 						format);
 			}
 
-			return activateLoginIfRequested(new APIWrapper(endpoint.getUrl(),
-					format, endpointType, dataParser, networkManager, cache,
-					city.getJurisdictionId(), apiKey));
+			return activateLoginIfRequested(createMostSuitableWrapper(
+					endpoint.getUrl(), format, endpointType, dataParser,
+					networkManager, cache, city.getJurisdictionId(), apiKey));
 		} catch (MalformedURLException e) {
 			logManager.logError(this, "Problem building the url");
 			throw new APIWrapperException(e.getMessage(), Error.URL_BUILDER,
@@ -389,5 +389,33 @@ public class APIWrapperFactory {
 			builder.append(" - building from an endpoint url");
 		}
 		return builder.toString();
+	}
+
+	private APIWrapper createMostSuitableWrapper(String endpointUrl,
+			Format format, EndpointType endpointType, DataParser dataParser,
+			NetworkManager networkManager, Cache cache, String jurisdictionId,
+			String apiKey) {
+		if (city == City.BLOOMINGTON && format == Format.XML) {
+			logManager
+					.logInfo(
+							this,
+							"The selected endpoint's responses are not compatible with XML so it is necessary to skip invalid characters, using an specialized kind of APIWrapper.");
+			return new InvalidXMLWrapper(endpointUrl, format, endpointType,
+					dataParser, networkManager, cache, jurisdictionId, apiKey);
+		}
+		if (endpointUrl.contains("seeclickfix") && format == Format.JSON) {
+			logManager
+					.logInfo(
+							this,
+							"The selected endpoint's JSON responses are not compatible with the standard, selecting the XML format.");
+			format = Format.XML;
+			dataParser = DataParserFactory.getInstance()
+					.buildDataParser(format);
+			networkManager.setFormat(format);
+		}
+		
+		return new APIWrapper(endpointUrl, format, endpointType, dataParser,
+				networkManager, cache, jurisdictionId, apiKey);
+
 	}
 }
