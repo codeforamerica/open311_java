@@ -332,10 +332,11 @@ public class JSONParser extends AbstractParser {
 	 *             If there was any problem with the parsing.
 	 */
 	private Long getLong(JSONObject object, String tag) throws JSONException {
-		if (object.has(tag)) {
+		try {
 			return object.getLong(tag);
+		} catch (Exception e) {
+			return null;
 		}
-		return null;
 	}
 
 	/**
@@ -368,10 +369,11 @@ public class JSONParser extends AbstractParser {
 	 */
 	private Double getDouble(JSONObject object, String tag)
 			throws JSONException {
-		if (object.has(tag)) {
+		try {
 			return object.getDouble(tag);
+		} catch (Exception e) {
+			return null;
 		}
-		return null;
 	}
 
 	/**
