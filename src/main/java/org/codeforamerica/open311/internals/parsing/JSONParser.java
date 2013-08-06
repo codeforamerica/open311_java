@@ -80,6 +80,10 @@ public class JSONParser extends AbstractParser {
 			throws DataParsingException {
 		try {
 			JSONObject serviceDefinition = new JSONObject(rawData);
+			if (serviceDefinition.has(SERVICE_DEFINITION_TAG)) {
+				serviceDefinition = serviceDefinition
+						.getJSONObject(SERVICE_DEFINITION_TAG);
+			}
 			String serviceCode = getString(serviceDefinition, SERVICE_CODE_TAG);
 			JSONArray attributesArray = serviceDefinition
 					.getJSONArray(ATTRIBUTES_TAG);
