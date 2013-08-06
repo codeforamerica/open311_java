@@ -4,7 +4,7 @@
 	<groupId>org.codeforamerica.open311</groupId>
 	<artifactId>jreport</artifactId>
 	<packaging>jar</packaging>
-	<version>0.1</version>
+	<version>0.0.1</version>
 	<name>Open311 GeoReport wrapper</name>
 	<url>https://github.com/codeforamerica/open311_java</url>
 	<description>
