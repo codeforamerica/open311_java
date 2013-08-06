@@ -389,9 +389,10 @@ public class JSONParser extends AbstractParser {
 	 */
 	private Boolean getBoolean(JSONObject object, String tag)
 			throws JSONException {
-		if (object.has(tag)) {
+		try {
 			return new Boolean(object.getBoolean(tag));
+		} catch (Exception e) {
+			return Boolean.FALSE;
 		}
-		return null;
 	}
 }
