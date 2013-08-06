@@ -6,6 +6,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Properties;
 
+import org.codeforamerica.open311.internals.platform.PlatformManager;
+
 /**
  * Basic implementation of the {@link Cache} interface. It uses a properties
  * file to save the data. Singleton class.
@@ -37,6 +39,8 @@ public class RegularJavaCache extends AbstractCache {
 			this.properties = new Properties();
 			this.properties.load(new FileInputStream(cacheFile));
 		} catch (IOException e) {
+			PlatformManager.getInstance().buildLogger()
+					.logError("Error loading the cache: " + e.getMessage());
 			throw new Error("Couldn't create/load the cache file.");
 		}
 	}
@@ -49,6 +53,8 @@ public class RegularJavaCache extends AbstractCache {
 				properties.setProperty(key, value);
 				properties.store(new FileOutputStream(FILE), null);
 			} catch (IOException e) {
+				PlatformManager.getInstance().buildLogger()
+						.logError("Error saving a property: " + e.getMessage());
 			}
 		}
 	}
@@ -64,6 +70,8 @@ public class RegularJavaCache extends AbstractCache {
 			properties.clear();
 			properties.store(new FileOutputStream(FILE), null);
 		} catch (IOException e) {
+			PlatformManager.getInstance().buildLogger()
+					.logError("Error deleting the cache: " + e.getMessage());
 		}
 	}
 
