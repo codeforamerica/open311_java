@@ -455,7 +455,7 @@ public class APIWrapper {
 	 * @throws APIWrapperException
 	 *             If there was any problem with the request.
 	 */
-	private String networkGet(URL url) throws APIWrapperException {
+	protected String networkGet(URL url) throws APIWrapperException {
 		logManager.logInfo(this, "HTTP GET " + url.toString());
 		try {
 			String response = networkManager.doGet(url);
@@ -483,7 +483,7 @@ public class APIWrapper {
 	 * @throws APIWrapperException
 	 *             If there was any problem with the request.
 	 */
-	private String networkPost(URL url, Map<String, String> parameters)
+	protected String networkPost(URL url, Map<String, String> parameters)
 			throws APIWrapperException {
 		logManager.logInfo(this, "HTTP POST " + url.toString());
 		try {
