@@ -440,7 +440,7 @@ public class APIWrapper {
 					Error.GEO_REPORT_V2, error);
 		} catch (DataParsingException ex) {
 			logManager.logError(this,
-					"The error couldn't be parsed (it is not an API error.)");
+					"The error couldn't be parsed (it is not an API error).");
 			throw new APIWrapperException(ex.getMessage(), Error.DATA_PARSING,
 					null);
 		}
