@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.Map;
 
+import org.apache.http.protocol.HTTP;
 import org.codeforamerica.open311.facade.Format;
 
 /**
@@ -14,7 +15,7 @@ import org.codeforamerica.open311.facade.Format;
 public interface NetworkManager {
 
 	public static final String POST_CONTENT_TYPE = "application/x-www-form-urlencoded";
-	public static final String CHARSET = "utf-8";
+	public static final String CHARSET = HTTP.UTF_8;
 
 	/**
 	 * Sends a GET HTTP request.
@@ -38,7 +39,8 @@ public interface NetworkManager {
 	 * @throws IOException
 	 *             If there was any problem with the connection.
 	 */
-	public String doPost(URL url, Map<String, String> parameters) throws IOException;
+	public String doPost(URL url, Map<String, String> parameters)
+			throws IOException;
 
 	/**
 	 * Sets the desired format of the requests.

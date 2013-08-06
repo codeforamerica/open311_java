@@ -34,7 +34,6 @@ import org.apache.http.conn.scheme.PlainSocketFactory;
 import org.apache.http.conn.scheme.Scheme;
 import org.apache.http.conn.scheme.SchemeRegistry;
 import org.apache.http.conn.ssl.SSLSocketFactory;
-import org.apache.http.impl.client.BasicResponseHandler;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.impl.conn.tsccm.ThreadSafeClientConnManager;
 import org.apache.http.message.BasicNameValuePair;
@@ -56,7 +55,6 @@ public class HTTPNetworkManager implements NetworkManager {
 	private HttpClient httpClient;
 	private Format format;
 	private static final int TIMEOUT = 5000;
-	private static final String BOM_CHAR = "ï»¿";
 
 	public HTTPNetworkManager(Format format) {
 		this.format = format;
@@ -69,8 +67,8 @@ public class HTTPNetworkManager implements NetworkManager {
 			HttpGet httpGet = new HttpGet(url.toURI());
 			httpGet.setHeader("Content-Type", format.getHTTPContentType());
 			httpGet.setHeader("charset", CHARSET);
-			return sanitizeOutput(httpClient.execute(httpGet,
-					new BasicResponseHandler()));
+			HttpResponse response = httpClient.execute(httpGet);
+			return EntityUtils.toString(response.getEntity(), CHARSET);
 		} catch (Exception e) {
 			throw new IOException(e.getMessage());
 		}
@@ -85,7 +83,7 @@ public class HTTPNetworkManager implements NetworkManager {
 			httpPost.setHeader("charset", CHARSET);
 			httpPost.setEntity(generateHttpEntityFromParameters(parameters));
 			HttpResponse response = httpClient.execute(httpPost);
-			return sanitizeOutput(EntityUtils.toString(response.getEntity()));
+			return EntityUtils.toString(response.getEntity(), CHARSET);
 		} catch (Exception e) {
 			throw new IOException(e);
 		}
@@ -115,18 +113,6 @@ public class HTTPNetworkManager implements NetworkManager {
 			}
 		}
 		return new UrlEncodedFormEntity(nameValuePairs);
-	}
-
-	/**
-	 * Removes the <a href="http://en.wikipedia.org/wiki/Byte_order_mark">Byte
-	 * order mark</> character.
-	 * 
-	 * @param output
-	 *            Received text from the server.
-	 * @return Sanitized output.
-	 */
-	private String sanitizeOutput(String output) {
-		return output.replace(BOM_CHAR, "");
 	}
 
 	/**
