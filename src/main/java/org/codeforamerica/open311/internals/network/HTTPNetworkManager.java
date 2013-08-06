@@ -55,6 +55,8 @@ public class HTTPNetworkManager implements NetworkManager {
 	private HttpClient httpClient;
 	private Format format;
 	private static final int TIMEOUT = 5000;
+	private static final String ACCEPT_HEADER = "Accept";
+	private static final String CONTENT_TYPE_HEADER = "Content-Type";
 
 	public HTTPNetworkManager(Format format) {
 		this.format = format;
@@ -65,8 +67,8 @@ public class HTTPNetworkManager implements NetworkManager {
 	public String doGet(URL url) throws IOException {
 		try {
 			HttpGet httpGet = new HttpGet(url.toURI());
-			httpGet.setHeader("Content-Type", format.getHTTPContentType());
-			httpGet.setHeader("charset", CHARSET);
+			httpGet.setHeader(ACCEPT_HEADER, format.getHTTPContentType());
+			httpGet.setHeader(CONTENT_TYPE_HEADER, format.getHTTPContentType());
 			HttpResponse response = httpClient.execute(httpGet);
 			return EntityUtils.toString(response.getEntity(), CHARSET);
 		} catch (Exception e) {
@@ -79,8 +81,8 @@ public class HTTPNetworkManager implements NetworkManager {
 			throws IOException {
 		try {
 			HttpPost httpPost = new HttpPost(url.toURI());
+			httpPost.setHeader(ACCEPT_HEADER, format.getHTTPContentType());
 			httpPost.setHeader("Content-Type", POST_CONTENT_TYPE);
-			httpPost.setHeader("charset", CHARSET);
 			httpPost.setEntity(generateHttpEntityFromParameters(parameters));
 			HttpResponse response = httpClient.execute(httpPost);
 			return EntityUtils.toString(response.getEntity(), CHARSET);
