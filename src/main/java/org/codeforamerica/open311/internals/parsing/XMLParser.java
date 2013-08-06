@@ -545,6 +545,6 @@ public class XMLParser extends AbstractParser {
 	 */
 	private Boolean parseBoolean(String rawBoolean) {
 		return (rawBoolean != null && rawBoolean.length() > 0) ? Boolean
-				.valueOf(rawBoolean) : null;
+				.valueOf(rawBoolean) : Boolean.FALSE;
 	}
 }
