@@ -67,12 +67,9 @@ It is worth it to check the [documentation](http://codeforamerica.github.io/open
 In order to compile and test this project you should have [Maven](http://maven.apache.org/) installed in your system. You can find it in any repository you use (brew, apt...).
 
 ```bash
-# Clone this repository with its submodules
-git clone --recursive https://github.com/codeforamerica/open311_java.git
+# Clone this repository
+git clone https://github.com/codeforamerica/open311_java.git
 cd open311_java
-
-# Make sure you have the last version of the submodule
-git submodule foreach git pull origin master
 
 # The following commands are independent. Execute which you need (probably the last one).
 # Compile the project (and download dependencies)
