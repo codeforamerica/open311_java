@@ -20,3 +20,6 @@ jreport.iml
 
 # Default cache file
 cache.prop
+
+# Auto-generated source files
+src/main/java/org/codeforamerica/open311/facade/City.java
