@@ -312,7 +312,7 @@ public class APIWrapperFactory {
 						"No suitable endpoint was found.",
 						Error.NOT_SUITABLE_ENDPOINT_FOUND, null);
 			}
-			logManager.logInfo(this, "Selected the more suitable endpoint.");
+			logManager.logInfo(this, "Selected the most suitable endpoint.");
 			Format format = selectFormat(this.format, endpoint);
 			if (format != Format.XML) {
 				logManager
