@@ -4,6 +4,64 @@ This is a Java language binding (wrapper) to the Open311 GeoReport REST API. Thi
 
 If you are insterested about new features or the development process please check this [blog](http://santimunin.blogspot.com.es/search?q=open311).
 
+## How to get the library
+
+### Add it as a dependency
+The easier way to start using the library is to add the dependency to your project dependency manager system. The library is currently avaliable in the [Maven central repository](http://search.maven.org/#artifactdetails%7Corg.codeforamerica.open311%7Cjreport%7C0.0.4%7Cjar), which makes it compatible with tools such as:
+
++ [Maven](http://maven.apache.org/)
++ [Sbt](http://www.scala-sbt.org/)
++ [Gradle](http://www.gradle.org/)
++ ...
+
+Below, an example using Maven.
+
+```xml
+<dependency>
+    <groupId>org.codeforamerica.open311</groupId>
+    <artifactId>jreport</artifactId>
+    <version>0.0.4</version>
+</dependency>
+```
+
+### Download it
+There are many links in the [Maven central repository page](http://search.maven.org/#artifactdetails%7Corg.codeforamerica.open311%7Cjreport%7C0.0.4%7Cjar), and you can find the `.jar` file (with its sources and javadocs). Please, note that this `.jar` does not contains its [dependencies](http://codeforamerica.github.io/open311_java/dependencies.html), so it will not work unless you attach them too.
+
+### Compile it
+
+In order to compile and test this project you should have [Maven](http://maven.apache.org/) installed in your system.
+
+```bash
+# Clone this repository
+git clone https://github.com/codeforamerica/open311_java.git
+cd open311_java
+
+# The following commands are independent. Execute which you need (probably the last one).
+# Compile the project (and download dependencies)
+mvn compile
+
+# Execute tests
+mvn test
+
+# Execute tests with cobertura analysis
+mvn cobertura:cobertura
+
+# Generate the .jar without dependencies
+mvn package
+
+# Generate the .jar with dependencies
+mvn assembly:assembly
+```
+
+You may have problems if you are using an old version of `git` since one of the executed commands is `git clone --recursive` and it doesn't work with its oldest versions. Please, update your `git` in that case.
+
+#### Locations
+
+ + `mvn cobertura:cobertura` will write its output in `target/site/cobertura/`, open the `index.html` file to check it.
+ + `mvn package` will output the `target/jreport-{version}.jar` file.
+ + `mvn assembly:assembly` will output the `target/jreport-{version}-jar-with-dependencies.jar` file.
+
+
 ## Usage
 
 ### Build a wrapper
@@ -62,44 +120,6 @@ ServiceRequest serviceRequest = wrapper.getServiceRequest("serviceRequestId");
 ```
 
 It is worth it to check the [documentation](http://codeforamerica.github.io/open311_java/apidocs/index.html) and find all the possible parameters of the `GETServiceRequestFilter` and `POSTServiceRequestData` classes.
-## Compilation and testing
-
-In order to compile and test this project you should have [Maven](http://maven.apache.org/) installed in your system. You can find it in any repository you use (brew, apt...).
-
-```bash
-# Clone this repository
-git clone https://github.com/codeforamerica/open311_java.git
-cd open311_java
-
-# The following commands are independent. Execute which you need (probably the last one).
-# Compile the project (and download dependencies)
-mvn compile
-
-# Execute tests
-mvn test
-
-# Execute tests with cobertura analysis
-mvn cobertura:cobertura
-
-# Generate the .jar without dependencies
-mvn package
-
-# Generate the .jar with dependencies
-mvn assembly:assembly
-```
-
-The `git clone --recursive` command could fail if you are using an out-of-dated version of git, in that case:
-```bash
-git clone https://github.com/codeforamerica/open311_java.git
-cd open311_java
-git sumodule update --init
-```
-
-### Locations
-
- + `mvn cobertura:cobertura` will write its output in `target/site/cobertura/`, open the `index.html` file to check it.
- + `mvn package` will output the `target/jreport-{version}.jar` file.
- + `mvn assembly:assembly` will output the `target/jreport-{version}-jar-with-dependencies.jar` file.
  
 ## Useful information
 
