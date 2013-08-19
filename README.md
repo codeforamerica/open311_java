@@ -2,7 +2,7 @@
 
 This is a Java language binding (wrapper) to the Open311 GeoReport REST API. This library is in a early stage of its development but it is already usable. If you find any problem or miss any feature, just open an [issue](https://github.com/codeforamerica/open311_java/issues?state=open).
 
-If you are insterested about new features or the development process please check this [blog](http://santimunin.blogspot.com.es/search?q=open311).
+If you are interested about new features or the development process please check this [blog](http://santimunin.blogspot.com.es/search?q=open311).
 
 ## How to get the library
 
@@ -67,8 +67,8 @@ You may have problems if you are using an old version of `git` since one of the 
 ### Build a wrapper
 
 You will need the [APIWrapperFactory](http://codeforamerica.github.io/open311_java/apidocs/org/codeforamerica/open311/facade/APIWrapperFactory.html) in order to build the [APIWrapper](http://codeforamerica.github.io/open311_java/apidocs/org/codeforamerica/open311/facade/APIWrapper.html) (which will allow you to query the endpoint). There are two different ways of creating the factory:
- + Specifiying the desired **city** and **type** of the endpoint (production, test...). The wrapper will get the most suitable endpoint and data interchange format for you.
- + Specifiying the **url of endpoint**, the **jurisdiction_id** parameter and the **data interchange format**. It is your responsibility to check if the format you desire is supported.
+ + Specifying the desired **city** and **type** of the endpoint (production, test...). The wrapper will get the most suitable endpoint and data interchange format for you.
+ + Specifying the **url of endpoint**, the **jurisdiction_id** parameter and the **data interchange format**. It is your responsibility to check if the format you desire is supported.
 
 ```java
 // From the city (EndpointType.PRODUCTION is selected by default)
@@ -133,7 +133,7 @@ It is worth it to check the [documentation](http://codeforamerica.github.io/open
 This library tries to save some responses for a certain time in order to avoid expensive network operations.
  + In a regular Java application, it is activated by default.
  + If you do not want to cache anything: `factory = new APIWrapperFactory().setCache(new NoCache());`
- + Using an Android app: `factory = new APIWrapperFactory().setCache(AndroidCache.getInsance(getApplicationContext()));`
+ + Using an Android app: `factory = new APIWrapperFactory().setCache(AndroidCache.getInstance(getApplicationContext()));`
  + Using a special platform which doesn't allow to create or write to files: Extend the [AbstractCache](http://codeforamerica.github.io/open311_java/apidocs/org/codeforamerica/open311/internals/caching/AbstractCache.html) class and `factory = new APIWrapperFactory().setCache(new YourCacheImplementation());`
 
 In case you want to delete the cache:
