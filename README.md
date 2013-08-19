@@ -7,7 +7,7 @@ If you are insterested about new features or the development process please chec
 ## How to get the library
 
 ### Add it as a dependency
-The easier way to start using the library is to add the dependency to your project dependency manager system. The library is currently avaliable in the [Maven central repository](http://search.maven.org/#artifactdetails%7Corg.codeforamerica.open311%7Cjreport%7C0.0.4%7Cjar), which makes it compatible with tools such as:
+The easiest way to start using the library is to add the dependency to your project dependency manager system. The library is currently avaliable in the [Maven central repository](http://search.maven.org/#artifactdetails%7Corg.codeforamerica.open311%7Cjreport%7C0.0.4%7Cjar), which makes it compatible with tools such as:
 
 + [Maven](http://maven.apache.org/)
 + [Sbt](http://www.scala-sbt.org/)
