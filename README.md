@@ -1,6 +1,16 @@
 # Open311 Java wrapper (Jreport) [![Build Status](https://travis-ci.org/codeforamerica/open311_java.png)](https://travis-ci.org/codeforamerica/open311_java)
 
-This is a Java language binding (wrapper) to the Open311 GeoReport REST API. This library is in a early stage of its development but it is already usable. If you find any problem or miss any feature, just open an [issue](https://github.com/codeforamerica/open311_java/issues?state=open).
+This is a Java language binding (wrapper) to the Open311 GeoReport v2 REST API (current version: `0.0.4`).
+
+The main features are:
+
++ Caching
++ Logging
++ Admits endpoints whose CA is not recognized by Java
++ Compatible with Android (transparently, it selects the correct components from your execution environment)
++ Compatible with some non-standard GeoReport servers.
+
+If you find any problem or miss any feature, just open an [issue](https://github.com/codeforamerica/open311_java/issues?state=open).
 
 If you are interested about new features or the development process please check this [blog](http://santimunin.blogspot.com.es/search?q=open311).
 
